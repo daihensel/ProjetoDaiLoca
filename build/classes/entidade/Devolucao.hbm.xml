@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 17/08/2015 19:54:53 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class name="entidade.Devolucao" optimistic-lock="version" schema="public" table="devolucao">
+    <id name="iddevolucao" type="int">
+      <column name="iddevolucao"/>
+      <generator class="increment"/>
+    </id>
+    <many-to-one class="entidade.Locacao" fetch="select" name="locacao">
+      <column name="locacao_idlocacao" not-null="true"/>
+    </many-to-one>
+    <property name="dtDevolucao" type="date">
+      <column length="13" name="dt_devolucao"/>
+    </property>
+    <property name="kmRodados" type="int">
+      <column name="km_rodados" not-null="true"/>
+    </property>
+  </class>
+</hibernate-mapping>

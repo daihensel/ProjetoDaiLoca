@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 24/08/2015 19:33:05 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="entidade.Log" table="log" schema="public">
+        <id name="idlog" type="int">
+            <column name="idlog" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="pessoa" class="entidade.Pessoa" fetch="select">
+            <column name="pessoa_idpessoa" not-null="true" />
+        </many-to-one>
+        <property name="descricao" type="string">
+            <column name="descricao" length="45" not-null="true" />
+        </property>
+        <property name="dtHora" type="timestamp">
+            <column name="dt_hora" length="29" not-null="true" />
+        </property>
+        <property name="tipoAcao" type="string">
+            <column name="tipo_acao" length="45" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

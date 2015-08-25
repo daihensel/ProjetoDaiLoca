@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 17/08/2015 19:54:53 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class name="entidade.Cidade" optimistic-lock="version" schema="public" table="cidade">
+    <id name="idcidade" type="int">
+      <column name="idcidade"/>
+      <generator class="increment"/>
+    </id>
+    <many-to-one class="entidade.Estado" fetch="select" name="estado">
+      <column name="estado_idestado1" not-null="true"/>
+    </many-to-one>
+    <property name="descricao" type="string">
+      <column length="45" name="descricao" not-null="true"/>
+    </property>
+  </class>
+</hibernate-mapping>

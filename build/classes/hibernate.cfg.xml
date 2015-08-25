@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+    <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+    <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/ProjetoDaiLoca</property>
+    <property name="hibernate.connection.username">postgres</property>
+    <property name="hibernate.connection.password">postgres</property>
+    <mapping class="entidade.Pessoajuridica"/>
+    <mapping class="entidade.Manutencao"/>
+    <mapping class="entidade.Tipoveiculo"/>
+    <mapping class="entidade.Pessoa"/>
+    <mapping class="entidade.Veiculo"/>
+    <mapping class="entidade.Pessoafisica"/>
+    <mapping class="entidade.Documentos"/>
+    <mapping class="entidade.Devolucao"/>
+    <mapping class="entidade.Funcionario"/>
+    <mapping class="entidade.Contato"/>
+    <mapping class="entidade.Parcelaspagamento"/>
+    <mapping class="entidade.Funcao"/>
+    <mapping class="entidade.Estado"/>
+    <mapping class="entidade.Reserva"/>
+    <mapping class="entidade.Cliente"/>
+    <mapping class="entidade.Tipocontato"/>
+    <mapping class="entidade.Cidade"/>
+    <mapping class="entidade.Locacao"/>
+    <mapping class="entidade.Endereco"/>
+    <mapping class="entidade.Log"/>
+    
+  </session-factory>
+</hibernate-configuration>

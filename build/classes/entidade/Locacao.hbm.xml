@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 17/08/2015 19:54:53 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class name="entidade.Locacao" optimistic-lock="version" schema="public" table="locacao">
+    <id name="idlocacao" type="int">
+      <column name="idlocacao"/>
+      <generator class="increment"/>
+    </id>
+    <many-to-one class="entidade.Cliente" fetch="select" name="cliente">
+      <column name="cliente_pessoa_idpessoa" not-null="true"/>
+    </many-to-one>
+    <many-to-one class="entidade.Funcionario" fetch="select" name="funcionario">
+      <column name="funcionario_pessoa_idpessoa" not-null="true"/>
+    </many-to-one>
+    <many-to-one class="entidade.Parcelaspagamento" fetch="select" name="parcelaspagamento">
+      <column name="parcelaspagamento_idparcelaspagamento" not-null="true"/>
+    </many-to-one>
+    <many-to-one class="entidade.Reserva" fetch="select" name="reserva">
+      <column name="reserva_idreserva"/>
+    </many-to-one>
+    <many-to-one class="entidade.Veiculo" fetch="select" name="veiculo">
+      <column name="veiculo_idveiculo" not-null="true"/>
+    </many-to-one>
+    <property name="dtLocacao" type="date">
+      <column length="13" name="dt_locacao" not-null="true"/>
+    </property>
+    <property name="horaRetirada" type="time">
+      <column length="15" name="hora_retirada" not-null="true"/>
+    </property>
+    <property name="dias" type="int">
+      <column name="dias" not-null="true"/>
+    </property>
+    <property name="valorTotal" type="big_decimal">
+      <column name="valor_total" not-null="true" precision="11"/>
+    </property>
+    <property name="parcelas" type="int">
+      <column name="parcelas" not-null="true"/>
+    </property>
+  </class>
+</hibernate-mapping>

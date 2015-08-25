@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 17/08/2015 19:54:53 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class name="entidade.Veiculo" optimistic-lock="version" schema="public" table="veiculo">
+    <id name="idveiculo" type="int">
+      <column name="idveiculo"/>
+      <generator class="increment"/>
+    </id>
+    <many-to-one class="entidade.Tipoveiculo" fetch="select" name="tipoveiculo">
+      <column name="idtipoveiculo" not-null="true"/>
+    </many-to-one>
+    <property name="descricao" type="string">
+      <column length="45" name="descricao" not-null="true"/>
+    </property>
+    <property name="marca" type="string">
+      <column length="45" name="marca" not-null="true"/>
+    </property>
+    <property name="anoFabricacao" type="int">
+      <column name="ano_fabricacao" not-null="true"/>
+    </property>
+    <property name="anoModelo" type="int">
+      <column name="ano_modelo" not-null="true"/>
+    </property>
+    <property name="dtInclusao" type="date">
+      <column length="13" name="dt_inclusao" not-null="true"/>
+    </property>
+    <property name="dtBaixa" type="date">
+      <column length="13" name="dt_baixa"/>
+    </property>
+    <property name="kmAtual" type="int">
+      <column name="km_atual" not-null="true"/>
+    </property>
+  </class>
+</hibernate-mapping>

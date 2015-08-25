@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 17/08/2015 19:54:53 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class name="entidade.Documentos" optimistic-lock="version" schema="public" table="documentos">
+    <id name="iddocumentos" type="int">
+      <column name="iddocumentos"/>
+      <generator class="increment"/>
+    </id>
+    <many-to-one class="entidade.Veiculo" fetch="select" name="veiculo">
+      <column name="veiculo_idveiculo" not-null="true"/>
+    </many-to-one>
+    <property name="descricao" type="string">
+      <column length="45" name="descricao" not-null="true"/>
+    </property>
+    <property name="dtInclusao" type="date">
+      <column length="13" name="dt_inclusao" not-null="true"/>
+    </property>
+    <property name="tipo" type="string">
+      <column length="45" name="tipo" not-null="true"/>
+    </property>
+    <property name="observacoes" type="string">
+      <column length="100" name="observacoes"/>
+    </property>
+  </class>
+</hibernate-mapping>

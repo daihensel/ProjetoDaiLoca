@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 17/08/2015 19:54:53 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class name="entidade.Cliente" optimistic-lock="version" schema="public" table="cliente">
+    <id name="pessoaIdpessoa" type="int">
+      <column name="pessoa_idpessoa"/>
+      <generator class="foreign">
+        <param name="property">pessoa</param>
+      </generator>
+    </id>
+    <one-to-one class="entidade.Pessoa" constrained="true" name="pessoa"/>
+    <property name="dtCadastro" type="string">
+      <column length="45" name="dt_cadastro"/>
+    </property>
+    <set fetch="select" inverse="true" lazy="true" name="locacaos" table="locacao">
+      <key>
+        <column name="cliente_pessoa_idpessoa" not-null="true"/>
+      </key>
+      <one-to-many class="entidade.Locacao"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="reservas" table="reserva">
+      <key>
+        <column name="cliente_pessoa_idpessoa" not-null="true"/>
+      </key>
+      <one-to-many class="entidade.Reserva"/>
+    </set>
+  </class>
+</hibernate-mapping>

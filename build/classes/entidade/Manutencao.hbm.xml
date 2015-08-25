@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 17/08/2015 19:54:53 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class name="entidade.Manutencao" optimistic-lock="version" schema="public" table="manutencao">
+    <id name="idmanutencao" type="int">
+      <column name="idmanutencao"/>
+      <generator class="increment"/>
+    </id>
+    <many-to-one class="entidade.Veiculo" fetch="select" name="veiculo">
+      <column name="veiculo_idveiculo" not-null="true"/>
+    </many-to-one>
+    <many-to-one class="entidade.PessoaJuridica" fetch="select" name="pessoajuridica">
+      <column name="idfornecedor" not-null="true"/>
+    </many-to-one>
+    <property name="motivo" type="string">
+      <column length="100" name="motivo" not-null="true"/>
+    </property>
+    <property name="dtManutencao" type="date">
+      <column length="13" name="dt_manutencao" not-null="true"/>
+    </property>
+    <property name="dtRetorno" type="date">
+      <column length="13" name="dt_retorno" not-null="true"/>
+    </property>
+    <property name="observacao" type="string">
+      <column length="100" name="observacao"/>
+    </property>
+  </class>
+</hibernate-mapping>

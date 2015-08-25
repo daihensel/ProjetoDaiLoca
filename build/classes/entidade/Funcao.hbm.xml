@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 17/08/2015 19:54:53 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class name="entidade.Funcao" optimistic-lock="version" schema="public" table="funcao">
+    <id name="idfuncao" type="int">
+      <column name="idfuncao"/>
+      <generator class="increment"/>
+    </id>
+    <property name="descricao" type="string">
+      <column length="45" name="descricao" not-null="true"/>
+    </property>
+  </class>
+</hibernate-mapping>
