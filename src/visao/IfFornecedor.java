@@ -20,7 +20,7 @@ public class IfFornecedor extends javax.swing.JInternalFrame {
     public IfFornecedor() {
         initComponents();
        
-
+        System.out.println("");
     }
 
     /**
