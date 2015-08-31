@@ -77,6 +77,7 @@ public class IfTipoContato extends javax.swing.JFrame {
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
             Transaction t = sessao.beginTransaction();
+           
 
             Tipocontato tipocontato = new Tipocontato();
           //  tipocontato.setIdtipoContato(20);   //se campo for increment, não precisa
