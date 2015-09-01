@@ -72,7 +72,7 @@ public class IfTipoContato extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnokActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnokActionPerformed
-       
+        System.out.println("oiiiiiiiiiiiiiiiiiiii");       
         Session sessao = null;
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
