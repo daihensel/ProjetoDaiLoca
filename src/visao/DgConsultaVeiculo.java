@@ -14,21 +14,18 @@ import org.hibernate.Session;
  */
 public class DgConsultaVeiculo extends javax.swing.JDialog {
 
+    public static IfReservaVeiculos tela;
+
     /**
      * Creates new form DlgConsultaVeiculo
      */
-    public DgConsultaVeiculo(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    public DgConsultaVeiculo(IfReservaVeiculos parent, boolean modal) {
+        // super(parent, modal);
+        this.tela = parent;
+        this.setModal(modal);
+
         initComponents();
-        Session sessao = null;
-       
-       
-           
-        
-       
-       tbVeiculo.add((Component) sessao.createSQLQuery("select * from storeProcedure()"));
-     sessao.close();
-        
+
         
     }
 
@@ -95,7 +92,9 @@ public class DgConsultaVeiculo extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-        // TODO add your handling code here:
+Session sessao = null;
+        tbVeiculo.add((Component) sessao.createSQLQuery("select * from PopularTabelaVeiculo"));
+        sessao.close();
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     /**
@@ -129,7 +128,7 @@ public class DgConsultaVeiculo extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                DgConsultaVeiculo dialog = new DgConsultaVeiculo(new javax.swing.JFrame(), true);
+                DgConsultaVeiculo dialog = new DgConsultaVeiculo(tela, true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

@@ -67,6 +67,11 @@ public class FormPrincipal extends javax.swing.JFrame {
         jButton8.setText("Novo Cliente");
 
         jButton4.setText("Nova Reserva");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Status de Veículos:");
 
@@ -190,8 +195,8 @@ public class FormPrincipal extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        dp.add(jPanel1);
         jPanel1.setBounds(700, 0, 160, 470);
-        dp.add(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -206,8 +211,8 @@ public class FormPrincipal extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
+        dp.add(jScrollPane1);
         jScrollPane1.setBounds(0, 0, 700, 470);
-        dp.add(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -231,6 +236,13 @@ public class FormPrincipal extends javax.swing.JFrame {
         dp.add(janela);
         janela.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        IfReservaVeiculos janela = new IfReservaVeiculos();
+        janela.setSize(590, 430);
+        dp.add(janela);
+        janela.setVisible(true);
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
