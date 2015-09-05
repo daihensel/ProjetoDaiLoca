@@ -36,9 +36,6 @@ public class Locacao implements java.io.Serializable {
     @JoinColumn(name = "funcionario_pessoa_idpessoa", nullable = false)
     private Funcionario funcionario;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "parcelaspagamento_idparcelaspagamento", nullable = false)
-    private Parcelaspagamento parcelaspagamento;
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "reserva_idreserva")
     private Reserva reserva;
     @ManyToOne(fetch = FetchType.LAZY)
@@ -64,7 +61,6 @@ public class Locacao implements java.io.Serializable {
         this.idlocacao = idlocacao;
         this.cliente = cliente;
         this.funcionario = funcionario;
-        this.parcelaspagamento = parcelaspagamento;
         this.veiculo = veiculo;
         this.dtLocacao = dtLocacao;
         this.horaRetirada = horaRetirada;
@@ -77,7 +73,6 @@ public class Locacao implements java.io.Serializable {
         this.idlocacao = idlocacao;
         this.cliente = cliente;
         this.funcionario = funcionario;
-        this.parcelaspagamento = parcelaspagamento;
         this.reserva = reserva;
         this.veiculo = veiculo;
         this.dtLocacao = dtLocacao;
@@ -112,13 +107,6 @@ public class Locacao implements java.io.Serializable {
         this.funcionario = funcionario;
     }
 
-    public Parcelaspagamento getParcelaspagamento() {
-        return this.parcelaspagamento;
-    }
-
-    public void setParcelaspagamento(Parcelaspagamento parcelaspagamento) {
-        this.parcelaspagamento = parcelaspagamento;
-    }
 
     public Reserva getReserva() {
         return this.reserva;

@@ -13,9 +13,6 @@
     <many-to-one class="entidade.Funcionario" fetch="select" name="funcionario">
       <column name="funcionario_pessoa_idpessoa" not-null="true"/>
     </many-to-one>
-    <many-to-one class="entidade.Parcelaspagamento" fetch="select" name="parcelaspagamento">
-      <column name="parcelaspagamento_idparcelaspagamento" not-null="true"/>
-    </many-to-one>
     <many-to-one class="entidade.Reserva" fetch="select" name="reserva">
       <column name="reserva_idreserva"/>
     </many-to-one>

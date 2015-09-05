@@ -31,8 +31,6 @@ public class Pessoajuridica implements java.io.Serializable {
     private Pessoa pessoa;
     @Column(name = "cnpj", nullable = false, length = 20)
     private String cnpj;
-    @Column(name = "nome", length = 45)
-    private String nome;
     @Column(name = "inscricaoest", length = 20)
     private String inscricaoest;
 
@@ -47,7 +45,6 @@ public class Pessoajuridica implements java.io.Serializable {
     public Pessoajuridica(Pessoa pessoa, String cnpj, String nome, String inscricaoest) {
         this.pessoa = pessoa;
         this.cnpj = cnpj;
-        this.nome = nome;
         this.inscricaoest = inscricaoest;
     }
 
@@ -75,13 +72,7 @@ public class Pessoajuridica implements java.io.Serializable {
         this.cnpj = cnpj;
     }
 
-    public String getNome() {
-        return this.nome;
-    }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
 
     public String getInscricaoest() {
         return this.inscricaoest;

@@ -36,33 +36,25 @@ public class Endereco implements java.io.Serializable {
     private String cep;
     @Column(name = "complemento", length = 45)
     private String complemento;
-    @Column(name = "cidade_pais_idpais", nullable = false)
-    private int cidadePaisIdpais;
-    @Column(name = "cidade_estado_idestado", nullable = false)
-    private int cidadeEstadoIdestado;
 
     public Endereco() {
     }
 
-    public Endereco(int idendereco, Cidade cidade, String descricao, String bairro, String cep, int cidadePaisIdpais, int cidadeEstadoIdestado) {
+    public Endereco(int idendereco, Cidade cidade, String descricao, String bairro, String cep) {
         this.idendereco = idendereco;
         this.cidade = cidade;
         this.descricao = descricao;
         this.bairro = bairro;
         this.cep = cep;
-        this.cidadePaisIdpais = cidadePaisIdpais;
-        this.cidadeEstadoIdestado = cidadeEstadoIdestado;
     }
 
-    public Endereco(int idendereco, Cidade cidade, String descricao, String bairro, String cep, String complemento, int cidadePaisIdpais, int cidadeEstadoIdestado, Set pessoas) {
+    public Endereco(int idendereco, Cidade cidade, String descricao, String bairro, String cep, String complemento, Set pessoas) {
         this.idendereco = idendereco;
         this.cidade = cidade;
         this.descricao = descricao;
         this.bairro = bairro;
         this.cep = cep;
         this.complemento = complemento;
-        this.cidadePaisIdpais = cidadePaisIdpais;
-        this.cidadeEstadoIdestado = cidadeEstadoIdestado;
 
     }
 
@@ -112,21 +104,5 @@ public class Endereco implements java.io.Serializable {
 
     public void setComplemento(String complemento) {
         this.complemento = complemento;
-    }
-
-    public int getCidadePaisIdpais() {
-        return this.cidadePaisIdpais;
-    }
-
-    public void setCidadePaisIdpais(int cidadePaisIdpais) {
-        this.cidadePaisIdpais = cidadePaisIdpais;
-    }
-
-    public int getCidadeEstadoIdestado() {
-        return this.cidadeEstadoIdestado;
-    }
-
-    public void setCidadeEstadoIdestado(int cidadeEstadoIdestado) {
-        this.cidadeEstadoIdestado = cidadeEstadoIdestado;
     }
 }

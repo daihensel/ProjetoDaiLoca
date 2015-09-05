@@ -89,7 +89,6 @@ public class Parcelaspagamento  implements java.io.Serializable {
     }
 
     
-  
     public BigDecimal getLiquidado() {
         return this.liquidado;
     }
@@ -97,8 +96,7 @@ public class Parcelaspagamento  implements java.io.Serializable {
     public void setLiquidado(BigDecimal liquidado) {
         this.liquidado = liquidado;
     }
-
-    
+  
  
     public BigDecimal getValor() {
         return this.valor;

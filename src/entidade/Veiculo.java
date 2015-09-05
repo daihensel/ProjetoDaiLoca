@@ -51,11 +51,13 @@ public class Veiculo implements java.io.Serializable {
     @Column(name = "dt_baixa", length = 13)
     private Date dtBaixa;
     private int kmAtual;
+    @JoinColumn(name = "idstatusveiculo", nullable = false)
+    private Statusveiculo statusveiculo;
 
     public Veiculo() {
     }
 
-    public Veiculo(int idveiculo, Tipoveiculo tipoveiculo, String descricao, String marca, int anoFabricacao, int anoModelo, Date dtInclusao, int kmAtual) {
+    public Veiculo(int idveiculo, Tipoveiculo tipoveiculo, String descricao, String marca, int anoFabricacao, int anoModelo, Date dtInclusao, int kmAtual, Statusveiculo statusveiculo) {
         this.idveiculo = idveiculo;
         this.tipoveiculo = tipoveiculo;
         this.descricao = descricao;
@@ -64,9 +66,10 @@ public class Veiculo implements java.io.Serializable {
         this.anoModelo = anoModelo;
         this.dtInclusao = dtInclusao;
         this.kmAtual = kmAtual;
+        this.statusveiculo = statusveiculo;
     }
 
-    public Veiculo(int idveiculo, Tipoveiculo tipoveiculo, String descricao, String marca, int anoFabricacao, int anoModelo, Date dtInclusao, Date dtBaixa, int kmAtual, Set locacaos, Set documentoses, Set reservas, Set manutencaos) {
+    public Veiculo(int idveiculo, Tipoveiculo tipoveiculo, String descricao, String marca, int anoFabricacao, int anoModelo, Date dtInclusao, Date dtBaixa, int kmAtual, Statusveiculo statusveiculo, Set locacaos, Set documentoses, Set reservas, Set manutencaos) {
         this.idveiculo = idveiculo;
         this.tipoveiculo = tipoveiculo;
         this.descricao = descricao;
@@ -76,6 +79,7 @@ public class Veiculo implements java.io.Serializable {
         this.dtInclusao = dtInclusao;
         this.dtBaixa = dtBaixa;
         this.kmAtual = kmAtual;
+        this.statusveiculo = statusveiculo;
 
     }
 
@@ -169,6 +173,16 @@ public class Veiculo implements java.io.Serializable {
         changeSupport.firePropertyChange("kmAtual", oldKmAtual, kmAtual);
     }
 
+      public Statusveiculo getStatusveiculo() {
+        return this.statusveiculo;
+    }
+
+    public void setStatusveiculo(Statusveiculo statusveiculo) {
+        Statusveiculo oldStatusveiculo = this.statusveiculo;
+        this.statusveiculo = statusveiculo;
+        changeSupport.firePropertyChange("statusveiculo", oldStatusveiculo, statusveiculo);
+    }
+    
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         changeSupport.addPropertyChangeListener(listener);
     }
