@@ -1,17 +1,18 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 17/08/2015 19:54:53 by Hibernate Tools 4.3.1 -->
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 05/09/2015 16:25:39 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-  <class name="entidade.Contato" optimistic-lock="version" schema="public" table="contato">
-    <id name="idcontato" type="int">
-      <column name="idcontato"/>
-      <generator class="increment"/>
-    </id>
-    <many-to-one class="entidade.Tipocontato" fetch="select" name="tipocontato">
-      <column name="tipo_contato_idtipo_contato" not-null="true"/>
-    </many-to-one>
-    <property name="descricao" type="string">
-      <column length="60" name="descricao" not-null="true"/>
-    </property>
-  </class>
+    <class name="entidade.Contato" table="contato" schema="public" optimistic-lock="version">
+        <id name="idcontato" type="int">
+            <column name="idcontato" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="tipocontato" class="entidade.Tipocontato" fetch="select">
+            <column name="tipo_contato_idtipo_contato" not-null="true" />
+        </many-to-one>
+        <property name="descricao" type="string">
+            <column name="descricao" length="60" not-null="true" />
+        </property>
+    </class>
 </hibernate-mapping>

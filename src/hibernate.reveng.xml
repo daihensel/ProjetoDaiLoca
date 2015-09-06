@@ -7,7 +7,6 @@
   <table-filter match-name="pessoafisica"/>
   <table-filter match-name="pessoa"/>
   <table-filter match-name="estado"/>
-  <table-filter match-name="contato_pessoa"/>
   <table-filter match-name="funcionario"/>
   <table-filter match-name="funcao"/>
   <table-filter match-name="veiculo"/>
@@ -23,4 +22,5 @@
   <table-filter match-name="documentos"/>
   <table-filter match-name="cliente"/>
   <table-filter match-name="log"/>
+  <table-filter match-name="statusveiculo"/>
 </hibernate-reverse-engineering>

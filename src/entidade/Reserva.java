@@ -48,6 +48,8 @@ public class Reserva  implements java.io.Serializable {
      private Date dtLocacao;
      @Column(name="dias_pretendidos", nullable=false)
      private int diasPretendidos;
+     @OneToMany(fetch=FetchType.LAZY, mappedBy="reserva")
+     private Set locacaos = new HashSet(0);
   
     public Reserva() {
     }
@@ -62,7 +64,7 @@ public class Reserva  implements java.io.Serializable {
         this.dtLocacao = dtLocacao;
         this.diasPretendidos = diasPretendidos;
     }
-    public Reserva(int idreserva, Cliente cliente, Funcionario funcionario, Veiculo veiculo, Date dtReserva, Date dtLocacao, int diasPretendidos, Set locacaos) {
+      public Reserva(int idreserva, entidade.Cliente cliente, entidade.Funcionario funcionario, Veiculo veiculo, Date dtReserva, Date dtLocacao, int diasPretendidos, Set locacaos) {
        this.idreserva = idreserva;
        this.cliente = cliente;
        this.funcionario = funcionario;
@@ -70,6 +72,7 @@ public class Reserva  implements java.io.Serializable {
        this.dtReserva = dtReserva;
        this.dtLocacao = dtLocacao;
        this.diasPretendidos = diasPretendidos;
+       this.locacaos = locacaos;
     }
    
     
@@ -135,6 +138,16 @@ public class Reserva  implements java.io.Serializable {
     public void setDiasPretendidos(int diasPretendidos) {
         this.diasPretendidos = diasPretendidos;
     }
+    
+    
+    public Set getLocacaos() {
+        return this.locacaos;
+    }
+    
+    public void setLocacaos(Set locacaos) {
+        this.locacaos = locacaos;
+    }
+
 
 }
 

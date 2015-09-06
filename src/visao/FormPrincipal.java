@@ -4,6 +4,7 @@
  */
 package visao;
 
+
 /**
  *
  * @author Daiane
@@ -15,6 +16,7 @@ public class FormPrincipal extends javax.swing.JFrame {
      */
     public FormPrincipal() {
         initComponents();
+        
     }
 
     /**
@@ -231,7 +233,7 @@ public class FormPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       IfFornecedor janela = new IfFornecedor();
+        IfFornecedor janela = new IfFornecedor();
         janela.setSize(590, 430);
         dp.add(janela);
         janela.setVisible(true);

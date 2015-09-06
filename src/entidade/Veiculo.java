@@ -26,8 +26,6 @@ import javax.persistence.Transient;
 @Entity
 @Table(name = "veiculo", schema = "public")
 public class Veiculo implements java.io.Serializable {
-    @Transient
-    private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
 
     @Id
     @Column(name = "idveiculo")
@@ -51,8 +49,17 @@ public class Veiculo implements java.io.Serializable {
     @Column(name = "dt_baixa", length = 13)
     private Date dtBaixa;
     private int kmAtual;
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idstatusveiculo", nullable = false)
     private Statusveiculo statusveiculo;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "veiculo")
+    private Set locacaos = new HashSet(0);
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "veiculo")
+    private Set reservas = new HashSet(0);
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "veiculo")
+    private Set manutencaos = new HashSet(0);
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "veiculo")
+    private Set documentoses = new HashSet(0);
 
     public Veiculo() {
     }
@@ -80,6 +87,10 @@ public class Veiculo implements java.io.Serializable {
         this.dtBaixa = dtBaixa;
         this.kmAtual = kmAtual;
         this.statusveiculo = statusveiculo;
+        this.locacaos = locacaos;
+        this.reservas = reservas;
+        this.manutencaos = manutencaos;
+        this.documentoses = documentoses;
 
     }
 
@@ -90,7 +101,7 @@ public class Veiculo implements java.io.Serializable {
     public void setIdveiculo(int idveiculo) {
         int oldIdveiculo = this.idveiculo;
         this.idveiculo = idveiculo;
-        changeSupport.firePropertyChange("idveiculo", oldIdveiculo, idveiculo);
+       
     }
 
     public Tipoveiculo getTipoveiculo() {
@@ -100,7 +111,7 @@ public class Veiculo implements java.io.Serializable {
     public void setTipoveiculo(Tipoveiculo tipoveiculo) {
         Tipoveiculo oldTipoveiculo = this.tipoveiculo;
         this.tipoveiculo = tipoveiculo;
-        changeSupport.firePropertyChange("tipoveiculo", oldTipoveiculo, tipoveiculo);
+        
     }
 
     public String getDescricao() {
@@ -110,7 +121,7 @@ public class Veiculo implements java.io.Serializable {
     public void setDescricao(String descricao) {
         String oldDescricao = this.descricao;
         this.descricao = descricao;
-        changeSupport.firePropertyChange("descricao", oldDescricao, descricao);
+        
     }
 
     public String getMarca() {
@@ -120,7 +131,7 @@ public class Veiculo implements java.io.Serializable {
     public void setMarca(String marca) {
         String oldMarca = this.marca;
         this.marca = marca;
-        changeSupport.firePropertyChange("marca", oldMarca, marca);
+       
     }
 
     public int getAnoFabricacao() {
@@ -130,7 +141,7 @@ public class Veiculo implements java.io.Serializable {
     public void setAnoFabricacao(int anoFabricacao) {
         int oldAnoFabricacao = this.anoFabricacao;
         this.anoFabricacao = anoFabricacao;
-        changeSupport.firePropertyChange("anoFabricacao", oldAnoFabricacao, anoFabricacao);
+        
     }
 
     public int getAnoModelo() {
@@ -140,7 +151,7 @@ public class Veiculo implements java.io.Serializable {
     public void setAnoModelo(int anoModelo) {
         int oldAnoModelo = this.anoModelo;
         this.anoModelo = anoModelo;
-        changeSupport.firePropertyChange("anoModelo", oldAnoModelo, anoModelo);
+        
     }
 
     public Date getDtInclusao() {
@@ -150,7 +161,7 @@ public class Veiculo implements java.io.Serializable {
     public void setDtInclusao(Date dtInclusao) {
         Date oldDtInclusao = this.dtInclusao;
         this.dtInclusao = dtInclusao;
-        changeSupport.firePropertyChange("dtInclusao", oldDtInclusao, dtInclusao);
+       
     }
 
     public Date getDtBaixa() {
@@ -160,7 +171,7 @@ public class Veiculo implements java.io.Serializable {
     public void setDtBaixa(Date dtBaixa) {
         Date oldDtBaixa = this.dtBaixa;
         this.dtBaixa = dtBaixa;
-        changeSupport.firePropertyChange("dtBaixa", oldDtBaixa, dtBaixa);
+        
     }
 
     public int getKmAtual() {
@@ -170,24 +181,51 @@ public class Veiculo implements java.io.Serializable {
     public void setKmAtual(int kmAtual) {
         int oldKmAtual = this.kmAtual;
         this.kmAtual = kmAtual;
-        changeSupport.firePropertyChange("kmAtual", oldKmAtual, kmAtual);
+       
     }
 
-      public Statusveiculo getStatusveiculo() {
+    public Statusveiculo getStatusveiculo() {
         return this.statusveiculo;
     }
 
     public void setStatusveiculo(Statusveiculo statusveiculo) {
         Statusveiculo oldStatusveiculo = this.statusveiculo;
         this.statusveiculo = statusveiculo;
-        changeSupport.firePropertyChange("statusveiculo", oldStatusveiculo, statusveiculo);
-    }
-    
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-        changeSupport.addPropertyChangeListener(listener);
+      
     }
 
-    public void removePropertyChangeListener(PropertyChangeListener listener) {
-        changeSupport.removePropertyChangeListener(listener);
+  
+
+    public Set getLocacaos() {
+        return this.locacaos;
     }
+
+    public void setLocacaos(Set locacaos) {
+        this.locacaos = locacaos;
+    }
+
+    public Set getReservas() {
+        return this.reservas;
+    }
+
+    public void setReservas(Set reservas) {
+        this.reservas = reservas;
+    }
+
+    public Set getManutencaos() {
+        return this.manutencaos;
+    }
+
+    public void setManutencaos(Set manutencaos) {
+        this.manutencaos = manutencaos;
+    }
+
+    public Set getDocumentoses() {
+        return this.documentoses;
+    }
+
+    public void setDocumentoses(Set documentoses) {
+        this.documentoses = documentoses;
+    }
+
 }

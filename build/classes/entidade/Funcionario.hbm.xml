@@ -1,35 +1,48 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 17/08/2015 19:54:53 by Hibernate Tools 4.3.1 -->
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 05/09/2015 16:25:39 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-  <class name="entidade.Funcionario" optimistic-lock="version" schema="public" table="funcionario">
-    <id name="pessoaIdpessoa" type="int">
-      <column name="pessoa_idpessoa"/>
-      <generator class="foreign">
-        <param name="property">pessoa</param>
-      </generator>
-    </id>
-    <many-to-one class="entidade.Funcao" fetch="select" name="funcao">
-      <column name="funcao_idfuncao" not-null="true"/>
-    </many-to-one>
-    <one-to-one class="entidade.Pessoa" constrained="true" name="pessoa"/>
-    <property name="dtAdmissao" type="date">
-      <column length="13" name="dt_admissao" not-null="true"/>
-    </property>
-    <property name="dtDemissao" type="date">
-      <column length="13" name="dt_demissao"/>
-    </property>
-    <property name="numCtps" type="string">
-      <column length="45" name="num_ctps" not-null="true"/>
-    </property>
-    <property name="serieCtps" type="string">
-      <column length="45" name="serie_ctps" not-null="true"/>
-    </property>
-    <property name="login" type="string">
-      <column length="30" name="login"/>
-    </property>
-    <property name="senha" type="string">
-      <column length="15" name="senha"/>
-    </property>
-  </class>
+    <class name="entidade.Funcionario" table="funcionario" schema="public" optimistic-lock="version">
+        <id name="pessoaIdpessoa" type="int">
+            <column name="pessoa_idpessoa" />
+            <generator class="foreign">
+                <param name="property">pessoa</param>
+            </generator>
+        </id>
+        <many-to-one name="funcao" class="entidade.Funcao" fetch="select">
+            <column name="funcao_idfuncao" not-null="true" />
+        </many-to-one>
+        <one-to-one name="pessoa" class="entidade.Pessoa" constrained="true"></one-to-one>
+        <property name="dtAdmissao" type="date">
+            <column name="dt_admissao" length="13" not-null="true" />
+        </property>
+        <property name="dtDemissao" type="date">
+            <column name="dt_demissao" length="13" />
+        </property>
+        <property name="numCtps" type="string">
+            <column name="num_ctps" length="45" not-null="true" />
+        </property>
+        <property name="serieCtps" type="string">
+            <column name="serie_ctps" length="45" not-null="true" />
+        </property>
+        <property name="login" type="string">
+            <column name="login" length="30" />
+        </property>
+        <property name="senha" type="string">
+            <column name="senha" length="15" />
+        </property>
+        <set name="reservas" table="reserva" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="funcionario_pessoa_idpessoa" not-null="true" />
+            </key>
+            <one-to-many class="entidade.Reserva" />
+        </set>
+        <set name="locacaos" table="locacao" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="funcionario_pessoa_idpessoa" not-null="true" />
+            </key>
+            <one-to-many class="entidade.Locacao" />
+        </set>
+    </class>
 </hibernate-mapping>

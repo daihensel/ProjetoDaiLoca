@@ -1,7 +1,6 @@
 package entidade;
 // Generated 17/08/2015 19:54:52 by Hibernate Tools 4.3.1
 
-
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
@@ -30,6 +29,8 @@ public class Estado  implements java.io.Serializable {
      private String descricao;
 @Column(name="uf", nullable=false, length=5)
      private String uf;
+@OneToMany(fetch=FetchType.LAZY, mappedBy="estado")
+private Set cidades = new HashSet(0);
 
 
     public Estado() {
@@ -41,10 +42,11 @@ public class Estado  implements java.io.Serializable {
         this.descricao = descricao;
         this.uf = uf;
     }
-    public Estado(int idestado, String descricao, String uf, Set cidades) {
+   public Estado(int idestado, String descricao, String uf, Set cidades) {
        this.idestado = idestado;
        this.descricao = descricao;
        this.uf = uf;
+       this.cidades = cidades;
     }
    
 
@@ -74,6 +76,14 @@ public class Estado  implements java.io.Serializable {
     
     public void setUf(String uf) {
         this.uf = uf;
+    }
+    
+        public Set getCidades() {
+        return this.cidades;
+    }
+    
+    public void setCidades(Set cidades) {
+        this.cidades = cidades;
     }
 
 

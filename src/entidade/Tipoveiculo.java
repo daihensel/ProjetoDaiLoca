@@ -32,6 +32,8 @@ public class Tipoveiculo implements java.io.Serializable {
     private String observacoes;
     @Column(name = "especificacoes", nullable = false, length = 200)
     private String especificacoes;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "tipoveiculo")
+    private Set veiculos = new HashSet(0);
 
     public Tipoveiculo() {
     }
@@ -90,5 +92,13 @@ public class Tipoveiculo implements java.io.Serializable {
 
     public void setEspecificacoes(String especificacoes) {
         this.especificacoes = especificacoes;
+    }
+
+    public Set getVeiculos() {
+        return this.veiculos;
+    }
+
+    public void setVeiculos(Set veiculos) {
+        this.veiculos = veiculos;
     }
 }

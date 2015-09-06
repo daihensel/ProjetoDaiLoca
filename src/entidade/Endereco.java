@@ -36,6 +36,8 @@ public class Endereco implements java.io.Serializable {
     private String cep;
     @Column(name = "complemento", length = 45)
     private String complemento;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "endereco")
+    private Set pessoas = new HashSet(0);
 
     public Endereco() {
     }
@@ -48,14 +50,14 @@ public class Endereco implements java.io.Serializable {
         this.cep = cep;
     }
 
-    public Endereco(int idendereco, Cidade cidade, String descricao, String bairro, String cep, String complemento, Set pessoas) {
-        this.idendereco = idendereco;
-        this.cidade = cidade;
-        this.descricao = descricao;
-        this.bairro = bairro;
-        this.cep = cep;
-        this.complemento = complemento;
-
+     public Endereco(int idendereco, entidade.Cidade cidade, String descricao, String bairro, String cep, String complemento, Set pessoas) {
+       this.idendereco = idendereco;
+       this.cidade = cidade;
+       this.descricao = descricao;
+       this.bairro = bairro;
+       this.cep = cep;
+       this.complemento = complemento;
+       this.pessoas = pessoas;
     }
 
     public int getIdendereco() {
@@ -105,4 +107,13 @@ public class Endereco implements java.io.Serializable {
     public void setComplemento(String complemento) {
         this.complemento = complemento;
     }
+
+    public Set getPessoas() {
+        return this.pessoas;
+    }
+
+    public void setPessoas(Set pessoas) {
+        this.pessoas = pessoas;
+    }
+
 }

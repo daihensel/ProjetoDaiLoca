@@ -1,7 +1,6 @@
 package entidade;
 // Generated 17/08/2015 19:54:52 by Hibernate Tools 4.3.1
 
-import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
@@ -21,35 +20,36 @@ import javax.persistence.Table;
 public class Statusveiculo implements java.io.Serializable {
 
     @Id
-    @Column(name = "idstatusVeiculo")
+    @Column(name = "idstatusveiculo")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idstatusVeiculo;
+    private int idstatusveiculo;
     @Column(name = "descricao", nullable = false, length = 100)
     private String descricao;
+    @OneToMany(fetch=FetchType.LAZY, mappedBy="statusveiculo")
+    private Set veiculos = new HashSet(0);
  
 
     public Statusveiculo() {
     }
 
     public Statusveiculo(int idstatusVeiculo, String descricao) {
-        this.idstatusVeiculo = idstatusVeiculo;
+        this.idstatusveiculo = idstatusVeiculo;
         this.descricao = descricao;
         
     }
 
-    public Statusveiculo(int idstatusVeiculo, String descricao, Set veiculos) {
-        this.idstatusVeiculo = idstatusVeiculo;
-        this.descricao = descricao;
-       
-
+     public Statusveiculo(int idstatusveiculo, String descricao, Set veiculos) {
+       this.idstatusveiculo = idstatusveiculo;
+       this.descricao = descricao;
+       this.veiculos = veiculos;
     }
 
     public int getIdstatusVeiculo() {
-        return this.idstatusVeiculo;
+        return this.idstatusveiculo;
     }
 
     public void setIdstatusVeiculo(int idstatusVeiculo) {
-        this.idstatusVeiculo = idstatusVeiculo;
+        this.idstatusveiculo = idstatusVeiculo;
     }
 
     public String getDescricao() {
@@ -59,5 +59,15 @@ public class Statusveiculo implements java.io.Serializable {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
+    
+    
+    public Set getVeiculos() {
+        return this.veiculos;
+    }
+    
+    public void setVeiculos(Set veiculos) {
+        this.veiculos = veiculos;
+    }
+
 
 }

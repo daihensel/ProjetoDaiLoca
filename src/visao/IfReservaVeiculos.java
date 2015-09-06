@@ -259,6 +259,11 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
         jLabel15.setText("Cidade:");
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/procurar_20x20.png"))); // NOI18N
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jLabel17.setText("CPF:");
 
@@ -386,7 +391,14 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         DgConsultaVeiculo tela = new DgConsultaVeiculo(this, true);
         tela.setVisible(true);
+        tela.setSize(200, 200);
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        DgConsultaCliente tela = new DgConsultaCliente(this, true);
+        tela.setVisible(true);
+        tela.setSize(200, 200);
+    }//GEN-LAST:event_jButton3ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

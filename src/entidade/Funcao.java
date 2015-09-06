@@ -22,10 +22,11 @@ public class Funcao implements java.io.Serializable {
     @Id
     @Column(name = "idfuncao")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    
     private int idfuncao;
     @Column(name = "descricao", nullable = false, length = 45)
     private String descricao;
+    @OneToMany(fetch=FetchType.LAZY, mappedBy="funcao")
+    private Set funcionarios = new HashSet(0);
     
     public Funcao() {
     }
@@ -35,11 +36,12 @@ public class Funcao implements java.io.Serializable {
         this.descricao = descricao;
     }
 
-    public Funcao(int idfuncao, String descricao, Set funcionarios) {
-        this.idfuncao = idfuncao;
-        this.descricao = descricao;
-       
+     public Funcao(int idfuncao, String descricao, Set funcionarios) {
+       this.idfuncao = idfuncao;
+       this.descricao = descricao;
+       this.funcionarios = funcionarios;
     }
+   
 
     public int getIdfuncao() {
         return this.idfuncao;
@@ -58,4 +60,12 @@ public class Funcao implements java.io.Serializable {
         this.descricao = descricao;
     }
 
+    
+    public Set getFuncionarios() {
+        return this.funcionarios;
+    }
+    
+    public void setFuncionarios(Set funcionarios) {
+        this.funcionarios = funcionarios;
+    }
 }

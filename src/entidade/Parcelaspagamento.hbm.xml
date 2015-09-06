@@ -1,23 +1,27 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 17/08/2015 19:54:53 by Hibernate Tools 4.3.1 -->
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 05/09/2015 16:25:39 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-  <class name="entidade.Parcelaspagamento" optimistic-lock="version" schema="public" table="parcelaspagamento">
-    <id name="idparcelaspagamento" type="int">
-      <column name="idparcelaspagamento"/>
-      <generator class="increment"/>
-    </id>
-    <property name="dtPagamento" type="date">
-      <column length="13" name="dt_pagamento" not-null="true"/>
-    </property>
-    <property name="dtVencimento" type="date">
-      <column length="13" name="dt_vencimento" not-null="true"/>
-    </property>
-    <property name="liquidado" type="big_decimal">
-      <column name="liquidado" precision="11"/>
-    </property>
-    <property name="valor" type="big_decimal">
-      <column name="valor" not-null="true" precision="11"/>
-    </property>
-  </class>
+    <class name="entidade.Parcelaspagamento" table="parcelaspagamento" schema="public" optimistic-lock="version">
+        <id name="idparcelaspagamento" type="int">
+            <column name="idparcelaspagamento" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="locacao" class="entidade.Locacao" fetch="select">
+            <column name="idlocacao" not-null="true" />
+        </many-to-one>
+        <property name="dtPagamento" type="date">
+            <column name="dt_pagamento" length="13" not-null="true" />
+        </property>
+        <property name="dtVencimento" type="date">
+            <column name="dt_vencimento" length="13" not-null="true" />
+        </property>
+        <property name="valor" type="big_decimal">
+            <column name="valor" precision="11" not-null="true" />
+        </property>
+        <property name="liquidado" type="java.lang.Boolean">
+            <column name="liquidado" />
+        </property>
+    </class>
 </hibernate-mapping>

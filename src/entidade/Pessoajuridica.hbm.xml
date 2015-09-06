@@ -1,20 +1,27 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 17/08/2015 19:54:53 by Hibernate Tools 4.3.1 -->
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 05/09/2015 16:25:39 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-  <class name="entidade.Pessoajuridica" optimistic-lock="version" schema="public" table="pessoajuridica">
-    <id name="pessoaIdpessoa" type="int">
-      <column name="pessoa_idpessoa"/>
-      <generator class="foreign">
-        <param name="property">pessoa</param>
-      </generator>
-    </id>
-    <one-to-one class="entidade.Pessoa" constrained="true" name="pessoa"/>
-    <property name="cnpj" type="string">
-      <column length="20" name="cnpj" not-null="true"/>
-    </property>
-    <property name="inscricaoest" type="string">
-      <column length="20" name="inscricaoest"/>
-    </property>
-  </class>
+    <class name="entidade.Pessoajuridica" table="pessoajuridica" schema="public" optimistic-lock="version">
+        <id name="pessoaIdpessoa" type="int">
+            <column name="pessoa_idpessoa" />
+            <generator class="foreign">
+                <param name="property">pessoa</param>
+            </generator>
+        </id>
+        <one-to-one name="pessoa" class="entidade.Pessoa" constrained="true"></one-to-one>
+        <property name="cnpj" type="string">
+            <column name="cnpj" length="20" not-null="true" />
+        </property>
+        <property name="inscricaoest" type="string">
+            <column name="inscricaoest" length="20" />
+        </property>
+        <set name="manutencaos" table="manutencao" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idfornecedor" not-null="true" />
+            </key>
+            <one-to-many class="entidade.Manutencao" />
+        </set>
+    </class>
 </hibernate-mapping>

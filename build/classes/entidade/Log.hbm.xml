@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 24/08/2015 19:33:05 by Hibernate Tools 3.2.1.GA -->
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 05/09/2015 16:25:39 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="entidade.Log" table="log" schema="public">
+    <class name="entidade.Log" table="log" schema="public" optimistic-lock="version">
         <id name="idlog" type="int">
             <column name="idlog" />
             <generator class="increment" />

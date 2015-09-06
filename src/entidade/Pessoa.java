@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -40,6 +41,8 @@ public class Pessoa implements java.io.Serializable {
     private Pessoafisica pessoafisica;
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "pessoa")
     private Funcionario funcionario;
+    @OneToMany(fetch=FetchType.LAZY, mappedBy="pessoa")
+    private Set logs = new HashSet(0);
 
     public Pessoa() {
     }
@@ -50,14 +53,15 @@ public class Pessoa implements java.io.Serializable {
         this.nome = nome;
     }
 
-    public Pessoa(int idpessoa, Endereco endereco, String nome, Pessoajuridica pessoajuridica, Cliente cliente, Set contatos, Pessoafisica pessoafisica, Funcionario funcionario) {
-        this.idpessoa = idpessoa;
-        this.endereco = endereco;
-        this.nome = nome;
-        this.pessoajuridica = pessoajuridica;
-        this.cliente = cliente;
-        this.pessoafisica = pessoafisica;
-        this.funcionario = funcionario;
+     public Pessoa(int idpessoa, entidade.Endereco endereco, String nome, entidade.Cliente cliente, Pessoajuridica pessoajuridica, Set logs, Pessoafisica pessoafisica, entidade.Funcionario funcionario) {
+       this.idpessoa = idpessoa;
+       this.endereco = endereco;
+       this.nome = nome;
+       this.cliente = cliente;
+       this.pessoajuridica = pessoajuridica;
+       this.logs = logs;
+       this.pessoafisica = pessoafisica;
+       this.funcionario = funcionario;
     }
 
     public int getIdpessoa() {
@@ -114,5 +118,14 @@ public class Pessoa implements java.io.Serializable {
 
     public void setFuncionario(Funcionario funcionario) {
         this.funcionario = funcionario;
+    }
+ 
+    
+    public Set getLogs() {
+        return this.logs;
+    }
+    
+    public void setLogs(Set logs) {
+        this.logs = logs;
     }
 }

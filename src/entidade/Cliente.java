@@ -23,8 +23,8 @@ import org.hibernate.annotations.Parameter;
 @Table(name = "cliente", schema = "public")
 public class Cliente implements java.io.Serializable {
 
-    @GenericGenerator(name = "generator", strategy = "foreign", parameters =
-    @Parameter(name = "property", value = "pessoa"))
+    @GenericGenerator(name = "generator", strategy = "foreign", parameters
+            = @Parameter(name = "property", value = "pessoa"))
     @Id
     @Column(name = "pessoa_idpessoa")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,6 +34,10 @@ public class Cliente implements java.io.Serializable {
     private Pessoa pessoa;
     @Column(name = "dt_cadastro", length = 45)
     private String dtCadastro;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente")
+    private Set locacaos = new HashSet(0);
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente")
+    private Set reservas = new HashSet(0);
 
     public Cliente() {
     }
@@ -71,4 +75,21 @@ public class Cliente implements java.io.Serializable {
     public void setDtCadastro(String dtCadastro) {
         this.dtCadastro = dtCadastro;
     }
+
+    public Set getLocacaos() {
+        return this.locacaos;
+    }
+
+    public void setLocacaos(Set locacaos) {
+        this.locacaos = locacaos;
+    }
+
+    public Set getReservas() {
+        return this.reservas;
+    }
+
+    public void setReservas(Set reservas) {
+        this.reservas = reservas;
+    }
+
 }

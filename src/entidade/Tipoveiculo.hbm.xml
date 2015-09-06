@@ -1,23 +1,30 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 17/08/2015 19:54:53 by Hibernate Tools 4.3.1 -->
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 05/09/2015 16:25:39 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-  <class name="entidade.Tipoveiculo" optimistic-lock="version" schema="public" table="tipoveiculo">
-    <id name="idtipoVeiculo" type="int">
-      <column name="idtipo_veiculo"/>
-      <generator class="increment"/>
-    </id>
-    <property name="descricao" type="string">
-      <column length="100" name="descricao" not-null="true"/>
-    </property>
-    <property name="valorDiaria" type="big_decimal">
-      <column name="valor_diaria" not-null="true" precision="11"/>
-    </property>
-    <property name="observacoes" type="string">
-      <column length="100" name="observacoes"/>
-    </property>
-    <property name="especificacoes" type="string">
-      <column length="200" name="especificacoes" not-null="true"/>
-    </property>
-  </class>
+    <class name="entidade.Tipoveiculo" table="tipoveiculo" schema="public" optimistic-lock="version">
+        <id name="idtipoVeiculo" type="int">
+            <column name="idtipo_veiculo" />
+            <generator class="increment" />
+        </id>
+        <property name="descricao" type="string">
+            <column name="descricao" length="100" not-null="true" />
+        </property>
+        <property name="valorDiaria" type="big_decimal">
+            <column name="valor_diaria" precision="11" not-null="true" />
+        </property>
+        <property name="observacoes" type="string">
+            <column name="observacoes" length="100" />
+        </property>
+        <property name="especificacoes" type="string">
+            <column name="especificacoes" length="200" not-null="true" />
+        </property>
+        <set name="veiculos" table="veiculo" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idtipoveiculo" not-null="true" />
+            </key>
+            <one-to-many class="entidade.Veiculo" />
+        </set>
+    </class>
 </hibernate-mapping>

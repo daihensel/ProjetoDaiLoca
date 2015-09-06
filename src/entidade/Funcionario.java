@@ -54,6 +54,11 @@ public class Funcionario implements java.io.Serializable {
     private String login;
     @Column(name = "senha", length = 15)
     private String senha;
+    @OneToMany(fetch=FetchType.LAZY, mappedBy="funcionario")
+
+    private Set reservas = new HashSet(0);
+    @OneToMany(fetch=FetchType.LAZY, mappedBy="funcionario")
+     private Set locacaos = new HashSet(0);
 
     public Funcionario() {
     }
@@ -66,15 +71,17 @@ public class Funcionario implements java.io.Serializable {
         this.serieCtps = serieCtps;
     }
 
-    public Funcionario(Funcao funcao, Pessoa pessoa, Date dtAdmissao, Date dtDemissao, String numCtps, String serieCtps, String login, String senha, Set reservas, Set locacaos) {
-        this.funcao = funcao;
-        this.pessoa = pessoa;
-        this.dtAdmissao = dtAdmissao;
-        this.dtDemissao = dtDemissao;
-        this.numCtps = numCtps;
-        this.serieCtps = serieCtps;
-        this.login = login;
-        this.senha = senha;
+    public Funcionario(entidade.Funcao funcao, Pessoa pessoa, Date dtAdmissao, Date dtDemissao, String numCtps, String serieCtps, String login, String senha, Set reservas, Set locacaos) {
+       this.funcao = funcao;
+       this.pessoa = pessoa;
+       this.dtAdmissao = dtAdmissao;
+       this.dtDemissao = dtDemissao;
+       this.numCtps = numCtps;
+       this.serieCtps = serieCtps;
+       this.login = login;
+       this.senha = senha;
+       this.reservas = reservas;
+       this.locacaos = locacaos;
     }
 
     public int getPessoaIdpessoa() {
@@ -147,5 +154,22 @@ public class Funcionario implements java.io.Serializable {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+    
+    
+    public Set getReservas() {
+        return this.reservas;
+    }
+    
+    public void setReservas(Set reservas) {
+        this.reservas = reservas;
+    }
+
+    public Set getLocacaos() {
+        return this.locacaos;
+    }
+    
+    public void setLocacaos(Set locacaos) {
+        this.locacaos = locacaos;
     }
 }

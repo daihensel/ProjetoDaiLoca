@@ -1,17 +1,24 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 17/08/2015 19:54:53 by Hibernate Tools 4.3.1 -->
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 05/09/2015 16:25:39 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-  <class name="entidade.Estado" optimistic-lock="version" schema="public" table="estado">
-    <id name="idestado" type="int">
-      <column name="idestado"/>
-      <generator class="increment"/>
-    </id>
-    <property name="descricao" type="string">
-      <column length="45" name="descricao" not-null="true"/>
-    </property>
-    <property name="uf" type="string">
-      <column length="5" name="uf" not-null="true"/>
-    </property>
-  </class>
+    <class name="entidade.Estado" table="estado" schema="public" optimistic-lock="version">
+        <id name="idestado" type="int">
+            <column name="idestado" />
+            <generator class="increment" />
+        </id>
+        <property name="descricao" type="string">
+            <column name="descricao" length="45" not-null="true" />
+        </property>
+        <property name="uf" type="string">
+            <column name="uf" length="5" not-null="true" />
+        </property>
+        <set name="cidades" table="cidade" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="estado_idestado" not-null="true" />
+            </key>
+            <one-to-many class="entidade.Cidade" />
+        </set>
+    </class>
 </hibernate-mapping>

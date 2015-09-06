@@ -5,13 +5,9 @@
  */
 package visao;
 
-import conf.HibernateUtil;
-import entidade.Veiculo;
-import java.awt.Component;
-import java.util.List;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 /**
  *
@@ -28,27 +24,27 @@ public class DgConsultaVeiculo extends javax.swing.JDialog {
         // super(parent, modal);
         this.tela = parent;
         this.setModal(modal);
-
+//
         initComponents();
-        
-        Session sessao = null;
-        try {
-            sessao = HibernateUtil.getSessionFactory().openSession();
-            Transaction t = sessao.beginTransaction();
-            
-       List<Veiculo> veiculos = sessao.createQuery("SELECT * FROM PopularTabelaVeiculo").list();
-    
-       //falta saber como exibir essa lista em uma tabela.
-       
-        } catch (HibernateException he) {
-            he.printStackTrace();
-        } finally {
-            sessao.close();
-        }
+//
+//        Session sessao = null;
+//        try {
+//            sessao = HibernateUtil.getSessionFactory().openSession();
+//            Transaction t = sessao.beginTransaction();
+//
+//            List<Veiculo> veiculos = sessao.createQuery("SELECT * FROM PopularTabelaVeiculo").list();
+//
+//       //falta saber como exibir essa lista em uma tabela.
+//        } catch (HibernateException he) {
+//            he.printStackTrace();
+//        } finally {
+//            sessao.close();
+//        }
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory(
+                "ProjetoDaiLocaPU");
+        EntityManager em = emf.createEntityManager();
     }
 
-    
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -57,29 +53,19 @@ public class DgConsultaVeiculo extends javax.swing.JDialog {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tbVeiculo = new javax.swing.JTable();
+        ProjetoDaiLocaPUEntityManager = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("ProjetoDaiLocaPU").createEntityManager();
+        veiculoQuery = java.beans.Beans.isDesignTime() ? null : ProjetoDaiLocaPUEntityManager.createQuery("SELECT v FROM Veiculo v");
+        veiculoList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : veiculoQuery.getResultList();
+        veiculoQuery1 = java.beans.Beans.isDesignTime() ? null : ProjetoDaiLocaPUEntityManager.createQuery("SELECT v FROM Veiculo v");
+        veiculoList1 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : veiculoQuery1.getResultList();
         jTextField1 = new javax.swing.JTextField();
         btnPesquisar = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        taVeiculos = new javax.swing.JTextArea();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        tbVeiculo.setAutoCreateRowSorter(true);
-        tbVeiculo.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(tbVeiculo);
 
         btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/procurar_20x20.png"))); // NOI18N
         btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
@@ -88,45 +74,80 @@ public class DgConsultaVeiculo extends javax.swing.JDialog {
             }
         });
 
-        taVeiculos.setColumns(20);
-        taVeiculos.setRows(5);
-        jScrollPane2.setViewportView(taVeiculos);
+        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, veiculoList1, jTable1);
+        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${statusveiculo}"));
+        columnBinding.setColumnName("Statusveiculo");
+        columnBinding.setColumnClass(entidade.Statusveiculo.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${kmAtual}"));
+        columnBinding.setColumnName("Km Atual");
+        columnBinding.setColumnClass(Integer.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${dtBaixa}"));
+        columnBinding.setColumnName("Dt Baixa");
+        columnBinding.setColumnClass(java.util.Date.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${dtInclusao}"));
+        columnBinding.setColumnName("Dt Inclusao");
+        columnBinding.setColumnClass(java.util.Date.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${anoModelo}"));
+        columnBinding.setColumnName("Ano Modelo");
+        columnBinding.setColumnClass(Integer.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${anoFabricacao}"));
+        columnBinding.setColumnName("Ano Fabricacao");
+        columnBinding.setColumnClass(Integer.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${marca}"));
+        columnBinding.setColumnName("Marca");
+        columnBinding.setColumnClass(String.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${descricao}"));
+        columnBinding.setColumnName("Descricao");
+        columnBinding.setColumnClass(String.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${tipoveiculo}"));
+        columnBinding.setColumnName("Tipoveiculo");
+        columnBinding.setColumnClass(entidade.Tipoveiculo.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idveiculo}"));
+        columnBinding.setColumnName("Idveiculo");
+        columnBinding.setColumnClass(Integer.class);
+        bindingGroup.addBinding(jTableBinding);
+        jTableBinding.bind();
+        jScrollPane3.setViewportView(jTable1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 549, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTextField1)
+                        .addGap(8, 8, 8)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2))
-                .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 543, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(47, Short.MAX_VALUE)
+                .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnPesquisar)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(19, 19, 19))
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPesquisar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
+
+        bindingGroup.bind();
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-Session sessao = null;
-        tbVeiculo.add((Component) sessao.createSQLQuery("select * from PopularTabelaVeiculo"));
-        sessao.close();
+//Session sessao = null;
+//        tbVeiculo.add((Component) sessao.createSQLQuery("select * from PopularTabelaVeiculo"));
+//        sessao.close();
+
+
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     /**
@@ -173,11 +194,15 @@ Session sessao = null;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.persistence.EntityManager ProjetoDaiLocaPUEntityManager;
     private javax.swing.JButton btnPesquisar;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextArea taVeiculos;
-    private javax.swing.JTable tbVeiculo;
+    private java.util.List<entidade.Veiculo> veiculoList;
+    private java.util.List<entidade.Veiculo> veiculoList1;
+    private javax.persistence.Query veiculoQuery;
+    private javax.persistence.Query veiculoQuery1;
+    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }
