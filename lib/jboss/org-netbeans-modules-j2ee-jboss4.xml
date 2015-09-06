@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?><module codename="org.netbeans.modules.j2ee.jboss4/1">
+    <module_version install_time="1416342087864" last="true" origin="installer" specification_version="1.36.1">
+        <file crc="2494670256" name="config/Modules/org-netbeans-modules-j2ee-jboss4.xml"/>
+        <file crc="71829838" name="modules/locale/org-netbeans-modules-j2ee-jboss4_ja.jar"/>
+        <file crc="2871732147" name="modules/locale/org-netbeans-modules-j2ee-jboss4_pt_BR.jar"/>
+        <file crc="3395577159" name="modules/locale/org-netbeans-modules-j2ee-jboss4_ru.jar"/>
+        <file crc="1201092192" name="modules/locale/org-netbeans-modules-j2ee-jboss4_zh_CN.jar"/>
+        <file crc="961052804" name="modules/org-netbeans-modules-j2ee-jboss4.jar"/>
+    </module_version>
+</module>
