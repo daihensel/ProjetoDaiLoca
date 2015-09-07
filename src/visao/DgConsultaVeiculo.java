@@ -12,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.swing.table.DefaultTableModel;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -33,6 +34,7 @@ public class DgConsultaVeiculo extends javax.swing.JDialog {
         this.setModal(modal);
 
         initComponents();
+        
 
 
         EntityManagerFactory emf = Persistence.createEntityManagerFactory(
@@ -58,7 +60,7 @@ public class DgConsultaVeiculo extends javax.swing.JDialog {
         jTextField1 = new javax.swing.JTextField();
         btnPesquisar = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbVeiculo = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -69,7 +71,24 @@ public class DgConsultaVeiculo extends javax.swing.JDialog {
             }
         });
 
-        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, veiculoList1, jTable1);
+        tbVeiculo.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Statusveiculo", "Km Atual", "Dt Baixa", "Dt Inclusao", "Ano Modelo", "Ano Fabricacao", "Marca", "Descricao", "Tipoveiculo", "Idveiculo"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Integer.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+
+        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, veiculoList1, tbVeiculo);
         org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${statusveiculo}"));
         columnBinding.setColumnName("Statusveiculo");
         columnBinding.setColumnClass(entidade.Statusveiculo.class);
@@ -102,7 +121,7 @@ public class DgConsultaVeiculo extends javax.swing.JDialog {
         columnBinding.setColumnClass(Integer.class);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
-        jScrollPane3.setViewportView(jTable1);
+        jScrollPane3.setViewportView(tbVeiculo);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -116,8 +135,8 @@ public class DgConsultaVeiculo extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 543, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 562, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -127,8 +146,8 @@ public class DgConsultaVeiculo extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnPesquisar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -189,32 +208,35 @@ public class DgConsultaVeiculo extends javax.swing.JDialog {
     }
     
     public void PopulartabelaVeiculo(){
-        // dados da tabela
-        Object[][] dadosTabela = null;
-
-        // cabecalho da tabela
-        Object[] cabecalho = new Object[3];
-        cabecalho[0] = "Cidade";
-        cabecalho[1] = "Estado";
-        cabecalho[2] = "Cep";
         
+        DefaultTableModel tabelaModelo = (DefaultTableModel) tbVeiculo.getModel();
+        tabelaModelo.setNumRows(0);
               
         Session sessao = null;
-        try {
+        
             sessao = HibernateUtil.getSessionFactory().openSession();
             Transaction t = sessao.beginTransaction();
 
-            //Query query = (Query) sessao.createQuery("SELECT * FROM PopularTabelaVeiculo");
             
             
+            Query query = (Query) sessao.createQuery("Select * from PopularTabelaVeiculo");
+            List<Veiculo> dadosVeiculos = query.getResultList();
             
-            
-//       //falta saber como exibir essa lista em uma tabela.
-        } catch (HibernateException he) {
-            he.printStackTrace();
-        } finally {
-            sessao.close();
-        }
+            for(Veiculo veiculolin : dadosVeiculos ){
+                tabelaModelo.addRow(new Object[]{
+                        veiculolin.getDescricao(), 
+                        veiculolin.getTipoveiculo(),
+                        veiculolin.getMarca(),
+                        veiculolin.getAnoModelo(),
+                        veiculolin.getAnoFabricacao(),
+                        veiculolin.getKmAtual(),
+                        
+                        
+                        
+                });
+                
+            }
+            sessao.getTransaction().commit();
 
     }
     
@@ -222,8 +244,8 @@ public class DgConsultaVeiculo extends javax.swing.JDialog {
     private javax.persistence.EntityManager ProjetoDaiLocaPUEntityManager;
     private javax.swing.JButton btnPesquisar;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTable tbVeiculo;
     private java.util.List<entidade.Veiculo> veiculoList;
     private java.util.List<entidade.Veiculo> veiculoList1;
     private javax.persistence.Query veiculoQuery;
