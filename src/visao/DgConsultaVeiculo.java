@@ -5,9 +5,16 @@
  */
 package visao;
 
+import conf.HibernateUtil;
+import entidade.Veiculo;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *
@@ -24,22 +31,10 @@ public class DgConsultaVeiculo extends javax.swing.JDialog {
         // super(parent, modal);
         this.tela = parent;
         this.setModal(modal);
-//
+
         initComponents();
-//
-//        Session sessao = null;
-//        try {
-//            sessao = HibernateUtil.getSessionFactory().openSession();
-//            Transaction t = sessao.beginTransaction();
-//
-//            List<Veiculo> veiculos = sessao.createQuery("SELECT * FROM PopularTabelaVeiculo").list();
-//
-//       //falta saber como exibir essa lista em uma tabela.
-//        } catch (HibernateException he) {
-//            he.printStackTrace();
-//        } finally {
-//            sessao.close();
-//        }
+
+
         EntityManagerFactory emf = Persistence.createEntityManagerFactory(
                 "ProjetoDaiLocaPU");
         EntityManager em = emf.createEntityManager();
@@ -192,7 +187,37 @@ public class DgConsultaVeiculo extends javax.swing.JDialog {
             }
         });
     }
+    
+    public void PopulartabelaVeiculo(){
+        // dados da tabela
+        Object[][] dadosTabela = null;
 
+        // cabecalho da tabela
+        Object[] cabecalho = new Object[3];
+        cabecalho[0] = "Cidade";
+        cabecalho[1] = "Estado";
+        cabecalho[2] = "Cep";
+        
+              
+        Session sessao = null;
+        try {
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            Transaction t = sessao.beginTransaction();
+
+            //Query query = (Query) sessao.createQuery("SELECT * FROM PopularTabelaVeiculo");
+            
+            
+            
+            
+//       //falta saber como exibir essa lista em uma tabela.
+        } catch (HibernateException he) {
+            he.printStackTrace();
+        } finally {
+            sessao.close();
+        }
+
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.persistence.EntityManager ProjetoDaiLocaPUEntityManager;
     private javax.swing.JButton btnPesquisar;
