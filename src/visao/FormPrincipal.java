@@ -4,6 +4,8 @@
  */
 package visao;
 
+import static java.awt.Frame.MAXIMIZED_BOTH;
+
 
 /**
  *
@@ -16,6 +18,7 @@ public class FormPrincipal extends javax.swing.JFrame {
      */
     public FormPrincipal() {
         initComponents();
+        this.setExtendedState(MAXIMIZED_BOTH);
         
     }
 

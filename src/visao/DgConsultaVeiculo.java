@@ -32,7 +32,6 @@ public class DgConsultaVeiculo extends javax.swing.JDialog {
         // super(parent, modal);
         this.tela = parent;
         this.setModal(modal);
-
         initComponents();
         
 
