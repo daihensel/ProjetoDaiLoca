@@ -96,6 +96,30 @@ public class DgConsultaVeiculo extends javax.swing.JDialog {
         this.popularTabelaVeiculo();
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
+     public void popularTabelaVeiculo() {
+
+        DefaultTableModel tabelaModelo = (DefaultTableModel) tbVeiculos.getModel();
+        tabelaModelo.setNumRows(0);
+
+        Session sessao = null;
+
+        sessao = HibernateUtil.getSessionFactory().openSession();
+        Transaction t = sessao.beginTransaction();
+
+        Query query = (Query) sessao.createQuery(" FROM Veiculo");
+        List<Veiculo> dadosVeiculos = (List<Veiculo>) query.list();
+
+        for (Veiculo veiculolin : dadosVeiculos) {
+            tabelaModelo.addRow(new Object[]{
+                veiculolin.getDescricao(),
+                veiculolin.getMarca(),
+                veiculolin.getAnoFabricacao(),
+                veiculolin.getAnoModelo(),});
+
+        }
+        sessao.getTransaction().commit();
+
+    }
     /**
      * @param args the command line arguments
      */
@@ -139,30 +163,7 @@ public class DgConsultaVeiculo extends javax.swing.JDialog {
         });
     }
 
-    public void popularTabelaVeiculo() {
-
-        DefaultTableModel tabelaModelo = (DefaultTableModel) tbVeiculos.getModel();
-        tabelaModelo.setNumRows(0);
-
-        Session sessao = null;
-
-        sessao = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = sessao.beginTransaction();
-
-        Query query = (Query) sessao.createQuery(" FROM Veiculo");
-        List<Veiculo> dadosVeiculos = (List<Veiculo>) query.list();
-
-        for (Veiculo veiculolin : dadosVeiculos) {
-            tabelaModelo.addRow(new Object[]{
-                veiculolin.getDescricao(),
-                veiculolin.getMarca(),
-                veiculolin.getAnoFabricacao(),
-                veiculolin.getAnoModelo(),});
-
-        }
-        sessao.getTransaction().commit();
-
-    }
+   
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -5,6 +5,15 @@
  */
 package visao;
 
+import conf.HibernateUtil;
+import entidade.Cliente;
+import entidade.Veiculo;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
 /**
  *
  * @author Daiane
@@ -33,7 +42,6 @@ public class DgConsultaCliente extends javax.swing.JDialog {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         ProjetoDaiLocaPUEntityManager = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("ProjetoDaiLocaPU").createEntityManager();
         cidadeQuery = java.beans.Beans.isDesignTime() ? null : ProjetoDaiLocaPUEntityManager.createQuery("SELECT c FROM Cidade c");
@@ -45,67 +53,87 @@ public class DgConsultaCliente extends javax.swing.JDialog {
         veiculoQuery2 = java.beans.Beans.isDesignTime() ? null : ProjetoDaiLocaPUEntityManager.createQuery("SELECT v FROM Veiculo v");
         veiculoList2 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : veiculoQuery2.getResultList();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbVeiculos = new javax.swing.JTable();
+        jTextField1 = new javax.swing.JTextField();
+        btnPesquisar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, veiculoList2, jTable1);
-        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${statusveiculo}"));
-        columnBinding.setColumnName("Statusveiculo");
-        columnBinding.setColumnClass(entidade.Statusveiculo.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${kmAtual}"));
-        columnBinding.setColumnName("Km Atual");
-        columnBinding.setColumnClass(Integer.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${dtBaixa}"));
-        columnBinding.setColumnName("Dt Baixa");
-        columnBinding.setColumnClass(java.util.Date.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${dtInclusao}"));
-        columnBinding.setColumnName("Dt Inclusao");
-        columnBinding.setColumnClass(java.util.Date.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${anoModelo}"));
-        columnBinding.setColumnName("Ano Modelo");
-        columnBinding.setColumnClass(Integer.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${anoFabricacao}"));
-        columnBinding.setColumnName("Ano Fabricacao");
-        columnBinding.setColumnClass(Integer.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${marca}"));
-        columnBinding.setColumnName("Marca");
-        columnBinding.setColumnClass(String.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${descricao}"));
-        columnBinding.setColumnName("Descricao");
-        columnBinding.setColumnClass(String.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${tipoveiculo}"));
-        columnBinding.setColumnName("Tipoveiculo");
-        columnBinding.setColumnClass(entidade.Tipoveiculo.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idveiculo}"));
-        columnBinding.setColumnName("Idveiculo");
-        columnBinding.setColumnClass(Integer.class);
-        bindingGroup.addBinding(jTableBinding);
-        jTableBinding.bind();
-        jScrollPane1.setViewportView(jTable1);
+        tbVeiculos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Descricao", "Tipo", "Marca", "Ano"
+            }
+        ));
+        jScrollPane1.setViewportView(tbVeiculos);
+
+        btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/procurar_20x20.png"))); // NOI18N
+        btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addComponent(jScrollPane1)
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 510, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPesquisar, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE))
         );
-
-        bindingGroup.bind();
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
+        this.popularTabelaCliente();
+    }//GEN-LAST:event_btnPesquisarActionPerformed
+
+    
+     public void popularTabelaCliente() {
+
+        DefaultTableModel tabelaModelo = (DefaultTableModel) tbVeiculos.getModel();
+        tabelaModelo.setNumRows(0);
+
+        Session sessao = null;
+
+        sessao = HibernateUtil.getSessionFactory().openSession();
+        Transaction t = sessao.beginTransaction();
+
+        Query query = (Query) sessao.createQuery(" FROM Cliente");
+        List<Cliente> dadosClientes = (List<Cliente>) query.list();
+
+        for (Cliente clientelin : dadosClientes) {
+            tabelaModelo.addRow(new Object[]{
+//                clientelin.get,
+//                clientelin.getMarca(),
+//                clientelin.getAnoFabricacao(),
+//                clientelin.getAnoModelo(),
+            });
+
+        }
+        sessao.getTransaction().commit();
+
+    }
+     
     /**
      * @param args the command line arguments
      */
@@ -151,16 +179,17 @@ public class DgConsultaCliente extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.persistence.EntityManager ProjetoDaiLocaPUEntityManager;
+    private javax.swing.JButton btnPesquisar;
     private java.util.List<entidade.Cidade> cidadeList;
     private javax.persistence.Query cidadeQuery;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTable tbVeiculos;
     private java.util.List<entidade.Veiculo> veiculoList;
     private java.util.List<entidade.Veiculo> veiculoList1;
     private java.util.List<entidade.Veiculo> veiculoList2;
     private javax.persistence.Query veiculoQuery;
     private javax.persistence.Query veiculoQuery1;
     private javax.persistence.Query veiculoQuery2;
-    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }
