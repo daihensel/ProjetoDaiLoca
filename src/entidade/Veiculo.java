@@ -53,13 +53,13 @@ public class Veiculo implements java.io.Serializable {
     @JoinColumn(name = "idstatusveiculo", nullable = false)
     private Statusveiculo statusveiculo;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "veiculo")
-    private Set locacaos = new HashSet(0);
+    private Set<Locacao> locacaos = new HashSet(0);
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "veiculo")
-    private Set reservas = new HashSet(0);
+    private Set<Reserva> reservas = new HashSet(0);
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "veiculo")
-    private Set manutencaos = new HashSet(0);
+    private Set<Manutencao> manutencaos = new HashSet(0);
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "veiculo")
-    private Set documentoses = new HashSet(0);
+    private Set<Documentos> documentoses = new HashSet(0);
 
     public Veiculo() {
     }

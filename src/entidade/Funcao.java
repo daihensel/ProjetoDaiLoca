@@ -26,7 +26,7 @@ public class Funcao implements java.io.Serializable {
     @Column(name = "descricao", nullable = false, length = 45)
     private String descricao;
     @OneToMany(fetch=FetchType.LAZY, mappedBy="funcao")
-    private Set funcionarios = new HashSet(0);
+    private Set<Funcionario> funcionarios = new HashSet(0);
     
     public Funcao() {
     }

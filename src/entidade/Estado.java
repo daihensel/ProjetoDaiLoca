@@ -30,7 +30,7 @@ public class Estado  implements java.io.Serializable {
 @Column(name="uf", nullable=false, length=5)
      private String uf;
 @OneToMany(fetch=FetchType.LAZY, mappedBy="estado")
-private Set cidades = new HashSet(0);
+private Set<Cidade> cidades = new HashSet(0);
 
 
     public Estado() {

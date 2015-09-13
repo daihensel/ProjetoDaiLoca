@@ -35,9 +35,9 @@ public class Cliente implements java.io.Serializable {
     @Column(name = "dt_cadastro", length = 45)
     private String dtCadastro;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente")
-    private Set locacaos = new HashSet(0);
+    private Set<Locacao> locacaos = new HashSet(0);
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente")
-    private Set reservas = new HashSet(0);
+    private Set<Reserva> reservas = new HashSet(0);
 
     public Cliente() {
     }

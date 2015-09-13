@@ -49,7 +49,7 @@ public class Reserva  implements java.io.Serializable {
      @Column(name="dias_pretendidos", nullable=false)
      private int diasPretendidos;
      @OneToMany(fetch=FetchType.LAZY, mappedBy="reserva")
-     private Set locacaos = new HashSet(0);
+     private Set<Locacao> locacaos = new HashSet(0);
   
     public Reserva() {
     }

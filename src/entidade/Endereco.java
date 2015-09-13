@@ -37,7 +37,7 @@ public class Endereco implements java.io.Serializable {
     @Column(name = "complemento", length = 45)
     private String complemento;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "endereco")
-    private Set pessoas = new HashSet(0);
+    private Set<Pessoa> pessoas = new HashSet(0);
 
     public Endereco() {
     }

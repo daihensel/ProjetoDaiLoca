@@ -42,7 +42,7 @@ public class Pessoa implements java.io.Serializable {
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "pessoa")
     private Funcionario funcionario;
     @OneToMany(fetch=FetchType.LAZY, mappedBy="pessoa")
-    private Set logs = new HashSet(0);
+    private Set<Log> logs = new HashSet(0);
 
     public Pessoa() {
     }

@@ -33,7 +33,7 @@ public class Cidade implements java.io.Serializable {
     @Column(name = "descricao", nullable = false, length = 45)
     private String descricao;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "cidade")
-    private Set enderecos = new HashSet(0);
+    private Set<Endereco> enderecos = new HashSet(0);
 
     public Cidade() {
     }

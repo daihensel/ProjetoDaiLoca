@@ -56,9 +56,9 @@ public class Funcionario implements java.io.Serializable {
     private String senha;
     @OneToMany(fetch=FetchType.LAZY, mappedBy="funcionario")
 
-    private Set reservas = new HashSet(0);
+    private Set<Reserva> reservas = new HashSet(0);
     @OneToMany(fetch=FetchType.LAZY, mappedBy="funcionario")
-     private Set locacaos = new HashSet(0);
+     private Set<Locacao> locacaos = new HashSet(0);
 
     public Funcionario() {
     }

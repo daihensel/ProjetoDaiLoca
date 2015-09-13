@@ -54,9 +54,9 @@ public class Locacao implements java.io.Serializable {
     @Column(name = "parcelas", nullable = false)
     private int parcelas;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "locacao")
-    private Set parcelaspagamentos = new HashSet(0);
+    private Set<Parcelaspagamento> parcelaspagamento = new HashSet(0);
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "locacao")
-    private Set devolucaos = new HashSet(0);
+    private Set<Devolucao> devolucaos = new HashSet(0);
 
     public Locacao() {
     }
@@ -73,7 +73,7 @@ public class Locacao implements java.io.Serializable {
         this.parcelas = parcelas;
     }
 
-    public Locacao(int idlocacao, entidade.Cliente cliente, entidade.Funcionario funcionario, Reserva reserva, Veiculo veiculo, Date dtLocacao, Date horaRetirada, int dias, BigDecimal valorTotal, int parcelas, Set parcelaspagamentos, Set devolucaos) {
+    public Locacao(int idlocacao, entidade.Cliente cliente, entidade.Funcionario funcionario, Reserva reserva, Veiculo veiculo, Date dtLocacao, Date horaRetirada, int dias, BigDecimal valorTotal, int parcelas, Set parcelaspagamento, Set devolucaos) {
         this.idlocacao = idlocacao;
         this.cliente = cliente;
         this.funcionario = funcionario;
@@ -84,7 +84,7 @@ public class Locacao implements java.io.Serializable {
         this.dias = dias;
         this.valorTotal = valorTotal;
         this.parcelas = parcelas;
-        this.parcelaspagamentos = parcelaspagamentos;
+        this.parcelaspagamento = parcelaspagamento;
         this.devolucaos = devolucaos;
     }
 
@@ -168,12 +168,12 @@ public class Locacao implements java.io.Serializable {
         this.parcelas = parcelas;
     }
 
-    public Set getParcelaspagamentos() {
-        return this.parcelaspagamentos;
+    public Set getParcelaspagamento() {
+        return this.parcelaspagamento;
     }
 
-    public void setParcelaspagamentos(Set parcelaspagamentos) {
-        this.parcelaspagamentos = parcelaspagamentos;
+    public void setParcelaspagamento(Set parcelaspagamento) {
+        this.parcelaspagamento = parcelaspagamento;
     }
 
     public Set getDevolucaos() {

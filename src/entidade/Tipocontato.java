@@ -26,7 +26,7 @@ public class Tipocontato implements java.io.Serializable {
     @Column(name = "descricao", nullable = false, length = 60)
     private String descricao;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "tipocontato")
-    private Set contatos = new HashSet(0);
+    private Set<Contato> contatos = new HashSet(0);
 
     public Tipocontato() {
     }
