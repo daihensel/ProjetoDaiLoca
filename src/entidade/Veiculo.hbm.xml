@@ -3,7 +3,7 @@
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <!-- Generated 05/09/2015 16:25:39 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="entidade.Veiculo" table="veiculo" schema="public" optimistic-lock="version">
+    <class name="entidade.Veiculo" table="Veiculo" schema="public" optimistic-lock="version">
         <id name="idveiculo" type="int">
             <column name="idveiculo" />
             <generator class="increment" />
