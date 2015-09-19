@@ -53,13 +53,13 @@ public class DgConsultaCliente extends javax.swing.JDialog {
         veiculoQuery2 = java.beans.Beans.isDesignTime() ? null : ProjetoDaiLocaPUEntityManager.createQuery("SELECT v FROM Veiculo v");
         veiculoList2 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : veiculoQuery2.getResultList();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbVeiculos = new javax.swing.JTable();
+        tbCliente = new javax.swing.JTable();
         jTextField1 = new javax.swing.JTextField();
         btnPesquisar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        tbVeiculos.setModel(new javax.swing.table.DefaultTableModel(
+        tbCliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -70,7 +70,7 @@ public class DgConsultaCliente extends javax.swing.JDialog {
                 "Descricao", "Tipo", "Marca", "Ano"
             }
         ));
-        jScrollPane1.setViewportView(tbVeiculos);
+        jScrollPane1.setViewportView(tbCliente);
 
         btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/procurar_20x20.png"))); // NOI18N
         btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
@@ -110,7 +110,7 @@ public class DgConsultaCliente extends javax.swing.JDialog {
     
      public void popularTabelaCliente() {
 
-        DefaultTableModel tabelaModelo = (DefaultTableModel) tbVeiculos.getModel();
+        DefaultTableModel tabelaModelo = (DefaultTableModel) tbCliente.getModel();
         tabelaModelo.setNumRows(0);
 
         Session sessao = null;
@@ -134,48 +134,7 @@ public class DgConsultaCliente extends javax.swing.JDialog {
 
     }
      
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DgConsultaCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DgConsultaCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DgConsultaCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DgConsultaCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
 
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                DgConsultaCliente dialog = new DgConsultaCliente(tela, true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.persistence.EntityManager ProjetoDaiLocaPUEntityManager;
@@ -184,7 +143,7 @@ public class DgConsultaCliente extends javax.swing.JDialog {
     private javax.persistence.Query cidadeQuery;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTable tbVeiculos;
+    private javax.swing.JTable tbCliente;
     private java.util.List<entidade.Veiculo> veiculoList;
     private java.util.List<entidade.Veiculo> veiculoList1;
     private java.util.List<entidade.Veiculo> veiculoList2;

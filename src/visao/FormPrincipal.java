@@ -11,8 +11,8 @@ import java.util.Iterator;
 import javax.swing.table.DefaultTableModel;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import bean.ChatMessage;
-import bean.ChatMessage.Action;
+import chat.cliente.bean.ChatMessage;
+import chat.cliente.bean.ChatMessage.Action;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
@@ -22,7 +22,7 @@ import java.util.logging.Logger;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
-import service.ClienteService;
+import chat.cliente.service.ClienteService;
 
 /**
  *
@@ -40,7 +40,7 @@ public class FormPrincipal extends javax.swing.JFrame {
     public FormPrincipal() {
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH);
-        // this.popularTabelaVeiculos();
+       //  this.popularTabelaVeiculos();
         pnChat.setVisible(false);
     }
 
@@ -422,6 +422,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         taRecebe.setEditable(false);
         taRecebe.setColumns(20);
         taRecebe.setRows(5);
+        taRecebe.setDoubleBuffered(true);
         taRecebe.setEnabled(false);
         jScrollPane2.setViewportView(taRecebe);
 
@@ -525,7 +526,7 @@ public class FormPrincipal extends javax.swing.JFrame {
                 .addComponent(pnMenus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnChat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(63, Short.MAX_VALUE))
+                .addContainerGap(333, Short.MAX_VALUE))
         );
         pnGeralLayout.setVerticalGroup(
             pnGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -536,12 +537,12 @@ public class FormPrincipal extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnGeralLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(pnChat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(56, 56, 56)))
+                        .addGap(45, 45, 45)))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
         dp.add(pnGeral);
-        pnGeral.setBounds(0, 0, 1200, 640);
+        pnGeral.setBounds(0, 0, 1470, 750);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -646,7 +647,10 @@ public class FormPrincipal extends javax.swing.JFrame {
         sessao = HibernateUtil.getSessionFactory().openSession();
         Transaction t = sessao.beginTransaction();
 
-        Iterator query = sessao.createQuery(" FROM VeiculosTipoeStatus").list().iterator();
+        Iterator query = sessao.createQuery("select v.idveiculo, v.descricao, t.descricao, s.descricao\n" +
+"FROM Veiculo v, Tipoveiculo t, Statusveiculo s\n" +
+"WHERE v.idtipoveiculo=t.idtipo_veiculo\n" +
+"AND s.idstatusveiculo=v.idstatusveiculo").list().iterator();
 
         while (query.hasNext()) {
             Object[] tuple = (Object[]) query.next();
@@ -661,40 +665,6 @@ public class FormPrincipal extends javax.swing.JFrame {
 
     }
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FormPrincipal().setVisible(true);
-            }
-        });
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAbrirChat;
     private javax.swing.JButton btConecta;

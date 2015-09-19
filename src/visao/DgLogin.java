@@ -5,7 +5,6 @@
  */
 package visao;
 
-
 /**
  *
  * @author Daiane
@@ -20,7 +19,7 @@ public class DgLogin extends javax.swing.JDialog {
      */
     public DgLogin() {
         initComponents();
-        
+       
         
     }
 
@@ -128,7 +127,7 @@ public class DgLogin extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btOKActionPerformed
-       
+   
     }//GEN-LAST:event_btOKActionPerformed
 
     private void pfSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pfSenhaActionPerformed
