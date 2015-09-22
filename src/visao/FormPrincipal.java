@@ -11,8 +11,8 @@ import java.util.Iterator;
 import javax.swing.table.DefaultTableModel;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import chat.cliente.bean.ChatMessage;
-import chat.cliente.bean.ChatMessage.Action;
+import bean.ChatMessage;
+import bean.ChatMessage.Action;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
@@ -22,7 +22,7 @@ import java.util.logging.Logger;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
-import chat.cliente.service.ClienteService;
+import service.ClienteService;
 
 /**
  *

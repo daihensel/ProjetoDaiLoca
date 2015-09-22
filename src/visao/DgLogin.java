@@ -5,22 +5,50 @@
  */
 package visao;
 
+
+import conf.HibernateUtil;
+import javax.swing.JOptionPane;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 /**
  *
  * @author Daiane
  */
 public class DgLogin extends javax.swing.JDialog {
-
+    
     String login;
-
 
     /**
      * Creates new form DgCofigurarRelatorio
      */
     public DgLogin() {
         initComponents();
-       
+
         
+    }
+    
+    public boolean validaLogin(String pass, String login) {
+        boolean ok = false;
+        Session sessao = null;
+        
+        sessao = HibernateUtil.getSessionFactory().openSession();
+        Transaction t = sessao.beginTransaction();
+        
+        Query query = (Query) sessao.createQuery("SELECT senha FROM Funcionario WHERE login = ?").setString(0, login);
+     
+        String senha = "";
+        if (query.list().toString().equals("[]")){
+            return ok = false;
+        } else{
+        senha = query.list().get(0).toString();
+        if (pass.equals(senha)) {
+            return ok = true;
+        }
+        }
+        
+        sessao.getTransaction().commit();
+        return ok;
     }
 
     /**
@@ -127,7 +155,18 @@ public class DgLogin extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btOKActionPerformed
-   
+
+        if(tfLogin.getText().trim().length() > 0 && pfSenha.getPassword().length > 0){
+        login = tfLogin.getText();
+        
+        if (validaLogin((new String(pfSenha.getPassword())), login)) {
+            new FormPrincipal().setVisible(true);
+        }else{
+            JOptionPane.showMessageDialog(this, "Dados incorretos!");
+        }
+        }else{
+             JOptionPane.showMessageDialog(this, "Preencha login e senha!");
+        }
     }//GEN-LAST:event_btOKActionPerformed
 
     private void pfSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pfSenhaActionPerformed
@@ -139,11 +178,8 @@ public class DgLogin extends javax.swing.JDialog {
     }//GEN-LAST:event_tfLoginKeyTyped
 
     private void tfLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfLoginActionPerformed
-       this.btOKActionPerformed(evt);
+        this.btOKActionPerformed(evt);
     }//GEN-LAST:event_tfLoginActionPerformed
-
-   
-    
 
     /**
      * @param args the command line arguments

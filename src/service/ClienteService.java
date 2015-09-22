@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package chat.cliente.service;
+package service;
 
-import chat.cliente.bean.ChatMessage;
+import bean.ChatMessage;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
