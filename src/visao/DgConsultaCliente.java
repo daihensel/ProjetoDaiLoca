@@ -7,7 +7,6 @@ package visao;
 
 import conf.HibernateUtil;
 import entidade.Cliente;
-import entidade.Veiculo;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import org.hibernate.Query;
@@ -123,7 +122,7 @@ public class DgConsultaCliente extends javax.swing.JDialog {
 
         for (Cliente clientelin : dadosClientes) {
             tabelaModelo.addRow(new Object[]{
-//                clientelin.get,
+//                clientelin.getDescricao,
 //                clientelin.getMarca(),
 //                clientelin.getAnoFabricacao(),
 //                clientelin.getAnoModelo(),

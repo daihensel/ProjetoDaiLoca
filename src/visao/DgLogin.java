@@ -7,6 +7,8 @@ package visao;
 
 
 import conf.HibernateUtil;
+import entidade.Funcionario;
+import java.util.List;
 import javax.swing.JOptionPane;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -43,6 +45,9 @@ public class DgLogin extends javax.swing.JDialog {
         } else{
         senha = query.list().get(0).toString();
         if (pass.equals(senha)) {
+            
+           
+            
             return ok = true;
         }
         }
@@ -161,6 +166,7 @@ public class DgLogin extends javax.swing.JDialog {
         
         if (validaLogin((new String(pfSenha.getPassword())), login)) {
             new FormPrincipal().setVisible(true);
+            
         }else{
             JOptionPane.showMessageDialog(this, "Dados incorretos!");
         }
