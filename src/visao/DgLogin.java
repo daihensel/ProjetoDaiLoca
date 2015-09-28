@@ -165,8 +165,8 @@ public class DgLogin extends javax.swing.JDialog {
         login = tfLogin.getText();
         
         if (validaLogin((new String(pfSenha.getPassword())), login)) {
-            new FormPrincipal().setVisible(true);
-            
+            new FormPrincipal(login).setVisible(true);
+            this.setVisible(false);
         }else{
             JOptionPane.showMessageDialog(this, "Dados incorretos!");
         }

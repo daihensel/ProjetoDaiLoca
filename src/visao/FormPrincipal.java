@@ -29,25 +29,28 @@ import service.ClienteService;
  * @author Daiane
  */
 public class FormPrincipal extends javax.swing.JFrame {
-
+    
     private Socket socket;
     private ChatMessage message;
     private ClienteService service;
+    private String login;
 
     /**
      * Creates new form Principal
      */
-    public FormPrincipal() {
+    public FormPrincipal(String login) {
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH);
-       //  this.popularTabelaVeiculos();
+        //  this.popularTabelaVeiculos();
         pnChat.setVisible(false);
+        tfNome.setText(login);
+        this.btConectaActionPerformed(null);
     }
-
+    
     private class ListenerSocket implements Runnable {
-
+        
         private ObjectInputStream input;
-
+        
         public ListenerSocket(Socket socket) {
             try {
                 this.input = new ObjectInputStream(socket.getInputStream());
@@ -55,15 +58,15 @@ public class FormPrincipal extends javax.swing.JFrame {
                 Logger.getLogger(FormPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
+        
         @Override
         public void run() {
             ChatMessage message = null;
-
+            
             try {
                 while ((message = (ChatMessage) input.readObject()) != null) {
                     Action action = message.getAction();
-
+                    
                     if (action.equals(Action.CONECT)) {
                         connected(message);
                     } else if (action.equals(Action.DISCONECT)) {
@@ -81,9 +84,9 @@ public class FormPrincipal extends javax.swing.JFrame {
                 Logger.getLogger(FormPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
+        
     }
-
+    
     private void connected(ChatMessage message) {
         if (message.getTexto().equals("NO")) {
             this.tfNome.setText("");
@@ -93,49 +96,49 @@ public class FormPrincipal extends javax.swing.JFrame {
         this.message = message;
         this.btConecta.setEnabled(false);
         this.tfNome.setEnabled(false);
-
+        
         this.btSair.setEnabled(true);
         this.taEnvia.setEnabled(true);
         //this.taRecebe.setEditable(true);
         this.btEnviar.setEnabled(true);
         this.btLimpar.setEnabled(true);
 
-        JOptionPane.showMessageDialog(this, "Conexão realizada com sucesso!");
+        // JOptionPane.showMessageDialog(this, "Conexão realizada com sucesso!");
     }
-
+    
     private void disconnected() {
-
+        
         this.btConecta.setEnabled(true);
         this.tfNome.setEditable(true);
-
+        
         this.btSair.setEnabled(false);
         this.taEnvia.setEnabled(false);
-       // this.taRecebe.setEditable(false);
+        // this.taRecebe.setEditable(false);
         this.btEnviar.setEnabled(false);
         this.btLimpar.setEnabled(false);
-
+        
         taRecebe.setText("");
         taEnvia.setText("");
-
+        
         JOptionPane.showMessageDialog(this, "Você saiu");
-
+        
     }
-
+    
     private void receive(ChatMessage message) {
-
+        
         this.taRecebe.append(message.getNome() + " diz: " + message.getTexto() + "\n");
-
+        
     }
-
+    
     private void refreshOnlines(ChatMessage message) {
-
+        
         Set<String> nomes = message.getSetOnlines();
         nomes.remove(message.getNome());
         String[] array = (String[]) nomes.toArray(new String[nomes.size()]);
         listaOnlines.setListData(array);
         listaOnlines.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         listaOnlines.setLayoutOrientation(JList.VERTICAL);
-
+        
     }
 
     /**
@@ -378,7 +381,14 @@ public class FormPrincipal extends javax.swing.JFrame {
                     .addContainerGap(212, Short.MAX_VALUE)))
         );
 
-        pnConectar.setBorder(javax.swing.BorderFactory.createTitledBorder("Conectar"));
+        pnConectar.setBorder(javax.swing.BorderFactory.createTitledBorder("Conectado no chat como:"));
+
+        tfNome.setEnabled(false);
+        tfNome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfNomeActionPerformed(evt);
+            }
+        });
 
         btConecta.setText("Conecta");
         btConecta.addActionListener(new java.awt.event.ActionListener() {
@@ -501,6 +511,8 @@ public class FormPrincipal extends javax.swing.JFrame {
                 .addContainerGap(44, Short.MAX_VALUE))
         );
 
+        pnConectar.getAccessibleContext().setAccessibleName("Conectado no chat como:");
+
         tbVeiculos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"Ká Sport", "Esportivo", "Disponível"},
@@ -573,27 +585,27 @@ public class FormPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void btConectaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConectaActionPerformed
-       String nome ="";
-        if(tfNome.getText().length() >0){
-            nome = tfNome.getText();
-       } else{
-            JOptionPane.showMessageDialog(this, "Digite um nome para logar no chat!");
-        }
+        String nome = tfNome.getText();
+//        if (tfNome.getText().length() > 0) {
+//            nome = tfNome.getText();
+//        } else {
+//            JOptionPane.showMessageDialog(this, "Digite um nome para logar no chat!");
+//        }
         if (!nome.isEmpty()) {
             this.message = new ChatMessage();
             this.message.setAction(Action.CONECT);
             this.message.setNome(nome);
-
+            
             this.service = new ClienteService();
             this.socket = this.service.connect();
-
+            
             new Thread(new ListenerSocket(socket)).start();
         }
         this.service.send(message);
     }//GEN-LAST:event_btConectaActionPerformed
 
     private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
-
+        
         this.message.setAction(Action.DISCONECT);
         this.service.send(message);
         disconnected();
@@ -606,9 +618,9 @@ public class FormPrincipal extends javax.swing.JFrame {
     private void btEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEnviarActionPerformed
         String textoEnvia = taEnvia.getText();
         String nome = message.getNome();
-
+        
         message = new ChatMessage();
-
+        
         if (listaOnlines.getSelectedIndex() > -1) {
             message.setNome((String) listaOnlines.getSelectedValue());
             message.setAction(Action.SEND_ONE);
@@ -637,21 +649,26 @@ public class FormPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btAbrirChatActionPerformed
 
-    public void popularTabelaVeiculos() {
+    private void tfNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNomeActionPerformed
+        // TODO add your handling code here:
 
+    }//GEN-LAST:event_tfNomeActionPerformed
+    
+    public void popularTabelaVeiculos() {
+        
         DefaultTableModel tabelaModelo = (DefaultTableModel) tbVeiculos.getModel();
         tabelaModelo.setNumRows(0);
-
+        
         Session sessao = null;
-
+        
         sessao = HibernateUtil.getSessionFactory().openSession();
         Transaction t = sessao.beginTransaction();
-
-        Iterator query = sessao.createQuery("select v.idveiculo, v.descricao, t.descricao, s.descricao\n" +
-"FROM Veiculo v, Tipoveiculo t, Statusveiculo s\n" +
-"WHERE v.idtipoveiculo=t.idtipo_veiculo\n" +
-"AND s.idstatusveiculo=v.idstatusveiculo").list().iterator();
-
+        
+        Iterator query = sessao.createQuery("select v.idveiculo, v.descricao, t.descricao, s.descricao\n"
+                + "FROM Veiculo v, Tipoveiculo t, Statusveiculo s\n"
+                + "WHERE v.idtipoveiculo=t.idtipo_veiculo\n"
+                + "AND s.idstatusveiculo=v.idstatusveiculo").list().iterator();
+        
         while (query.hasNext()) {
             Object[] tuple = (Object[]) query.next();
             Veiculo idveiculo = (Veiculo) tuple[0]; //id
@@ -660,9 +677,9 @@ public class FormPrincipal extends javax.swing.JFrame {
             Veiculo descricaos = (Veiculo) tuple[3]; //desc status
             tabelaModelo.addRow(tuple);
         }
-
+        
         sessao.getTransaction().commit();
-
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
