@@ -35,16 +35,19 @@ public class Log implements java.io.Serializable {
     private Date dtHora;
     @Column(name = "tipo_acao", nullable = false, length = 45)
     private String tipoAcao;
-
+@Column(name="tabela", nullable=false, length=45)
+	private String tabela;
+	
     public Log() {
     }
 
-    public Log(int idlog, Pessoa pessoa, String descricao, Date dtHora, String tipoAcao) {
-        this.idlog = idlog;
-        this.pessoa = pessoa;
-        this.descricao = descricao;
-        this.dtHora = dtHora;
-        this.tipoAcao = tipoAcao;
+    public Log(int idlog, Pessoa pessoa, String descricao, Date dtHora, String tipoAcao, String tabela) {
+       this.idlog = idlog;
+       this.pessoa = pessoa;
+       this.descricao = descricao;
+       this.dtHora = dtHora;
+       this.tipoAcao = tipoAcao;
+       this.tabela = tabela;
     }
 
     public int getIdlog() {
@@ -86,4 +89,13 @@ public class Log implements java.io.Serializable {
     public void setTipoAcao(String tipoAcao) {
         this.tipoAcao = tipoAcao;
     }
+	
+	public String getTabela() {
+        return this.tabela;
+    }
+    
+    public void setTabela(String tabela) {
+        this.tabela = tabela;
+    }
+	
 }

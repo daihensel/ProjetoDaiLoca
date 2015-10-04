@@ -3,25 +3,19 @@
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <!-- Generated 04/10/2015 19:28:28 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="entidade.Funcao" table="funcao" schema="public" optimistic-lock="version">
-        <id name="idfuncao" type="int">
-            <column name="idfuncao" />
+    <class name="entidade.Tela" table="tela" schema="public" optimistic-lock="version">
+        <id name="idtela" type="int">
+            <column name="idtela" />
             <generator class="increment" />
         </id>
         <property name="descricao" type="string">
-            <column name="descricao" length="45" not-null="true" />
+            <column name="descricao" length="200" />
         </property>
         <set name="permissaos" table="permissao" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="idfuncao" />
+                <column name="idtela" not-null="true" />
             </key>
             <one-to-many class="entidade.Permissao" />
-        </set>
-        <set name="funcionarios" table="funcionario" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="funcao_idfuncao" not-null="true" />
-            </key>
-            <one-to-many class="entidade.Funcionario" />
         </set>
     </class>
 </hibernate-mapping>

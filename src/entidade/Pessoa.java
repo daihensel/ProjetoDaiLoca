@@ -43,6 +43,16 @@ public class Pessoa implements java.io.Serializable {
     private Funcionario funcionario;
     @OneToMany(fetch=FetchType.LAZY, mappedBy="pessoa")
     private Set<Log> logs = new HashSet(0);
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="pessoa")
+	private Set<Permissao> permissaos = new HashSet(0);
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="pessoa")
+private Set<Auditoria> auditorias = new HashSet(0);
+@ManyToMany(fetch=FetchType.LAZY)
+    @JoinTable(name="contato_pessoa", schema="public", joinColumns = { 
+        @JoinColumn(name="pessoa_idpessoa", nullable=false, updatable=false) }, inverseJoinColumns = { 
+        @JoinColumn(name="contato_idcontato", nullable=false, updatable=false) })
+  
+private Set contatos = new HashSet(0);
 
     public Pessoa() {
     }
@@ -53,15 +63,19 @@ public class Pessoa implements java.io.Serializable {
         this.nome = nome;
     }
 
-     public Pessoa(int idpessoa, entidade.Endereco endereco, String nome, entidade.Cliente cliente, Pessoajuridica pessoajuridica, Set logs, Pessoafisica pessoafisica, entidade.Funcionario funcionario) {
+  
+         public Pessoa(int idpessoa, Endereco endereco, String nome, Cliente cliente, Pessoajuridica pessoajuridica, Set logs, Set contatos, Pessoafisica pessoafisica, Set permissaos, Funcionario funcionario, Set auditorias) {
        this.idpessoa = idpessoa;
        this.endereco = endereco;
        this.nome = nome;
        this.cliente = cliente;
        this.pessoajuridica = pessoajuridica;
        this.logs = logs;
+       this.contatos = contatos;
        this.pessoafisica = pessoafisica;
+       this.permissaos = permissaos;
        this.funcionario = funcionario;
+       this.auditorias = auditorias;
     }
 
     public int getIdpessoa() {
@@ -128,4 +142,30 @@ public class Pessoa implements java.io.Serializable {
     public void setLogs(Set logs) {
         this.logs = logs;
     }
+	
+	 public Set getAuditorias() {
+        return this.auditorias;
+    }
+    
+    public void setAuditorias(Set auditorias) {
+        this.auditorias = auditorias;
+    }
+
+	   public Set getContatos() {
+        return this.contatos;
+    }
+    
+    public void setContatos(Set contatos) {
+        this.contatos = contatos;
+    }
+	
+	 public Set getPermissaos() {
+        return this.permissaos;
+    }
+    
+    public void setPermissaos(Set permissaos) {
+        this.permissaos = permissaos;
+    }
+	
+	
 }

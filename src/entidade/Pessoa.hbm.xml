@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 05/09/2015 16:25:39 by Hibernate Tools 4.3.1 -->
+<!-- Generated 04/10/2015 19:28:28 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="entidade.Pessoa" table="pessoa" schema="public" optimistic-lock="version">
         <id name="idpessoa" type="int">
@@ -22,7 +22,27 @@
             </key>
             <one-to-many class="entidade.Log" />
         </set>
+        <set name="contatos" table="contato_pessoa" inverse="false" lazy="true" fetch="select">
+            <key>
+                <column name="pessoa_idpessoa" not-null="true" />
+            </key>
+            <many-to-many entity-name="entidade.Contato">
+                <column name="contato_idcontato" not-null="true" />
+            </many-to-many>
+        </set>
         <one-to-one name="pessoafisica" class="entidade.Pessoafisica"></one-to-one>
+        <set name="permissaos" table="permissao" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idpessoa" />
+            </key>
+            <one-to-many class="entidade.Permissao" />
+        </set>
         <one-to-one name="funcionario" class="entidade.Funcionario"></one-to-one>
+        <set name="auditorias" table="auditoria" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="pessoa_idpessoa" not-null="true" />
+            </key>
+            <one-to-many class="entidade.Auditoria" />
+        </set>
     </class>
 </hibernate-mapping>

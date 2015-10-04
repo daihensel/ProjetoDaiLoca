@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 04/10/2015 19:28:28 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="entidade.Permissao" table="permissao" schema="public" optimistic-lock="version">
+        <id name="idpermissao" type="int">
+            <column name="idpermissao" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="funcao" class="entidade.Funcao" fetch="select">
+            <column name="idfuncao" />
+        </many-to-one>
+        <many-to-one name="pessoa" class="entidade.Pessoa" fetch="select">
+            <column name="idpessoa" />
+        </many-to-one>
+        <many-to-one name="tela" class="entidade.Tela" fetch="select">
+            <column name="idtela" not-null="true" />
+        </many-to-one>
+        <property name="ler" type="boolean">
+            <column name="ler" not-null="true" />
+        </property>
+        <property name="inserir" type="boolean">
+            <column name="inserir" not-null="true" />
+        </property>
+        <property name="editar" type="boolean">
+            <column name="editar" not-null="true" />
+        </property>
+        <property name="inativar" type="boolean">
+            <column name="inativar" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

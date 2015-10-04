@@ -41,7 +41,7 @@ public class FormPrincipal extends javax.swing.JFrame {
     public FormPrincipal(String login) {
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH);
-        //  this.popularTabelaVeiculos();
+          this.popularTabelaVeiculos();
         pnChat.setVisible(false);
         tfNome.setText(login);
         this.btConectaActionPerformed(null);
@@ -664,11 +664,12 @@ public class FormPrincipal extends javax.swing.JFrame {
         sessao = HibernateUtil.getSessionFactory().openSession();
         Transaction t = sessao.beginTransaction();
         
-        Iterator query = sessao.createQuery("select v.idveiculo, v.descricao, t.descricao, s.descricao\n"
-                + "FROM Veiculo v, Tipoveiculo t, Statusveiculo s\n"
-                + "WHERE v.idtipoveiculo=t.idtipo_veiculo\n"
-                + "AND s.idstatusveiculo=v.idstatusveiculo").list().iterator();
+//        Iterator query = sessao.createQuery("select v.idveiculo, v.descricao, t.descricao, s.descricao\n"
+//                + "FROM Veiculo v, Tipoveiculo t, Statusveiculo s\n"
+//                + "WHERE v.tipoveiculo=t.tipoveiculo\n"
+//                + "AND s.statusveiculo=v.statusveiculo").list().iterator();
         
+         Iterator query = sessao.createQuery(" from veiculostipoestatus").list().iterator();
         while (query.hasNext()) {
             Object[] tuple = (Object[]) query.next();
             Veiculo idveiculo = (Veiculo) tuple[0]; //id
