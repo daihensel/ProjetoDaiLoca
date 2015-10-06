@@ -28,7 +28,7 @@ public class Funcao implements java.io.Serializable {
     @OneToMany(fetch=FetchType.LAZY, mappedBy="funcao")
     private Set<Funcionario> funcionarios = new HashSet(0);
     @OneToMany(fetch=FetchType.LAZY, mappedBy="funcao")
-	 private Set permissaos = new HashSet(0);
+	 private Set<Permissao> permissaos = new HashSet(0);
 	
     public Funcao() {
     }

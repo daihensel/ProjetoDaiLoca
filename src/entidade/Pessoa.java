@@ -52,7 +52,7 @@ private Set<Auditoria> auditorias = new HashSet(0);
         @JoinColumn(name="pessoa_idpessoa", nullable=false, updatable=false) }, inverseJoinColumns = { 
         @JoinColumn(name="contato_idcontato", nullable=false, updatable=false) })
   
-private Set contatos = new HashSet(0);
+private Set<Contato> contatos = new HashSet(0);
 
     public Pessoa() {
     }

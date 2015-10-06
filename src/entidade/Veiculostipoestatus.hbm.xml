@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 05/09/2015 16:25:39 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Veiculostipoestatus" table="Veiculostipoestatus" schema="public" optimistic-lock="version">
+        <id name="idveiculo" type="int">
+            <column name="idveiculo" />
+            <generator class="increment" />
+        </id>
+        <property name="descricaoveiculo" type="string">
+            <column name="descricaoveiculo" length="45" not-null="true" />
+        </property>
+        <property name="descricaotipo" type="string">
+            <column name="descricaotipo" length="45" not-null="true" />
+        </property>
+        <property name="descricaostatus" type="string">
+            <column name="descricaostatus" length="45" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

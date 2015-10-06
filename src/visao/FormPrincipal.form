@@ -414,9 +414,6 @@
                       </Border>
                     </Property>
                   </Properties>
-                  <AccessibilityProperties>
-                    <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Conectado no chat como:"/>
-                  </AccessibilityProperties>
 
                   <Layout>
                     <DimensionLayout dim="0">
@@ -592,7 +589,7 @@
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="3" rowCount="6">
-                        <Column editable="true" title="" type="java.lang.Object">
+                        <Column editable="true" title="Ve&#xed;culo" type="java.lang.Object">
                           <Data value="K&#xe1; Sport"/>
                           <Data value="Corolla"/>
                           <Data value="Camaro"/>
@@ -600,7 +597,7 @@
                           <Data value="Novo Fusion"/>
                           <Data value="Ranger"/>
                         </Column>
-                        <Column editable="true" title="" type="java.lang.Object">
+                        <Column editable="true" title="Tipo" type="java.lang.Object">
                           <Data value="Esportivo"/>
                           <Data value="Executivo"/>
                           <Data value="Esportivo"/>
@@ -608,7 +605,7 @@
                           <Data value="Executivo Luxo"/>
                           <Data value="4x4 Especial"/>
                         </Column>
-                        <Column editable="true" title="" type="java.lang.Object">
+                        <Column editable="true" title="Status" type="java.lang.Object">
                           <Data value="Dispon&#xed;vel"/>
                           <Data value="Locado"/>
                           <Data value="Dispon&#xed;vel"/>

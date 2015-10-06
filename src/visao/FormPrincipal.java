@@ -5,23 +5,24 @@
 package visao;
 
 import conf.HibernateUtil;
-import entidade.Veiculo;
 import static java.awt.Frame.MAXIMIZED_BOTH;
-import java.util.Iterator;
 import javax.swing.table.DefaultTableModel;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import bean.ChatMessage;
 import bean.ChatMessage.Action;
+import entidade.Veiculostipoestatus;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
+import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
+import org.hibernate.Query;
 import service.ClienteService;
 
 /**
@@ -511,8 +512,6 @@ public class FormPrincipal extends javax.swing.JFrame {
                 .addContainerGap(44, Short.MAX_VALUE))
         );
 
-        pnConectar.getAccessibleContext().setAccessibleName("Conectado no chat como:");
-
         tbVeiculos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"Ká Sport", "Esportivo", "Disponível"},
@@ -523,7 +522,7 @@ public class FormPrincipal extends javax.swing.JFrame {
                 {"Ranger", "4x4 Especial", "Disponível"}
             },
             new String [] {
-                "", "", ""
+                "Veículo", "Tipo", "Status"
             }
         ));
         jScrollPane1.setViewportView(tbVeiculos);
@@ -655,7 +654,7 @@ public class FormPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_tfNomeActionPerformed
     
     public void popularTabelaVeiculos() {
-        
+       // try{
         DefaultTableModel tabelaModelo = (DefaultTableModel) tbVeiculos.getModel();
         tabelaModelo.setNumRows(0);
         
@@ -669,18 +668,31 @@ public class FormPrincipal extends javax.swing.JFrame {
 //                + "WHERE v.tipoveiculo=t.tipoveiculo\n"
 //                + "AND s.statusveiculo=v.statusveiculo").list().iterator();
         
-         Iterator query = sessao.createQuery(" from veiculostipoestatus").list().iterator();
-        while (query.hasNext()) {
-            Object[] tuple = (Object[]) query.next();
-            Veiculo idveiculo = (Veiculo) tuple[0]; //id
-            Veiculo descricaov = (Veiculo) tuple[1]; //desc veiculo
-            Veiculo descricaot = (Veiculo) tuple[2]; //desc tipo
-            Veiculo descricaos = (Veiculo) tuple[3]; //desc status
-            tabelaModelo.addRow(tuple);
+//         Iterator query = sessao.createQuery(" from Veiculostipoestatus").list().iterator();
+//        while (query.hasNext()) {
+//            Object[] tuple = (Object[]) query.next();
+//            Veiculostipoestatus idveiculo = (Veiculostipoestatus) tuple[0]; //id
+//            Veiculostipoestatus descricaov = (Veiculostipoestatus) tuple[1]; //desc veiculo
+//            Veiculostipoestatus descricaot = (Veiculostipoestatus) tuple[2]; //desc tipo
+//            Veiculostipoestatus descricaos = (Veiculostipoestatus) tuple[3]; //desc status
+//            tabelaModelo.addRow(tuple);
+//        }
+        
+        Query query = (Query) sessao.createQuery(" FROM Veiculostipoestatus");
+        List<Veiculostipoestatus> dadosVTS = (List<Veiculostipoestatus>) query.list();
+        
+        for (Veiculostipoestatus v : dadosVTS) {
+           tabelaModelo.addRow(new Object[]{
+              //  v.getIdveiculo(),
+                v.getDescricaoVeiculo(),
+                v.getDescricaoTipo(),
+                v.getDescricaoStatus(),          });
         }
         
         sessao.getTransaction().commit();
-        
+//        } catch (Exception e) {
+//            System.out.println("erro ao chamar view: " + e);
+//        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

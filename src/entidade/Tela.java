@@ -27,7 +27,7 @@ public class Tela implements java.io.Serializable {
     @Column(name = "descricao", length = 200)
     private String descricao;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "tela")
-    private Set permissaos = new HashSet(0);
+    private Set<Permissao> permissaos = new HashSet(0);
 
     public Tela() {
     }
