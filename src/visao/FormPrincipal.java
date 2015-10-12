@@ -63,17 +63,17 @@ public class FormPrincipal extends javax.swing.JFrame {
         @Override
         public void run() {
             ChatMessage message = null;
-            
             try {
                 while ((message = (ChatMessage) input.readObject()) != null) {
                     Action action = message.getAction();
-                    
-                    if (action.equals(Action.CONECT)) {
+
+                    if (action.equals(Action.CONNECT)) {
                         connected(message);
-                    } else if (action.equals(Action.DISCONECT)) {
+                    } else if (action.equals(Action.DISCONNECT)) {
                         disconnected();
                         socket.close();
                     } else if (action.equals(Action.SEND_ONE)) {
+                        System.out.println("::: " + message.getTexto() + " :::");
                         receive(message);
                     } else if (action.equals(Action.USERS_ONLINE)) {
                         refreshOnlines(message);
@@ -592,7 +592,7 @@ public class FormPrincipal extends javax.swing.JFrame {
 //        }
         if (!nome.isEmpty()) {
             this.message = new ChatMessage();
-            this.message.setAction(Action.CONECT);
+            this.message.setAction(Action.CONNECT);
             this.message.setNome(nome);
             
             this.service = new ClienteService();
@@ -605,7 +605,7 @@ public class FormPrincipal extends javax.swing.JFrame {
 
     private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
         
-        this.message.setAction(Action.DISCONECT);
+        this.message.setAction(Action.DISCONNECT);
         this.service.send(message);
         disconnected();
     }//GEN-LAST:event_btSairActionPerformed
