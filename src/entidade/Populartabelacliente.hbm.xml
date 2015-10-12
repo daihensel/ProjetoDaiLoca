@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 05/09/2015 16:25:39 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Populartabelacliente" table="Populartabelacliente" schema="public" optimistic-lock="version">
+        <id name="idpessoa" type="int">
+            <column name="idpessoa" />
+            <generator class="increment" />
+        </id>
+        <property name="nome" type="string">
+            <column name="nome" length="45" not-null="true" />
+        </property>
+        <property name="rg" type="string">
+            <column name="rg" length="45" not-null="true" />
+        </property>
+        <property name="cpf" type="string">
+            <column name="cpf" length="45" not-null="true" />
+        </property>
+        <property name="descricaocontato" type="string">
+            <column name="descricaocontato" length="60" not-null="true" />
+        </property>
+        <property name="descricaoendereco" type="string">
+            <column name="descricaoendereco" length="45" not-null="true" />
+        </property>
+        <property name="bairro" type="string">
+            <column name="bairro" length="45" not-null="true" />
+        </property>
+        <property name="descricaocidade" type="string">
+            <column name="descricaocidade" length="45" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

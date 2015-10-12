@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 05/09/2015 16:25:39 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Contatopessoas" table="Contatopessoas" schema="public" optimistic-lock="version">
+        <id name="idpessoa" type="int">
+            <column name="idpessoa" />
+            <generator class="increment" />
+        </id>
+         <property name="nomepessoa" type="string">
+            <column name="nomepessoa" length="45" not-null="true" />
+        </property>
+		<property name="descricaotipocontato" type="string">
+            <column name="descricaotipocontato" length="60" not-null="true" />
+        </property>
+        <property name="descricaocontato" type="string">
+            <column name="descricaocontato" length="60" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>
