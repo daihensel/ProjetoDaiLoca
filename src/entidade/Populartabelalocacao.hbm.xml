@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 05/09/2015 16:25:39 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Populartabelalocacao" table="Populartabelalocacao" schema="public" optimistic-lock="version">
+        <id name="idlocacao" type="int">
+            <column name="idlocacao" />
+            <generator class="increment" />
+        </id>
+       <property name="nomecliente" type="string">
+            <column name="nomecliente" length="45" not-null="true" />
+        </property>
+		 <property name="rg" type="string">
+            <column name="rg" length="45" not-null="true" />
+        </property>
+        <property name="cpf" type="string">
+            <column name="cpf" length="45" not-null="true" />
+        </property>
+		<property name="telefone" type="string">
+            <column name="telefone" length="60" not-null="true" />
+        </property>
+        <property name="dtLocacao" type="date">
+            <column name="dt_locacao" length="13" not-null="true" />
+        </property>
+        <property name="dias" type="int">
+            <column name="dias" not-null="true" />
+        </property>
+        <property name="valorTotal" type="big_decimal">
+            <column name="valor_total" precision="11" not-null="true" />
+        </property>
+        <property name="num_parcelas" type="int">
+            <column name="num_parcelas" not-null="true" />
+        </property>
+         <property name="descricaoveiculo" type="string">
+            <column name="descricaoveiculo" length="45" not-null="true" />
+        </property>
+        <property name="descricaotipoveiculo" type="string">
+            <column name="descricaotipoveiculo" length="45" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

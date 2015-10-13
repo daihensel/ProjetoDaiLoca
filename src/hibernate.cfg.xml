@@ -38,5 +38,7 @@
         <mapping class="entidade.Populartabelafuncionario"/>
         <mapping class="entidade.Populartabelaveiculo"/>
         <mapping class="entidade.Veiculosstatus"/>
+        <mapping class="entidade.Populartabelareserva"/>
+        <mapping class="entidade.Populartabelalocacao"/>
     </session-factory>
 </hibernate-configuration>
