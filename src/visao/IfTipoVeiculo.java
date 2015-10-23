@@ -329,8 +329,7 @@ public class IfTipoVeiculo extends javax.swing.JPanel {
             tipoveiculo.setValorDiaria(bigDecimal);
             tipoveiculo.setObservacoes(taObservacoes.getText());
             tipoveiculo.setEspecificacoes(taEspecificacoes.getText());
-                       
-
+             
             sessao.save(tipoveiculo);
             t.commit();
 
