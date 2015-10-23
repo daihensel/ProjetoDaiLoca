@@ -7,6 +7,7 @@ package visao;
 
 import conf.HibernateUtil;
 import entidade.Tipoveiculo;
+import java.math.BigDecimal;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -324,7 +325,11 @@ public class IfTipoVeiculo extends javax.swing.JPanel {
             Tipoveiculo tipoveiculo = new Tipoveiculo();
           
             tipoveiculo.setDescricao(tfdescricao.getText());
-            tipoveiculo.setValorDiaria(tfValorDia.getText());
+            BigDecimal bigDecimal = new BigDecimal(tfValorDia.getText());
+            tipoveiculo.setValorDiaria(bigDecimal);
+            tipoveiculo.setObservacoes(taObservacoes.getText());
+            tipoveiculo.setEspecificacoes(taEspecificacoes.getText());
+                       
 
             sessao.save(tipoveiculo);
             t.commit();
