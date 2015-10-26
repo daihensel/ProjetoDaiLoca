@@ -11,11 +11,6 @@
         <property name="descricao" type="string">
             <column name="descricao" length="200" />
         </property>
-        <set name="permissaos" table="permissao" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="idtela" not-null="true" />
-            </key>
-            <one-to-many class="entidade.Permissao" />
-        </set>
+       
     </class>
 </hibernate-mapping>

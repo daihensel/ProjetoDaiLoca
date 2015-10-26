@@ -11,12 +11,7 @@
         <property name="descricao" type="string">
             <column name="descricao" length="45" not-null="true" />
         </property>
-        <set name="permissaos" table="permissao" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="idfuncao" />
-            </key>
-            <one-to-many class="entidade.Permissao" />
-        </set>
+        
         <set name="funcionarios" table="funcionario" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="funcao_idfuncao" not-null="true" />

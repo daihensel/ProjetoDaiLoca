@@ -7,8 +7,6 @@ package visao;
 
 
 import conf.HibernateUtil;
-import entidade.Funcionario;
-import java.util.List;
 import javax.swing.JOptionPane;
 import org.hibernate.Query;
 import org.hibernate.Session;

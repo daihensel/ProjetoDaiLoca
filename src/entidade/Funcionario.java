@@ -31,7 +31,7 @@ public class Funcionario implements java.io.Serializable {
     @Id
     @GenericGenerator(name = "generator", strategy = "foreign", parameters =
     @Parameter(name = "property", value = "pessoa"))
-    @Column(name = "pessoaIdpessoa")
+    @Column(name = "pessoa_idpessoa")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int pessoaIdpessoa;
     @ManyToOne(fetch = FetchType.LAZY)

@@ -26,8 +26,8 @@ public class Tela implements java.io.Serializable {
     private int idtela;
     @Column(name = "descricao", length = 200)
     private String descricao;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "tela")
-    private Set<Permissao> permissaos = new HashSet(0);
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "tela")
+//    private Set<Permissao> permissaos = new HashSet(0);
 
     public Tela() {
     }
@@ -36,11 +36,11 @@ public class Tela implements java.io.Serializable {
         this.idtela = idtela;
     }
 
-    public Tela(int idtela, String descricao, Set permissaos) {
-        this.idtela = idtela;
-        this.descricao = descricao;
-        this.permissaos = permissaos;
-    }
+//    public Tela(int idtela, String descricao, Set permissaos) {
+//        this.idtela = idtela;
+//        this.descricao = descricao;
+//        this.permissaos = permissaos;
+//    }
 
     public int getIdtela() {
         return this.idtela;
@@ -58,12 +58,12 @@ public class Tela implements java.io.Serializable {
         this.descricao = descricao;
     }
 
-    public Set getPermissaos() {
-        return this.permissaos;
-    }
-
-    public void setPermissaos(Set permissaos) {
-        this.permissaos = permissaos;
-    }
+//    public Set getPermissaos() {
+//        return this.permissaos;
+//    }
+//
+//    public void setPermissaos(Set permissaos) {
+//        this.permissaos = permissaos;
+//    }
 
 }

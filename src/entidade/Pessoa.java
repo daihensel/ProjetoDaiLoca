@@ -43,8 +43,8 @@ public class Pessoa implements java.io.Serializable {
     private Funcionario funcionario;
     @OneToMany(fetch=FetchType.LAZY, mappedBy="pessoa")
     private Set<Log> logs = new HashSet(0);
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="pessoa")
-	private Set<Permissao> permissaos = new HashSet(0);
+//	@OneToMany(fetch=FetchType.LAZY, mappedBy="pessoa")
+//	private Set<Permissao> permissaos = new HashSet(0);
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="pessoa")
 private Set<Auditoria> auditorias = new HashSet(0);
 @ManyToMany(fetch=FetchType.LAZY)
@@ -64,19 +64,19 @@ private Set<Contato> contatos = new HashSet(0);
     }
 
   
-         public Pessoa(int idpessoa, Endereco endereco, String nome, Cliente cliente, Pessoajuridica pessoajuridica, Set logs, Set contatos, Pessoafisica pessoafisica, Set permissaos, Funcionario funcionario, Set auditorias) {
-       this.idpessoa = idpessoa;
-       this.endereco = endereco;
-       this.nome = nome;
-       this.cliente = cliente;
-       this.pessoajuridica = pessoajuridica;
-       this.logs = logs;
-       this.contatos = contatos;
-       this.pessoafisica = pessoafisica;
-       this.permissaos = permissaos;
-       this.funcionario = funcionario;
-       this.auditorias = auditorias;
-    }
+//         public Pessoa(int idpessoa, Endereco endereco, String nome, Cliente cliente, Pessoajuridica pessoajuridica, Set logs, Set contatos, Pessoafisica pessoafisica, Set permissaos, Funcionario funcionario, Set auditorias) {
+//       this.idpessoa = idpessoa;
+//       this.endereco = endereco;
+//       this.nome = nome;
+//       this.cliente = cliente;
+//       this.pessoajuridica = pessoajuridica;
+//       this.logs = logs;
+//       this.contatos = contatos;
+//       this.pessoafisica = pessoafisica;
+//       this.permissaos = permissaos;
+//       this.funcionario = funcionario;
+//       this.auditorias = auditorias;
+//    }
 
     public int getIdpessoa() {
         return this.idpessoa;
@@ -158,14 +158,14 @@ private Set<Contato> contatos = new HashSet(0);
     public void setContatos(Set contatos) {
         this.contatos = contatos;
     }
-	
-	 public Set getPermissaos() {
-        return this.permissaos;
-    }
-    
-    public void setPermissaos(Set permissaos) {
-        this.permissaos = permissaos;
-    }
+//	
+//	 public Set getPermissaos() {
+//        return this.permissaos;
+//    }
+//    
+//    public void setPermissaos(Set permissaos) {
+//        this.permissaos = permissaos;
+//    }
 	
 	
 }

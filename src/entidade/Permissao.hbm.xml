@@ -8,15 +8,15 @@
             <column name="idpermissao" />
             <generator class="increment" />
         </id>
-        <many-to-one name="funcao" class="entidade.Funcao" fetch="select">
+        <property name="idfuncao" class="entidade.Funcao" fetch="select">
             <column name="idfuncao" />
-        </many-to-one>
-        <many-to-one name="pessoa" class="entidade.Pessoa" fetch="select">
+        </property>
+        <property name="idpessoa" class="entidade.Pessoa" fetch="select">
             <column name="idpessoa" />
-        </many-to-one>
-        <many-to-one name="tela" class="entidade.Tela" fetch="select">
+        </property>
+        <property name="idtela" class="entidade.Tela" fetch="select">
             <column name="idtela" not-null="true" />
-        </many-to-one>
+        </property>
         <property name="ler" type="boolean">
             <column name="ler" not-null="true" />
         </property>

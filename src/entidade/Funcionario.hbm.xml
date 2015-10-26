@@ -4,8 +4,8 @@
 <!-- Generated 05/09/2015 16:25:39 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="entidade.Funcionario" table="funcionario" schema="public" optimistic-lock="version">
-        <id name="pessoaIdpessoa" type="int">
-            <column name="pessoa_idpessoa" />
+        <id name="pessoa_idpessoa" type="int">
+            <column name="pessoaIdpessoa" />
             <generator class="foreign">
                 <param name="property">pessoa</param>
             </generator>

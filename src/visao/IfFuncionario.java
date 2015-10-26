@@ -6,9 +6,15 @@
 package visao;
 
 import conf.Formatacao;
+import conf.HibernateUtil;
 import conf.Validacao;
-
-
+import entidade.Permissao;
+import java.util.Iterator;
+import java.util.List;
+import javax.swing.JButton;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *
@@ -16,15 +22,53 @@ import conf.Validacao;
  */
 public class IfFuncionario extends javax.swing.JInternalFrame {
 
-   
-
     /**
      * Creates new form IfmVeiculo
      */
-    public IfFuncionario() {
-     
-        Formatacao.reformatarRG(tfRG);
-        Formatacao.reformatarCEP(tfCEP);
+    public IfFuncionario(String login) {
+         initComponents();
+        String nomeTela = "Funcionario";
+       permit(btNovo,btSalvar,btEditar,login,nomeTela);
+       
+
+               
+       Formatacao.reformatarRG(tfRG);
+       Formatacao.reformatarCEP(tfCEP);
+    }
+    
+    public void permit(JButton novo, JButton salvar, JButton editar, String login, String nomeTela){
+        
+
+        Session sessao = null;
+
+        sessao = HibernateUtil.getSessionFactory().openSession();
+        Transaction t = sessao.beginTransaction();
+
+        Iterator qr = sessao.createQuery("select pe.ler,pe.inserir, pe.editar,"
+                + "pe.inativar from Permissao pe, Pessoa p, Funcionario f, Tela t\n"
+                + "WHERE p.idpessoa=pe.idpessoa\n"
+                + "AND p.idpessoa=f.pessoaIdpessoa\n"
+                + "AND pe.idtela=t.idtela\n"
+                + "AND f.login LIKE '" + login + "'\n"
+                + "AND t.descricao LIKE '" + nomeTela + "' ").list().iterator();
+
+        while (qr.hasNext()) {
+            Object[] tuple = (Object[]) qr.next();
+            Boolean l = (boolean) tuple[0];
+            System.out.println("tuple0:"+tuple[0]);
+            if(l==false){
+                this.setVisible(l);
+                dispose();
+            }
+            Boolean i = (boolean) tuple[1];
+            novo.setEnabled(i);
+            salvar.setEnabled(i);
+            Boolean e = (boolean) tuple[2];
+            editar.setEnabled(e);
+        }
+
+        sessao.getTransaction().commit();
+
     }
 
     /**
@@ -539,7 +583,7 @@ public class IfFuncionario extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
-       
+
     }//GEN-LAST:event_btSalvarActionPerformed
 
     private void btFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFecharActionPerformed
@@ -547,15 +591,15 @@ public class IfFuncionario extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btFecharActionPerformed
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-      
+
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void tfBuscaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfBuscaKeyReleased
-        
+
     }//GEN-LAST:event_tfBuscaKeyReleased
 
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
-       
+
 
     }//GEN-LAST:event_btNovoActionPerformed
 
@@ -568,11 +612,11 @@ public class IfFuncionario extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jPanel2FocusGained
 
     private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
-        
+
     }//GEN-LAST:event_jTabbedPane1StateChanged
 
     private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
-        
+
 
     }//GEN-LAST:event_btEditarActionPerformed
 
@@ -588,8 +632,8 @@ public class IfFuncionario extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tfRGKeyTyped
 
     private void cbEstadoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbEstadoItemStateChanged
-        
-        
+
+
     }//GEN-LAST:event_cbEstadoItemStateChanged
 
     private void tfNumCTPSKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfNumCTPSKeyTyped

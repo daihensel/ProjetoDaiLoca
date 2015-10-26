@@ -31,12 +31,7 @@
             </many-to-many>
         </set>
         <one-to-one name="pessoafisica" class="entidade.Pessoafisica"></one-to-one>
-        <set name="permissaos" table="permissao" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="idpessoa" />
-            </key>
-            <one-to-many class="entidade.Permissao" />
-        </set>
+        
         <one-to-one name="funcionario" class="entidade.Funcionario"></one-to-one>
         <set name="auditorias" table="auditoria" inverse="true" lazy="true" fetch="select">
             <key>
