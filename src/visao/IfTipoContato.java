@@ -15,7 +15,7 @@ import org.hibernate.Transaction;
  *
  * @author dbatista
  */
-public class IfTipoContato extends javax.swing.JFrame {
+public class IfTipoContato extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form TipoContato
