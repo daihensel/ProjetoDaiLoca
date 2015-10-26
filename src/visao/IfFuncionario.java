@@ -7,8 +7,10 @@ package visao;
 
 import conf.Formatacao;
 import conf.HibernateUtil;
+import conf.Utility;
 import conf.Validacao;
 import entidade.Permissao;
+import static java.awt.im.InputContext.getInstance;
 import java.util.Iterator;
 import java.util.List;
 import javax.swing.JButton;
@@ -26,49 +28,13 @@ public class IfFuncionario extends javax.swing.JInternalFrame {
      * Creates new form IfmVeiculo
      */
     public IfFuncionario(String login) {
-         initComponents();
+        initComponents();
         String nomeTela = "Funcionario";
-       permit(btNovo,btSalvar,btEditar,login,nomeTela);
-       
-
-               
-       Formatacao.reformatarRG(tfRG);
-       Formatacao.reformatarCEP(tfCEP);
-    }
-    
-    public void permit(JButton novo, JButton salvar, JButton editar, String login, String nomeTela){
+        Utility.permit(btNovo, btSalvar, btEditar, this, login, nomeTela);
         
-
-        Session sessao = null;
-
-        sessao = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = sessao.beginTransaction();
-
-        Iterator qr = sessao.createQuery("select pe.ler,pe.inserir, pe.editar,"
-                + "pe.inativar from Permissao pe, Pessoa p, Funcionario f, Tela t\n"
-                + "WHERE p.idpessoa=pe.idpessoa\n"
-                + "AND p.idpessoa=f.pessoaIdpessoa\n"
-                + "AND pe.idtela=t.idtela\n"
-                + "AND f.login LIKE '" + login + "'\n"
-                + "AND t.descricao LIKE '" + nomeTela + "' ").list().iterator();
-
-        while (qr.hasNext()) {
-            Object[] tuple = (Object[]) qr.next();
-            Boolean l = (boolean) tuple[0];
-            System.out.println("tuple0:"+tuple[0]);
-            if(l==false){
-                this.setVisible(l);
-                dispose();
-            }
-            Boolean i = (boolean) tuple[1];
-            novo.setEnabled(i);
-            salvar.setEnabled(i);
-            Boolean e = (boolean) tuple[2];
-            editar.setEnabled(e);
-        }
-
-        sessao.getTransaction().commit();
-
+        habilitaCampos(false);
+        Formatacao.reformatarRG(tfRG);
+        Formatacao.reformatarCEP(tfCEP);
     }
 
     /**
@@ -599,7 +565,7 @@ public class IfFuncionario extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tfBuscaKeyReleased
 
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
-
+        habilitaCampos(true);
 
     }//GEN-LAST:event_btNovoActionPerformed
 
@@ -665,6 +631,29 @@ public class IfFuncionario extends javax.swing.JInternalFrame {
     private void pfSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pfSenhaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_pfSenhaActionPerformed
+
+    private void habilitaCampos(Boolean tf) {
+        tfNome.setEnabled(tf);
+        tfNumCTPS.setEnabled(tf);
+        tfSerieCTPS.setEnabled(tf);
+        cbFuncao.setEnabled(tf);
+        cbFuncao.setSelectedIndex(0);
+        tfLogin.setEnabled(tf);
+        pfSenha.setEnabled(tf);
+        tfDataAdmissao.setEnabled(tf);
+        tfDataDemissao.setEnabled(tf);
+        tfTelefone1.setEnabled(tf);
+        tfTelefone2.setEnabled(tf);
+        tfEmail.setEnabled(tf);
+        tfRG.setEnabled(tf);
+        tfCPF.setEnabled(tf);
+        tfEndereco.setEnabled(tf);
+        tfBairro.setEnabled(tf);
+        tfCEP.setEnabled(tf);
+        tfCidade.setEnabled(tf);
+        cbEstado.setEnabled(tf);
+
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

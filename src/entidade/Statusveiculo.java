@@ -25,8 +25,8 @@ public class Statusveiculo implements java.io.Serializable {
     private int idstatusveiculo;
     @Column(name = "descricao", nullable = false, length = 100)
     private String descricao;
-    @OneToMany(fetch=FetchType.LAZY, mappedBy="statusveiculo")
-    private Set<Veiculo> veiculos = new HashSet(0);
+//    @OneToMany(fetch=FetchType.LAZY, mappedBy="statusveiculo")
+//    private Set<Veiculo> veiculos = new HashSet(0);
  
 
     public Statusveiculo() {
@@ -38,11 +38,11 @@ public class Statusveiculo implements java.io.Serializable {
         
     }
 
-     public Statusveiculo(int idstatusveiculo, String descricao, Set veiculos) {
-       this.idstatusveiculo = idstatusveiculo;
-       this.descricao = descricao;
-       this.veiculos = veiculos;
-    }
+//     public Statusveiculo(int idstatusveiculo, String descricao, Set veiculos) {
+//       this.idstatusveiculo = idstatusveiculo;
+//       this.descricao = descricao;
+//       this.veiculos = veiculos;
+//    }
 
     public int getIdstatusVeiculo() {
         return this.idstatusveiculo;
@@ -61,13 +61,13 @@ public class Statusveiculo implements java.io.Serializable {
     }
     
     
-    public Set getVeiculos() {
-        return this.veiculos;
-    }
-    
-    public void setVeiculos(Set veiculos) {
-        this.veiculos = veiculos;
-    }
+//    public Set getVeiculos() {
+//        return this.veiculos;
+//    }
+//    
+//    public void setVeiculos(Set veiculos) {
+//        this.veiculos = veiculos;
+//    }
 
 
 }

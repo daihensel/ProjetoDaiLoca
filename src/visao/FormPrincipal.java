@@ -11,6 +11,8 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import bean.ChatMessage;
 import bean.ChatMessage.Action;
+import com.sun.jmx.mbeanserver.Util;
+import conf.Utility;
 import entidade.Veiculostipoestatus;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -21,6 +23,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import org.hibernate.Query;
 import service.ClienteService;
@@ -43,7 +46,15 @@ public class FormPrincipal extends javax.swing.JFrame {
     public FormPrincipal(String login) {
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH);
-        this.popularTabelaVeiculos();
+        Utility.popularTabelaVeiculos(tbVeiculos);
+        lbDisponiveis.setText(Utility.somaVeiculos(1));
+        lbReservados.setText(Utility.somaVeiculos(2));
+        lbLocados.setText(Utility.somaVeiculos(3));
+        lbManutencao.setText(Utility.somaVeiculos(4));
+        lbTotal.setText(String.valueOf(Integer.parseInt(lbDisponiveis.getText())
+                +Integer.parseInt(lbReservados.getText())
+        +Integer.parseInt(lbLocados.getText())
+        +Integer.parseInt(lbManutencao.getText())));
         pnChat.setVisible(false);
         tfNome.setText(login);
         this.btConectaActionPerformed(null);
@@ -166,15 +177,15 @@ public class FormPrincipal extends javax.swing.JFrame {
         pnTotais = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        lbDisponiveis = new javax.swing.JLabel();
+        lbManutencao = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        lbReservados = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        lbLocados = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
+        lbTotal = new javax.swing.JLabel();
         pnLogados = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         listaOnlines = new javax.swing.JList();
@@ -192,7 +203,6 @@ public class FormPrincipal extends javax.swing.JFrame {
         taEnvia = new javax.swing.JTextArea();
         btLimpar = new javax.swing.JButton();
         btEnviar = new javax.swing.JButton();
-        jCheckBox1 = new javax.swing.JCheckBox();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbVeiculos = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -235,23 +245,23 @@ public class FormPrincipal extends javax.swing.JFrame {
 
         jLabel2.setText("Disponíveis:");
 
-        jLabel3.setText("5");
+        lbDisponiveis.setText("5");
 
-        jLabel4.setText("1");
+        lbManutencao.setText("1");
 
         jLabel5.setText("Em manutenção:");
 
-        jLabel6.setText("10");
+        lbReservados.setText("10");
 
         jLabel7.setText("Reservados:");
 
-        jLabel8.setText("9");
+        lbLocados.setText("9");
 
         jLabel9.setText("Locados:");
 
         jLabel10.setText("Total:");
 
-        jLabel11.setText("25");
+        lbTotal.setText("25");
 
         javax.swing.GroupLayout pnTotaisLayout = new javax.swing.GroupLayout(pnTotais);
         pnTotais.setLayout(pnTotaisLayout);
@@ -266,30 +276,30 @@ public class FormPrincipal extends javax.swing.JFrame {
                         .addGap(31, 31, 31)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel3))
+                        .addComponent(lbDisponiveis))
                     .addGroup(pnTotaisLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(pnTotaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(pnTotaisLayout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel4))
-                            .addGroup(pnTotaisLayout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel8))))
+                                .addComponent(lbManutencao))
+                            .addGroup(pnTotaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(pnTotaisLayout.createSequentialGroup()
+                                    .addGap(10, 10, 10)
+                                    .addComponent(jLabel10)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(lbTotal))
+                                .addGroup(pnTotaisLayout.createSequentialGroup()
+                                    .addComponent(jLabel9)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(lbLocados)))))
                     .addGroup(pnTotaisLayout.createSequentialGroup()
                         .addGap(28, 28, 28)
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel6)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnTotaisLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel11)
-                .addGap(48, 48, 48))
+                        .addComponent(lbReservados)))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
         pnTotaisLayout.setVerticalGroup(
             pnTotaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -299,23 +309,23 @@ public class FormPrincipal extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(pnTotaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel3))
+                    .addComponent(lbDisponiveis))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnTotaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jLabel4))
+                    .addComponent(lbManutencao))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnTotaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jLabel6))
+                    .addComponent(lbReservados))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnTotaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(jLabel8))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                    .addComponent(lbLocados))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pnTotaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(jLabel11))
+                    .addComponent(lbTotal))
                 .addGap(21, 21, 21))
         );
 
@@ -343,7 +353,7 @@ public class FormPrincipal extends javax.swing.JFrame {
             .addGroup(pnLogadosLayout.createSequentialGroup()
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btAbrirChat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(btAbrirChat, javax.swing.GroupLayout.PREFERRED_SIZE, 62, Short.MAX_VALUE))
         );
 
         jButton2.setText("Nova Devolução");
@@ -366,8 +376,8 @@ public class FormPrincipal extends javax.swing.JFrame {
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
                     .addComponent(jButton7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnLogados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnTotais, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(pnTotais, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnLogados, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         pnMenusLayout.setVerticalGroup(
@@ -379,17 +389,18 @@ public class FormPrincipal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pnLogados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnTotais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(pnTotais, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(55, Short.MAX_VALUE))
         );
 
         pnConectar.setBorder(javax.swing.BorderFactory.createTitledBorder("Conectado no chat como:"));
@@ -468,8 +479,6 @@ public class FormPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jCheckBox1.setText("Enter para enviar");
-
         javax.swing.GroupLayout pnConversaLayout = new javax.swing.GroupLayout(pnConversa);
         pnConversa.setLayout(pnConversaLayout);
         pnConversaLayout.setHorizontalGroup(
@@ -480,8 +489,7 @@ public class FormPrincipal extends javax.swing.JFrame {
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnConversaLayout.createSequentialGroup()
-                        .addComponent(jCheckBox1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btLimpar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btEnviar)))
@@ -497,8 +505,7 @@ public class FormPrincipal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnConversaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btLimpar)
-                    .addComponent(btEnviar)
-                    .addComponent(jCheckBox1))
+                    .addComponent(btEnviar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -524,11 +531,6 @@ public class FormPrincipal extends javax.swing.JFrame {
 
         tbVeiculos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Ká Sport", "Esportivo", "Disponível"},
-                {"Corolla", "Executivo", "Locado"},
-                {"Camaro", "Esportivo", "Disponível"},
-                {"Novo Uno", "Econônico", "Reservado"},
-                {"Novo Fusion", "Executivo Luxo", "Disponível"},
                 {"Ranger", "4x4 Especial", "Disponível"}
             },
             new String [] {
@@ -733,51 +735,12 @@ public class FormPrincipal extends javax.swing.JFrame {
        IfFuncionario janela = new IfFuncionario(login);
         System.out.println("login é:"+login);
        dp.add(janela);
+       if (Utility.permitLer(login,"Funcionario") == true) {
        janela.setVisible(true);
+       }
      
     }//GEN-LAST:event_jMenuItem4ActionPerformed
     
-    public void popularTabelaVeiculos() {
-       // try{
-        DefaultTableModel tabelaModelo = (DefaultTableModel) tbVeiculos.getModel();
-        tabelaModelo.setNumRows(0);
-        
-        Session sessao = null;
-        
-        sessao = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = sessao.beginTransaction();
-        
-//        Iterator query = sessao.createQuery("select v.idveiculo, v.descricao, t.descricao, s.descricao\n"
-//                + "FROM Veiculo v, Tipoveiculo t, Statusveiculo s\n"
-//                + "WHERE v.tipoveiculo=t.tipoveiculo\n"
-//                + "AND s.statusveiculo=v.statusveiculo").list().iterator();
-        
-//         Iterator query = sessao.createQuery(" from Veiculostipoestatus").list().iterator();
-//        while (query.hasNext()) {
-//            Object[] tuple = (Object[]) query.next();
-//            Veiculostipoestatus idveiculo = (Veiculostipoestatus) tuple[0]; //id
-//            Veiculostipoestatus descricaov = (Veiculostipoestatus) tuple[1]; //desc veiculo
-//            Veiculostipoestatus descricaot = (Veiculostipoestatus) tuple[2]; //desc tipo
-//            Veiculostipoestatus descricaos = (Veiculostipoestatus) tuple[3]; //desc status
-//            tabelaModelo.addRow(tuple);
-//        }
-        
-        Query query = (Query) sessao.createQuery(" FROM Veiculostipoestatus");
-        List<Veiculostipoestatus> dadosVTS = (List<Veiculostipoestatus>) query.list();
-        
-        for (Veiculostipoestatus v : dadosVTS) {
-           tabelaModelo.addRow(new Object[]{
-              //  v.getIdveiculo(),
-                v.getDescricaoVeiculo(),
-                v.getDescricaoTipo(),
-                v.getDescricaoStatus(),          });
-        }
-        
-        sessao.getTransaction().commit();
-//        } catch (Exception e) {
-//            System.out.println("erro ao chamar view: " + e);
-//        }
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAbrirChat;
@@ -793,17 +756,11 @@ public class FormPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -819,6 +776,11 @@ public class FormPrincipal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JLabel lbDisponiveis;
+    private javax.swing.JLabel lbLocados;
+    private javax.swing.JLabel lbManutencao;
+    private javax.swing.JLabel lbReservados;
+    private javax.swing.JLabel lbTotal;
     private javax.swing.JList listaOnlines;
     private javax.swing.JPanel pnChat;
     private javax.swing.JPanel pnConectar;
