@@ -22,8 +22,8 @@ public class CriarTriggers {
     private final String nome_procedure = "auditar";
 
     public CriarTriggers() {
-    //    deletarProcedure();
-    //    criarProcedure();
+        deletarProcedure();
+        criarProcedure();
         criarTriggersNoBanco();
     }
 

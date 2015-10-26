@@ -12,6 +12,7 @@ import org.hibernate.Transaction;
 import bean.ChatMessage;
 import bean.ChatMessage.Action;
 import com.sun.jmx.mbeanserver.Util;
+import conf.CriarTriggers;
 import conf.Utility;
 import entidade.Veiculostipoestatus;
 import java.io.IOException;
@@ -60,6 +61,9 @@ public class FormPrincipal extends javax.swing.JFrame {
         this.btConectaActionPerformed(null);
         this.login=login;
         logger.info("Logado");
+        
+        
+        
     }
     
     private class ListenerSocket implements Runnable {
@@ -732,9 +736,8 @@ public class FormPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-   
         IfTipoVeiculo janela = new IfTipoVeiculo();
-        // janela.setSize(600, 610);
+        janela.setSize(590, 430);
         dp.add(janela);
         janela.setVisible(true);
       

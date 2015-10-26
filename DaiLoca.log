@@ -38,4 +38,367 @@ org.hibernate.annotations.common.Version 2015-10-26 19:50:58,641 -- INFO -- HCAN
  org.hibernate.hql.internal.ast.HqlSqlWalker 2015-10-26 19:54:04,446 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 54.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
  org.hibernate.hql.internal.ast.HqlSqlWalker 2015-10-26 19:54:04,852 -- WARN -- [DEPRECATION] Encountered positional parameter near line 3, column 25.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
  visao.FormPrincipal 2015-10-26 19:54:05,008 -- INFO -- Logado 
+ org.hibernate.annotations.common.Version 2015-10-26 20:05:50,506 -- INFO -- HCANN000001: Hibernate Commons Annotations {4.0.4.Final} 
+ org.hibernate.Version 2015-10-26 20:05:50,522 -- INFO -- HHH000412: Hibernate Core {4.3.1.Final} 
+ org.hibernate.cfg.Environment 2015-10-26 20:05:50,544 -- INFO -- HHH000206: hibernate.properties not found 
+ org.hibernate.cfg.Environment 2015-10-26 20:05:50,546 -- INFO -- HHH000021: Bytecode provider name : javassist 
+ org.hibernate.cfg.Configuration 2015-10-26 20:05:50,559 -- INFO -- HHH000043: Configuring from resource: /hibernate.cfg.xml 
+ org.hibernate.cfg.Configuration 2015-10-26 20:05:50,574 -- INFO -- HHH000040: Configuration resource: /hibernate.cfg.xml 
+ org.hibernate.internal.util.xml.DTDEntityResolver 2015-10-26 20:05:50,625 -- WARN -- HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide! 
+ org.hibernate.cfg.Configuration 2015-10-26 20:05:50,695 -- INFO -- HHH000041: Configured SessionFactory: null 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-10-26 20:05:50,827 -- WARN -- HHH000402: Using Hibernate built-in connection pool (not for production use!) 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-10-26 20:05:50,842 -- INFO -- HHH000401: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5432/ProjetoDaiLoca] 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-10-26 20:05:50,842 -- INFO -- HHH000046: Connection properties: {user=postgres, password=****} 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-10-26 20:05:50,842 -- INFO -- HHH000006: Autocommit mode: false 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-10-26 20:05:50,842 -- INFO -- HHH000115: Hibernate connection pool size: 20 (min=1) 
+ org.hibernate.dialect.Dialect 2015-10-26 20:05:51,326 -- INFO -- HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect 
+ org.hibernate.engine.jdbc.internal.LobCreatorBuilder 2015-10-26 20:05:51,342 -- INFO -- HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException 
+ org.hibernate.engine.transaction.internal.TransactionFactoryInitiator 2015-10-26 20:05:51,707 -- INFO -- HHH000399: Using default transaction strategy (direct JDBC transactions) 
+ org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory 2015-10-26 20:05:51,707 -- INFO -- HHH000397: Using ASTQueryTranslatorFactory 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-10-26 20:05:52,787 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 54.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-10-26 20:05:53,228 -- WARN -- [DEPRECATION] Encountered positional parameter near line 3, column 25.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ visao.FormPrincipal 2015-10-26 20:05:53,409 -- INFO -- Logado 
+ org.hibernate.annotations.common.Version 2015-10-26 20:11:57,728 -- INFO -- HCANN000001: Hibernate Commons Annotations {4.0.4.Final} 
+ org.hibernate.Version 2015-10-26 20:11:57,741 -- INFO -- HHH000412: Hibernate Core {4.3.1.Final} 
+ org.hibernate.cfg.Environment 2015-10-26 20:11:57,745 -- INFO -- HHH000206: hibernate.properties not found 
+ org.hibernate.cfg.Environment 2015-10-26 20:11:57,747 -- INFO -- HHH000021: Bytecode provider name : javassist 
+ org.hibernate.cfg.Configuration 2015-10-26 20:11:57,779 -- INFO -- HHH000043: Configuring from resource: /hibernate.cfg.xml 
+ org.hibernate.cfg.Configuration 2015-10-26 20:11:57,780 -- INFO -- HHH000040: Configuration resource: /hibernate.cfg.xml 
+ org.hibernate.internal.util.xml.DTDEntityResolver 2015-10-26 20:11:57,849 -- WARN -- HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide! 
+ org.hibernate.cfg.Configuration 2015-10-26 20:11:57,905 -- INFO -- HHH000041: Configured SessionFactory: null 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-10-26 20:11:58,040 -- WARN -- HHH000402: Using Hibernate built-in connection pool (not for production use!) 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-10-26 20:11:58,048 -- INFO -- HHH000401: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5432/ProjetoDaiLoca] 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-10-26 20:11:58,049 -- INFO -- HHH000046: Connection properties: {user=postgres, password=****} 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-10-26 20:11:58,050 -- INFO -- HHH000006: Autocommit mode: false 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-10-26 20:11:58,052 -- INFO -- HHH000115: Hibernate connection pool size: 20 (min=1) 
+ org.hibernate.dialect.Dialect 2015-10-26 20:11:58,485 -- INFO -- HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect 
+ org.hibernate.engine.jdbc.internal.LobCreatorBuilder 2015-10-26 20:11:58,500 -- INFO -- HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException 
+ org.hibernate.engine.transaction.internal.TransactionFactoryInitiator 2015-10-26 20:11:58,865 -- INFO -- HHH000399: Using default transaction strategy (direct JDBC transactions) 
+ org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory 2015-10-26 20:11:58,871 -- INFO -- HHH000397: Using ASTQueryTranslatorFactory 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-10-26 20:11:59,935 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 54.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-10-26 20:12:00,533 -- WARN -- [DEPRECATION] Encountered positional parameter near line 3, column 25.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ visao.FormPrincipal 2015-10-26 20:12:00,699 -- INFO -- Logado 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:10,214 -- WARN -- SQL Error: 0, SQLState: 42601 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:10,215 -- ERROR -- ERRO: erro de sintaxe em ou próximo a "BEGIN"
+  Posição: 84 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:10,288 -- WARN -- SQL Error: 0, SQLState: 42601 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:10,288 -- ERROR -- ERRO: erro de sintaxe em ou próximo a "BEGIN"
+  Posição: 96 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:10,339 -- WARN -- SQL Error: 0, SQLState: 42601 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:10,339 -- ERROR -- ERRO: erro de sintaxe em ou próximo a "BEGIN"
+  Posição: 80 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:10,389 -- WARN -- SQL Error: 0, SQLState: 42601 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:10,389 -- ERROR -- ERRO: erro de sintaxe em ou próximo a "BEGIN"
+  Posição: 62 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:10,455 -- WARN -- SQL Error: 0, SQLState: 42601 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:10,455 -- ERROR -- ERRO: erro de sintaxe em ou próximo a "BEGIN"
+  Posição: 90 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:10,507 -- WARN -- SQL Error: 0, SQLState: 42601 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:10,507 -- ERROR -- ERRO: erro de sintaxe em ou próximo a "BEGIN"
+  Posição: 68 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:10,573 -- WARN -- SQL Error: 0, SQLState: 42601 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:10,573 -- ERROR -- ERRO: erro de sintaxe em ou próximo a "BEGIN"
+  Posição: 84 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:10,643 -- WARN -- SQL Error: 0, SQLState: 42601 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:10,644 -- ERROR -- ERRO: erro de sintaxe em ou próximo a "BEGIN"
+  Posição: 76 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:10,739 -- WARN -- SQL Error: 0, SQLState: 42601 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:10,739 -- ERROR -- ERRO: erro de sintaxe em ou próximo a "BEGIN"
+  Posição: 102 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:10,791 -- WARN -- SQL Error: 0, SQLState: 42601 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:10,791 -- ERROR -- ERRO: erro de sintaxe em ou próximo a "BEGIN"
+  Posição: 104 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:10,857 -- WARN -- SQL Error: 0, SQLState: 42601 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:10,857 -- ERROR -- ERRO: erro de sintaxe em ou próximo a "BEGIN"
+  Posição: 96 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:10,917 -- WARN -- SQL Error: 0, SQLState: 42601 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:10,918 -- ERROR -- ERRO: erro de sintaxe em ou próximo a "BEGIN"
+  Posição: 84 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:10,970 -- WARN -- SQL Error: 0, SQLState: 42601 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:10,970 -- ERROR -- ERRO: erro de sintaxe em ou próximo a "BEGIN"
+  Posição: 94 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:11,006 -- WARN -- SQL Error: 0, SQLState: 42601 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:11,006 -- ERROR -- ERRO: erro de sintaxe em ou próximo a "BEGIN"
+  Posição: 74 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:11,074 -- WARN -- SQL Error: 0, SQLState: 42601 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:11,074 -- ERROR -- ERRO: erro de sintaxe em ou próximo a "BEGIN"
+  Posição: 68 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:11,121 -- WARN -- SQL Error: 0, SQLState: 42601 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:11,121 -- ERROR -- ERRO: erro de sintaxe em ou próximo a "BEGIN"
+  Posição: 82 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:11,188 -- WARN -- SQL Error: 0, SQLState: 42601 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:11,188 -- ERROR -- ERRO: erro de sintaxe em ou próximo a "BEGIN"
+  Posição: 64 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:11,244 -- WARN -- SQL Error: 0, SQLState: 42601 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:11,260 -- ERROR -- ERRO: erro de sintaxe em ou próximo a "BEGIN"
+  Posição: 78 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:11,309 -- WARN -- SQL Error: 0, SQLState: 42601 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:11,309 -- ERROR -- ERRO: erro de sintaxe em ou próximo a "BEGIN"
+  Posição: 68 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:11,361 -- WARN -- SQL Error: 0, SQLState: 42601 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:11,362 -- ERROR -- ERRO: erro de sintaxe em ou próximo a "BEGIN"
+  Posição: 70 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:11,423 -- WARN -- SQL Error: 0, SQLState: 42601 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:11,423 -- ERROR -- ERRO: erro de sintaxe em ou próximo a "BEGIN"
+  Posição: 70 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:11,506 -- WARN -- SQL Error: 0, SQLState: 42601 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:11,506 -- ERROR -- ERRO: erro de sintaxe em ou próximo a "BEGIN"
+  Posição: 84 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:11,555 -- WARN -- SQL Error: 0, SQLState: 42601 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:11,556 -- ERROR -- ERRO: erro de sintaxe em ou próximo a "BEGIN"
+  Posição: 78 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:11,594 -- WARN -- SQL Error: 0, SQLState: 42601 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:11,594 -- ERROR -- ERRO: erro de sintaxe em ou próximo a "BEGIN"
+  Posição: 70 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:11,643 -- WARN -- SQL Error: 0, SQLState: 42601 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:11,659 -- ERROR -- ERRO: erro de sintaxe em ou próximo a "BEGIN"
+  Posição: 74 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:11,707 -- WARN -- SQL Error: 0, SQLState: 42601 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:11,707 -- ERROR -- ERRO: erro de sintaxe em ou próximo a "BEGIN"
+  Posição: 76 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:11,757 -- WARN -- SQL Error: 0, SQLState: 42601 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:11,757 -- ERROR -- ERRO: erro de sintaxe em ou próximo a "BEGIN"
+  Posição: 68 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:11,804 -- WARN -- SQL Error: 0, SQLState: 42601 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:11,804 -- ERROR -- ERRO: erro de sintaxe em ou próximo a "BEGIN"
+  Posição: 70 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:11,857 -- WARN -- SQL Error: 0, SQLState: 42601 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:11,857 -- ERROR -- ERRO: erro de sintaxe em ou próximo a "BEGIN"
+  Posição: 78 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:11,923 -- WARN -- SQL Error: 0, SQLState: 42601 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:11,923 -- ERROR -- ERRO: erro de sintaxe em ou próximo a "BEGIN"
+  Posição: 70 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:11,974 -- WARN -- SQL Error: 0, SQLState: 42601 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:11,974 -- ERROR -- ERRO: erro de sintaxe em ou próximo a "BEGIN"
+  Posição: 96 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:12,039 -- WARN -- SQL Error: 0, SQLState: 42601 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:12,040 -- ERROR -- ERRO: erro de sintaxe em ou próximo a "BEGIN"
+  Posição: 96 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:12,089 -- WARN -- SQL Error: 0, SQLState: 42601 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:12,089 -- ERROR -- ERRO: erro de sintaxe em ou próximo a "BEGIN"
+  Posição: 74 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:12,139 -- WARN -- SQL Error: 0, SQLState: 42601 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 20:12:12,155 -- ERROR -- ERRO: erro de sintaxe em ou próximo a "BEGIN"
+  Posição: 72 
+ org.hibernate.annotations.common.Version 2015-10-26 20:26:00,332 -- INFO -- HCANN000001: Hibernate Commons Annotations {4.0.4.Final} 
+ org.hibernate.Version 2015-10-26 20:26:00,347 -- INFO -- HHH000412: Hibernate Core {4.3.1.Final} 
+ org.hibernate.cfg.Environment 2015-10-26 20:26:00,347 -- INFO -- HHH000206: hibernate.properties not found 
+ org.hibernate.cfg.Environment 2015-10-26 20:26:00,347 -- INFO -- HHH000021: Bytecode provider name : javassist 
+ org.hibernate.cfg.Configuration 2015-10-26 20:26:00,379 -- INFO -- HHH000043: Configuring from resource: /hibernate.cfg.xml 
+ org.hibernate.cfg.Configuration 2015-10-26 20:26:00,379 -- INFO -- HHH000040: Configuration resource: /hibernate.cfg.xml 
+ org.hibernate.internal.util.xml.DTDEntityResolver 2015-10-26 20:26:00,441 -- WARN -- HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide! 
+ org.hibernate.cfg.Configuration 2015-10-26 20:26:00,488 -- INFO -- HHH000041: Configured SessionFactory: null 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-10-26 20:26:00,613 -- WARN -- HHH000402: Using Hibernate built-in connection pool (not for production use!) 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-10-26 20:26:00,613 -- INFO -- HHH000401: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5432/ProjetoDaiLoca] 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-10-26 20:26:00,613 -- INFO -- HHH000046: Connection properties: {user=postgres, password=****} 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-10-26 20:26:00,613 -- INFO -- HHH000006: Autocommit mode: false 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-10-26 20:26:00,628 -- INFO -- HHH000115: Hibernate connection pool size: 20 (min=1) 
+ org.hibernate.dialect.Dialect 2015-10-26 20:26:01,036 -- INFO -- HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect 
+ org.hibernate.engine.jdbc.internal.LobCreatorBuilder 2015-10-26 20:26:01,051 -- INFO -- HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException 
+ org.hibernate.engine.transaction.internal.TransactionFactoryInitiator 2015-10-26 20:26:01,449 -- INFO -- HHH000399: Using default transaction strategy (direct JDBC transactions) 
+ org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory 2015-10-26 20:26:01,464 -- INFO -- HHH000397: Using ASTQueryTranslatorFactory 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-10-26 20:26:02,469 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 54.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-10-26 20:26:02,859 -- WARN -- [DEPRECATION] Encountered positional parameter near line 3, column 25.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ visao.FormPrincipal 2015-10-26 20:26:03,030 -- INFO -- Logado 
+ org.hibernate.annotations.common.Version 2015-10-26 20:27:13,137 -- INFO -- HCANN000001: Hibernate Commons Annotations {4.0.4.Final} 
+ org.hibernate.Version 2015-10-26 20:27:13,152 -- INFO -- HHH000412: Hibernate Core {4.3.1.Final} 
+ org.hibernate.cfg.Environment 2015-10-26 20:27:13,152 -- INFO -- HHH000206: hibernate.properties not found 
+ org.hibernate.cfg.Environment 2015-10-26 20:27:13,152 -- INFO -- HHH000021: Bytecode provider name : javassist 
+ org.hibernate.cfg.Configuration 2015-10-26 20:27:13,183 -- INFO -- HHH000043: Configuring from resource: /hibernate.cfg.xml 
+ org.hibernate.cfg.Configuration 2015-10-26 20:27:13,183 -- INFO -- HHH000040: Configuration resource: /hibernate.cfg.xml 
+ org.hibernate.internal.util.xml.DTDEntityResolver 2015-10-26 20:27:13,246 -- WARN -- HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide! 
+ org.hibernate.cfg.Configuration 2015-10-26 20:27:13,293 -- INFO -- HHH000041: Configured SessionFactory: null 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-10-26 20:27:13,406 -- WARN -- HHH000402: Using Hibernate built-in connection pool (not for production use!) 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-10-26 20:27:13,421 -- INFO -- HHH000401: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5432/ProjetoDaiLoca] 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-10-26 20:27:13,421 -- INFO -- HHH000046: Connection properties: {user=postgres, password=****} 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-10-26 20:27:13,421 -- INFO -- HHH000006: Autocommit mode: false 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-10-26 20:27:13,421 -- INFO -- HHH000115: Hibernate connection pool size: 20 (min=1) 
+ org.hibernate.dialect.Dialect 2015-10-26 20:27:13,987 -- INFO -- HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect 
+ org.hibernate.engine.jdbc.internal.LobCreatorBuilder 2015-10-26 20:27:14,003 -- INFO -- HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException 
+ org.hibernate.engine.transaction.internal.TransactionFactoryInitiator 2015-10-26 20:27:14,346 -- INFO -- HHH000399: Using default transaction strategy (direct JDBC transactions) 
+ org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory 2015-10-26 20:27:14,361 -- INFO -- HHH000397: Using ASTQueryTranslatorFactory 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-10-26 20:27:15,363 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 54.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-10-26 20:27:15,779 -- WARN -- [DEPRECATION] Encountered positional parameter near line 3, column 25.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ visao.FormPrincipal 2015-10-26 20:27:15,966 -- INFO -- Logado 
+ org.hibernate.annotations.common.Version 2015-10-26 20:36:56,432 -- INFO -- HCANN000001: Hibernate Commons Annotations {4.0.4.Final} 
+ org.hibernate.Version 2015-10-26 20:36:56,447 -- INFO -- HHH000412: Hibernate Core {4.3.1.Final} 
+ org.hibernate.cfg.Environment 2015-10-26 20:36:56,447 -- INFO -- HHH000206: hibernate.properties not found 
+ org.hibernate.cfg.Environment 2015-10-26 20:36:56,447 -- INFO -- HHH000021: Bytecode provider name : javassist 
+ org.hibernate.cfg.Configuration 2015-10-26 20:36:56,463 -- INFO -- HHH000043: Configuring from resource: /hibernate.cfg.xml 
+ org.hibernate.cfg.Configuration 2015-10-26 20:36:56,478 -- INFO -- HHH000040: Configuration resource: /hibernate.cfg.xml 
+ org.hibernate.internal.util.xml.DTDEntityResolver 2015-10-26 20:36:56,541 -- WARN -- HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide! 
+ org.hibernate.cfg.Configuration 2015-10-26 20:36:56,588 -- INFO -- HHH000041: Configured SessionFactory: null 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-10-26 20:36:56,697 -- WARN -- HHH000402: Using Hibernate built-in connection pool (not for production use!) 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-10-26 20:36:56,712 -- INFO -- HHH000401: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5432/ProjetoDaiLoca] 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-10-26 20:36:56,712 -- INFO -- HHH000046: Connection properties: {user=postgres, password=****} 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-10-26 20:36:56,712 -- INFO -- HHH000006: Autocommit mode: false 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-10-26 20:36:56,712 -- INFO -- HHH000115: Hibernate connection pool size: 20 (min=1) 
+ org.hibernate.dialect.Dialect 2015-10-26 20:36:57,134 -- INFO -- HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect 
+ org.hibernate.engine.jdbc.internal.LobCreatorBuilder 2015-10-26 20:36:57,149 -- INFO -- HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException 
+ org.hibernate.engine.transaction.internal.TransactionFactoryInitiator 2015-10-26 20:36:57,475 -- INFO -- HHH000399: Using default transaction strategy (direct JDBC transactions) 
+ org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory 2015-10-26 20:36:57,475 -- INFO -- HHH000397: Using ASTQueryTranslatorFactory 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-10-26 20:36:58,458 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 54.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-10-26 20:36:58,864 -- WARN -- [DEPRECATION] Encountered positional parameter near line 3, column 25.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ visao.FormPrincipal 2015-10-26 20:36:59,020 -- INFO -- Logado 
+ org.hibernate.annotations.common.Version 2015-10-26 20:43:50,777 -- INFO -- HCANN000001: Hibernate Commons Annotations {4.0.4.Final} 
+ org.hibernate.Version 2015-10-26 20:43:50,777 -- INFO -- HHH000412: Hibernate Core {4.3.1.Final} 
+ org.hibernate.cfg.Environment 2015-10-26 20:43:50,792 -- INFO -- HHH000206: hibernate.properties not found 
+ org.hibernate.cfg.Environment 2015-10-26 20:43:50,792 -- INFO -- HHH000021: Bytecode provider name : javassist 
+ org.hibernate.cfg.Configuration 2015-10-26 20:43:50,823 -- INFO -- HHH000043: Configuring from resource: /hibernate.cfg.xml 
+ org.hibernate.cfg.Configuration 2015-10-26 20:43:50,823 -- INFO -- HHH000040: Configuration resource: /hibernate.cfg.xml 
+ org.hibernate.internal.util.xml.DTDEntityResolver 2015-10-26 20:43:50,901 -- WARN -- HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide! 
+ org.hibernate.cfg.Configuration 2015-10-26 20:43:50,979 -- INFO -- HHH000041: Configured SessionFactory: null 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-10-26 20:43:51,120 -- WARN -- HHH000402: Using Hibernate built-in connection pool (not for production use!) 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-10-26 20:43:51,135 -- INFO -- HHH000401: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5432/ProjetoDaiLoca] 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-10-26 20:43:51,135 -- INFO -- HHH000046: Connection properties: {user=postgres, password=****} 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-10-26 20:43:51,135 -- INFO -- HHH000006: Autocommit mode: false 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-10-26 20:43:51,135 -- INFO -- HHH000115: Hibernate connection pool size: 20 (min=1) 
+ org.hibernate.dialect.Dialect 2015-10-26 20:43:51,704 -- INFO -- HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect 
+ org.hibernate.engine.jdbc.internal.LobCreatorBuilder 2015-10-26 20:43:51,720 -- INFO -- HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException 
+ org.hibernate.engine.transaction.internal.TransactionFactoryInitiator 2015-10-26 20:43:52,195 -- INFO -- HHH000399: Using default transaction strategy (direct JDBC transactions) 
+ org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory 2015-10-26 20:43:52,210 -- INFO -- HHH000397: Using ASTQueryTranslatorFactory 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-10-26 20:43:53,396 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 54.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-10-26 20:43:54,166 -- WARN -- [DEPRECATION] Encountered positional parameter near line 3, column 25.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ visao.FormPrincipal 2015-10-26 20:43:54,338 -- INFO -- Logado 
+ org.hibernate.annotations.common.Version 2015-10-26 20:58:59,279 -- INFO -- HCANN000001: Hibernate Commons Annotations {4.0.4.Final} 
+ org.hibernate.Version 2015-10-26 20:58:59,294 -- INFO -- HHH000412: Hibernate Core {4.3.1.Final} 
+ org.hibernate.cfg.Environment 2015-10-26 20:58:59,294 -- INFO -- HHH000206: hibernate.properties not found 
+ org.hibernate.cfg.Environment 2015-10-26 20:58:59,310 -- INFO -- HHH000021: Bytecode provider name : javassist 
+ org.hibernate.cfg.Configuration 2015-10-26 20:58:59,341 -- INFO -- HHH000043: Configuring from resource: /hibernate.cfg.xml 
+ org.hibernate.cfg.Configuration 2015-10-26 20:58:59,341 -- INFO -- HHH000040: Configuration resource: /hibernate.cfg.xml 
+ org.hibernate.internal.util.xml.DTDEntityResolver 2015-10-26 20:58:59,403 -- WARN -- HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide! 
+ org.hibernate.cfg.Configuration 2015-10-26 20:58:59,481 -- INFO -- HHH000041: Configured SessionFactory: null 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-10-26 20:58:59,622 -- WARN -- HHH000402: Using Hibernate built-in connection pool (not for production use!) 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-10-26 20:58:59,637 -- INFO -- HHH000401: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5432/ProjetoDaiLoca] 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-10-26 20:58:59,637 -- INFO -- HHH000046: Connection properties: {user=postgres, password=****} 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-10-26 20:58:59,637 -- INFO -- HHH000006: Autocommit mode: false 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-10-26 20:58:59,637 -- INFO -- HHH000115: Hibernate connection pool size: 20 (min=1) 
+ org.hibernate.dialect.Dialect 2015-10-26 20:59:00,121 -- INFO -- HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect 
+ org.hibernate.engine.jdbc.internal.LobCreatorBuilder 2015-10-26 20:59:00,152 -- INFO -- HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException 
+ org.hibernate.engine.transaction.internal.TransactionFactoryInitiator 2015-10-26 20:59:00,558 -- INFO -- HHH000399: Using default transaction strategy (direct JDBC transactions) 
+ org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory 2015-10-26 20:59:00,558 -- INFO -- HHH000397: Using ASTQueryTranslatorFactory 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-10-26 20:59:01,865 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 54.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-10-26 20:59:02,461 -- WARN -- [DEPRECATION] Encountered positional parameter near line 3, column 25.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ visao.FormPrincipal 2015-10-26 20:59:02,617 -- INFO -- Logado 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 21:07:08,074 -- WARN -- SQL Error: 0, SQLState: 42601 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 21:07:08,090 -- ERROR -- ERRO: erro de sintaxe em ou próximo a "BEGIN"
+  Posição: 80 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 21:07:22,221 -- WARN -- SQL Error: 0, SQLState: 42601 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 21:07:22,237 -- ERROR -- ERRO: erro de sintaxe em ou próximo a "BEGIN"
+  Posição: 62 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 21:07:22,284 -- WARN -- SQL Error: 0, SQLState: 42601 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 21:07:22,284 -- ERROR -- ERRO: erro de sintaxe em ou próximo a "BEGIN"
+  Posição: 90 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 21:07:22,377 -- WARN -- SQL Error: 0, SQLState: 42601 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 21:07:22,377 -- ERROR -- ERRO: erro de sintaxe em ou próximo a "BEGIN"
+  Posição: 68 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 21:07:22,440 -- WARN -- SQL Error: 0, SQLState: 42601 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 21:07:22,440 -- ERROR -- ERRO: erro de sintaxe em ou próximo a "BEGIN"
+  Posição: 84 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 21:07:22,487 -- WARN -- SQL Error: 0, SQLState: 42601 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 21:07:22,487 -- ERROR -- ERRO: erro de sintaxe em ou próximo a "BEGIN"
+  Posição: 76 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 21:07:22,549 -- WARN -- SQL Error: 0, SQLState: 42601 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 21:07:22,549 -- ERROR -- ERRO: erro de sintaxe em ou próximo a "BEGIN"
+  Posição: 74 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 21:07:22,596 -- WARN -- SQL Error: 0, SQLState: 42601 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 21:07:22,596 -- ERROR -- ERRO: erro de sintaxe em ou próximo a "BEGIN"
+  Posição: 68 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 21:07:22,643 -- WARN -- SQL Error: 0, SQLState: 42601 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 21:07:22,643 -- ERROR -- ERRO: erro de sintaxe em ou próximo a "BEGIN"
+  Posição: 82 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 21:07:22,710 -- WARN -- SQL Error: 0, SQLState: 42601 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 21:07:22,710 -- ERROR -- ERRO: erro de sintaxe em ou próximo a "BEGIN"
+  Posição: 64 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 21:07:22,773 -- WARN -- SQL Error: 0, SQLState: 42601 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 21:07:22,773 -- ERROR -- ERRO: erro de sintaxe em ou próximo a "BEGIN"
+  Posição: 78 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 21:07:22,820 -- WARN -- SQL Error: 0, SQLState: 42601 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 21:07:22,820 -- ERROR -- ERRO: erro de sintaxe em ou próximo a "BEGIN"
+  Posição: 68 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 21:07:22,882 -- WARN -- SQL Error: 0, SQLState: 42601 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 21:07:22,882 -- ERROR -- ERRO: erro de sintaxe em ou próximo a "BEGIN"
+  Posição: 70 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 21:07:23,007 -- WARN -- SQL Error: 0, SQLState: 42601 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 21:07:23,007 -- ERROR -- ERRO: erro de sintaxe em ou próximo a "BEGIN"
+  Posição: 70 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 21:07:23,069 -- WARN -- SQL Error: 0, SQLState: 42601 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 21:07:23,069 -- ERROR -- ERRO: erro de sintaxe em ou próximo a "BEGIN"
+  Posição: 84 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 21:07:23,116 -- WARN -- SQL Error: 0, SQLState: 42601 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 21:07:23,116 -- ERROR -- ERRO: erro de sintaxe em ou próximo a "BEGIN"
+  Posição: 78 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 21:07:23,163 -- WARN -- SQL Error: 0, SQLState: 42601 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 21:07:23,178 -- ERROR -- ERRO: erro de sintaxe em ou próximo a "BEGIN"
+  Posição: 70 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 21:07:23,225 -- WARN -- SQL Error: 0, SQLState: 42601 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 21:07:23,225 -- ERROR -- ERRO: erro de sintaxe em ou próximo a "BEGIN"
+  Posição: 74 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 21:07:23,272 -- WARN -- SQL Error: 0, SQLState: 42601 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 21:07:23,272 -- ERROR -- ERRO: erro de sintaxe em ou próximo a "BEGIN"
+  Posição: 76 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 21:07:23,319 -- WARN -- SQL Error: 0, SQLState: 42601 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 21:07:23,319 -- ERROR -- ERRO: erro de sintaxe em ou próximo a "BEGIN"
+  Posição: 68 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 21:07:23,366 -- WARN -- SQL Error: 0, SQLState: 42601 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 21:07:23,381 -- ERROR -- ERRO: erro de sintaxe em ou próximo a "BEGIN"
+  Posição: 70 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 21:07:23,428 -- WARN -- SQL Error: 0, SQLState: 42601 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 21:07:23,428 -- ERROR -- ERRO: erro de sintaxe em ou próximo a "BEGIN"
+  Posição: 78 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 21:07:23,475 -- WARN -- SQL Error: 0, SQLState: 42601 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 21:07:23,475 -- ERROR -- ERRO: erro de sintaxe em ou próximo a "BEGIN"
+  Posição: 70 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 21:07:23,522 -- WARN -- SQL Error: 0, SQLState: 42601 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 21:07:23,522 -- ERROR -- ERRO: erro de sintaxe em ou próximo a "BEGIN"
+  Posição: 74 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 21:07:23,568 -- WARN -- SQL Error: 0, SQLState: 42601 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 21:07:23,568 -- ERROR -- ERRO: erro de sintaxe em ou próximo a "BEGIN"
+  Posição: 72 
+ org.hibernate.annotations.common.Version 2015-10-26 21:13:48,909 -- INFO -- HCANN000001: Hibernate Commons Annotations {4.0.4.Final} 
+ org.hibernate.Version 2015-10-26 21:13:48,925 -- INFO -- HHH000412: Hibernate Core {4.3.1.Final} 
+ org.hibernate.cfg.Environment 2015-10-26 21:13:48,925 -- INFO -- HHH000206: hibernate.properties not found 
+ org.hibernate.cfg.Environment 2015-10-26 21:13:48,925 -- INFO -- HHH000021: Bytecode provider name : javassist 
+ org.hibernate.cfg.Configuration 2015-10-26 21:13:48,956 -- INFO -- HHH000043: Configuring from resource: /hibernate.cfg.xml 
+ org.hibernate.cfg.Configuration 2015-10-26 21:13:48,956 -- INFO -- HHH000040: Configuration resource: /hibernate.cfg.xml 
+ org.hibernate.internal.util.xml.DTDEntityResolver 2015-10-26 21:13:49,034 -- WARN -- HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide! 
+ org.hibernate.cfg.Configuration 2015-10-26 21:13:49,096 -- INFO -- HHH000041: Configured SessionFactory: null 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-10-26 21:13:49,252 -- WARN -- HHH000402: Using Hibernate built-in connection pool (not for production use!) 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-10-26 21:13:49,252 -- INFO -- HHH000401: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5432/ProjetoDaiLoca] 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-10-26 21:13:49,252 -- INFO -- HHH000046: Connection properties: {user=postgres, password=****} 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-10-26 21:13:49,268 -- INFO -- HHH000006: Autocommit mode: false 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-10-26 21:13:49,268 -- INFO -- HHH000115: Hibernate connection pool size: 20 (min=1) 
+ org.hibernate.dialect.Dialect 2015-10-26 21:13:49,754 -- INFO -- HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect 
+ org.hibernate.engine.jdbc.internal.LobCreatorBuilder 2015-10-26 21:13:49,770 -- INFO -- HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException 
+ org.hibernate.engine.transaction.internal.TransactionFactoryInitiator 2015-10-26 21:13:50,160 -- INFO -- HHH000399: Using default transaction strategy (direct JDBC transactions) 
+ org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory 2015-10-26 21:13:50,160 -- INFO -- HHH000397: Using ASTQueryTranslatorFactory 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-10-26 21:13:51,330 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 54.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-10-26 21:13:51,939 -- WARN -- [DEPRECATION] Encountered positional parameter near line 3, column 25.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ visao.FormPrincipal 2015-10-26 21:13:52,110 -- INFO -- Logado 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 21:13:52,235 -- WARN -- SQL Error: 0, SQLState: 42601 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 21:13:52,235 -- ERROR -- ERRO: erro de sintaxe em ou próximo a "procedure"
+  Posição: 6 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 21:13:52,282 -- WARN -- SQL Error: 0, SQLState: 42601 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-10-26 21:13:52,282 -- ERROR -- ERRO: erro de sintaxe em ou próximo a "PROCEDURE"
+  Posição: 8 
+ org.hibernate.annotations.common.Version 2015-10-26 21:18:01,081 -- INFO -- HCANN000001: Hibernate Commons Annotations {4.0.4.Final} 
+ org.hibernate.Version 2015-10-26 21:18:01,093 -- INFO -- HHH000412: Hibernate Core {4.3.1.Final} 
+ org.hibernate.cfg.Environment 2015-10-26 21:18:01,096 -- INFO -- HHH000206: hibernate.properties not found 
+ org.hibernate.cfg.Environment 2015-10-26 21:18:01,099 -- INFO -- HHH000021: Bytecode provider name : javassist 
+ org.hibernate.cfg.Configuration 2015-10-26 21:18:01,125 -- INFO -- HHH000043: Configuring from resource: /hibernate.cfg.xml 
+ org.hibernate.cfg.Configuration 2015-10-26 21:18:01,126 -- INFO -- HHH000040: Configuration resource: /hibernate.cfg.xml 
+ org.hibernate.internal.util.xml.DTDEntityResolver 2015-10-26 21:18:01,196 -- WARN -- HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide! 
+ org.hibernate.cfg.Configuration 2015-10-26 21:18:01,237 -- INFO -- HHH000041: Configured SessionFactory: null 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-10-26 21:18:01,372 -- WARN -- HHH000402: Using Hibernate built-in connection pool (not for production use!) 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-10-26 21:18:01,372 -- INFO -- HHH000401: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5432/ProjetoDaiLoca] 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-10-26 21:18:01,372 -- INFO -- HHH000046: Connection properties: {user=postgres, password=****} 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-10-26 21:18:01,372 -- INFO -- HHH000006: Autocommit mode: false 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-10-26 21:18:01,388 -- INFO -- HHH000115: Hibernate connection pool size: 20 (min=1) 
+ org.hibernate.dialect.Dialect 2015-10-26 21:18:01,810 -- INFO -- HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect 
+ org.hibernate.engine.jdbc.internal.LobCreatorBuilder 2015-10-26 21:18:01,825 -- INFO -- HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException 
+ org.hibernate.engine.transaction.internal.TransactionFactoryInitiator 2015-10-26 21:18:02,190 -- INFO -- HHH000399: Using default transaction strategy (direct JDBC transactions) 
+ org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory 2015-10-26 21:18:02,190 -- INFO -- HHH000397: Using ASTQueryTranslatorFactory 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-10-26 21:18:03,272 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 54.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-10-26 21:18:03,730 -- WARN -- [DEPRECATION] Encountered positional parameter near line 3, column 25.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ visao.FormPrincipal 2015-10-26 21:18:03,905 -- INFO -- Logado 
  

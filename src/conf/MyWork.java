@@ -22,7 +22,7 @@ public class MyWork implements Work {
     
 
     private List<String> result = new ArrayList<>();
-    private final String sql_tabelas = "select table_name from information_schema.tables where table_schema = 'app';";
+    private final String sql_tabelas = "select table_name from information_schema.tables where table_schema = 'public' AND TABLE_TYPE = 'BASE TABLE';";
     private String sql_exe = "";
     private final Session ses;
 
@@ -58,7 +58,7 @@ public class MyWork implements Work {
 
     private String montarSqlColunas(String tabela) {
         return "select COLUMN_NAME from information_schema.columns "
-                + "where table_schema = 'app' and table_name = '" + tabela + "';";
+                + "where table_schema = 'public' and table_name = '" + tabela + "';";
     }
 
 }
