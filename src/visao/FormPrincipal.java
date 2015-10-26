@@ -31,6 +31,7 @@ import service.ClienteService;
  */
 public class FormPrincipal extends javax.swing.JFrame {
     
+    private org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(FormPrincipal.class.getName());
     private Socket socket;
     private ChatMessage message;
     private ClienteService service;
@@ -42,11 +43,12 @@ public class FormPrincipal extends javax.swing.JFrame {
     public FormPrincipal(String login) {
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH);
-          this.popularTabelaVeiculos();
+        this.popularTabelaVeiculos();
         pnChat.setVisible(false);
         tfNome.setText(login);
         this.btConectaActionPerformed(null);
         this.login=login;
+        logger.info("Logado");
     }
     
     private class ListenerSocket implements Runnable {

@@ -5,9 +5,9 @@
  */
 package visao;
 
-
 import conf.HibernateUtil;
 import javax.swing.JOptionPane;
+import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -16,6 +16,8 @@ import org.hibernate.Transaction;
  * @author Daiane
  */
 public class DgLogin extends javax.swing.JDialog {
+
+    private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
     
     String login;
 
@@ -25,31 +27,28 @@ public class DgLogin extends javax.swing.JDialog {
     public DgLogin() {
         initComponents();
 
-        
     }
-    
+
     public boolean validaLogin(String pass, String login) {
         boolean ok = false;
         Session sessao = null;
-        
+
         sessao = HibernateUtil.getSessionFactory().openSession();
         Transaction t = sessao.beginTransaction();
-        
+
         Query query = (Query) sessao.createQuery("SELECT senha FROM Funcionario WHERE login = ?").setString(0, login);
-     
+
         String senha = "";
-        if (query.list().toString().equals("[]")){
+        if (query.list().toString().equals("[]")) {
             return ok = false;
-        } else{
-        senha = query.list().get(0).toString();
-        if (pass.equals(senha)) {
-            
-           
-            
-            return ok = true;
+        } else {
+            senha = query.list().get(0).toString();
+            if (pass.equals(senha)) {
+
+                return ok = true;
+            }
         }
-        }
-        
+
         sessao.getTransaction().commit();
         return ok;
     }
@@ -159,17 +158,20 @@ public class DgLogin extends javax.swing.JDialog {
 
     private void btOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btOKActionPerformed
 
-        if(tfLogin.getText().trim().length() > 0 && pfSenha.getPassword().length > 0){
-        login = tfLogin.getText();
-        
-        if (validaLogin((new String(pfSenha.getPassword())), login)) {
-            new FormPrincipal(login).setVisible(true);
-            this.setVisible(false);
-        }else{
-            JOptionPane.showMessageDialog(this, "Dados incorretos!");
-        }
-        }else{
-             JOptionPane.showMessageDialog(this, "Preencha login e senha!");
+        if (tfLogin.getText().trim().length() > 0 && pfSenha.getPassword().length > 0) {
+            login = tfLogin.getText();
+
+            if (validaLogin((new String(pfSenha.getPassword())), login)) {
+                new FormPrincipal(login).setVisible(true);
+                
+                this.setVisible(false);
+            } else {
+                logger.error("Dados de login incorretos");
+                JOptionPane.showMessageDialog(this, "Dados incorretos!");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Preencha login e senha!");
+            logger.info("Login e senha não preenchidos");
         }
     }//GEN-LAST:event_btOKActionPerformed
 

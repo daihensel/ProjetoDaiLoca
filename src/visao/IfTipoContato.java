@@ -20,6 +20,9 @@ public class IfTipoContato extends javax.swing.JFrame {
     /**
      * Creates new form TipoContato
      */
+    
+    private org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(IfTipoContato.class.getName());
+    
     public IfTipoContato() {
         initComponents();
     }
@@ -88,6 +91,7 @@ public class IfTipoContato extends javax.swing.JFrame {
 
         } catch (HibernateException he) {
             he.printStackTrace();
+            logger.error("Erro");
         } finally {
             sessao.close();
         }
