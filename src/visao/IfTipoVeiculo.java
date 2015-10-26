@@ -67,7 +67,7 @@ public class IfTipoVeiculo extends javax.swing.JInternalFrame {
 
         jMenu1.setText("jMenu1");
 
-        setTitle("Cadastro de Fornecedores");
+        setTitle("Cadastro Tipo Veiculo");
 
         jTabbedPane1.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -293,6 +293,8 @@ public class IfTipoVeiculo extends javax.swing.JInternalFrame {
                     .addComponent(jToolBar3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGap(771, 771, 771)))
         );
+
+        getAccessibleContext().setAccessibleName("Cadastro Tipo Veiculo");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
