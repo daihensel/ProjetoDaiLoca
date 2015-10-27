@@ -26,9 +26,7 @@ public class DgConsultaLocacao extends javax.swing.JDialog {
      * Creates new form DgConsultaVeic
      */
     public DgConsultaLocacao() {
-        // super(parent, modal);
-       // this.telaReserva = parent;
-       // this.setModal(modal);
+     
         initComponents();
         this.popularTabelaLocacao();
     }

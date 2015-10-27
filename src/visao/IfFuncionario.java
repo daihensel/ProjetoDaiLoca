@@ -6,17 +6,8 @@
 package visao;
 
 import conf.Formatacao;
-import conf.HibernateUtil;
 import conf.Utility;
 import conf.Validacao;
-import entidade.Permissao;
-import static java.awt.im.InputContext.getInstance;
-import java.util.Iterator;
-import java.util.List;
-import javax.swing.JButton;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 /**
  *
@@ -29,8 +20,7 @@ public class IfFuncionario extends javax.swing.JInternalFrame {
      */
     public IfFuncionario(String login) {
         initComponents();
-        String nomeTela = "Funcionario";
-        Utility.permit(btNovo, btSalvar, btEditar, this, login, nomeTela);
+        Utility.permit(btNovo, btSalvar, btEditar, this);
         
         habilitaCampos(false);
         Formatacao.reformatarRG(tfRG);

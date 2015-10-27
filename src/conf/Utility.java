@@ -16,6 +16,7 @@ import javax.swing.table.DefaultTableModel;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import visao.FormPrincipal;
 
 /**
  *
@@ -23,7 +24,7 @@ import org.hibernate.Transaction;
  */
 public class Utility {
 
-    public static void permit(JButton novo, JButton salvar, JButton editar, JInternalFrame jif, String login, String nomeTela) {
+    public static void permit(JButton novo, JButton salvar, JButton editar, JInternalFrame jif) {
 
         Session sessao = null;
 
@@ -35,16 +36,16 @@ public class Utility {
                 + "WHERE p.idpessoa=pe.idpessoa\n"
                 + "AND p.idpessoa=f.pessoaIdpessoa\n"
                 + "AND pe.idtela=t.idtela\n"
-                + "AND f.login LIKE '" + login + "'\n"
-                + "AND t.descricao LIKE '" + nomeTela + "' ").list().iterator();
+                + "AND f.login LIKE '" + FormPrincipal.login + "'\n"
+                + "AND t.descricao LIKE '" + jif.getClass().getSimpleName()+ "' ").list().iterator();
 
         while (qr.hasNext()) {
             Object[] tuple = (Object[]) qr.next();
-            Boolean l = (boolean) tuple[0];
-            System.out.println("tuple0:" + l);
-            if (l == false) {
-                jif.setVisible(false);
-            }
+//            Boolean l = (boolean) tuple[0];
+//            System.out.println("tuple0:" + l);
+//            if (l == false) {
+//                jif.setVisible(false);
+//            }
             Boolean i = (boolean) tuple[1];
             novo.setEnabled(i);
             salvar.setEnabled(i);
@@ -56,7 +57,7 @@ public class Utility {
 
     }
 
-    public static Boolean permitLer(String login, String nomeTela) {
+    public static Boolean permitLer(JInternalFrame jif) {
 
         Session sessao = null;
 
@@ -68,8 +69,8 @@ public class Utility {
                 + "WHERE p.idpessoa=pe.idpessoa\n"
                 + "AND p.idpessoa=f.pessoaIdpessoa\n"
                 + "AND pe.idtela=t.idtela\n"
-                + "AND f.login LIKE '" + login + "'\n"
-                + "AND t.descricao LIKE '" + nomeTela + "' ").list().iterator();
+                + "AND f.login LIKE '" + FormPrincipal.login + "'\n"
+                + "AND t.descricao LIKE '" + jif.getClass().getSimpleName() + "' ").list().iterator();
 
         while (qr.hasNext()) {
             Object[] tuple = (Object[]) qr.next();

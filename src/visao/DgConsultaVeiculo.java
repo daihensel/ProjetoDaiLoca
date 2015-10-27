@@ -24,10 +24,8 @@ public class DgConsultaVeiculo extends javax.swing.JDialog {
     /**
      * Creates new form DgConsultaVeic
      */
-    public DgConsultaVeiculo(IfReservaVeiculos parent, boolean modal) {
-        // super(parent, modal);
-        this.telaReserva = parent;
-        this.setModal(modal);
+    public DgConsultaVeiculo() {
+        
         initComponents();
         this.popularTabelaVeiculo();
     }

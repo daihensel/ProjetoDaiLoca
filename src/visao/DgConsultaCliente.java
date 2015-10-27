@@ -19,17 +19,13 @@ import org.hibernate.Transaction;
  */
 public class DgConsultaCliente extends javax.swing.JDialog {
 
-    public static IfReservaVeiculos tela;
-
+   
     /**
      * Creates new form NewJDialog
      *
      * @param parent
      */
-    public DgConsultaCliente(IfReservaVeiculos parent, boolean modal) {
-        //super(parent, modal);
-        this.tela = parent;
-        this.setModal(modal);
+    public DgConsultaCliente() {
         initComponents();
     }
 
@@ -106,8 +102,7 @@ public class DgConsultaCliente extends javax.swing.JDialog {
         this.popularTabelaCliente();
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
-    
-     public void popularTabelaCliente() {
+    public void popularTabelaCliente() {
 
         DefaultTableModel tabelaModelo = (DefaultTableModel) tbCliente.getModel();
         tabelaModelo.setNumRows(0);
@@ -121,18 +116,16 @@ public class DgConsultaCliente extends javax.swing.JDialog {
         List<Cliente> dadosClientes = (List<Cliente>) query.list();
 
         for (Cliente clientelin : dadosClientes) {
-            tabelaModelo.addRow(new Object[]{
-//                clientelin.getDescricao,
-//                clientelin.getMarca(),
-//                clientelin.getAnoFabricacao(),
-//                clientelin.getAnoModelo(),
+            tabelaModelo.addRow(new Object[]{ //                clientelin.getDescricao,
+            //                clientelin.getMarca(),
+            //                clientelin.getAnoFabricacao(),
+            //                clientelin.getAnoModelo(),
             });
 
         }
         sessao.getTransaction().commit();
 
     }
-     
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
