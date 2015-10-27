@@ -34,7 +34,6 @@ public class IfDevolucao extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         tfKmRodados = new javax.swing.JTextField();
-        tfKmRodados = Formatacao.getData();
         tfDataDevolucao = new javax.swing.JTextField();
         tfDataDevolucao = Formatacao.getData();
         jLabel2 = new javax.swing.JLabel();
@@ -45,7 +44,7 @@ public class IfDevolucao extends javax.swing.JInternalFrame {
         jLabel5 = new javax.swing.JLabel();
         tfValorTotal = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        tfNomeC = new javax.swing.JTextField();
+        tfDataLocacao = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         tfDias = new javax.swing.JTextField();
         btPLocacao = new javax.swing.JButton();
@@ -112,7 +111,7 @@ public class IfDevolucao extends javax.swing.JInternalFrame {
 
         jLabel6.setText("Valor total:");
 
-        tfNomeC.setEditable(false);
+        tfDataLocacao.setEditable(false);
 
         jLabel8.setText("Data Locação:");
 
@@ -149,7 +148,7 @@ public class IfDevolucao extends javax.swing.JInternalFrame {
                         .addGap(8, 8, 8)
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tfNomeC, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tfDataLocacao, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel18)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -206,7 +205,7 @@ public class IfDevolucao extends javax.swing.JInternalFrame {
                         .addComponent(tfDias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel18))
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(tfNomeC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tfDataLocacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel8)))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
@@ -266,7 +265,7 @@ public class IfDevolucao extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tfVeiculoLocacaoActionPerformed
 
     private void btPLocacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPLocacaoActionPerformed
-        DgConsultaLocacao tela = new DgConsultaLocacao();
+        DgConsultaLocacao tela = new DgConsultaLocacao(this);
         tela.setVisible(true);
        // tela.setSize(200, 200);
     }//GEN-LAST:event_btPLocacaoActionPerformed
@@ -276,7 +275,7 @@ public class IfDevolucao extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btFecharActionPerformed
 
     private void btPClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPClienteActionPerformed
-       DgConsultaCliente tela = new DgConsultaCliente();
+       DgConsultaCliente tela = new DgConsultaCliente(this);
         tela.setVisible(true);
     }//GEN-LAST:event_btPClienteActionPerformed
 
@@ -284,7 +283,11 @@ public class IfDevolucao extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfValorTotalActionPerformed
 
-
+ public void defineCliente(int codcli, String nomeveiculo) {
+        tfVeiculoLocacao.setText(nomeveiculo);
+    }
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btFechar;
     private javax.swing.JButton btOk;
@@ -302,9 +305,9 @@ public class IfDevolucao extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField tfDataDevolucao;
+    private javax.swing.JTextField tfDataLocacao;
     private javax.swing.JTextField tfDias;
     private javax.swing.JTextField tfKmRodados;
-    private javax.swing.JTextField tfNomeC;
     private javax.swing.JTextField tfNomeCliente;
     private javax.swing.JTextField tfValorTotal;
     private javax.swing.JTextField tfVeiculoLocacao;

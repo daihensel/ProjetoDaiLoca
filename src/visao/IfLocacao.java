@@ -400,13 +400,13 @@ public class IfLocacao extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tfDescricaoVeiculoActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        DgConsultaLocacao tela = new DgConsultaLocacao();
+        DgConsultaVeiculo tela = new DgConsultaVeiculo();
         tela.setVisible(true);
        // tela.setSize(200, 200);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        DgConsultaCliente tela = new DgConsultaCliente();
+        DgConsultaCliente tela = new DgConsultaCliente(this);
         tela.setVisible(true);
         tela.setSize(200, 200);
     }//GEN-LAST:event_jButton3ActionPerformed
