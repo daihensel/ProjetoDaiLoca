@@ -8,16 +8,16 @@
             <column name="idlocacao" />
             <generator class="increment" />
         </id>
-       <property name="nomecliente" type="string">
+        <property name="nomecliente" type="string">
             <column name="nomecliente" length="45" not-null="true" />
         </property>
-		 <property name="rg" type="string">
+        <property name="rg" type="string">
             <column name="rg" length="45" not-null="true" />
         </property>
         <property name="cpf" type="string">
             <column name="cpf" length="45" not-null="true" />
         </property>
-		<property name="telefone" type="string">
+        <property name="telefone" type="string">
             <column name="telefone" length="60" not-null="true" />
         </property>
         <property name="dtLocacao" type="date">
@@ -32,7 +32,7 @@
         <property name="num_parcelas" type="int">
             <column name="num_parcelas" not-null="true" />
         </property>
-         <property name="descricaoveiculo" type="string">
+        <property name="descricaoveiculo" type="string">
             <column name="descricaoveiculo" length="45" not-null="true" />
         </property>
         <property name="descricaotipoveiculo" type="string">

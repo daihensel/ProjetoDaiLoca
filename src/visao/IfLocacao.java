@@ -6,6 +6,7 @@
 package visao;
 
 import conf.Formatacao;
+import conf.Utility;
 
 /**
  *
@@ -18,6 +19,7 @@ public class IfLocacao extends javax.swing.JInternalFrame {
      */
     public IfLocacao() {
         initComponents();
+        Utility.permit(null, btOk, null, null, this);
     }
 
     /**
@@ -71,7 +73,7 @@ public class IfLocacao extends javax.swing.JInternalFrame {
         jButton3 = new javax.swing.JButton();
         jLabel17 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btOk = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
         jLabel1.setText("Data Reserva:");
@@ -342,10 +344,10 @@ public class IfLocacao extends javax.swing.JInternalFrame {
                     .addComponent(jLabel14)))
         );
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/ok.png"))); // NOI18N
-        jButton1.setText("Reservar");
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btOk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/ok.png"))); // NOI18N
+        btOk.setText("Locar");
+        btOk.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btOk.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/!ok.png"))); // NOI18N
         jButton2.setText("Fechar");
@@ -365,8 +367,8 @@ public class IfLocacao extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)
-                        .addGap(23, 23, 23)
+                        .addComponent(btOk)
+                        .addGap(18, 18, 18)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -386,7 +388,7 @@ public class IfLocacao extends javax.swing.JInternalFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btOk, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
@@ -398,7 +400,7 @@ public class IfLocacao extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tfDescricaoVeiculoActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        DgConsultaVeiculo tela = new DgConsultaVeiculo();
+        DgConsultaLocacao tela = new DgConsultaLocacao();
         tela.setVisible(true);
        // tela.setSize(200, 200);
     }//GEN-LAST:event_jButton4ActionPerformed
@@ -415,7 +417,7 @@ public class IfLocacao extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btOk;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;

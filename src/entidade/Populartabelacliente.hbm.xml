@@ -4,8 +4,8 @@
 <!-- Generated 05/09/2015 16:25:39 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="Populartabelacliente" table="Populartabelacliente" schema="public" optimistic-lock="version">
-        <id name="idpessoa" type="int">
-            <column name="idpessoa" />
+        <id name="idcliente" type="int">
+            <column name="idcliente" />
             <generator class="increment" />
         </id>
         <property name="nome" type="string">

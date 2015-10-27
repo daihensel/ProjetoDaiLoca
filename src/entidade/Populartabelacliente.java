@@ -16,9 +16,9 @@ import javax.persistence.Table;
 public class Populartabelacliente implements java.io.Serializable {
 
     @Id
-    @Column(name = "idpessoa")
+    @Column(name = "idcliente")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idpessoa;
+    private int idcliente;
     @Column(name = "nome", nullable = false, length = 45)
     private String nome;
     @Column(name = "rg", nullable = false, length = 45)
@@ -37,12 +37,12 @@ public class Populartabelacliente implements java.io.Serializable {
     public Populartabelacliente() {
     }
 
-    public int getIdpessoa() {
-        return this.idpessoa;
+    public int getIdcliente() {
+        return this.idcliente;
     }
 
-    public void setIdpessoa(int Idpessoa) {
-        this.idpessoa = Idpessoa;
+    public void setIdcliente(int idcliente) {
+        this.idcliente = idcliente;
     }
 
     public String getNome() {

@@ -20,7 +20,7 @@ public class IfFuncionario extends javax.swing.JInternalFrame {
      */
     public IfFuncionario() {
         initComponents();
-        Utility.permit(btNovo, btSalvar, btEditar, this);
+        Utility.permit(btNovo, btSalvar, btEditar, null, this);
         
         habilitaCampos(false);
         Formatacao.reformatarRG(tfRG);

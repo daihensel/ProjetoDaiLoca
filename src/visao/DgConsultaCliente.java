@@ -6,7 +6,7 @@
 package visao;
 
 import conf.HibernateUtil;
-import entidade.Cliente;
+import entidade.Populartabelacliente;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import org.hibernate.Query;
@@ -15,18 +15,18 @@ import org.hibernate.Transaction;
 
 /**
  *
- * @author Daiane
+ * @author Diego
  */
 public class DgConsultaCliente extends javax.swing.JDialog {
 
-   
+    // public static IfReservaVeiculos telaReserva;
     /**
-     * Creates new form NewJDialog
-     *
-     * @param parent
+     * Creates new form DgConsultaVeic
      */
     public DgConsultaCliente() {
+
         initComponents();
+        this.popularTabelaCliente(tfPesquisa.getText());
     }
 
     /**
@@ -38,34 +38,41 @@ public class DgConsultaCliente extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        ProjetoDaiLocaPUEntityManager = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("ProjetoDaiLocaPU").createEntityManager();
-        cidadeQuery = java.beans.Beans.isDesignTime() ? null : ProjetoDaiLocaPUEntityManager.createQuery("SELECT c FROM Cidade c");
-        cidadeList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : cidadeQuery.getResultList();
-        veiculoQuery = java.beans.Beans.isDesignTime() ? null : ProjetoDaiLocaPUEntityManager.createQuery("SELECT v FROM Veiculo v");
-        veiculoList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : veiculoQuery.getResultList();
-        veiculoQuery1 = java.beans.Beans.isDesignTime() ? null : ProjetoDaiLocaPUEntityManager.createQuery("SELECT v FROM Veiculo v");
-        veiculoList1 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : veiculoQuery1.getResultList();
-        veiculoQuery2 = java.beans.Beans.isDesignTime() ? null : ProjetoDaiLocaPUEntityManager.createQuery("SELECT v FROM Veiculo v");
-        veiculoList2 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : veiculoQuery2.getResultList();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbCliente = new javax.swing.JTable();
-        jTextField1 = new javax.swing.JTextField();
+        tbClientes = new javax.swing.JTable();
+        tfPesquisa = new javax.swing.JTextField();
         btnPesquisar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        tbCliente.setModel(new javax.swing.table.DefaultTableModel(
+        tbClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Descricao", "Tipo", "Marca", "Ano"
+                "Id", "Nome", "CPF", "RG", "Telefone", "Endereço", "Cidade"
             }
-        ));
-        jScrollPane1.setViewportView(tbCliente);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tbClientes);
+
+        tfPesquisa.setText("cor");
+        tfPesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tfPesquisaKeyReleased(evt);
+            }
+        });
 
         btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/procurar_20x20.png"))); // NOI18N
         btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
@@ -74,6 +81,8 @@ public class DgConsultaCliente extends javax.swing.JDialog {
             }
         });
 
+        jLabel1.setText("*Pesquisa por nome, CPF, endereço ou cidade");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -81,46 +90,62 @@ public class DgConsultaCliente extends javax.swing.JDialog {
             .addComponent(jScrollPane1)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(tfPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel1))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnPesquisar, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(3, 3, 3)
+                .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-        this.popularTabelaCliente();
+        this.popularTabelaCliente(tfPesquisa.getText());
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
-    public void popularTabelaCliente() {
+    private void tfPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfPesquisaKeyReleased
+        this.popularTabelaCliente(tfPesquisa.getText());
+    }//GEN-LAST:event_tfPesquisaKeyReleased
 
-        DefaultTableModel tabelaModelo = (DefaultTableModel) tbCliente.getModel();
+    public void popularTabelaCliente(String criterio) {
+
+        DefaultTableModel tabelaModelo = (DefaultTableModel) tbClientes.getModel();
         tabelaModelo.setNumRows(0);
 
         Session sessao = null;
 
         sessao = HibernateUtil.getSessionFactory().openSession();
         Transaction t = sessao.beginTransaction();
+        criterio = criterio.toLowerCase();
+        Query query = (Query) sessao.createQuery(" FROM Populartabelacliente p WHERE (lower(p.nome) LIKE '%" + criterio + "%'"
+                + " OR lower(p.cpf) LIKE '%" + criterio + "%'"
+                + " OR lower(p.descricaoendereco) LIKE '%" + criterio + "%')"
+                + " OR lower(p.descricaocidade) LIKE '%" + criterio + "%')");
+        List<Populartabelacliente> dadosClientes = (List<Populartabelacliente>) query.list();
 
-        Query query = (Query) sessao.createQuery(" FROM Cliente");
-        List<Cliente> dadosClientes = (List<Cliente>) query.list();
-
-        for (Cliente clientelin : dadosClientes) {
-            tabelaModelo.addRow(new Object[]{ //                clientelin.getDescricao,
-            //                clientelin.getMarca(),
-            //                clientelin.getAnoFabricacao(),
-            //                clientelin.getAnoModelo(),
-            });
+        for (Populartabelacliente lin : dadosClientes) {
+            tabelaModelo.addRow(new Object[]{
+                lin.getIdcliente(),
+                lin.getNome(),
+                lin.getCpf(),
+                lin.getRg(),
+                lin.getDescricaocontato(),
+                lin.getDescricaoendereco(),
+                lin.getDescricaocidade()});
 
         }
         sessao.getTransaction().commit();
@@ -129,18 +154,10 @@ public class DgConsultaCliente extends javax.swing.JDialog {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.persistence.EntityManager ProjetoDaiLocaPUEntityManager;
     private javax.swing.JButton btnPesquisar;
-    private java.util.List<entidade.Cidade> cidadeList;
-    private javax.persistence.Query cidadeQuery;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTable tbCliente;
-    private java.util.List<entidade.Veiculo> veiculoList;
-    private java.util.List<entidade.Veiculo> veiculoList1;
-    private java.util.List<entidade.Veiculo> veiculoList2;
-    private javax.persistence.Query veiculoQuery;
-    private javax.persistence.Query veiculoQuery1;
-    private javax.persistence.Query veiculoQuery2;
+    private javax.swing.JTable tbClientes;
+    private javax.swing.JTextField tfPesquisa;
     // End of variables declaration//GEN-END:variables
 }

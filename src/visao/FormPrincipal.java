@@ -4,7 +4,6 @@
  */
 package visao;
 
-
 import static java.awt.Frame.MAXIMIZED_BOTH;
 import bean.ChatMessage;
 import bean.ChatMessage.Action;
@@ -25,14 +24,13 @@ import service.ClienteService;
  * @author Daiane
  */
 public class FormPrincipal extends javax.swing.JFrame {
-    
+
     public static String login;
-    
+
     private org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(FormPrincipal.class.getName());
     private Socket socket;
     private ChatMessage message;
     private ClienteService service;
-    
 
     /**
      * Creates new form Principal
@@ -46,23 +44,21 @@ public class FormPrincipal extends javax.swing.JFrame {
         lbLocados.setText(Utility.somaVeiculos(3));
         lbManutencao.setText(Utility.somaVeiculos(4));
         lbTotal.setText(String.valueOf(Integer.parseInt(lbDisponiveis.getText())
-                +Integer.parseInt(lbReservados.getText())
-        +Integer.parseInt(lbLocados.getText())
-        +Integer.parseInt(lbManutencao.getText())));
+                + Integer.parseInt(lbReservados.getText())
+                + Integer.parseInt(lbLocados.getText())
+                + Integer.parseInt(lbManutencao.getText())));
         pnChat.setVisible(false);
         tfNome.setText(login);
         this.btConectaActionPerformed(null);
-        this.login=login;
+        this.login = login;
         logger.info("Logado");
-        
-        
-        
+
     }
-    
+
     private class ListenerSocket implements Runnable {
-        
+
         private ObjectInputStream input;
-        
+
         public ListenerSocket(Socket socket) {
             try {
                 this.input = new ObjectInputStream(socket.getInputStream());
@@ -70,7 +66,7 @@ public class FormPrincipal extends javax.swing.JFrame {
                 Logger.getLogger(FormPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+
         @Override
         public void run() {
             ChatMessage message = null;
@@ -96,9 +92,9 @@ public class FormPrincipal extends javax.swing.JFrame {
                 Logger.getLogger(FormPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+
     }
-    
+
     private void connected(ChatMessage message) {
         if (message.getTexto().equals("NO")) {
             this.tfNome.setText("");
@@ -108,7 +104,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         this.message = message;
         this.btConecta.setEnabled(false);
         this.tfNome.setEnabled(false);
-        
+
         this.btSair.setEnabled(true);
         this.taEnvia.setEnabled(true);
         //this.taRecebe.setEditable(true);
@@ -117,40 +113,40 @@ public class FormPrincipal extends javax.swing.JFrame {
 
         // JOptionPane.showMessageDialog(this, "Conexão realizada com sucesso!");
     }
-    
+
     private void disconnected() {
-        
+
         this.btConecta.setEnabled(true);
         this.tfNome.setEditable(true);
-        
+
         this.btSair.setEnabled(false);
         this.taEnvia.setEnabled(false);
         // this.taRecebe.setEditable(false);
         this.btEnviar.setEnabled(false);
         this.btLimpar.setEnabled(false);
-        
+
         taRecebe.setText("");
         taEnvia.setText("");
-        
+
         JOptionPane.showMessageDialog(this, "Você saiu");
-        
+
     }
-    
+
     private void receive(ChatMessage message) {
-        
+
         this.taRecebe.append(message.getNome() + " diz: " + message.getTexto() + "\n");
-        
+
     }
-    
+
     private void refreshOnlines(ChatMessage message) {
-        
+
         Set<String> nomes = message.getSetOnlines();
         nomes.remove(message.getNome());
         String[] array = (String[]) nomes.toArray(new String[nomes.size()]);
         listaOnlines.setListData(array);
         listaOnlines.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         listaOnlines.setLayoutOrientation(JList.VERTICAL);
-        
+
     }
 
     /**
@@ -234,6 +230,11 @@ public class FormPrincipal extends javax.swing.JFrame {
         jButton6.setText("Novo Veículo");
 
         jButton7.setText("Nova Manutenção");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         jButton8.setText("Novo Cliente");
 
@@ -642,14 +643,19 @@ public class FormPrincipal extends javax.swing.JFrame {
         IfFornecedor janela = new IfFornecedor();
         janela.setSize(590, 430);
         dp.add(janela);
-        janela.setVisible(true);
+        if (Utility.permitLer(janela) == true) {
+            janela.setVisible(true);
+        }
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         IfReservaVeiculos janela = new IfReservaVeiculos();
         janela.setSize(600, 610);
         dp.add(janela);
-        janela.setVisible(true);
+        if (Utility.permitLer(janela) == true) {
+            janela.setVisible(true);
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void btConectaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConectaActionPerformed
@@ -663,17 +669,17 @@ public class FormPrincipal extends javax.swing.JFrame {
             this.message = new ChatMessage();
             this.message.setAction(Action.CONNECT);
             this.message.setNome(nome);
-            
+
             this.service = new ClienteService();
             this.socket = this.service.connect();
-            
+
             new Thread(new ListenerSocket(socket)).start();
         }
         this.service.send(message);
     }//GEN-LAST:event_btConectaActionPerformed
 
     private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
-        
+
         this.message.setAction(Action.DISCONNECT);
         this.service.send(message);
         disconnected();
@@ -686,9 +692,9 @@ public class FormPrincipal extends javax.swing.JFrame {
     private void btEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEnviarActionPerformed
         String textoEnvia = taEnvia.getText();
         String nome = message.getNome();
-        
+
         message = new ChatMessage();
-        
+
         if (listaOnlines.getSelectedIndex() > -1) {
             message.setNome((String) listaOnlines.getSelectedValue());
             message.setAction(Action.SEND_ONE);
@@ -707,7 +713,7 @@ public class FormPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btEnviarActionPerformed
 
     private void btAbrirChatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAbrirChatActionPerformed
-        
+
         if (btAbrirChat.getText().equals("Fechar chat")) {
             btAbrirChat.setText("Abrir chat");
             pnChat.setVisible(false);
@@ -723,11 +729,11 @@ public class FormPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_tfNomeActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-         IfDevolucao janela = new IfDevolucao();
-       dp.add(janela);
-       if (Utility.permitLer(janela) == true) {
-       janela.setVisible(true);
-       }
+        IfDevolucao janela = new IfDevolucao();
+        dp.add(janela);
+        if (Utility.permitLer(janela) == true) {
+            janela.setVisible(true);
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
@@ -739,16 +745,16 @@ public class FormPrincipal extends javax.swing.JFrame {
         janela.setSize(590, 430);
         dp.add(janela);
         janela.setVisible(true);
-      
+
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-       IfFuncionario janela = new IfFuncionario();
-       dp.add(janela);
-       if (Utility.permitLer(janela) == true) {
-       janela.setVisible(true);
-       }
-     
+        IfFuncionario janela = new IfFuncionario();
+        dp.add(janela);
+        if (Utility.permitLer(janela) == true) {
+            janela.setVisible(true);
+        }
+
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
@@ -756,19 +762,22 @@ public class FormPrincipal extends javax.swing.JFrame {
         janela.setSize(590, 430);
         dp.add(janela);
         janela.setVisible(true);
-        
-        
-        
+
+
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-         IfLocacao janela = new IfLocacao();
-       dp.add(janela);
-       if (Utility.permitLer(janela) == true) {
-       janela.setVisible(true);
-       }
+        IfLocacao janela = new IfLocacao();
+        dp.add(janela);
+        if (Utility.permitLer(janela) == true) {
+            janela.setVisible(true);
+        }
     }//GEN-LAST:event_jButton5ActionPerformed
-    
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton7ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAbrirChat;

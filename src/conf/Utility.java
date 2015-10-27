@@ -24,7 +24,7 @@ import visao.FormPrincipal;
  */
 public class Utility {
 
-    public static void permit(JButton novo, JButton salvar, JButton editar, JInternalFrame jif) {
+    public static void permit(JButton novo, JButton salvar, JButton editar, JButton excluir, JInternalFrame jif) {
 
         Session sessao = null;
 
@@ -37,25 +37,37 @@ public class Utility {
                 + "AND p.idpessoa=f.pessoaIdpessoa\n"
                 + "AND pe.idtela=t.idtela\n"
                 + "AND f.login LIKE '" + FormPrincipal.login + "'\n"
-                + "AND t.descricao LIKE '" + jif.getClass().getSimpleName()+ "' ").list().iterator();
+                + "AND t.descricao LIKE '" + jif.getClass().getSimpleName() + "' ").list().iterator();
 
         while (qr.hasNext()) {
             Object[] tuple = (Object[]) qr.next();
-//            Boolean l = (boolean) tuple[0];
+//            Boolean ler = (boolean) tuple[0];
 //            System.out.println("tuple0:" + l);
-//            if (l == false) {
+//            if (ler == false) {
 //                jif.setVisible(false);
 //            }
-            Boolean i = (boolean) tuple[1];
-            novo.setEnabled(i);
-            salvar.setEnabled(i);
-            Boolean e = (boolean) tuple[2];
-            editar.setEnabled(e);
+            Boolean inser = (boolean) tuple[1];
+            if (novo != null) {
+                novo.setEnabled(inser);
+            }
+            if (salvar != null) {
+                salvar.setEnabled(inser);
+            }
+            Boolean edit = (boolean) tuple[2];
+            if (editar != null) {
+                editar.setEnabled(edit);
+            }
+            Boolean exc = (boolean) tuple[3];
+            if (excluir != null) {
+                excluir.setEnabled(exc);
+            }
+
+            sessao.getTransaction().commit();
+
         }
-
-        sessao.getTransaction().commit();
-
     }
+
+    
 
     public static Boolean permitLer(JInternalFrame jif) {
 
@@ -95,28 +107,25 @@ public class Utility {
                 + "AND sv.idstatusveiculo= ? ").setInteger(0, idstatusveiculo);
 
         soma = qr.list().get(0).toString();
-        
+
         sessao.getTransaction().commit();
         return soma;
     }
 
-    
-    
     public static void popularTabelaVeiculos(JTable tb) {
-       // try{
+        // try{
         DefaultTableModel tabelaModelo = (DefaultTableModel) tb.getModel();
         tabelaModelo.setNumRows(0);
-        
+
         Session sessao = null;
-        
+
         sessao = HibernateUtil.getSessionFactory().openSession();
         Transaction t = sessao.beginTransaction();
-        
+
 //        Iterator query = sessao.createQuery("select v.idveiculo, v.descricao, t.descricao, s.descricao\n"
 //                + "FROM Veiculo v, Tipoveiculo t, Statusveiculo s\n"
 //                + "WHERE v.tipoveiculo=t.tipoveiculo\n"
 //                + "AND s.statusveiculo=v.statusveiculo").list().iterator();
-        
 //         Iterator query = sessao.createQuery(" from Veiculostipoestatus").list().iterator();
 //        while (query.hasNext()) {
 //            Object[] tuple = (Object[]) query.next();
@@ -126,22 +135,21 @@ public class Utility {
 //            Veiculostipoestatus descricaos = (Veiculostipoestatus) tuple[3]; //desc status
 //            tabelaModelo.addRow(tuple);
 //        }
-        
         Query query = (Query) sessao.createQuery(" FROM Veiculostipoestatus");
         List<Veiculostipoestatus> dadosVTS = (List<Veiculostipoestatus>) query.list();
-        
+
         for (Veiculostipoestatus v : dadosVTS) {
-           tabelaModelo.addRow(new Object[]{
-              //  v.getIdveiculo(),
+            tabelaModelo.addRow(new Object[]{
+                //  v.getIdveiculo(),
                 v.getDescricaoVeiculo(),
                 v.getDescricaoTipo(),
-                v.getDescricaoStatus(),          });
+                v.getDescricaoStatus(),});
         }
-        
+
         sessao.getTransaction().commit();
 //        } catch (Exception e) {
 //            System.out.println("erro ao chamar view: " + e);
 //        }
     }
-    
+
 }
