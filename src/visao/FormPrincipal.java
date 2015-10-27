@@ -4,29 +4,20 @@
  */
 package visao;
 
-import conf.HibernateUtil;
+
 import static java.awt.Frame.MAXIMIZED_BOTH;
-import javax.swing.table.DefaultTableModel;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 import bean.ChatMessage;
 import bean.ChatMessage.Action;
-import com.sun.jmx.mbeanserver.Util;
-import conf.CriarTriggers;
 import conf.Utility;
-import entidade.Veiculostipoestatus;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
-import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
-import org.hibernate.Query;
 import service.ClienteService;
 
 /**
@@ -35,11 +26,13 @@ import service.ClienteService;
  */
 public class FormPrincipal extends javax.swing.JFrame {
     
+    public static String login;
+    
     private org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(FormPrincipal.class.getName());
     private Socket socket;
     private ChatMessage message;
     private ClienteService service;
-    private String login;
+    
 
     /**
      * Creates new form Principal
@@ -745,9 +738,8 @@ public class FormPrincipal extends javax.swing.JFrame {
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
        IfFuncionario janela = new IfFuncionario(login);
-        System.out.println("login é:"+login);
        dp.add(janela);
-       if (Utility.permitLer(login,"Funcionario") == true) {
+       if (Utility.permitLer(janela) == true) {
        janela.setVisible(true);
        }
      
