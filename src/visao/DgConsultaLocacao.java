@@ -28,7 +28,7 @@ public class DgConsultaLocacao extends javax.swing.JDialog {
     public DgConsultaLocacao() {
      
         initComponents();
-        this.popularTabelaLocacao();
+        this.popularTabelaLocacao(tfPesquisa.getText());
     }
 
     /**
@@ -42,7 +42,7 @@ public class DgConsultaLocacao extends javax.swing.JDialog {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tbLocacoes = new javax.swing.JTable();
-        jTextField1 = new javax.swing.JTextField();
+        tfPesquisa = new javax.swing.JTextField();
         btnPesquisar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -68,6 +68,13 @@ public class DgConsultaLocacao extends javax.swing.JDialog {
         });
         jScrollPane1.setViewportView(tbLocacoes);
 
+        tfPesquisa.setText("cor");
+        tfPesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tfPesquisaKeyReleased(evt);
+            }
+        });
+
         btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/procurar_20x20.png"))); // NOI18N
         btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -82,7 +89,7 @@ public class DgConsultaLocacao extends javax.swing.JDialog {
             .addComponent(jScrollPane1)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tfPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -90,7 +97,7 @@ public class DgConsultaLocacao extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnPesquisar, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE))
@@ -100,10 +107,14 @@ public class DgConsultaLocacao extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-        this.popularTabelaLocacao();
+        this.popularTabelaLocacao(tfPesquisa.getText());
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
-     public void popularTabelaLocacao() {
+    private void tfPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfPesquisaKeyReleased
+       this.popularTabelaLocacao(tfPesquisa.getText());
+    }//GEN-LAST:event_tfPesquisaKeyReleased
+
+     public void popularTabelaLocacao(String criterio) {
 
         DefaultTableModel tabelaModelo = (DefaultTableModel) tbLocacoes.getModel();
         tabelaModelo.setNumRows(0);
@@ -113,7 +124,7 @@ public class DgConsultaLocacao extends javax.swing.JDialog {
         sessao = HibernateUtil.getSessionFactory().openSession();
         Transaction t = sessao.beginTransaction();
 
-        Query query = (Query) sessao.createQuery(" FROM Populartabelalocacao");
+        Query query = (Query) sessao.createQuery(" FROM Populartabelalocacao p ");//WHERE p.descricaoveiculo LIKE '% "+criterio+" %'");//.setString(0, criterio);
         List<Populartabelalocacao> dadosLocacao = (List<Populartabelalocacao>) query.list();
 
         for (Populartabelalocacao lin : dadosLocacao) {
@@ -136,7 +147,7 @@ public class DgConsultaLocacao extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnPesquisar;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTable tbLocacoes;
+    private javax.swing.JTextField tfPesquisa;
     // End of variables declaration//GEN-END:variables
 }

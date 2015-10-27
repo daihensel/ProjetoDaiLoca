@@ -224,6 +224,11 @@ public class FormPrincipal extends javax.swing.JFrame {
         });
 
         jButton5.setText("Nova Locação");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/Carro.png"))); // NOI18N
         jButton6.setText("Novo Veículo");
@@ -718,10 +723,11 @@ public class FormPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_tfNomeActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        DgConsultaLocacao tela = new DgConsultaLocacao();
-        tela.setVisible(true);
-        //tela.setSize(200, 200);
+         IfDevolucao janela = new IfDevolucao();
+       dp.add(janela);
+       if (Utility.permitLer(janela) == true) {
+       janela.setVisible(true);
+       }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
@@ -737,7 +743,7 @@ public class FormPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-       IfFuncionario janela = new IfFuncionario(login);
+       IfFuncionario janela = new IfFuncionario();
        dp.add(janela);
        if (Utility.permitLer(janela) == true) {
        janela.setVisible(true);
@@ -754,6 +760,14 @@ public class FormPrincipal extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+         IfLocacao janela = new IfLocacao();
+       dp.add(janela);
+       if (Utility.permitLer(janela) == true) {
+       janela.setVisible(true);
+       }
+    }//GEN-LAST:event_jButton5ActionPerformed
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

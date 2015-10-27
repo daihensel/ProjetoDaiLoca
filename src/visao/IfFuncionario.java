@@ -18,7 +18,7 @@ public class IfFuncionario extends javax.swing.JInternalFrame {
     /**
      * Creates new form IfmVeiculo
      */
-    public IfFuncionario(String login) {
+    public IfFuncionario() {
         initComponents();
         Utility.permit(btNovo, btSalvar, btEditar, this);
         
