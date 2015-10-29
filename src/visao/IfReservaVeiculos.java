@@ -6,7 +6,13 @@
 package visao;
 
 import conf.Formatacao;
+import conf.HibernateUtil;
 import conf.Utility;
+import entidade.Populartabelacliente;
+import java.util.List;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *
@@ -19,7 +25,7 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
      */
     public IfReservaVeiculos() {
         initComponents();
-         Utility.permit(null, btOk, null, null, this);
+        Utility.permit(null, btOk, null, null, this);
     }
 
     /**
@@ -60,19 +66,19 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         tfNomeCliente = new javax.swing.JTextField();
-        jTextField11 = new javax.swing.JTextField();
+        tfRG = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
-        jTextField12 = new javax.swing.JTextField();
+        tfEndereco = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        jTextField13 = new javax.swing.JTextField();
-        jTextField14 = new javax.swing.JTextField();
+        tfTelefone = new javax.swing.JTextField();
+        tfBairro = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
-        jTextField15 = new javax.swing.JTextField();
+        tfCidade = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         jLabel17 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        tfCPF = new javax.swing.JTextField();
         btOk = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
@@ -244,23 +250,23 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
 
         jLabel10.setText("Nome:");
 
-        jTextField11.setEditable(false);
+        tfRG.setEditable(false);
 
         jLabel11.setText("RG:");
 
-        jTextField12.setEditable(false);
+        tfEndereco.setEditable(false);
 
         jLabel12.setText("Endereço:");
 
         jLabel13.setText("Telefone:");
 
-        jTextField13.setEditable(false);
+        tfTelefone.setEditable(false);
 
-        jTextField14.setEditable(false);
+        tfBairro.setEditable(false);
 
         jLabel14.setText("Bairro:");
 
-        jTextField15.setEditable(false);
+        tfCidade.setEditable(false);
 
         jLabel15.setText("Cidade:");
 
@@ -273,7 +279,7 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
 
         jLabel17.setText("CPF:");
 
-        jTextField2.setEditable(false);
+        tfCPF.setEditable(false);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -295,22 +301,22 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(6, 6, 6))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jTextField11)
+                        .addComponent(tfRG)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel17)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tfCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel13)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(tfTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tfBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26)
                         .addComponent(jLabel15)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField15))
-                    .addComponent(jTextField12)))
+                        .addComponent(tfCidade))
+                    .addComponent(tfEndereco)))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -326,20 +332,20 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(tfRG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel13)
-                                .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(tfTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(tfCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel17))
                             .addComponent(jLabel11))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel12)
-                            .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(tfEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfBairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel15)))
                     .addComponent(jLabel14)))
         );
@@ -402,7 +408,7 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         DgConsultaVeiculo tela = new DgConsultaVeiculo();
         tela.setVisible(true);
-       // tela.setSize(200, 200);
+        // tela.setSize(200, 200);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -412,9 +418,34 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-      dispose();
+        dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
-
+    
+  //  @Override
+    public void defineCodigo(int codcli) {
+        
+        Session sessao = null;
+        
+        sessao = HibernateUtil.getSessionFactory().openSession();
+        Transaction t = sessao.beginTransaction();
+        
+        Query query = (Query) sessao.createQuery(" FROM Populartabelacliente p WHERE "
+                + " idcliente = " + codcli + "");
+        List<Populartabelacliente> dadosCliente = (List<Populartabelacliente>) query.list();
+        
+        for (Populartabelacliente lin : dadosCliente) {
+            tfNomeCliente.setText(lin.getNome());
+            tfRG.setText(lin.getRg());
+            tfCPF.setText(lin.getCpf());
+            tfTelefone.setText(lin.getDescricaocontato());
+            tfEndereco.setText(lin.getDescricaoendereco());
+            tfBairro.setText(lin.getBairro());
+            tfCidade.setText(lin.getDescricaocidade());
+            
+        }
+        sessao.getTransaction().commit();
+        
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btOk;
@@ -443,21 +474,23 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField13;
-    private javax.swing.JTextField jTextField14;
-    private javax.swing.JTextField jTextField15;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
+    private javax.swing.JTextField tfBairro;
+    private javax.swing.JTextField tfCPF;
+    private javax.swing.JTextField tfCidade;
     private javax.swing.JTextField tfDataLocacao;
     private javax.swing.JTextField tfDataReserva;
     private javax.swing.JTextField tfDescricaoVeiculo;
+    private javax.swing.JTextField tfEndereco;
     private javax.swing.JTextField tfNomeCliente;
+    private javax.swing.JTextField tfRG;
+    private javax.swing.JTextField tfTelefone;
     // End of variables declaration//GEN-END:variables
+
+  
 }

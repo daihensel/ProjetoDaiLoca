@@ -9,6 +9,7 @@ import conf.HibernateUtil;
 import entidade.Locacao;
 import entidade.Populartabelalocacao;
 import java.util.List;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -26,7 +27,7 @@ public class DgConsultaLocacao extends javax.swing.JDialog {
 
         initComponents();
         janelaQueChamou = janela;
-        this.popularTabelaLocacao(tfPesquisa.getText());
+        this.popularTabelaLocacao(tfPesquisa.getText(),tbLocacoes);
     }
 
     /**
@@ -133,11 +134,11 @@ public class DgConsultaLocacao extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-        this.popularTabelaLocacao(tfPesquisa.getText());
+        this.popularTabelaLocacao(tfPesquisa.getText(),tbLocacoes);
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void tfPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfPesquisaKeyReleased
-        this.popularTabelaLocacao(tfPesquisa.getText());
+        this.popularTabelaLocacao(tfPesquisa.getText(),tbLocacoes);
     }//GEN-LAST:event_tfPesquisaKeyReleased
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -148,15 +149,14 @@ public class DgConsultaLocacao extends javax.swing.JDialog {
         if (evt.getClickCount() > 1) {
             String cod = String.valueOf(tbLocacoes.getValueAt(tbLocacoes.getSelectedRow(), 0));
             int codigo = Integer.parseInt(cod);
-            String nomeveiculo = String.valueOf(tbLocacoes.getValueAt(tbLocacoes.getSelectedRow(), 3));
-            janelaQueChamou.defineCliente(codigo, nomeveiculo);
+            janelaQueChamou.defineLocacao(codigo);
             this.dispose();
         }
     }//GEN-LAST:event_tbLocacoesMouseClicked
 
-    public void popularTabelaLocacao(String criterio) {
+    public void popularTabelaLocacao(String criterio, JTable tb) {
 
-        DefaultTableModel tabelaModelo = (DefaultTableModel) tbLocacoes.getModel();
+        DefaultTableModel tabelaModelo = (DefaultTableModel) tb.getModel();
         tabelaModelo.setNumRows(0);
 
         Session sessao = null;

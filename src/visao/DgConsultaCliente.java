@@ -34,6 +34,8 @@ public class DgConsultaCliente extends javax.swing.JDialog {
         janelaQueChamou = janela;
         this.popularTabelaCliente(tfPesquisa.getText());
     }
+    
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -155,8 +157,8 @@ public class DgConsultaCliente extends javax.swing.JDialog {
         if (evt.getClickCount() > 1) {
             String cod = String.valueOf(tbClientes.getValueAt(tbClientes.getSelectedRow(), 0));
             int codigo = Integer.parseInt(cod);
-            String nomecli = String.valueOf(tbClientes.getValueAt(tbClientes.getSelectedRow(), 1));
-            // janelaQueChamou.defineCliente(codigo, nomecli);
+            
+         //   janelaQueChamou.defineCodigo(codigo);
             this.dispose();
         }
     }//GEN-LAST:event_tbClientesMouseClicked
