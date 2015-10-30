@@ -6,6 +6,11 @@
 package visao;
 
 import conf.Formatacao;
+import conf.HibernateUtil;
+import entidade.Pessoajuridica;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *
@@ -320,6 +325,27 @@ public class IfFornecedor extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
+
+        Session sessao = null;
+        try {
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            Transaction t = sessao.beginTransaction();
+            
+            Pessoajuridica pessoajurid = new Pessoajuridica();
+            
+            
+            
+            sessao.save(pessoajurid);
+            t.commit();
+
+        } catch (HibernateException he) {
+            he.printStackTrace();
+            
+        } finally {
+            sessao.close();
+        }
+        
+        
         
     }//GEN-LAST:event_btSalvarActionPerformed
 
