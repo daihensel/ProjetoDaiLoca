@@ -15,9 +15,6 @@
   <Properties>
     <Property name="title" type="java.lang.String" value="Cadastro Tipo Veiculo"/>
   </Properties>
-  <AccessibilityProperties>
-    <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Cadastro Tipo Veiculo"/>
-  </AccessibilityProperties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
   </SyntheticProperties>

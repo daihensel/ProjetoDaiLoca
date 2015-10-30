@@ -294,8 +294,6 @@ public class IfTipoVeiculo extends javax.swing.JInternalFrame {
                     .addGap(771, 771, 771)))
         );
 
-        getAccessibleContext().setAccessibleName("Cadastro Tipo Veiculo");
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 

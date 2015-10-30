@@ -5,6 +5,14 @@
  */
 package visao;
 
+import conf.HibernateUtil;
+import entidade.Cidade;
+import entidade.Estado;
+import org.apache.log4j.Logger;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
 
 /**
  *
@@ -12,7 +20,7 @@ package visao;
  */
 public class IfCidade extends javax.swing.JInternalFrame {
 
-
+private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
 
     /**
      * Creates new form FrCidade
@@ -173,10 +181,11 @@ public class IfCidade extends javax.swing.JInternalFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(tfBusca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel3)
+                        .addComponent(tfBusca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(34, 34, 34)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(28, Short.MAX_VALUE))
@@ -266,6 +275,36 @@ public class IfCidade extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
+
+         Session sessao = null;
+        try {
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            Transaction t = sessao.beginTransaction();
+           
+            
+
+            Cidade cidade = new Cidade();
+          
+            cidade.setDescricao(tfNome.getText());
+            
+            Estado estado = new Estado();
+            estado.setIdestado(12);
+            
+            cidade.setEstado(estado);
+            
+
+            sessao.save(cidade);
+            t.commit();
+
+        } catch (HibernateException he) {
+            he.printStackTrace();
+            logger.error("Erro");
+        } finally {
+            sessao.close();
+        }
+        
+        
+        
         
     }//GEN-LAST:event_btSalvarActionPerformed
 
