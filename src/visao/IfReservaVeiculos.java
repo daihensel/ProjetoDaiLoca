@@ -408,13 +408,11 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         DgConsultaVeiculo tela = new DgConsultaVeiculo();
         tela.setVisible(true);
-        // tela.setSize(200, 200);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         DgConsultaCliente tela = new DgConsultaCliente(this);
         tela.setVisible(true);
-        tela.setSize(200, 200);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

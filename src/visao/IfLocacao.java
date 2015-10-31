@@ -18,7 +18,7 @@ import org.hibernate.Transaction;
  *
  * @author Daiane
  */
-public class IfLocacao extends javax.swing.JInternalFrame  implements conf.MyInternalFrame {
+public class IfLocacao extends javax.swing.JInternalFrame implements conf.MyInternalFrame {
 
     /**
      * Creates new form IfReservaVeiculos
@@ -26,6 +26,7 @@ public class IfLocacao extends javax.swing.JInternalFrame  implements conf.MyInt
     public IfLocacao() {
         initComponents();
         Utility.permit(null, btOk, null, null, this);
+
     }
 
     /**
@@ -421,6 +422,7 @@ public class IfLocacao extends javax.swing.JInternalFrame  implements conf.MyInt
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
     //@Override
+
     public void defineCodigo(int codcli) {
 
         Session sessao = null;

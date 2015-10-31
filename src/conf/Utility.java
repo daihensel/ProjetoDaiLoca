@@ -6,7 +6,6 @@
 package conf;
 
 import entidade.Veiculostipoestatus;
-import static java.awt.im.InputContext.getInstance;
 import java.util.Iterator;
 import java.util.List;
 import javax.swing.JButton;
@@ -31,7 +30,7 @@ public class Utility {
         sessao = HibernateUtil.getSessionFactory().openSession();
         Transaction t = sessao.beginTransaction();
 
-        Iterator qr = sessao.createQuery("select pe.ler,pe.inserir, pe.editar,"
+        Iterator qr = sessao.createQuery("select pe.ler, pe.inserir, pe.editar, "
                 + "pe.inativar from Permissao pe, Pessoa p, Funcionario f, Tela t\n"
                 + "WHERE p.idpessoa=pe.idpessoa\n"
                 + "AND p.idpessoa=f.pessoaIdpessoa\n"

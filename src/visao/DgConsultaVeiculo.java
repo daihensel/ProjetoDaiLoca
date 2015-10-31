@@ -7,6 +7,7 @@ package visao;
 
 import conf.HibernateUtil;
 import entidade.Veiculo;
+import entidade.Veiculosstatus;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import org.hibernate.Query;
@@ -25,9 +26,9 @@ public class DgConsultaVeiculo extends javax.swing.JDialog {
      * Creates new form DgConsultaVeic
      */
     public DgConsultaVeiculo() {
-        
+
         initComponents();
-        this.popularTabelaVeiculo();
+        this.popularTabelaVeiculo(tfPesquisa.getText());
     }
 
     /**
@@ -41,60 +42,93 @@ public class DgConsultaVeiculo extends javax.swing.JDialog {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tbVeiculos = new javax.swing.JTable();
-        jTextField1 = new javax.swing.JTextField();
-        btnPesquisar = new javax.swing.JButton();
+        tfPesquisa = new javax.swing.JTextField();
+        btPesquisar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         tbVeiculos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Descricao", "Tipo", "Marca", "Ano"
+                "Id", "Veículo", "Marca", "Ano Modelo", "Valor Diária", "Tipo", "Status"
             }
         ));
         jScrollPane1.setViewportView(tbVeiculos);
 
-        btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/procurar_20x20.png"))); // NOI18N
-        btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPesquisarActionPerformed(evt);
+        tfPesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tfPesquisaKeyReleased(evt);
             }
         });
+
+        btPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/procurar_20x20.png"))); // NOI18N
+        btPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btPesquisarActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("*Pesquisa por veículo, nome cliente ou tipo veículo");
+
+        jLabel2.setText("*Pesquisa por veículo, marca, tipo veículo ou status");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 607, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(tfPesquisa)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(145, 145, 145)
+                    .addComponent(jLabel1)
+                    .addContainerGap(220, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPesquisar, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(tfPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btPesquisar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE))
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(148, 148, 148)
+                    .addComponent(jLabel1)
+                    .addContainerGap(148, Short.MAX_VALUE)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-        this.popularTabelaVeiculo();
-    }//GEN-LAST:event_btnPesquisarActionPerformed
+    private void btPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarActionPerformed
+        this.popularTabelaVeiculo(tfPesquisa.getText());
+    }//GEN-LAST:event_btPesquisarActionPerformed
 
-     public void popularTabelaVeiculo() {
+    private void tfPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfPesquisaKeyReleased
+        this.popularTabelaVeiculo(tfPesquisa.getText());
+    }//GEN-LAST:event_tfPesquisaKeyReleased
+
+    public void popularTabelaVeiculo(String criterio) {
 
         DefaultTableModel tabelaModelo = (DefaultTableModel) tbVeiculos.getModel();
         tabelaModelo.setNumRows(0);
@@ -103,16 +137,24 @@ public class DgConsultaVeiculo extends javax.swing.JDialog {
 
         sessao = HibernateUtil.getSessionFactory().openSession();
         Transaction t = sessao.beginTransaction();
+        criterio = criterio.toLowerCase();
+        Query query = (Query) sessao.createQuery(" FROM Veiculosstatus v WHERE (lower(v.descricaoveiculo) LIKE '%" + criterio + "%'"
+                + " OR lower(v.marca) LIKE '%" + criterio + "%'"
+                + " OR lower(v.descricaotipo) LIKE '%" + criterio + "%'"
+        + " OR lower(v.descricaostatus) LIKE '%" + criterio + "%')");
+        List<Veiculosstatus> dadosVeiculos = (List<Veiculosstatus>) query.list();
 
-        Query query = (Query) sessao.createQuery(" FROM Veiculo");
-        List<Veiculo> dadosVeiculos = (List<Veiculo>) query.list();
-
-        for (Veiculo veiculolin : dadosVeiculos) {
+        for (Veiculosstatus lin : dadosVeiculos) {
             tabelaModelo.addRow(new Object[]{
-                veiculolin.getDescricao(),
-                veiculolin.getMarca(),
-                veiculolin.getAnoFabricacao(),
-                veiculolin.getAnoModelo(),});
+                lin.getIdveiculo(),
+                lin.getDescricaoVeiculo(),
+                lin.getMarca(),
+                lin.getAnoModelo(),
+                lin.getValorDiaria(),
+                lin.getDescricaoTipo(),
+                lin.getDescricaoStatus()
+
+            });
 
         }
         sessao.getTransaction().commit();
@@ -120,13 +162,12 @@ public class DgConsultaVeiculo extends javax.swing.JDialog {
     }
 
 
-   
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnPesquisar;
+    private javax.swing.JButton btPesquisar;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTable tbVeiculos;
+    private javax.swing.JTextField tfPesquisa;
     // End of variables declaration//GEN-END:variables
 }
