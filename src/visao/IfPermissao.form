@@ -29,7 +29,6 @@
               <Component id="jToolBar1" min="-2" pref="52" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -178,21 +177,25 @@
         </Component>
         <Component class="javax.swing.JCheckBox" name="cbLer">
           <Properties>
+            <Property name="selected" type="boolean" value="true"/>
             <Property name="text" type="java.lang.String" value="Ler"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JCheckBox" name="cbExcluir">
           <Properties>
+            <Property name="selected" type="boolean" value="true"/>
             <Property name="text" type="java.lang.String" value="Excluir"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JCheckBox" name="cbInserir">
           <Properties>
+            <Property name="selected" type="boolean" value="true"/>
             <Property name="text" type="java.lang.String" value="Inserir"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JCheckBox" name="cbEditar">
           <Properties>
+            <Property name="selected" type="boolean" value="true"/>
             <Property name="text" type="java.lang.String" value="Editar"/>
           </Properties>
         </Component>

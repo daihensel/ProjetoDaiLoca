@@ -6,6 +6,7 @@
 package visao;
 
 import conf.HibernateUtil;
+import conf.Utility;
 import entidade.Cidade;
 import entidade.Estado;
 import org.apache.log4j.Logger;
@@ -13,19 +14,21 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-
 /**
  *
  * @author Daiane
  */
 public class IfStatusVeiculo extends javax.swing.JInternalFrame {
 
-private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
+    private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
 
     /**
-     * Creates new form FrCidade
+     * Creates new form IfStatusVeiculo
      */
-   
+    public IfStatusVeiculo() {
+        initComponents();
+        Utility.permit(btNovo, btSalvar, btEditar, btEditar, this);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -276,22 +279,19 @@ private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName(
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
 
-         Session sessao = null;
+        Session sessao = null;
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
             Transaction t = sessao.beginTransaction();
-           
-            
 
             Cidade cidade = new Cidade();
-          
+
             cidade.setDescricao(tfNome.getText());
-            
+
             Estado estado = new Estado();
             estado.setIdestado(12);
-            
+
             cidade.setEstado(estado);
-            
 
             sessao.save(cidade);
             t.commit();
@@ -302,10 +302,8 @@ private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName(
         } finally {
             sessao.close();
         }
-        
-        
-        
-        
+
+
     }//GEN-LAST:event_btSalvarActionPerformed
 
     private void btFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFecharActionPerformed
@@ -313,11 +311,11 @@ private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName(
     }//GEN-LAST:event_btFecharActionPerformed
 
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
-       
+
     }//GEN-LAST:event_btNovoActionPerformed
 
     private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
-       
+
     }//GEN-LAST:event_btEditarActionPerformed
 
     private void jTabbedPane1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTabbedPane1FocusGained
@@ -325,7 +323,7 @@ private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName(
     }//GEN-LAST:event_jTabbedPane1FocusGained
 
     private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
-      
+
     }//GEN-LAST:event_jTabbedPane1StateChanged
 
     private void jPanel2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPanel2FocusGained
@@ -333,11 +331,11 @@ private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName(
     }//GEN-LAST:event_jPanel2FocusGained
 
     private void btPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarActionPerformed
-       
+
     }//GEN-LAST:event_btPesquisarActionPerformed
 
     private void tfBuscaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfBuscaKeyReleased
-       
+
     }//GEN-LAST:event_tfBuscaKeyReleased
 
     private void jPanel1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPanel1FocusGained
@@ -353,7 +351,7 @@ private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName(
     }//GEN-LAST:event_cbEstadoItemStateChanged
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
-       
+
 
     }//GEN-LAST:event_btExcluirActionPerformed
 

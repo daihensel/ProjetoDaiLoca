@@ -8,8 +8,8 @@ package visao;
 import conf.HibernateUtil;
 import entidade.Populartabelacliente;
 import java.util.List;
-import javax.swing.JInternalFrame;
 import javax.swing.table.DefaultTableModel;
+import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -20,19 +20,20 @@ import org.hibernate.Transaction;
  */
 public class DgConsultaCliente extends javax.swing.JDialog {
 
-    JInternalFrame janelaQueChamou;
+    private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
+    public static IfReservaVeiculos telaReserva;
+    public static IfLocacao telaLocacao;
 
     // public static IfReservaVeiculos telaReserva;
     /**
      * Creates new form DgConsultaVeic
      */
-    public DgConsultaCliente(JInternalFrame janela) {
+    public DgConsultaCliente(IfReservaVeiculos telaReserva, IfLocacao telaLocacao) {
         initComponents();
-        janelaQueChamou = janela;
+        this.telaReserva = telaReserva;
+        this.telaLocacao = telaLocacao;
         this.popularTabelaCliente(tfPesquisa.getText());
     }
-    
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -63,7 +64,7 @@ public class DgConsultaCliente extends javax.swing.JDialog {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, true, true
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -135,8 +136,14 @@ public class DgConsultaCliente extends javax.swing.JDialog {
         if (evt.getClickCount() > 1) {
             String cod = String.valueOf(tbClientes.getValueAt(tbClientes.getSelectedRow(), 0));
             int codigo = Integer.parseInt(cod);
-            
-         //   janelaQueChamou.defineCodigo(codigo);
+
+            if (telaReserva != null) {
+                telaReserva.defineCodigoCliente(codigo);
+            }
+            if (telaLocacao != null) {
+                telaLocacao.defineCodigoCliente(codigo);
+
+            }
             this.dispose();
         }
     }//GEN-LAST:event_tbClientesMouseClicked

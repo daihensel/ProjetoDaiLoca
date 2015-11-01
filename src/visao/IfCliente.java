@@ -7,6 +7,7 @@ package visao;
 
 import conf.Formatacao;
 import conf.Utility;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -14,6 +15,7 @@ import conf.Utility;
  */
 public class IfCliente extends javax.swing.JInternalFrame {
 
+     private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
     /**
      * Creates new form IfCliente
      */

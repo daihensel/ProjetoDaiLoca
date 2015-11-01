@@ -29,7 +29,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="483" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="477" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <Component id="tfPesquisa" max="32767" attributes="0"/>
@@ -69,10 +69,10 @@
               <Table columnCount="7" rowCount="4">
                 <Column editable="false" title="Id" type="java.lang.Object"/>
                 <Column editable="false" title="Nome" type="java.lang.Object"/>
-                <Column editable="false" title="CPF" type="java.lang.Object"/>
-                <Column editable="false" title="RG" type="java.lang.Object"/>
+                <Column editable="false" title="CNPJ" type="java.lang.Object"/>
                 <Column editable="false" title="Telefone" type="java.lang.Object"/>
                 <Column editable="false" title="Endere&#xe7;o" type="java.lang.Object"/>
+                <Column editable="false" title="Bairro" type="java.lang.Object"/>
                 <Column editable="false" title="Cidade" type="java.lang.Object"/>
               </Table>
             </Property>
@@ -142,7 +142,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="*Pesquisa por nome, CPF, endere&#xe7;o ou cidade"/>
+        <Property name="text" type="java.lang.String" value="*Pesquisa por nome, CNPJ, endere&#xe7;o ou cidade"/>
       </Properties>
     </Component>
   </SubComponents>

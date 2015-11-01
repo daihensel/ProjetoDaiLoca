@@ -7,7 +7,6 @@ package conf;
 import java.sql.ResultSet;
 import java.util.Iterator;
 import javax.swing.JComboBox;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 

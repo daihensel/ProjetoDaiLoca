@@ -6,7 +6,7 @@
 package visao;
 
 import conf.HibernateUtil;
-import entidade.Populartabelalocacao;
+import entidade.Populartabelareserva;
 import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -19,16 +19,20 @@ import org.hibernate.Transaction;
  *
  * @author Diego
  */
-public class DgConsultaLocacao extends javax.swing.JDialog {
-
-     private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
-    IfDevolucao telaDevolucao;
-
-    public DgConsultaLocacao(IfDevolucao janela) {
-
+public class DgConsultaReserva extends javax.swing.JDialog {
+    
+    private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
+    IfLocacao telaLocacao;
+    int codigoVeiculo;
+    int codigoCliente;
+    
+    public DgConsultaReserva(IfLocacao janela) {
+        
         initComponents();
-        telaDevolucao = janela;
-        this.popularTabelaLocacao(tfPesquisa.getText(),tbLocacoes);
+        telaLocacao = janela;
+        codigoVeiculo = 0;
+        codigoCliente = 0;
+        this.popularTabelaReserva(tfPesquisa.getText(), tbReserva);
     }
 
     /**
@@ -41,38 +45,38 @@ public class DgConsultaLocacao extends javax.swing.JDialog {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbLocacoes = new javax.swing.JTable();
+        tbReserva = new javax.swing.JTable();
         tfPesquisa = new javax.swing.JTextField();
         btnPesquisar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        tbLocacoes.setModel(new javax.swing.table.DefaultTableModel(
+        tbReserva.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Id", "Data Locação", "Nome Cliente", "Veículo", "Tipo Veículo"
+                "Id", "Data Reserva", "Data Locação", "Dias Pretendidos", "Nome Cliente", "Veículo", "Tipo Veículo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        tbLocacoes.addMouseListener(new java.awt.event.MouseAdapter() {
+        tbReserva.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tbLocacoesMouseClicked(evt);
+                tbReservaMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tbLocacoes);
+        jScrollPane1.setViewportView(tbReserva);
 
         tfPesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -121,48 +125,55 @@ public class DgConsultaLocacao extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-        this.popularTabelaLocacao(tfPesquisa.getText(),tbLocacoes);
+        this.popularTabelaReserva(tfPesquisa.getText(), tbReserva);
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void tfPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfPesquisaKeyReleased
-        this.popularTabelaLocacao(tfPesquisa.getText(),tbLocacoes);
+        this.popularTabelaReserva(tfPesquisa.getText(), tbReserva);
     }//GEN-LAST:event_tfPesquisaKeyReleased
 
-    private void tbLocacoesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbLocacoesMouseClicked
+    private void tbReservaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbReservaMouseClicked
         if (evt.getClickCount() > 1) {
-            String cod = String.valueOf(tbLocacoes.getValueAt(tbLocacoes.getSelectedRow(), 0));
+            String cod = String.valueOf(tbReserva.getValueAt(tbReserva.getSelectedRow(), 0));
             int codigo = Integer.parseInt(cod);
-            telaDevolucao.defineLocacao(codigo);
+            telaLocacao.defineCodigoReserva(codigo);
+            telaLocacao.defineCodigoCliente(codigoCliente);
+            telaLocacao.defineCodigoVeiculo(codigoVeiculo);
             this.dispose();
         }
-    }//GEN-LAST:event_tbLocacoesMouseClicked
-
-    public void popularTabelaLocacao(String criterio, JTable tb) {
-
+    }//GEN-LAST:event_tbReservaMouseClicked
+    
+    public void popularTabelaReserva(String criterio, JTable tb) {
+        
         DefaultTableModel tabelaModelo = (DefaultTableModel) tb.getModel();
         tabelaModelo.setNumRows(0);
-
+        
         Session sessao = null;
-
+        
         sessao = HibernateUtil.getSessionFactory().openSession();
         Transaction t = sessao.beginTransaction();
         criterio = criterio.toLowerCase();
-        Query query = (Query) sessao.createQuery(" FROM Populartabelalocacao p WHERE (lower(p.descricaoveiculo) LIKE '%" + criterio + "%'"
+        Query query = (Query) sessao.createQuery(" FROM Populartabelareserva p WHERE (lower(p.descricaoveiculo) LIKE '%" + criterio + "%'"
                 + " OR lower(p.nomecliente) LIKE '%" + criterio + "%'"
-                + " OR lower(p.descricaotipoveiculo) LIKE '%" + criterio + "%')");
-        List<Populartabelalocacao> dadosLocacao = (List<Populartabelalocacao>) query.list();
-
-        for (Populartabelalocacao lin : dadosLocacao) {
+                + " OR lower(p.descricaotipo) LIKE '%" + criterio + "%')");
+        List<Populartabelareserva> dadosLocacao = (List<Populartabelareserva>) query.list();
+        
+        for (Populartabelareserva lin : dadosLocacao) {
             tabelaModelo.addRow(new Object[]{
-                lin.getIdlocacao(),
+                lin.getIdreserva(),
+                lin.getDtReserva(),
                 lin.getDtLocacao(),
+                lin.getDiasPretendidos(),
                 lin.getNomecliente(),
                 lin.getDescricaoVeiculo(),
-                lin.getDescricaoTipoVeiculo()});
-
+                lin.getDescricaoTipo(),
+            codigoCliente = lin.getIdcliente(),
+            codigoVeiculo = lin.getIdVeiculo(),
+            });
+            
         }
         sessao.getTransaction().commit();
-
+        
     }
 
 
@@ -170,7 +181,7 @@ public class DgConsultaLocacao extends javax.swing.JDialog {
     private javax.swing.JButton btnPesquisar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tbLocacoes;
+    private javax.swing.JTable tbReserva;
     private javax.swing.JTextField tfPesquisa;
     // End of variables declaration//GEN-END:variables
 }

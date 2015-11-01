@@ -6,10 +6,10 @@
 package visao;
 
 import conf.HibernateUtil;
-import entidade.Veiculo;
 import entidade.Veiculosstatus;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -20,14 +20,20 @@ import org.hibernate.Transaction;
  */
 public class DgConsultaVeiculo extends javax.swing.JDialog {
 
+     private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
     public static IfReservaVeiculos telaReserva;
+    public static IfLocacao telaLocacao;
+    public static IfManutencaoVeiculos telaManutencao;
 
     /**
      * Creates new form DgConsultaVeic
      */
-    public DgConsultaVeiculo() {
+    public DgConsultaVeiculo(IfReservaVeiculos telaReserva, IfLocacao telaLocacao, IfManutencaoVeiculos telaManutencao) {
 
         initComponents();
+        this.telaReserva = telaReserva;
+        this.telaLocacao = telaLocacao;
+        this.telaManutencao = telaManutencao;
         this.popularTabelaVeiculo(tfPesquisa.getText());
     }
 
@@ -44,7 +50,6 @@ public class DgConsultaVeiculo extends javax.swing.JDialog {
         tbVeiculos = new javax.swing.JTable();
         tfPesquisa = new javax.swing.JTextField();
         btPesquisar = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -59,7 +64,25 @@ public class DgConsultaVeiculo extends javax.swing.JDialog {
             new String [] {
                 "Id", "Veículo", "Marca", "Ano Modelo", "Valor Diária", "Tipo", "Status"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tbVeiculos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbVeiculosMouseClicked(evt);
+            }
+        });
+        tbVeiculos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tbVeiculosKeyReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbVeiculos);
 
         tfPesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -75,30 +98,25 @@ public class DgConsultaVeiculo extends javax.swing.JDialog {
             }
         });
 
-        jLabel1.setText("*Pesquisa por veículo, nome cliente ou tipo veículo");
-
         jLabel2.setText("*Pesquisa por veículo, marca, tipo veículo ou status");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 607, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 349, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(tfPesquisa)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(145, 145, 145)
-                    .addComponent(jLabel1)
-                    .addContainerGap(220, Short.MAX_VALUE)))
+                        .addComponent(btPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 587, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -110,11 +128,6 @@ public class DgConsultaVeiculo extends javax.swing.JDialog {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(148, 148, 148)
-                    .addComponent(jLabel1)
-                    .addContainerGap(148, Short.MAX_VALUE)))
         );
 
         pack();
@@ -127,6 +140,27 @@ public class DgConsultaVeiculo extends javax.swing.JDialog {
     private void tfPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfPesquisaKeyReleased
         this.popularTabelaVeiculo(tfPesquisa.getText());
     }//GEN-LAST:event_tfPesquisaKeyReleased
+
+    private void tbVeiculosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbVeiculosKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tbVeiculosKeyReleased
+
+    private void tbVeiculosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbVeiculosMouseClicked
+        if (evt.getClickCount() > 1) {
+            String cod = String.valueOf(tbVeiculos.getValueAt(tbVeiculos.getSelectedRow(), 0));
+            int codigo = Integer.parseInt(cod);
+            if (telaReserva != null) {
+                telaReserva.defineCodigoVeiculo(codigo);
+            }
+            if (telaLocacao != null) {
+                telaLocacao.defineCodigoVeiculo(codigo);
+            }
+            if (telaManutencao != null) {
+                telaManutencao.defineCodigoVeiculo(codigo);
+            }
+            this.dispose();
+        }
+    }//GEN-LAST:event_tbVeiculosMouseClicked
 
     public void popularTabelaVeiculo(String criterio) {
 
@@ -141,7 +175,7 @@ public class DgConsultaVeiculo extends javax.swing.JDialog {
         Query query = (Query) sessao.createQuery(" FROM Veiculosstatus v WHERE (lower(v.descricaoveiculo) LIKE '%" + criterio + "%'"
                 + " OR lower(v.marca) LIKE '%" + criterio + "%'"
                 + " OR lower(v.descricaotipo) LIKE '%" + criterio + "%'"
-        + " OR lower(v.descricaostatus) LIKE '%" + criterio + "%')");
+                + " OR lower(v.descricaostatus) LIKE '%" + criterio + "%')");
         List<Veiculosstatus> dadosVeiculos = (List<Veiculosstatus>) query.list();
 
         for (Veiculosstatus lin : dadosVeiculos) {
@@ -164,7 +198,6 @@ public class DgConsultaVeiculo extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btPesquisar;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbVeiculos;

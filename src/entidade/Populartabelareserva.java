@@ -23,6 +23,10 @@ public class Populartabelareserva implements java.io.Serializable {
     @Column(name = "idreserva")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idreserva;
+    @Column(name = "idcliente", nullable = false)
+    private int idcliente;
+    @Column(name = "idveiculo", nullable = false)
+    private int idveiculo;
     @Column(name = "nomecliente", nullable = false, length = 45)
     private String nomecliente;
     @Column(name = "rg", nullable = false, length = 45)
@@ -53,6 +57,23 @@ public class Populartabelareserva implements java.io.Serializable {
     public void setIdreserva(int idreserva) {
         this.idreserva = idreserva;
     }
+    
+    public int getIdcliente() {
+        return this.idcliente;
+    }
+
+    public void setIdcliente(int idcliente) {
+        this.idcliente = idcliente;
+    }
+    
+     public int getIdVeiculo() {
+        return this.idveiculo;
+    }
+
+    public void setIdveiculo(int idveiculo) {
+        this.idveiculo = idveiculo;
+    }
+
 
     public String getNomecliente() {
         return this.nomecliente;

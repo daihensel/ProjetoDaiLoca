@@ -50,7 +50,6 @@ public class Populartabelaveiculo implements Serializable {
     }
 
     public void setIdveiculo(int idveiculo) {
-        int oldIdveiculo = this.idveiculo;
         this.idveiculo = idveiculo;
 
     }
@@ -60,7 +59,6 @@ public class Populartabelaveiculo implements Serializable {
     }
 
     public void setDescricaoVeiculo(String descricaoveiculo) {
-        String oldDescricaoveiculo = this.descricaoveiculo;
         this.descricaoveiculo = descricaoveiculo;
     }
 
@@ -69,7 +67,6 @@ public class Populartabelaveiculo implements Serializable {
     }
 
     public void setDescricaoTipo(String descricaotipo) {
-        String oldDescricaoTipo = this.descricaotipo;
         this.descricaotipo = descricaotipo;
 
     }
@@ -89,7 +86,6 @@ public class Populartabelaveiculo implements Serializable {
     }
 
     public void setAnoFabricacao(int anoFabricacao) {
-        int oldAnoFabricacao = this.anoFabricacao;
         this.anoFabricacao = anoFabricacao;
 
     }
@@ -99,7 +95,6 @@ public class Populartabelaveiculo implements Serializable {
     }
 
     public void setAnoModelo(int anoModelo) {
-        int oldAnoModelo = this.anoModelo;
         this.anoModelo = anoModelo;
 
     }
@@ -109,7 +104,6 @@ public class Populartabelaveiculo implements Serializable {
     }
 
     public void setKmAtual(int kmAtual) {
-        int oldKmAtual = this.kmAtual;
         this.kmAtual = kmAtual;
 
     }

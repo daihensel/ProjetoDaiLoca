@@ -8,6 +8,7 @@ package visao;
 import conf.Formatacao;
 import conf.Utility;
 import conf.Validacao;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -15,6 +16,7 @@ import conf.Validacao;
  */
 public class IfFuncionario extends javax.swing.JInternalFrame {
 
+     private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
     /**
      * Creates new form IfmVeiculo
      */

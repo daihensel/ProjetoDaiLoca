@@ -9,6 +9,7 @@ import conf.Formatacao;
 import conf.HibernateUtil;
 import conf.Utility;
 import entidade.Pessoajuridica;
+import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -20,6 +21,7 @@ import org.hibernate.Transaction;
 public class IfFornecedor extends javax.swing.JInternalFrame {
 
 
+     private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
     /**
      * Creates new form IfmVeiculo
      */

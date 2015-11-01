@@ -5,10 +5,8 @@
  */
 package visao;
 
-import conf.CriarTriggers;
 import conf.HibernateUtil;
 import conf.Utility;
-import entidade.Populartabelalocacao;
 import entidade.Tipocontato;
 import java.util.List;
 import javax.swing.JTable;

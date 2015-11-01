@@ -6,6 +6,7 @@
 package visao;
 
 import conf.HibernateUtil;
+import conf.Utility;
 import entidade.Cidade;
 import entidade.Estado;
 import org.apache.log4j.Logger;
@@ -25,7 +26,10 @@ private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName(
     /**
      * Creates new form FrCidade
      */
-   
+    public IfCidade() {
+        initComponents();
+        Utility.permit(btNovo, btSalvar, btEditar, null, this);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.

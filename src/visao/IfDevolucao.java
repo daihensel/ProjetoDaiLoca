@@ -9,8 +9,8 @@ import conf.Formatacao;
 import conf.HibernateUtil;
 import conf.Utility;
 import entidade.Populartabelalocacao;
-import java.sql.Date;
 import java.util.List;
+import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -21,6 +21,7 @@ import org.hibernate.Transaction;
  */
 public class IfDevolucao extends javax.swing.JInternalFrame  {
 
+     private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
     /**
      * Creates new form IfReservaVeiculos
      */

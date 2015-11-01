@@ -8,6 +8,12 @@
             <column name="idreserva" />
             <generator class="increment" />
         </id>
+        <property name="idcliente" type="int">
+            <column name="idcliente" not-null="true" />
+        </property>
+        <property name="idveiculo" type="int">
+            <column name="idveiculo" not-null="true" />
+        </property>
        <property name="nomecliente" type="string">
             <column name="nomecliente" length="45" not-null="true" />
         </property>

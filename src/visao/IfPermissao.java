@@ -5,14 +5,22 @@
  */
 package visao;
 
+import conf.ComboItens;
 import conf.CombosDAO;
+import conf.HibernateUtil;
 import conf.Utility;
+import entidade.Permissao;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *
  * @author Daiane
  */
 public class IfPermissao extends javax.swing.JInternalFrame {
+
+    private org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(IfTipoContato.class.getName());
 
     /**
      * Creates new form IfPermissao
@@ -85,12 +93,16 @@ public class IfPermissao extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Adicionar permissão para usuário:");
 
+        cbLer.setSelected(true);
         cbLer.setText("Ler");
 
+        cbExcluir.setSelected(true);
         cbExcluir.setText("Excluir");
 
+        cbInserir.setSelected(true);
         cbInserir.setText("Inserir");
 
+        cbEditar.setSelected(true);
         cbEditar.setText("Editar");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -153,8 +165,7 @@ public class IfPermissao extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -165,8 +176,37 @@ public class IfPermissao extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btNovoActionPerformed
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
+        Session sessao = null;
+        try {
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            Transaction t = sessao.beginTransaction();
 
-    
+            Permissao p = new Permissao();
+
+            ComboItens cbiu = (ComboItens) cbUsuario.getSelectedItem();
+            p.setIdpessoa(cbiu.getCodigo());
+
+            ComboItens cbit = (ComboItens) cbTela.getSelectedItem();
+            p.setIdtela(cbit.getCodigo());
+           
+            p.setIdFuncao(1);
+            p.setLer(cbLer.isSelected());
+            p.setInserir(cbInserir.isSelected());
+            p.setEditar(cbEditar.isSelected());
+            p.setInativar(cbExcluir.isSelected());
+            sessao.save(p);
+
+            t.commit();
+
+        } catch (HibernateException he) {
+            he.printStackTrace();
+            System.out.println("Erro ao  = " + he.toString());
+            System.out.println("Erro ao  = " + he.getStackTrace().toString());
+            logger.error("Erro");
+        } finally {
+            sessao.close();
+        }
+
     }//GEN-LAST:event_btSalvarActionPerformed
 
     private void btFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFecharActionPerformed
@@ -175,7 +215,7 @@ public class IfPermissao extends javax.swing.JInternalFrame {
 
     public void populaCombos() {
         cbTela.removeAllItems();
-        cbTela.addItem("Todas");
+        // cbTela.addItem("Todas");
         new CombosDAO().popularCombo("Tela", "idtela", "descricao", cbTela, "");
         cbUsuario.removeAllItems();
         new CombosDAO().popularCombo("Funcionario", "pessoaIdpessoa", "login", cbUsuario, "");

@@ -7,8 +7,10 @@ package visao;
 
 import conf.Formatacao;
 import conf.HibernateUtil;
+import conf.Utility;
 import entidade.Tipoveiculo;
 import java.math.BigDecimal;
+import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -19,14 +21,13 @@ import org.hibernate.Transaction;
  */
 public class IfTipoVeiculo extends javax.swing.JInternalFrame {
 
-
+ private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
     /**
-     * Creates new form IfmVeiculo
+     * Creates new form IfTipoVeiculo
      */
     public IfTipoVeiculo() {
         initComponents();
-       
-        System.out.println("");
+        Utility.permit(btNovo, btSalvar, btEditar, null, this);
     }
 
     /**
@@ -59,11 +60,11 @@ public class IfTipoVeiculo extends javax.swing.JInternalFrame {
         tbFornecedores = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
         jToolBar3 = new javax.swing.JToolBar();
-        btNovo2 = new javax.swing.JButton();
-        btSalvar2 = new javax.swing.JButton();
-        btEditar2 = new javax.swing.JButton();
+        btNovo = new javax.swing.JButton();
+        btSalvar = new javax.swing.JButton();
+        btEditar = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JToolBar.Separator();
-        btFechar2 = new javax.swing.JButton();
+        btFechar = new javax.swing.JButton();
 
         jMenu1.setText("jMenu1");
 
@@ -225,42 +226,42 @@ public class IfTipoVeiculo extends javax.swing.JInternalFrame {
 
         jToolBar3.setRollover(true);
 
-        btNovo2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/novo_32x32.png"))); // NOI18N
-        btNovo2.setText("Novo");
-        btNovo2.addActionListener(new java.awt.event.ActionListener() {
+        btNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/novo_32x32.png"))); // NOI18N
+        btNovo.setText("Novo");
+        btNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btNovo2ActionPerformed(evt);
+                btNovoActionPerformed(evt);
             }
         });
-        jToolBar3.add(btNovo2);
+        jToolBar3.add(btNovo);
 
-        btSalvar2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/salvar_32x32.png"))); // NOI18N
-        btSalvar2.setText("Salvar");
-        btSalvar2.addActionListener(new java.awt.event.ActionListener() {
+        btSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/salvar_32x32.png"))); // NOI18N
+        btSalvar.setText("Salvar");
+        btSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btSalvar2ActionPerformed(evt);
+                btSalvarActionPerformed(evt);
             }
         });
-        jToolBar3.add(btSalvar2);
+        jToolBar3.add(btSalvar);
 
-        btEditar2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/bEditar.png"))); // NOI18N
-        btEditar2.setText("Editar");
-        btEditar2.addActionListener(new java.awt.event.ActionListener() {
+        btEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/bEditar.png"))); // NOI18N
+        btEditar.setText("Editar");
+        btEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btEditar2ActionPerformed(evt);
+                btEditarActionPerformed(evt);
             }
         });
-        jToolBar3.add(btEditar2);
+        jToolBar3.add(btEditar);
         jToolBar3.add(jSeparator3);
 
-        btFechar2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/fechar_32x32.png"))); // NOI18N
-        btFechar2.setText("Fechar");
-        btFechar2.addActionListener(new java.awt.event.ActionListener() {
+        btFechar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/fechar_32x32.png"))); // NOI18N
+        btFechar.setText("Fechar");
+        btFechar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btFechar2ActionPerformed(evt);
+                btFecharActionPerformed(evt);
             }
         });
-        jToolBar3.add(btFechar2);
+        jToolBar3.add(btFechar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -297,11 +298,11 @@ public class IfTipoVeiculo extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btNovo2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovo2ActionPerformed
+    private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btNovo2ActionPerformed
+    }//GEN-LAST:event_btNovoActionPerformed
 
-    private void btSalvar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvar2ActionPerformed
+    private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
 
         Session sessao = null;
         try {
@@ -328,15 +329,15 @@ public class IfTipoVeiculo extends javax.swing.JInternalFrame {
         
         
         
-    }//GEN-LAST:event_btSalvar2ActionPerformed
+    }//GEN-LAST:event_btSalvarActionPerformed
 
-    private void btEditar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditar2ActionPerformed
+    private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btEditar2ActionPerformed
+    }//GEN-LAST:event_btEditarActionPerformed
 
-    private void btFechar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFechar2ActionPerformed
+    private void btFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFecharActionPerformed
         this.dispose();
-    }//GEN-LAST:event_btFechar2ActionPerformed
+    }//GEN-LAST:event_btFecharActionPerformed
 
     private void jTabbedPane1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTabbedPane1FocusGained
 
@@ -374,11 +375,11 @@ public class IfTipoVeiculo extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btEditar2;
-    private javax.swing.JButton btFechar2;
-    private javax.swing.JButton btNovo2;
+    private javax.swing.JButton btEditar;
+    private javax.swing.JButton btFechar;
+    private javax.swing.JButton btNovo;
     private javax.swing.JButton btPesquisar;
-    private javax.swing.JButton btSalvar2;
+    private javax.swing.JButton btSalvar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

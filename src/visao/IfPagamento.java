@@ -6,6 +6,7 @@
 package visao;
 
 import conf.HibernateUtil;
+import conf.Utility;
 import entidade.Cidade;
 import entidade.Estado;
 import org.apache.log4j.Logger;
@@ -23,9 +24,12 @@ public class IfPagamento extends javax.swing.JInternalFrame {
 private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
 
     /**
-     * Creates new form FrCidade
+     * Creates new form IfPagamento
      */
-   
+    public IfPagamento() {
+        initComponents();
+        Utility.permit(btNovo, btSalvar, btEditar, null, this);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
