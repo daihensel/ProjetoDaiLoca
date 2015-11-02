@@ -5,14 +5,8 @@
  */
 package visao;
 
-import conf.HibernateUtil;
-import entidade.Veiculosstatus;
-import java.util.List;
-import javax.swing.table.DefaultTableModel;
+import conf.Popula;
 import org.apache.log4j.Logger;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 /**
  *
@@ -24,17 +18,19 @@ public class DgConsultaVeiculo extends javax.swing.JDialog {
     public static IfReservaVeiculos telaReserva;
     public static IfLocacao telaLocacao;
     public static IfManutencaoVeiculos telaManutencao;
+    public static IfDocumento telaDoc;
 
     /**
      * Creates new form DgConsultaVeic
      */
-    public DgConsultaVeiculo(IfReservaVeiculos telaReserva, IfLocacao telaLocacao, IfManutencaoVeiculos telaManutencao) {
+    public DgConsultaVeiculo(IfReservaVeiculos telaReserva, IfLocacao telaLocacao, IfManutencaoVeiculos telaManutencao, IfDocumento telaDoc) {
 
         initComponents();
         this.telaReserva = telaReserva;
         this.telaLocacao = telaLocacao;
         this.telaManutencao = telaManutencao;
-        this.popularTabelaVeiculo(tfPesquisa.getText());
+        this.telaDoc = telaDoc;
+        pesquisa();
     }
 
     /**
@@ -98,7 +94,7 @@ public class DgConsultaVeiculo extends javax.swing.JDialog {
             }
         });
 
-        jLabel2.setText("*Pesquisa por veículo, marca, tipo veículo ou status");
+        jLabel2.setText("*Pesquisa por Id, veículo, marca, tipo veículo ou status");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -109,7 +105,7 @@ public class DgConsultaVeiculo extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
-                        .addGap(0, 349, Short.MAX_VALUE))
+                        .addGap(0, 332, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(tfPesquisa)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -134,11 +130,11 @@ public class DgConsultaVeiculo extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarActionPerformed
-        this.popularTabelaVeiculo(tfPesquisa.getText());
+       pesquisa();
     }//GEN-LAST:event_btPesquisarActionPerformed
 
     private void tfPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfPesquisaKeyReleased
-        this.popularTabelaVeiculo(tfPesquisa.getText());
+        pesquisa();
     }//GEN-LAST:event_tfPesquisaKeyReleased
 
     private void tbVeiculosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbVeiculosKeyReleased
@@ -158,41 +154,19 @@ public class DgConsultaVeiculo extends javax.swing.JDialog {
             if (telaManutencao != null) {
                 telaManutencao.defineCodigoVeiculo(codigo);
             }
+            if (telaDoc != null) {
+                telaDoc.defineCodigoVeiculo(codigo);
+            }
             this.dispose();
         }
     }//GEN-LAST:event_tbVeiculosMouseClicked
 
-    public void popularTabelaVeiculo(String criterio) {
-
-        DefaultTableModel tabelaModelo = (DefaultTableModel) tbVeiculos.getModel();
-        tabelaModelo.setNumRows(0);
-
-        Session sessao = null;
-
-        sessao = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = sessao.beginTransaction();
-        criterio = criterio.toLowerCase();
-        Query query = (Query) sessao.createQuery(" FROM Veiculosstatus v WHERE (lower(v.descricaoveiculo) LIKE '%" + criterio + "%'"
-                + " OR lower(v.marca) LIKE '%" + criterio + "%'"
-                + " OR lower(v.descricaotipo) LIKE '%" + criterio + "%'"
-                + " OR lower(v.descricaostatus) LIKE '%" + criterio + "%')");
-        List<Veiculosstatus> dadosVeiculos = (List<Veiculosstatus>) query.list();
-
-        for (Veiculosstatus lin : dadosVeiculos) {
-            tabelaModelo.addRow(new Object[]{
-                lin.getIdveiculo(),
-                lin.getDescricaoVeiculo(),
-                lin.getMarca(),
-                lin.getAnoModelo(),
-                lin.getValorDiaria(),
-                lin.getDescricaoTipo(),
-                lin.getDescricaoStatus()
-
-            });
-
+    public void pesquisa() {
+        int cod = 0;
+        if (tfPesquisa.getText().length() > 0 && tfPesquisa.getText().matches("[0-9]")) {
+            cod = Integer.parseInt(tfPesquisa.getText());
         }
-        sessao.getTransaction().commit();
-
+        Popula.popularTabelaVeiculo(cod, tfPesquisa.getText(), tbVeiculos);
     }
 
 

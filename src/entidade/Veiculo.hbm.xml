@@ -12,7 +12,7 @@
             <column name="idstatusveiculo" not-null="true" />
         </property>
         <many-to-one name="tipoveiculo" class="entidade.Tipoveiculo" fetch="select">
-            <column name="idtipoveiculo" not-null="true" />
+            <column name="idtipoVeiculo" not-null="true" />
         </many-to-one>
         <property name="descricao" type="string">
             <column name="descricao" length="45" not-null="true" />

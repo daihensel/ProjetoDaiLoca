@@ -29,7 +29,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="313" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="296" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <Component id="tfPesquisa" max="32767" attributes="0"/>
@@ -130,7 +130,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="*Pesquisa por ve&#xed;culo, nome cliente ou tipo ve&#xed;culo"/>
+        <Property name="text" type="java.lang.String" value="*Pesquisa por Id, ve&#xed;culo, nome cliente ou tipo ve&#xed;culo"/>
       </Properties>
     </Component>
   </SubComponents>

@@ -14,14 +14,13 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-
 /**
  *
  * @author Daiane
  */
 public class IfPagamento extends javax.swing.JInternalFrame {
 
-private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
+    private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
 
     /**
      * Creates new form IfPagamento
@@ -29,6 +28,9 @@ private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName(
     public IfPagamento() {
         initComponents();
         Utility.permit(btNovo, btSalvar, btEditar, null, this);
+        //habilitaCampos(false);
+        //this.pesquisa();
+        jTabbedPane1StateChanged(null);
     }
 
     /**
@@ -51,12 +53,11 @@ private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName(
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbCidades = new javax.swing.JTable();
-        tfBusca = new javax.swing.JTextField();
+        tfPesquisa = new javax.swing.JTextField();
         btPesquisar = new javax.swing.JButton();
         jToolBar1 = new javax.swing.JToolBar();
         btNovo = new javax.swing.JButton();
         btSalvar = new javax.swing.JButton();
-        btExcluir = new javax.swing.JButton();
         btEditar = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JToolBar.Separator();
         btFechar = new javax.swing.JButton();
@@ -152,9 +153,9 @@ private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName(
         ));
         jScrollPane1.setViewportView(tbCidades);
 
-        tfBusca.addKeyListener(new java.awt.event.KeyAdapter() {
+        tfPesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                tfBuscaKeyReleased(evt);
+                tfPesquisaKeyReleased(evt);
             }
         });
 
@@ -176,7 +177,7 @@ private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName(
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tfBusca)
+                        .addComponent(tfPesquisa)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(19, 19, 19))
@@ -189,7 +190,7 @@ private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName(
                     .addComponent(btPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel3)
-                        .addComponent(tfBusca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(tfPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(34, 34, 34)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(28, Short.MAX_VALUE))
@@ -216,16 +217,6 @@ private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName(
             }
         });
         jToolBar1.add(btSalvar);
-
-        btExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/bExcluir.png"))); // NOI18N
-        btExcluir.setText("Excluir");
-        btExcluir.setPreferredSize(new java.awt.Dimension(71, 39));
-        btExcluir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btExcluirActionPerformed(evt);
-            }
-        });
-        jToolBar1.add(btExcluir);
 
         btEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/bEditar.png"))); // NOI18N
         btEditar.setText("Editar");
@@ -280,23 +271,14 @@ private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName(
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
 
-         Session sessao = null;
+        Session sessao = null;
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
             Transaction t = sessao.beginTransaction();
-           
-            
 
             Cidade cidade = new Cidade();
-          
-            cidade.setDescricao(tfNome.getText());
-            
-            Estado estado = new Estado();
-            estado.setIdestado(12);
-            
-            cidade.setEstado(estado);
-            
 
+           
             sessao.save(cidade);
             t.commit();
 
@@ -306,10 +288,8 @@ private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName(
         } finally {
             sessao.close();
         }
-        
-        
-        
-        
+
+
     }//GEN-LAST:event_btSalvarActionPerformed
 
     private void btFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFecharActionPerformed
@@ -317,11 +297,14 @@ private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName(
     }//GEN-LAST:event_btFecharActionPerformed
 
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
-       
+        //habilitaCampos(true);
+        jTabbedPane1.setSelectedIndex(0);
+        btNovo.setEnabled(false);
+        btSalvar.setEnabled(true);
     }//GEN-LAST:event_btNovoActionPerformed
 
     private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
-       
+
     }//GEN-LAST:event_btEditarActionPerformed
 
     private void jTabbedPane1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTabbedPane1FocusGained
@@ -329,7 +312,19 @@ private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName(
     }//GEN-LAST:event_jTabbedPane1FocusGained
 
     private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
-      
+        if (jTabbedPane1.getSelectedIndex() == 1) {             
+            //habilitaCampos(false);
+            //  pesquisa();
+            btSalvar.setEnabled(false);
+            btEditar.setEnabled(true);
+            btNovo.setEnabled(true);
+            // btExcluir.setEnabled(true);
+        } else if (jTabbedPane1.getSelectedIndex() == 0) {
+            btSalvar.setEnabled(false);
+            btEditar.setEnabled(false);
+            btNovo.setEnabled(true);
+            //   btExcluir.setEnabled(false);
+        }
     }//GEN-LAST:event_jTabbedPane1StateChanged
 
     private void jPanel2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPanel2FocusGained
@@ -337,12 +332,12 @@ private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName(
     }//GEN-LAST:event_jPanel2FocusGained
 
     private void btPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarActionPerformed
-       
+
     }//GEN-LAST:event_btPesquisarActionPerformed
 
-    private void tfBuscaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfBuscaKeyReleased
-       
-    }//GEN-LAST:event_tfBuscaKeyReleased
+    private void tfPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfPesquisaKeyReleased
+    //pesquisa():       
+    }//GEN-LAST:event_tfPesquisaKeyReleased
 
     private void jPanel1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPanel1FocusGained
 
@@ -356,15 +351,9 @@ private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName(
 
     }//GEN-LAST:event_cbEstadoItemStateChanged
 
-    private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
-       
-
-    }//GEN-LAST:event_btExcluirActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btEditar;
-    private javax.swing.JButton btExcluir;
     private javax.swing.JButton btFechar;
     private javax.swing.JButton btNovo;
     private javax.swing.JButton btPesquisar;
@@ -382,7 +371,7 @@ private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName(
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JTable tbCidades;
-    private javax.swing.JTextField tfBusca;
     private javax.swing.JTextField tfNome;
+    private javax.swing.JTextField tfPesquisa;
     // End of variables declaration//GEN-END:variables
 }

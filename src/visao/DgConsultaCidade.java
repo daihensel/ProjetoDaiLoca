@@ -12,20 +12,18 @@ import org.apache.log4j.Logger;
  *
  * @author Diego
  */
-public class DgConsultaCliente extends javax.swing.JDialog {
+public class DgConsultaCidade extends javax.swing.JDialog {
 
     private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
-    public static IfReservaVeiculos telaReserva;
-    public static IfLocacao telaLocacao;
+    public static IfCliente telaCliente;
 
     // public static IfReservaVeiculos telaReserva;
     /**
      * Creates new form DgConsultaVeic
      */
-    public DgConsultaCliente(IfReservaVeiculos telaReserva, IfLocacao telaLocacao) {
+    public DgConsultaCidade(IfCliente janela) {
         initComponents();
-        this.telaReserva = telaReserva;
-        this.telaLocacao = telaLocacao;
+        this.telaCliente = janela;
         pesquisa();
     }
 
@@ -39,38 +37,38 @@ public class DgConsultaCliente extends javax.swing.JDialog {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbClientes = new javax.swing.JTable();
+        tbCidades = new javax.swing.JTable();
         tfPesquisa = new javax.swing.JTextField();
         btPesquisar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        tbClientes.setModel(new javax.swing.table.DefaultTableModel(
+        tbCidades.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Id", "Nome", "CPF", "RG", "Telefone", "Endereço", "Cidade"
+                "Id", "Cidade", "Estado(UF)"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        tbClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+        tbCidades.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tbClientesMouseClicked(evt);
+                tbCidadesMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tbClientes);
+        jScrollPane1.setViewportView(tbCidades);
 
         tfPesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -85,23 +83,23 @@ public class DgConsultaCliente extends javax.swing.JDialog {
             }
         });
 
-        jLabel1.setText("*Pesquisa por Id, nome, CPF, endereço ou cidade");
+        jLabel1.setText("*Pesquisa por Id, cidade ou estado");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 716, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(0, 466, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(tfPesquisa)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 468, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -112,7 +110,7 @@ public class DgConsultaCliente extends javax.swing.JDialog {
                 .addGap(3, 3, 3)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -126,28 +124,25 @@ public class DgConsultaCliente extends javax.swing.JDialog {
         pesquisa();
     }//GEN-LAST:event_tfPesquisaKeyReleased
 
-    private void tbClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbClientesMouseClicked
+    private void tbCidadesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbCidadesMouseClicked
         if (evt.getClickCount() > 1) {
-            String cod = String.valueOf(tbClientes.getValueAt(tbClientes.getSelectedRow(), 0));
+            String cod = String.valueOf(tbCidades.getValueAt(tbCidades.getSelectedRow(), 0));
             int codigo = Integer.parseInt(cod);
-
-            if (telaReserva != null) {
-                telaReserva.defineCodigoCliente(codigo);
+            String nome = String.valueOf(tbCidades.getValueAt(tbCidades.getSelectedRow(), 1));
+            if (telaCliente != null) {
+                telaCliente.defineCodigoCidade(codigo, nome);
             }
-            if (telaLocacao != null) {
-                telaLocacao.defineCodigoCliente(codigo);
 
-            }
             this.dispose();
         }
-    }//GEN-LAST:event_tbClientesMouseClicked
+    }//GEN-LAST:event_tbCidadesMouseClicked
 
     public void pesquisa() {
         int cod = 0;
         if (tfPesquisa.getText().length() > 0 && tfPesquisa.getText().matches("[0-9]")) {
             cod = Integer.parseInt(tfPesquisa.getText());
         }
-        Popula.popularTabelaCliente(cod, tfPesquisa.getText(), tbClientes);
+        Popula.popularTabelaCidade(cod, tfPesquisa.getText(), tbCidades);
     }
 
 
@@ -155,7 +150,7 @@ public class DgConsultaCliente extends javax.swing.JDialog {
     private javax.swing.JButton btPesquisar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tbClientes;
+    private javax.swing.JTable tbCidades;
     private javax.swing.JTextField tfPesquisa;
     // End of variables declaration//GEN-END:variables
 }

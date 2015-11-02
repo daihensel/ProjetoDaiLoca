@@ -184,6 +184,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         listaOnlines = new javax.swing.JList();
         btAbrirChat = new javax.swing.JButton();
         btNovaDevolucao = new javax.swing.JButton();
+        btNovoPagamento = new javax.swing.JButton();
         pnChat = new javax.swing.JPanel();
         pnConectar = new javax.swing.JPanel();
         tfNome = new javax.swing.JTextField();
@@ -208,6 +209,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         miTipoContato = new javax.swing.JMenuItem();
         miCidade = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -380,6 +382,13 @@ public class FormPrincipal extends javax.swing.JFrame {
             }
         });
 
+        btNovoPagamento.setText("Novo Pagamento");
+        btNovoPagamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btNovoPagamentoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnMenusLayout = new javax.swing.GroupLayout(pnMenus);
         pnMenus.setLayout(pnMenusLayout);
         pnMenusLayout.setHorizontalGroup(
@@ -394,7 +403,8 @@ public class FormPrincipal extends javax.swing.JFrame {
                     .addComponent(btNovoVeiculo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
                     .addComponent(btNovaManut, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pnTotais, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnLogados, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(pnLogados, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btNovoPagamento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         pnMenusLayout.setVerticalGroup(
@@ -403,17 +413,19 @@ public class FormPrincipal extends javax.swing.JFrame {
                 .addComponent(btNovaReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btNovaLocacao, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btNovoVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btNovaManut, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btNovaManut, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btNovoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btNovoFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btNovaDevolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(4, 4, 4)
+                .addComponent(btNovoPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnLogados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnTotais, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -553,7 +565,15 @@ public class FormPrincipal extends javax.swing.JFrame {
             new String [] {
                 "Veículo", "Tipo", "Status"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tbVeiculos);
 
         javax.swing.GroupLayout pnGeralLayout = new javax.swing.GroupLayout(pnGeral);
@@ -640,6 +660,14 @@ public class FormPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu2.add(jMenuItem2);
+
+        jMenuItem4.setText("Documento");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem4);
 
         jMenuBar1.add(jMenu2);
 
@@ -799,7 +827,6 @@ public class FormPrincipal extends javax.swing.JFrame {
         } else {
             logger.error("sem permissao");
         }
-
     }//GEN-LAST:event_miTipoVeiculoActionPerformed
 
     private void miFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miFuncionarioActionPerformed
@@ -890,7 +917,6 @@ public class FormPrincipal extends javax.swing.JFrame {
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         IfPermissao janela = new IfPermissao();
-        
         dp.add(janela);
         if (Utility.permitLer(janela) == true) {
             janela.setVisible(true);
@@ -899,6 +925,28 @@ public class FormPrincipal extends javax.swing.JFrame {
             logger.error("usuário sem permissão");
         }
     }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        IfDocumento janela = new IfDocumento();
+        dp.add(janela);
+        if (Utility.permitLer(janela) == true) {
+            janela.setVisible(true);
+
+        } else {
+            logger.error("usuário sem permissão");
+        }
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void btNovoPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoPagamentoActionPerformed
+        IfPagamento janela = new IfPagamento();
+        dp.add(janela);
+        if (Utility.permitLer(janela) == true) {
+            janela.setVisible(true);
+
+        } else {
+            logger.error("usuário sem permissão");
+        }
+    }//GEN-LAST:event_btNovoPagamentoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -912,6 +960,7 @@ public class FormPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btNovaReserva;
     private javax.swing.JButton btNovoCliente;
     private javax.swing.JButton btNovoFornecedor;
+    private javax.swing.JButton btNovoPagamento;
     private javax.swing.JButton btNovoVeiculo;
     private javax.swing.JButton btSair;
     private javax.swing.JDesktopPane dp;
@@ -930,6 +979,7 @@ public class FormPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;

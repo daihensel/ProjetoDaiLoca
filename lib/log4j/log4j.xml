@@ -6,15 +6,15 @@
 <!DOCTYPE log4j:configuration SYSTEM "file:./log4j.dtd">
 <log4j:configuration>
 
-  <appender name="CONSOLE-ALL" class="org.apache.log4j.ConsoleAppender">
-    <layout class="org.apache.log4j.PatternLayout">
-      <param name="ConversionPattern" value="[%7r] %6p - %30.30c - %m \n"/>
-    </layout>
-  </appender>
+    <appender name="CONSOLE-ALL" class="org.apache.log4j.ConsoleAppender">
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%7r] %6p - %30.30c - %m \n"/>
+        </layout>
+    </appender>
 
-  <root>
-    <priority value="OFF"/>
-    <appender-ref ref="CONSOLE-ALL"/>
-  </root>
+    <root>
+        <priority value="OFF"/>
+        <appender-ref ref="CONSOLE-ALL"/>
+    </root>
 
 </log4j:configuration>

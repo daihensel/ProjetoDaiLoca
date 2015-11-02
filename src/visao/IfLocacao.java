@@ -105,7 +105,13 @@ public class IfLocacao extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Data Reserva:");
 
+        tfDataLocacaoNaReserva.setEditable(false);
+
+        tfDiasPretendidos.setEditable(false);
+
         jLabel2.setText("Data Locação:");
+
+        tfDataReserva.setEditable(false);
 
         jLabel3.setText("Dias pretendidos:");
 
@@ -184,22 +190,15 @@ public class IfLocacao extends javax.swing.JInternalFrame {
             }
         });
 
-        tfTipoVeiculo1.setEditable(false);
-
         jLabel19.setText("Hora retirada:");
-
-        tfAnoModelo1.setEditable(false);
 
         jLabel20.setText("Dias:");
 
-        tfKmAtual1.setEditable(false);
-
         jLabel22.setText("Parcelas:");
-
-        tfAnoFabricacao1.setEditable(false);
 
         jLabel24.setText("Valor Total:");
 
+        tfVendedor.setEditable(false);
         tfVendedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfVendedorActionPerformed(evt);
@@ -280,6 +279,8 @@ public class IfLocacao extends javax.swing.JInternalFrame {
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados Cliente"));
 
         jLabel10.setText("Nome:");
+
+        tfNomeCliente.setEditable(false);
 
         tfRG.setEditable(false);
 
@@ -385,6 +386,7 @@ public class IfLocacao extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Descrição:");
 
+        tfDescricaoVeiculo.setEditable(false);
         tfDescricaoVeiculo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfDescricaoVeiculoActionPerformed(evt);
@@ -447,18 +449,19 @@ public class IfLocacao extends javax.swing.JInternalFrame {
                                 .addComponent(tfAnoFabricacao, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(tfTipoVeiculo))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel7))
-                        .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(tfKmAtual)
-                                .addGap(10, 10, 10)
-                                .addComponent(jLabel25)
+                                .addComponent(jLabel8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tfValorDiaria, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(tfMarca))))
+                                .addComponent(tfKmAtual, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel25)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(tfValorDiaria, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(tfMarca)))))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -549,7 +552,7 @@ public class IfLocacao extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tfDescricaoVeiculoActionPerformed
 
     private void btPVeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPVeiculoActionPerformed
-        DgConsultaVeiculo tela = new DgConsultaVeiculo(null, this, null);
+        DgConsultaVeiculo tela = new DgConsultaVeiculo(null, this, null, null);
         tela.setVisible(true);
     }//GEN-LAST:event_btPVeiculoActionPerformed
 

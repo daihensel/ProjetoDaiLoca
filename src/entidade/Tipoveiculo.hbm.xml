@@ -20,11 +20,6 @@
         <property name="especificacoes" type="string">
             <column name="especificacoes" length="200" not-null="true" />
         </property>
-        <set name="veiculos" table="veiculo" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="idtipoveiculo" not-null="true" />
-            </key>
-            <one-to-many class="entidade.Veiculo" />
-        </set>
+        
     </class>
 </hibernate-mapping>

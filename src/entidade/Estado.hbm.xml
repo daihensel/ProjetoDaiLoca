@@ -14,11 +14,6 @@
         <property name="uf" type="string">
             <column name="uf" length="5" not-null="true" />
         </property>
-        <set name="cidades" table="cidade" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="estado_idestado" not-null="true" />
-            </key>
-            <one-to-many class="entidade.Cidade" />
-        </set>
+        
     </class>
 </hibernate-mapping>

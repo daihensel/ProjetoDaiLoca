@@ -25,8 +25,8 @@ public class Funcao implements java.io.Serializable {
     private int idfuncao;
     @Column(name = "descricao", nullable = false, length = 45)
     private String descricao;
-    @OneToMany(fetch=FetchType.LAZY, mappedBy="funcao")
-    private Set<Funcionario> funcionarios = new HashSet(0);
+//    @OneToMany(fetch=FetchType.LAZY, mappedBy="funcao")
+//    private Set<Funcionario> funcionarios = new HashSet(0);
 //    @OneToMany(fetch=FetchType.LAZY, mappedBy="funcao")
 //	 private Set<Permissao> permissaos = new HashSet(0);
 	
@@ -63,14 +63,14 @@ public class Funcao implements java.io.Serializable {
         this.descricao = descricao;
     }
 
-    
-    public Set getFuncionarios() {
-        return this.funcionarios;
-    }
-    
-    public void setFuncionarios(Set funcionarios) {
-        this.funcionarios = funcionarios;
-    }
+//    
+//    public Set getFuncionarios() {
+//        return this.funcionarios;
+//    }
+//    
+//    public void setFuncionarios(Set funcionarios) {
+//        this.funcionarios = funcionarios;
+//    }
 	
 //	 public Set getPermissaos() {
 //        return this.permissaos;

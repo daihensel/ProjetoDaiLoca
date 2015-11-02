@@ -30,7 +30,6 @@ public class Documentos implements java.io.Serializable {
     private Veiculo veiculo;
     @Column(name = "descricao", nullable = false, length = 45)
     private String descricao;
-    
     @Temporal(TemporalType.DATE)
     @Column(name = "dt_inclusao", nullable = false, length = 13)
     private Date dtInclusao;

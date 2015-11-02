@@ -5,6 +5,7 @@
  */
 package visao;
 
+import conf.Formatacao;
 import conf.HibernateUtil;
 import entidade.Populartabelareserva;
 import java.util.List;
@@ -47,7 +48,7 @@ public class DgConsultaReserva extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         tbReserva = new javax.swing.JTable();
         tfPesquisa = new javax.swing.JTextField();
-        btnPesquisar = new javax.swing.JButton();
+        btPesquisar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -84,10 +85,10 @@ public class DgConsultaReserva extends javax.swing.JDialog {
             }
         });
 
-        btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/procurar_20x20.png"))); // NOI18N
-        btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
+        btPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/procurar_20x20.png"))); // NOI18N
+        btPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPesquisarActionPerformed(evt);
+                btPesquisarActionPerformed(evt);
             }
         });
 
@@ -107,14 +108,14 @@ public class DgConsultaReserva extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(tfPesquisa)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(btPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tfPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPesquisar, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(btPesquisar, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(3, 3, 3)
                 .addComponent(jLabel1)
                 .addGap(1, 1, 1)
@@ -124,9 +125,9 @@ public class DgConsultaReserva extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
+    private void btPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarActionPerformed
         this.popularTabelaReserva(tfPesquisa.getText(), tbReserva);
-    }//GEN-LAST:event_btnPesquisarActionPerformed
+    }//GEN-LAST:event_btPesquisarActionPerformed
 
     private void tfPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfPesquisaKeyReleased
         this.popularTabelaReserva(tfPesquisa.getText(), tbReserva);
@@ -161,8 +162,8 @@ public class DgConsultaReserva extends javax.swing.JDialog {
         for (Populartabelareserva lin : dadosLocacao) {
             tabelaModelo.addRow(new Object[]{
                 lin.getIdreserva(),
-                lin.getDtReserva(),
-                lin.getDtLocacao(),
+                Formatacao.ajustaDataDMA(String.valueOf(lin.getDtReserva())),
+                Formatacao.ajustaDataDMA(String.valueOf(lin.getDtLocacao())),
                 lin.getDiasPretendidos(),
                 lin.getNomecliente(),
                 lin.getDescricaoVeiculo(),
@@ -178,7 +179,7 @@ public class DgConsultaReserva extends javax.swing.JDialog {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnPesquisar;
+    private javax.swing.JButton btPesquisar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbReserva;

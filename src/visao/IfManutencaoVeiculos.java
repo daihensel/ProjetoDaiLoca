@@ -140,6 +140,8 @@ public class IfManutencaoVeiculos extends javax.swing.JInternalFrame {
 
         jLabel10.setText("Razão Social:");
 
+        tfRazaoSocial.setEditable(false);
+
         tfCNPJ.setEditable(false);
 
         jLabel11.setText("CNPJ:");
@@ -261,6 +263,7 @@ public class IfManutencaoVeiculos extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Descrição:");
 
+        tfDescricaoVeiculo.setEditable(false);
         tfDescricaoVeiculo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfDescricaoVeiculoActionPerformed(evt);
@@ -323,18 +326,19 @@ public class IfManutencaoVeiculos extends javax.swing.JInternalFrame {
                                 .addComponent(tfAnoFabricacao, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(tfTipoVeiculo))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel7))
-                        .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(tfKmAtual)
-                                .addGap(10, 10, 10)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel17)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(tfValorDiaria, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(tfMarca))))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(tfMarca)))))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -411,7 +415,7 @@ public class IfManutencaoVeiculos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tfDescricaoVeiculoActionPerformed
 
     private void btPVeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPVeiculoActionPerformed
-        DgConsultaVeiculo tela = new DgConsultaVeiculo(null, null, this);
+        DgConsultaVeiculo tela = new DgConsultaVeiculo(null, null, this, null);
         tela.setVisible(true);
     }//GEN-LAST:event_btPVeiculoActionPerformed
 

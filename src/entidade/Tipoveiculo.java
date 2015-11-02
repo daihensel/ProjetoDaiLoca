@@ -21,7 +21,7 @@ import javax.persistence.Table;
 public class Tipoveiculo implements java.io.Serializable {
 
     @Id
-    @Column(name = "idtipoVeiculo")
+    @Column(name = "idtipo_veiculo")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idtipoVeiculo;
     @Column(name = "descricao", nullable = false, length = 100)
@@ -32,8 +32,8 @@ public class Tipoveiculo implements java.io.Serializable {
     private String observacoes;
     @Column(name = "especificacoes", nullable = false, length = 200)
     private String especificacoes;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "tipoveiculo")
-    private Set<Veiculo> veiculos = new HashSet(0);
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "tipoveiculo")
+//    private Set<Veiculo> veiculos = new HashSet(0);
 
     public Tipoveiculo() {
     }
@@ -45,14 +45,14 @@ public class Tipoveiculo implements java.io.Serializable {
         this.especificacoes = especificacoes;
     }
 
-    public Tipoveiculo(int idtipoVeiculo, String descricao, BigDecimal valorDiaria, String observacoes, String especificacoes, Set veiculos) {
-        this.idtipoVeiculo = idtipoVeiculo;
-        this.descricao = descricao;
-        this.valorDiaria = valorDiaria;
-        this.observacoes = observacoes;
-        this.especificacoes = especificacoes;
-
-    }
+//    public Tipoveiculo(int idtipoVeiculo, String descricao, BigDecimal valorDiaria, String observacoes, String especificacoes, Set veiculos) {
+//        this.idtipoVeiculo = idtipoVeiculo;
+//        this.descricao = descricao;
+//        this.valorDiaria = valorDiaria;
+//        this.observacoes = observacoes;
+//        this.especificacoes = especificacoes;
+//
+//    }
 
     public int getIdtipoVeiculo() {
         return this.idtipoVeiculo;
@@ -93,12 +93,12 @@ public class Tipoveiculo implements java.io.Serializable {
     public void setEspecificacoes(String especificacoes) {
         this.especificacoes = especificacoes;
     }
-
-    public Set getVeiculos() {
-        return this.veiculos;
-    }
-
-    public void setVeiculos(Set veiculos) {
-        this.veiculos = veiculos;
-    }
+//
+//    public Set getVeiculos() {
+//        return this.veiculos;
+//    }
+//
+//    public void setVeiculos(Set veiculos) {
+//        this.veiculos = veiculos;
+//    }
 }

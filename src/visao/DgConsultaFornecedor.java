@@ -5,14 +5,8 @@
  */
 package visao;
 
-import conf.HibernateUtil;
-import entidade.Populartabelafornecedor;
-import java.util.List;
-import javax.swing.table.DefaultTableModel;
+import conf.Popula;
 import org.apache.log4j.Logger;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 /**
  *
@@ -20,7 +14,7 @@ import org.hibernate.Transaction;
  */
 public class DgConsultaFornecedor extends javax.swing.JDialog {
 
-     private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
+    private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
     IfManutencaoVeiculos telaManutencao;
 
     // public static IfReservaVeiculos telaReserva;
@@ -30,10 +24,8 @@ public class DgConsultaFornecedor extends javax.swing.JDialog {
     public DgConsultaFornecedor(IfManutencaoVeiculos janela) {
         initComponents();
         telaManutencao = janela;
-        this.popularTabelaFornecedor(tfPesquisa.getText());
+        pesquisa();
     }
-    
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -45,14 +37,14 @@ public class DgConsultaFornecedor extends javax.swing.JDialog {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbClientes = new javax.swing.JTable();
+        tbFornecedor = new javax.swing.JTable();
         tfPesquisa = new javax.swing.JTextField();
-        btnPesquisar = new javax.swing.JButton();
+        btPesquisar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        tbClientes.setModel(new javax.swing.table.DefaultTableModel(
+        tbFornecedor.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
@@ -71,12 +63,12 @@ public class DgConsultaFornecedor extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
-        tbClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+        tbFornecedor.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tbClientesMouseClicked(evt);
+                tbFornecedorMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tbClientes);
+        jScrollPane1.setViewportView(tbFornecedor);
 
         tfPesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -84,14 +76,14 @@ public class DgConsultaFornecedor extends javax.swing.JDialog {
             }
         });
 
-        btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/procurar_20x20.png"))); // NOI18N
-        btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
+        btPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/procurar_20x20.png"))); // NOI18N
+        btPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPesquisarActionPerformed(evt);
+                btPesquisarActionPerformed(evt);
             }
         });
 
-        jLabel1.setText("*Pesquisa por nome, CNPJ, endereço ou cidade");
+        jLabel1.setText("*Pesquisa por Id, nome, CNPJ, endereço ou cidade");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -103,18 +95,18 @@ public class DgConsultaFornecedor extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(0, 477, Short.MAX_VALUE))
+                        .addGap(0, 460, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(tfPesquisa)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(btPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tfPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPesquisar))
+                    .addComponent(btPesquisar))
                 .addGap(3, 3, 3)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -124,62 +116,38 @@ public class DgConsultaFornecedor extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-        this.popularTabelaFornecedor(tfPesquisa.getText());
-    }//GEN-LAST:event_btnPesquisarActionPerformed
+    private void btPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarActionPerformed
+        pesquisa();
+    }//GEN-LAST:event_btPesquisarActionPerformed
 
     private void tfPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfPesquisaKeyReleased
-        this.popularTabelaFornecedor(tfPesquisa.getText());
+        pesquisa();
     }//GEN-LAST:event_tfPesquisaKeyReleased
 
-    private void tbClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbClientesMouseClicked
+    private void tbFornecedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbFornecedorMouseClicked
         if (evt.getClickCount() > 1) {
-            String cod = String.valueOf(tbClientes.getValueAt(tbClientes.getSelectedRow(), 0));
+            String cod = String.valueOf(tbFornecedor.getValueAt(tbFornecedor.getSelectedRow(), 0));
             int codigo = Integer.parseInt(cod);
-            
+
             telaManutencao.defineCodigoFornecedor(codigo);
             this.dispose();
         }
-    }//GEN-LAST:event_tbClientesMouseClicked
+    }//GEN-LAST:event_tbFornecedorMouseClicked
 
-    public void popularTabelaFornecedor(String criterio) {
-
-        DefaultTableModel tabelaModelo = (DefaultTableModel) tbClientes.getModel();
-        tabelaModelo.setNumRows(0);
-
-        Session sessao = null;
-
-        sessao = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = sessao.beginTransaction();
-        criterio = criterio.toLowerCase();
-        Query query = (Query) sessao.createQuery(" FROM Populartabelafornecedor p WHERE (lower(p.nome) LIKE '%" + criterio + "%'"
-                + " OR lower(p.cnpj) LIKE '%" + criterio + "%'"
-                + " OR lower(p.descricaoendereco) LIKE '%" + criterio + "%')"
-                + " OR lower(p.descricaocidade) LIKE '%" + criterio + "%')");
-        List<Populartabelafornecedor> dadosClientes = (List<Populartabelafornecedor>) query.list();
-
-        for (Populartabelafornecedor lin : dadosClientes) {
-            tabelaModelo.addRow(new Object[]{
-                lin.getIdpessoa(),
-                lin.getNome(),
-                lin.getCnpj(),
-                lin.getDescricaocontato(),
-                lin.getDescricaoendereco(),
-                lin.getBairro(),
-                lin.getDescricaocidade()
-            });
-
+    public void pesquisa() {
+        int cod = 0;
+        if (tfPesquisa.getText().length() > 0 && tfPesquisa.getText().matches("[0-9]")) {
+            cod = Integer.parseInt(tfPesquisa.getText());
         }
-        sessao.getTransaction().commit();
-
+        Popula.popularTabelaFornecedor(cod, tfPesquisa.getText(), tbFornecedor);
     }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnPesquisar;
+    private javax.swing.JButton btPesquisar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tbClientes;
+    private javax.swing.JTable tbFornecedor;
     private javax.swing.JTextField tfPesquisa;
     // End of variables declaration//GEN-END:variables
 }

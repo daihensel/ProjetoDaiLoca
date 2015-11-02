@@ -5,15 +5,19 @@
  */
 package visao;
 
+import conf.ComboItens;
+import conf.CombosDAO;
 import conf.HibernateUtil;
+import conf.Popula;
 import conf.Utility;
 import entidade.Cidade;
 import entidade.Estado;
+import java.util.List;
+import javax.swing.JOptionPane;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-
 
 /**
  *
@@ -21,14 +25,17 @@ import org.hibernate.Transaction;
  */
 public class IfCidade extends javax.swing.JInternalFrame {
 
-private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
+    private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
 
     /**
      * Creates new form FrCidade
      */
     public IfCidade() {
         initComponents();
-        Utility.permit(btNovo, btSalvar, btEditar, null, this);
+        Utility.permit(btNovo, btSalvar, btEditar, btExcluir, this);
+        habilitaCampos(false);
+        this.pesquisa();
+        jTabbedPane1StateChanged(null);
     }
 
     /**
@@ -49,10 +56,10 @@ private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName(
         cbEstado = new javax.swing.JComboBox();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
+        tfPesquisa = new javax.swing.JTextField();
+        btPesquisar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbCidades = new javax.swing.JTable();
-        tfBusca = new javax.swing.JTextField();
-        btPesquisar = new javax.swing.JButton();
         jToolBar1 = new javax.swing.JToolBar();
         btNovo = new javax.swing.JButton();
         btSalvar = new javax.swing.JButton();
@@ -113,7 +120,7 @@ private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName(
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -139,22 +146,9 @@ private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName(
 
         jLabel3.setText("Busca");
 
-        tbCidades.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(tbCidades);
-
-        tfBusca.addKeyListener(new java.awt.event.KeyAdapter() {
+        tfPesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                tfBuscaKeyReleased(evt);
+                tfPesquisaKeyReleased(evt);
             }
         });
 
@@ -165,21 +159,45 @@ private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName(
             }
         });
 
+        tbCidades.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Id", "Cidade", "Estado(UF)"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tbCidades.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbCidadesMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tbCidades);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 473, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tfBusca)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(tfPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 394, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(19, 19, 19))
+            .addComponent(jScrollPane1)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -189,10 +207,9 @@ private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName(
                     .addComponent(btPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel3)
-                        .addComponent(tfBusca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(34, 34, 34)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
+                        .addComponent(tfPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Consulta Cidades", jPanel2);
@@ -252,17 +269,14 @@ private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName(
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 527, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel7)
-                .addGap(19, 19, 19))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jToolBar1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTabbedPane1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel7)))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -270,9 +284,8 @@ private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName(
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -280,36 +293,36 @@ private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName(
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
 
-         Session sessao = null;
-        try {
-            sessao = HibernateUtil.getSessionFactory().openSession();
-            Transaction t = sessao.beginTransaction();
-           
-            
+        Session sessao = null;
+        if (tfNome.getText().trim().length() > 0 && cbEstado.getSelectedIndex() > 0) {
+            try {
+                sessao = HibernateUtil.getSessionFactory().openSession();
+                Transaction t = sessao.beginTransaction();
 
-            Cidade cidade = new Cidade();
-          
-            cidade.setDescricao(tfNome.getText());
-            
-            Estado estado = new Estado();
-            estado.setIdestado(12);
-            
-            cidade.setEstado(estado);
-            
+                Cidade cidade = new Cidade();
 
-            sessao.save(cidade);
-            t.commit();
+                cidade.setDescricao(tfNome.getText());
 
-        } catch (HibernateException he) {
-            he.printStackTrace();
-            logger.error("Erro");
-        } finally {
-            sessao.close();
+                Estado estado = new Estado();
+                ComboItens cbie = (ComboItens) cbEstado.getSelectedItem();
+
+                estado.setIdestado(cbie.getCodigo());
+                cidade.setEstado(estado);
+
+                sessao.save(cidade);
+                t.commit();
+
+            } catch (HibernateException he) {
+                he.printStackTrace();
+                logger.error("Erro");
+            } finally {
+                sessao.close();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Preencha os campos obrigatórios!");
         }
-        
-        
-        
-        
+
+
     }//GEN-LAST:event_btSalvarActionPerformed
 
     private void btFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFecharActionPerformed
@@ -317,11 +330,36 @@ private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName(
     }//GEN-LAST:event_btFecharActionPerformed
 
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
-       
+        habilitaCampos(true);
+        jTabbedPane1.setSelectedIndex(0);
+        btNovo.setEnabled(false);
+        btSalvar.setEnabled(true);
     }//GEN-LAST:event_btNovoActionPerformed
 
     private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
-       
+        if (jTabbedPane1.getSelectedIndex() == 1) {
+            if (tbCidades.getSelectedRow() >= 0) {
+                String cod = String.valueOf(tbCidades.getValueAt(tbCidades.getSelectedRow(), 0));
+                int codigo = Integer.parseInt(cod);
+                List<Cidade> l = Popula.popularTabelaCidade(codigo, String.valueOf(codigo), tbCidades);
+                for (Cidade lin : l) {
+                    tfNome.setText(lin.getDescricao());
+                    ComboItens cbi = new ComboItens();
+                    cbi.setDescricao(lin.getEstado().getUf());
+                    cbi.setCodigo(lin.getEstado().getIdestado());
+                    CombosDAO cb = new CombosDAO();
+                    cb.definirItemCombo(cbEstado, cbi);
+                }
+                jTabbedPane1.setSelectedIndex(0);
+                habilitaCampos(true);
+                btNovo.setEnabled(false);
+                btSalvar.setEnabled(true);
+
+                tfNome.requestFocus();
+            } else {
+                JOptionPane.showMessageDialog(null, "Selecione algum registro!");
+            }
+        }
     }//GEN-LAST:event_btEditarActionPerformed
 
     private void jTabbedPane1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTabbedPane1FocusGained
@@ -329,7 +367,19 @@ private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName(
     }//GEN-LAST:event_jTabbedPane1FocusGained
 
     private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
-      
+        if (jTabbedPane1.getSelectedIndex() == 1) {
+            habilitaCampos(false);
+            pesquisa();
+            btSalvar.setEnabled(false);
+            btEditar.setEnabled(true);
+            btNovo.setEnabled(true);
+            btExcluir.setEnabled(true);
+        } else if (jTabbedPane1.getSelectedIndex() == 0) {
+            btSalvar.setEnabled(false);
+            btEditar.setEnabled(false);
+            btNovo.setEnabled(true);
+            btExcluir.setEnabled(false);
+        }
     }//GEN-LAST:event_jTabbedPane1StateChanged
 
     private void jPanel2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPanel2FocusGained
@@ -337,12 +387,12 @@ private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName(
     }//GEN-LAST:event_jPanel2FocusGained
 
     private void btPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarActionPerformed
-       
+        pesquisa();
     }//GEN-LAST:event_btPesquisarActionPerformed
 
-    private void tfBuscaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfBuscaKeyReleased
-       
-    }//GEN-LAST:event_tfBuscaKeyReleased
+    private void tfPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfPesquisaKeyReleased
+
+    }//GEN-LAST:event_tfPesquisaKeyReleased
 
     private void jPanel1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPanel1FocusGained
 
@@ -357,9 +407,43 @@ private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName(
     }//GEN-LAST:event_cbEstadoItemStateChanged
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
-       
+
 
     }//GEN-LAST:event_btExcluirActionPerformed
+
+    private void tbCidadesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbCidadesMouseClicked
+        if (evt.getClickCount() > 1) {
+            btEditarActionPerformed(null);
+        }
+    }//GEN-LAST:event_tbCidadesMouseClicked
+
+    public void habilitaCampos(Boolean tf) {
+        if (tf == false) {
+            limpaCampos();
+        }
+        tfNome.setEnabled(tf);
+        cbEstado.setEnabled(tf);
+    }
+
+    public void limpaCampos() {
+        tfNome.setText("");
+        cbEstado.setSelectedIndex(0);
+        populaCombos();
+    }
+
+    public void pesquisa() {
+        int cod = 0;
+        if (tfPesquisa.getText().length() > 0 && tfPesquisa.getText().matches("[0-9]")) {
+            cod = Integer.parseInt(tfPesquisa.getText());
+        }
+        Popula.popularTabelaCidade(cod, tfPesquisa.getText(), tbCidades);
+    }
+
+    public void populaCombos() {
+        cbEstado.removeAllItems();
+        new CombosDAO().popularCombo("Estado", "idestado", "uf", cbEstado, "");
+
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -382,7 +466,7 @@ private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName(
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JTable tbCidades;
-    private javax.swing.JTextField tfBusca;
     private javax.swing.JTextField tfNome;
+    private javax.swing.JTextField tfPesquisa;
     // End of variables declaration//GEN-END:variables
 }

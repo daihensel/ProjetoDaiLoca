@@ -12,11 +12,6 @@
             <column name="descricao" length="45" not-null="true" />
         </property>
         
-        <set name="funcionarios" table="funcionario" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="funcao_idfuncao" not-null="true" />
-            </key>
-            <one-to-many class="entidade.Funcionario" />
-        </set>
+        
     </class>
 </hibernate-mapping>

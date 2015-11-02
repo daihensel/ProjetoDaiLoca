@@ -105,6 +105,7 @@ public class IfDevolucao extends javax.swing.JInternalFrame  {
 
         jLabel4.setText("Veículo locação:");
 
+        tfVeiculoLocacao.setEditable(false);
         tfVeiculoLocacao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfVeiculoLocacaoActionPerformed(evt);
@@ -312,7 +313,6 @@ public class IfDevolucao extends javax.swing.JInternalFrame  {
     private void btPLocacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPLocacaoActionPerformed
         DgConsultaLocacao tela = new DgConsultaLocacao(this);
         tela.setVisible(true);
-       // tela.setSize(200, 200);
     }//GEN-LAST:event_btPLocacaoActionPerformed
 
     private void btFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFecharActionPerformed
@@ -351,7 +351,7 @@ public class IfDevolucao extends javax.swing.JInternalFrame  {
            tfNomeCliente.setText(lin.getNomecliente());
            tfValorTotal.setText(String.valueOf(lin.getValorTotal()));
            tfCPF.setText(lin.getCpf());
-           tfDataLocacao.setText(String.valueOf(lin.getDtLocacao()));
+           tfDataLocacao.setText(Formatacao.ajustaDataDMA(String.valueOf(lin.getDtLocacao())));
            tfDias.setText(String.valueOf(lin.getDias()));
           tfTelefone.setText(lin.getTelefone());
           tfRG.setText(lin.getRg());

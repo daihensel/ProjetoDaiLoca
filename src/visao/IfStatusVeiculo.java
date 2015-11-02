@@ -6,9 +6,14 @@
 package visao;
 
 import conf.HibernateUtil;
+import conf.Popula;
 import conf.Utility;
 import entidade.Cidade;
 import entidade.Estado;
+import entidade.Statusveiculo;
+import entidade.Tipocontato;
+import java.util.List;
+import javax.swing.JOptionPane;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -27,7 +32,10 @@ public class IfStatusVeiculo extends javax.swing.JInternalFrame {
      */
     public IfStatusVeiculo() {
         initComponents();
-        Utility.permit(btNovo, btSalvar, btEditar, btEditar, this);
+        Utility.permit(btNovo, btSalvar, btEditar, btExcluir, this);
+        habilitaCampos(false);
+        this.pesquisa();
+        jTabbedPane1StateChanged(null);
     }
 
     /**
@@ -43,14 +51,12 @@ public class IfStatusVeiculo extends javax.swing.JInternalFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        tfNome = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
-        cbEstado = new javax.swing.JComboBox();
+        tfDescricao = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbCidades = new javax.swing.JTable();
-        tfBusca = new javax.swing.JTextField();
+        tbStatusVeiculos = new javax.swing.JTable();
+        tfPesquisa = new javax.swing.JTextField();
         btPesquisar = new javax.swing.JButton();
         jToolBar1 = new javax.swing.JToolBar();
         btNovo = new javax.swing.JButton();
@@ -63,7 +69,7 @@ public class IfStatusVeiculo extends javax.swing.JInternalFrame {
 
         jMenu1.setText("jMenu1");
 
-        setTitle("Cadastro de Cidades");
+        setTitle("Cadastro de Status de Veículos");
 
         jTabbedPane1.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -82,20 +88,11 @@ public class IfStatusVeiculo extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel2.setText("Nome cidade*:");
+        jLabel2.setText("Descrição*:");
 
-        tfNome.addKeyListener(new java.awt.event.KeyAdapter() {
+        tfDescricao.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                tfNomeKeyTyped(evt);
-            }
-        });
-
-        jLabel10.setText("Estado*:");
-
-        cbEstado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cbEstado.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cbEstadoItemStateChanged(evt);
+                tfDescricaoKeyTyped(evt);
             }
         });
 
@@ -105,14 +102,10 @@ public class IfStatusVeiculo extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel2))
+                .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addComponent(tfDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -120,15 +113,11 @@ public class IfStatusVeiculo extends javax.swing.JInternalFrame {
                 .addGap(25, 25, 25)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(cbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(209, Short.MAX_VALUE))
+                    .addComponent(tfDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(149, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Cadastro Cidades", jPanel1);
+        jTabbedPane1.addTab("Cadastro Status Veículo", jPanel1);
 
         jPanel2.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -138,22 +127,35 @@ public class IfStatusVeiculo extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Busca");
 
-        tbCidades.setModel(new javax.swing.table.DefaultTableModel(
+        tbStatusVeiculos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Id", "Descrição"
             }
-        ));
-        jScrollPane1.setViewportView(tbCidades);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
 
-        tfBusca.addKeyListener(new java.awt.event.KeyAdapter() {
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tbStatusVeiculos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbStatusVeiculosMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tbStatusVeiculos);
+
+        tfPesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                tfBuscaKeyReleased(evt);
+                tfPesquisaKeyReleased(evt);
             }
         });
 
@@ -170,15 +172,13 @@ public class IfStatusVeiculo extends javax.swing.JInternalFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 473, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tfBusca)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(tfPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(19, 19, 19))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -188,13 +188,13 @@ public class IfStatusVeiculo extends javax.swing.JInternalFrame {
                     .addComponent(btPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel3)
-                        .addComponent(tfBusca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(34, 34, 34)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
+                        .addComponent(tfPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Consulta Cidades", jPanel2);
+        jTabbedPane1.addTab("Consulta Status Veículo", jPanel2);
 
         jToolBar1.setRollover(true);
 
@@ -251,17 +251,11 @@ public class IfStatusVeiculo extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 527, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel7)
-                .addGap(19, 19, 19))
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel7))
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -269,9 +263,8 @@ public class IfStatusVeiculo extends javax.swing.JInternalFrame {
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -280,29 +273,27 @@ public class IfStatusVeiculo extends javax.swing.JInternalFrame {
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
 
         Session sessao = null;
-        try {
-            sessao = HibernateUtil.getSessionFactory().openSession();
-            Transaction t = sessao.beginTransaction();
+        if (tfDescricao.getText().trim().length() > 0) {
+            try {
+                sessao = HibernateUtil.getSessionFactory().openSession();
+                Transaction t = sessao.beginTransaction();
 
-            Cidade cidade = new Cidade();
+                Statusveiculo sv = new Statusveiculo();
 
-            cidade.setDescricao(tfNome.getText());
+                sv.setDescricao(tfDescricao.getText());
 
-            Estado estado = new Estado();
-            estado.setIdestado(12);
+                sessao.save(sv);
+                t.commit();
 
-            cidade.setEstado(estado);
-
-            sessao.save(cidade);
-            t.commit();
-
-        } catch (HibernateException he) {
-            he.printStackTrace();
-            logger.error("Erro");
-        } finally {
-            sessao.close();
+            } catch (HibernateException he) {
+                he.printStackTrace();
+                logger.error("Erro");
+            } finally {
+                sessao.close();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Preencha os campos obrigatórios!");
         }
-
 
     }//GEN-LAST:event_btSalvarActionPerformed
 
@@ -311,10 +302,31 @@ public class IfStatusVeiculo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btFecharActionPerformed
 
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
-
+        habilitaCampos(true);
+        jTabbedPane1.setSelectedIndex(0);
+        btNovo.setEnabled(false);
+        btSalvar.setEnabled(true);
     }//GEN-LAST:event_btNovoActionPerformed
 
     private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
+        if (jTabbedPane1.getSelectedIndex() == 1) {
+            if (tbStatusVeiculos.getSelectedRow() >= 0) {
+                String cod = String.valueOf(tbStatusVeiculos.getValueAt(tbStatusVeiculos.getSelectedRow(), 0));
+                int codigo = Integer.parseInt(cod);
+                List<Statusveiculo> l = Popula.popularTabelaStatusVeiculo(codigo, String.valueOf(codigo), tbStatusVeiculos);
+                for (Statusveiculo lin : l) {
+                    tfDescricao.setText(lin.getDescricao());
+                }
+                jTabbedPane1.setSelectedIndex(0);
+                habilitaCampos(true);
+                btNovo.setEnabled(false);
+                btSalvar.setEnabled(true);
+
+                tfDescricao.requestFocus();
+            } else {
+                JOptionPane.showMessageDialog(null, "Selecione algum registro!");
+            }
+        }
 
     }//GEN-LAST:event_btEditarActionPerformed
 
@@ -323,7 +335,19 @@ public class IfStatusVeiculo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTabbedPane1FocusGained
 
     private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
-
+        if (jTabbedPane1.getSelectedIndex() == 1) {
+            habilitaCampos(false);
+            pesquisa();
+            btSalvar.setEnabled(false);
+            btEditar.setEnabled(true);
+            btNovo.setEnabled(true);
+            btExcluir.setEnabled(true);
+        } else if (jTabbedPane1.getSelectedIndex() == 0) {
+            btSalvar.setEnabled(false);
+            btEditar.setEnabled(false);
+            btNovo.setEnabled(true);
+            btExcluir.setEnabled(false);
+        }
     }//GEN-LAST:event_jTabbedPane1StateChanged
 
     private void jPanel2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPanel2FocusGained
@@ -331,30 +355,50 @@ public class IfStatusVeiculo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jPanel2FocusGained
 
     private void btPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarActionPerformed
-
+        pesquisa();
     }//GEN-LAST:event_btPesquisarActionPerformed
 
-    private void tfBuscaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfBuscaKeyReleased
-
-    }//GEN-LAST:event_tfBuscaKeyReleased
+    private void tfPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfPesquisaKeyReleased
+        pesquisa();
+    }//GEN-LAST:event_tfPesquisaKeyReleased
 
     private void jPanel1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPanel1FocusGained
 
     }//GEN-LAST:event_jPanel1FocusGained
 
-    private void tfNomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfNomeKeyTyped
+    private void tfDescricaoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDescricaoKeyTyped
 
-    }//GEN-LAST:event_tfNomeKeyTyped
-
-    private void cbEstadoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbEstadoItemStateChanged
-
-    }//GEN-LAST:event_cbEstadoItemStateChanged
+    }//GEN-LAST:event_tfDescricaoKeyTyped
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
 
 
     }//GEN-LAST:event_btExcluirActionPerformed
 
+    private void tbStatusVeiculosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbStatusVeiculosMouseClicked
+        if (evt.getClickCount() > 1) {
+            btEditarActionPerformed(null);
+        }
+    }//GEN-LAST:event_tbStatusVeiculosMouseClicked
+
+    public void habilitaCampos(Boolean tf) {
+        if (tf == false) {
+            limpaCampos();
+        }
+        tfDescricao.setEnabled(tf);
+    }
+
+    public void limpaCampos() {
+        tfDescricao.setText("");
+    }
+
+    public void pesquisa() {
+        int cod = 0;
+        if (tfPesquisa.getText().length() > 0 && tfPesquisa.getText().matches("[0-9]")) {
+            cod = Integer.parseInt(tfPesquisa.getText());
+        }
+        Popula.popularTabelaStatusVeiculo(cod, tfPesquisa.getText(), tbStatusVeiculos);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btEditar;
@@ -363,8 +407,6 @@ public class IfStatusVeiculo extends javax.swing.JInternalFrame {
     private javax.swing.JButton btNovo;
     private javax.swing.JButton btPesquisar;
     private javax.swing.JButton btSalvar;
-    private javax.swing.JComboBox cbEstado;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel7;
@@ -375,8 +417,8 @@ public class IfStatusVeiculo extends javax.swing.JInternalFrame {
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JToolBar jToolBar1;
-    private javax.swing.JTable tbCidades;
-    private javax.swing.JTextField tfBusca;
-    private javax.swing.JTextField tfNome;
+    private javax.swing.JTable tbStatusVeiculos;
+    private javax.swing.JTextField tfDescricao;
+    private javax.swing.JTextField tfPesquisa;
     // End of variables declaration//GEN-END:variables
 }

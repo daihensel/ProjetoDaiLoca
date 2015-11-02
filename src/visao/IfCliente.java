@@ -5,7 +5,9 @@
  */
 package visao;
 
+import conf.CombosDAO;
 import conf.Formatacao;
+import conf.Popula;
 import conf.Utility;
 import org.apache.log4j.Logger;
 
@@ -15,13 +17,17 @@ import org.apache.log4j.Logger;
  */
 public class IfCliente extends javax.swing.JInternalFrame {
 
-     private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
+    private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
+
     /**
      * Creates new form IfCliente
      */
     public IfCliente() {
         initComponents();
         Utility.permit(btNovo, btSalvar, btEditar, null, this);
+        habilitaCampos(false);
+        this.pesquisa();
+        jTabbedPane1StateChanged(null);
     }
 
     /**
@@ -64,15 +70,15 @@ public class IfCliente extends javax.swing.JInternalFrame {
         tfCidade = new javax.swing.JTextField();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
-        jButton2 = new javax.swing.JButton();
-        tfEndereco1 = new javax.swing.JFormattedTextField();
+        btPCidade = new javax.swing.JButton();
+        tfComplemento = new javax.swing.JFormattedTextField();
         jLabel11 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
+        tfPesquisa = new javax.swing.JTextField();
+        btPesquisar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbClientes = new javax.swing.JTable();
-        tfBusca = new javax.swing.JTextField();
-        btnPesquisar = new javax.swing.JButton();
         jToolBar1 = new javax.swing.JToolBar();
         btNovo = new javax.swing.JButton();
         btSalvar = new javax.swing.JButton();
@@ -171,7 +177,12 @@ public class IfCliente extends javax.swing.JInternalFrame {
 
         jRadioButton2.setText("Pessoa Jurícica");
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/procurar_20x20.png"))); // NOI18N
+        btPCidade.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/procurar_20x20.png"))); // NOI18N
+        btPCidade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btPCidadeActionPerformed(evt);
+            }
+        });
 
         jLabel11.setText("Complemento:");
 
@@ -186,7 +197,7 @@ public class IfCliente extends javax.swing.JInternalFrame {
                         .addGap(4, 4, 4)
                         .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfEndereco1, javax.swing.GroupLayout.DEFAULT_SIZE, 503, Short.MAX_VALUE))
+                        .addComponent(tfComplemento, javax.swing.GroupLayout.DEFAULT_SIZE, 579, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(jLabel10)
@@ -197,7 +208,7 @@ public class IfCliente extends javax.swing.JInternalFrame {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(tfCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(3, 3, 3)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btPCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(jLabel8)
@@ -285,15 +296,15 @@ public class IfCliente extends javax.swing.JInternalFrame {
                         .addComponent(cbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel9)
                         .addComponent(tfCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btPCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfEndereco1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Cadastro", jPanel1);
+        jTabbedPane1.addTab("Cadastro Clientes", jPanel1);
 
         jPanel2.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -303,31 +314,44 @@ public class IfCliente extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Busca");
 
+        tfPesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tfPesquisaKeyReleased(evt);
+            }
+        });
+
+        btPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/procurar_20x20.png"))); // NOI18N
+        btPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btPesquisarActionPerformed(evt);
+            }
+        });
+
         tbClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Id", "Nome", "CPF", "RG", "Telefone", "Endereço", "Cidade"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tbClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbClientesMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbClientes);
-
-        tfBusca.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                tfBuscaKeyReleased(evt);
-            }
-        });
-
-        btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/procurar_20x20.png"))); // NOI18N
-        btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPesquisarActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -335,31 +359,28 @@ public class IfCliente extends javax.swing.JInternalFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 580, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tfBusca)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(tfPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 588, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+            .addComponent(jScrollPane1)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel3)
-                        .addComponent(tfBusca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
+                        .addComponent(tfPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jTabbedPane1.addTab("Consulta", jPanel2);
+        jTabbedPane1.addTab("Consulta Clientes", jPanel2);
 
         jToolBar1.setRollover(true);
 
@@ -406,17 +427,14 @@ public class IfCliente extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 527, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel16)
                 .addGap(18, 18, 18))
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 605, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 527, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jTabbedPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -439,15 +457,19 @@ public class IfCliente extends javax.swing.JInternalFrame {
         dispose();
     }//GEN-LAST:event_btFecharActionPerformed
 
-    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
+    private void btPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarActionPerformed
+        pesquisa();
+    }//GEN-LAST:event_btPesquisarActionPerformed
 
-    }//GEN-LAST:event_btnPesquisarActionPerformed
-
-    private void tfBuscaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfBuscaKeyReleased
-
-    }//GEN-LAST:event_tfBuscaKeyReleased
+    private void tfPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfPesquisaKeyReleased
+        pesquisa();
+    }//GEN-LAST:event_tfPesquisaKeyReleased
 
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
+        habilitaCampos(true);
+        jTabbedPane1.setSelectedIndex(0);
+        btNovo.setEnabled(false);
+        btSalvar.setEnabled(true);
 
 
     }//GEN-LAST:event_btNovoActionPerformed
@@ -461,7 +483,17 @@ public class IfCliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jPanel2FocusGained
 
     private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
-
+        if (jTabbedPane1.getSelectedIndex() == 1) {
+            habilitaCampos(false);
+            pesquisa();
+            btSalvar.setEnabled(false);
+            btEditar.setEnabled(true);
+            btNovo.setEnabled(true);
+        } else if (jTabbedPane1.getSelectedIndex() == 0) {
+            btSalvar.setEnabled(false);
+            btEditar.setEnabled(false);
+            btNovo.setEnabled(true);
+        }
     }//GEN-LAST:event_jTabbedPane1StateChanged
 
     private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
@@ -480,16 +512,79 @@ public class IfCliente extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_tfRGKeyTyped
 
+    private void tbClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbClientesMouseClicked
 
+    }//GEN-LAST:event_tbClientesMouseClicked
+
+    private void btPCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPCidadeActionPerformed
+        DgConsultaCidade tela = new DgConsultaCidade(this);
+        tela.setVisible(true);
+    }//GEN-LAST:event_btPCidadeActionPerformed
+
+    public void habilitaCampos(Boolean tf) {
+        if (tf == false) {
+            limpaCampos();
+        }
+        tfDataCadastro.setText(Formatacao.getDataAtual());
+        tfNome.setEnabled(tf);
+        tfTelefone1.setEnabled(tf);
+        tfTelefone2.setEnabled(tf);
+        tfEmail.setEnabled(tf);
+        tfCPF.setEnabled(tf);
+        tfRG.setEnabled(tf);
+        tfEndereco.setEnabled(tf);
+        tfBairro.setEnabled(tf);
+        tfCEP.setEnabled(tf);
+        cbEstado.setEnabled(tf);
+        tfCidade.setEnabled(tf);
+        tfComplemento.setEnabled(tf);
+        btPCidade.setEnabled(tf);
+    }
+
+    public void limpaCampos() {
+        tfDataCadastro.setText(Formatacao.getDataAtual());
+        tfNome.setText("");
+        tfTelefone1.setText("");
+        tfTelefone2.setText("");
+        tfEmail.setText("");
+        tfCPF.setText("");
+        tfRG.setText("");
+        tfEndereco.setText("");
+        tfBairro.setText("");
+        tfCEP.setText("");
+        tfCidade.setText("");
+        tfComplemento.setText("");
+        btPCidade.setText("");
+        populaCombos();
+        cbEstado.setSelectedIndex(0);
+    }
+
+    public void pesquisa() {
+        int cod = 0;
+        if (tfPesquisa.getText().length() > 0 && tfPesquisa.getText().matches("[0-9]")) {
+            cod = Integer.parseInt(tfPesquisa.getText());
+        }
+        Popula.popularTabelaCliente(cod, tfPesquisa.getText(), tbClientes);
+    }
+
+    public void defineCodigoCidade(int cod, String nome) {
+        tfCidade.setText(nome);
+    }
+
+    public void populaCombos() {
+        cbEstado.removeAllItems();
+        new CombosDAO().popularCombo("Estado", "idestado", "uf", cbEstado, "");
+
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btEditar;
     private javax.swing.JButton btFechar;
     private javax.swing.JButton btNovo;
+    private javax.swing.JButton btPCidade;
+    private javax.swing.JButton btPesquisar;
     private javax.swing.JButton btSalvar;
-    private javax.swing.JButton btnPesquisar;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox cbEstado;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -515,15 +610,15 @@ public class IfCliente extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lbRGouIE;
     private javax.swing.JTable tbClientes;
     private javax.swing.JFormattedTextField tfBairro;
-    private javax.swing.JTextField tfBusca;
     private javax.swing.JFormattedTextField tfCEP;
     private javax.swing.JFormattedTextField tfCPF;
     private javax.swing.JTextField tfCidade;
+    private javax.swing.JFormattedTextField tfComplemento;
     private javax.swing.JFormattedTextField tfDataCadastro;
     private javax.swing.JTextField tfEmail;
     private javax.swing.JFormattedTextField tfEndereco;
-    private javax.swing.JFormattedTextField tfEndereco1;
     private javax.swing.JTextField tfNome;
+    private javax.swing.JTextField tfPesquisa;
     private javax.swing.JFormattedTextField tfRG;
     private javax.swing.JFormattedTextField tfTelefone1;
     private javax.swing.JFormattedTextField tfTelefone2;

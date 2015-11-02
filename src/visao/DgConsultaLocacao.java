@@ -5,15 +5,8 @@
  */
 package visao;
 
-import conf.HibernateUtil;
-import entidade.Populartabelalocacao;
-import java.util.List;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
+import conf.Popula;
 import org.apache.log4j.Logger;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 /**
  *
@@ -21,14 +14,13 @@ import org.hibernate.Transaction;
  */
 public class DgConsultaLocacao extends javax.swing.JDialog {
 
-     private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
+    private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
     IfDevolucao telaDevolucao;
 
     public DgConsultaLocacao(IfDevolucao janela) {
-
         initComponents();
         telaDevolucao = janela;
-        this.popularTabelaLocacao(tfPesquisa.getText(),tbLocacoes);
+        pesquisa();
     }
 
     /**
@@ -43,7 +35,7 @@ public class DgConsultaLocacao extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         tbLocacoes = new javax.swing.JTable();
         tfPesquisa = new javax.swing.JTextField();
-        btnPesquisar = new javax.swing.JButton();
+        btPesquisar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -80,14 +72,14 @@ public class DgConsultaLocacao extends javax.swing.JDialog {
             }
         });
 
-        btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/procurar_20x20.png"))); // NOI18N
-        btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
+        btPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/procurar_20x20.png"))); // NOI18N
+        btPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPesquisarActionPerformed(evt);
+                btPesquisarActionPerformed(evt);
             }
         });
 
-        jLabel1.setText("*Pesquisa por veículo, nome cliente ou tipo veículo");
+        jLabel1.setText("*Pesquisa por Id, veículo, nome cliente ou tipo veículo");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -99,18 +91,18 @@ public class DgConsultaLocacao extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(0, 313, Short.MAX_VALUE))
+                        .addGap(0, 296, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(tfPesquisa)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(btPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tfPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPesquisar, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(btPesquisar, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(3, 3, 3)
                 .addComponent(jLabel1)
                 .addGap(1, 1, 1)
@@ -120,12 +112,12 @@ public class DgConsultaLocacao extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-        this.popularTabelaLocacao(tfPesquisa.getText(),tbLocacoes);
-    }//GEN-LAST:event_btnPesquisarActionPerformed
+    private void btPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarActionPerformed
+        pesquisa();
+    }//GEN-LAST:event_btPesquisarActionPerformed
 
     private void tfPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfPesquisaKeyReleased
-        this.popularTabelaLocacao(tfPesquisa.getText(),tbLocacoes);
+        pesquisa();
     }//GEN-LAST:event_tfPesquisaKeyReleased
 
     private void tbLocacoesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbLocacoesMouseClicked
@@ -137,37 +129,17 @@ public class DgConsultaLocacao extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_tbLocacoesMouseClicked
 
-    public void popularTabelaLocacao(String criterio, JTable tb) {
-
-        DefaultTableModel tabelaModelo = (DefaultTableModel) tb.getModel();
-        tabelaModelo.setNumRows(0);
-
-        Session sessao = null;
-
-        sessao = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = sessao.beginTransaction();
-        criterio = criterio.toLowerCase();
-        Query query = (Query) sessao.createQuery(" FROM Populartabelalocacao p WHERE (lower(p.descricaoveiculo) LIKE '%" + criterio + "%'"
-                + " OR lower(p.nomecliente) LIKE '%" + criterio + "%'"
-                + " OR lower(p.descricaotipoveiculo) LIKE '%" + criterio + "%')");
-        List<Populartabelalocacao> dadosLocacao = (List<Populartabelalocacao>) query.list();
-
-        for (Populartabelalocacao lin : dadosLocacao) {
-            tabelaModelo.addRow(new Object[]{
-                lin.getIdlocacao(),
-                lin.getDtLocacao(),
-                lin.getNomecliente(),
-                lin.getDescricaoVeiculo(),
-                lin.getDescricaoTipoVeiculo()});
-
+    public void pesquisa() {
+        int cod = 0;
+        if (tfPesquisa.getText().length() > 0 && tfPesquisa.getText().matches("[0-9]")) {
+            cod = Integer.parseInt(tfPesquisa.getText());
         }
-        sessao.getTransaction().commit();
-
+        Popula.popularTabelaLocacao(cod, tfPesquisa.getText(), tbLocacoes);
     }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnPesquisar;
+    private javax.swing.JButton btPesquisar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbLocacoes;

@@ -7,8 +7,10 @@ package visao;
 
 import conf.Formatacao;
 import conf.HibernateUtil;
+import conf.Popula;
 import conf.Utility;
 import entidade.Pessoajuridica;
+import javax.swing.JOptionPane;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -20,15 +22,18 @@ import org.hibernate.Transaction;
  */
 public class IfFornecedor extends javax.swing.JInternalFrame {
 
+    private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
 
-     private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
     /**
      * Creates new form IfmVeiculo
      */
     public IfFornecedor() {
         initComponents();
-       Utility.permit(btNovo, btSalvar, btEditar, btExcluir, this);
-      
+        Utility.permit(btNovo, btSalvar, btEditar, btExcluir, this);
+        habilitaCampos(false);
+        this.pesquisa();
+        jTabbedPane1StateChanged(null);
+
     }
 
     /**
@@ -54,10 +59,10 @@ public class IfFornecedor extends javax.swing.JInternalFrame {
         tfCNPJ = Formatacao.getCNPJ();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tbFornecedores = new javax.swing.JTable();
-        tfBusca = new javax.swing.JTextField();
+        tfPesquisa = new javax.swing.JTextField();
         btPesquisar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbFornecedor = new javax.swing.JTable();
         jToolBar1 = new javax.swing.JToolBar();
         btNovo = new javax.swing.JButton();
         btSalvar = new javax.swing.JButton();
@@ -139,7 +144,7 @@ public class IfFornecedor extends javax.swing.JInternalFrame {
                         .addComponent(tfCNPJ, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lbCNPJok)
-                        .addContainerGap(246, Short.MAX_VALUE))
+                        .addContainerGap(302, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(tfNome)
                         .addGap(26, 26, 26))))
@@ -170,7 +175,7 @@ public class IfFornecedor extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfIE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8))
-                .addContainerGap(139, Short.MAX_VALUE))
+                .addContainerGap(163, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Cadastro fornecedores", jPanel1);
@@ -183,27 +188,14 @@ public class IfFornecedor extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Busca");
 
-        tbFornecedores.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(tbFornecedores);
-
-        tfBusca.addActionListener(new java.awt.event.ActionListener() {
+        tfPesquisa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfBuscaActionPerformed(evt);
+                tfPesquisaActionPerformed(evt);
             }
         });
-        tfBusca.addKeyListener(new java.awt.event.KeyAdapter() {
+        tfPesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                tfBuscaKeyReleased(evt);
+                tfPesquisaKeyReleased(evt);
             }
         });
 
@@ -214,21 +206,46 @@ public class IfFornecedor extends javax.swing.JInternalFrame {
             }
         });
 
+        tbFornecedor.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Id", "Nome", "CNPJ", "Telefone", "Endereço", "Bairro", "Cidade"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tbFornecedor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbFornecedorMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tbFornecedor);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 482, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tfBusca)
-                        .addGap(18, 18, 18)
-                        .addComponent(btPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(tfPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(btPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 558, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -238,10 +255,12 @@ public class IfFornecedor extends javax.swing.JInternalFrame {
                     .addComponent(btPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel3)
-                        .addComponent(tfBusca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(tfPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(239, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                    .addGap(0, 45, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         jTabbedPane1.addTab("Consulta fornecedores", jPanel2);
@@ -308,10 +327,7 @@ public class IfFornecedor extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel7)
                 .addGap(19, 19, 19))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTabbedPane1)
-                .addContainerGap())
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -320,8 +336,7 @@ public class IfFornecedor extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -330,27 +345,28 @@ public class IfFornecedor extends javax.swing.JInternalFrame {
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
 
         Session sessao = null;
-        try {
-            sessao = HibernateUtil.getSessionFactory().openSession();
-            Transaction t = sessao.beginTransaction();
-            
-            Pessoajuridica pj = new Pessoajuridica();
-            pj.setCnpj(tfCNPJ.getText());
-            pj.setInscricaoest(tfIE.getText());
-            
-            
-            sessao.save(pj);
-            t.commit();
+        if (tfNome.getText().trim().length() > 0 && tfCNPJ.getText().trim().length() > 0) {
+            try {
+                sessao = HibernateUtil.getSessionFactory().openSession();
+                Transaction t = sessao.beginTransaction();
 
-        } catch (HibernateException he) {
-            he.printStackTrace();
-            
-        } finally {
-            sessao.close();
+                Pessoajuridica pj = new Pessoajuridica();
+                pj.setCnpj(tfCNPJ.getText());
+                pj.setInscricaoest(tfIE.getText());
+
+                sessao.save(pj);
+                t.commit();
+
+            } catch (HibernateException he) {
+                he.printStackTrace();
+
+            } finally {
+                sessao.close();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Preencha os campos obrigatórios!");
         }
-        
-        
-        
+
     }//GEN-LAST:event_btSalvarActionPerformed
 
     private void btFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFecharActionPerformed
@@ -358,15 +374,18 @@ public class IfFornecedor extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btFecharActionPerformed
 
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
-       
+        habilitaCampos(true);
+        jTabbedPane1.setSelectedIndex(0);
+        btNovo.setEnabled(false);
+        btSalvar.setEnabled(true);
     }//GEN-LAST:event_btNovoActionPerformed
 
     private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
-        
+
     }//GEN-LAST:event_btEditarActionPerformed
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
-        
+
     }//GEN-LAST:event_btExcluirActionPerformed
 
     private void jTabbedPane1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTabbedPane1FocusGained
@@ -374,7 +393,19 @@ public class IfFornecedor extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTabbedPane1FocusGained
 
     private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
-       
+        if (jTabbedPane1.getSelectedIndex() == 1) {
+            habilitaCampos(false);
+            pesquisa();
+            btSalvar.setEnabled(false);
+            btEditar.setEnabled(true);
+            btNovo.setEnabled(true);
+            btExcluir.setEnabled(true);
+        } else if (jTabbedPane1.getSelectedIndex() == 0) {
+            btSalvar.setEnabled(false);
+            btEditar.setEnabled(false);
+            btNovo.setEnabled(true);
+            btExcluir.setEnabled(false);
+        }
     }//GEN-LAST:event_jTabbedPane1StateChanged
 
     private void jPanel2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPanel2FocusGained
@@ -382,23 +413,23 @@ public class IfFornecedor extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jPanel2FocusGained
 
     private void btPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarActionPerformed
-       
+        pesquisa();
     }//GEN-LAST:event_btPesquisarActionPerformed
 
-    private void tfBuscaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfBuscaKeyReleased
-        
-    }//GEN-LAST:event_tfBuscaKeyReleased
+    private void tfPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfPesquisaKeyReleased
+
+    }//GEN-LAST:event_tfPesquisaKeyReleased
 
     private void jPanel1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPanel1FocusGained
 
     }//GEN-LAST:event_jPanel1FocusGained
 
     private void tfCNPJFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfCNPJFocusLost
-       
+
     }//GEN-LAST:event_tfCNPJFocusLost
 
     private void tfNomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfNomeKeyTyped
-        
+
     }//GEN-LAST:event_tfNomeKeyTyped
 
     private void tfCNPJKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfCNPJKeyTyped
@@ -413,11 +444,36 @@ public class IfFornecedor extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfIEKeyTyped
 
-    private void tfBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfBuscaActionPerformed
+    private void tfPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfPesquisaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_tfBuscaActionPerformed
+    }//GEN-LAST:event_tfPesquisaActionPerformed
 
-    
+    private void tbFornecedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbFornecedorMouseClicked
+
+    }//GEN-LAST:event_tbFornecedorMouseClicked
+
+    public void habilitaCampos(Boolean tf) {
+        if (tf == false) {
+            limpaCampos();
+        }
+        tfNome.setEnabled(tf);
+        tfCNPJ.setEnabled(tf);
+        tfIE.setEnabled(tf);
+    }
+
+    public void limpaCampos() {
+        tfNome.setText("");
+        tfCNPJ.setText("");
+        tfIE.setText("");
+    }
+
+    public void pesquisa() {
+        int cod = 0;
+        if (tfPesquisa.getText().length() > 0 && tfPesquisa.getText().matches("[0-9]")) {
+            cod = Integer.parseInt(tfPesquisa.getText());
+        }
+        Popula.popularTabelaFornecedor(cod, tfPesquisa.getText(), tbFornecedor);
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -440,10 +496,10 @@ public class IfFornecedor extends javax.swing.JInternalFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JLabel lbCNPJok;
-    private javax.swing.JTable tbFornecedores;
-    private javax.swing.JTextField tfBusca;
+    private javax.swing.JTable tbFornecedor;
     private javax.swing.JFormattedTextField tfCNPJ;
     private javax.swing.JFormattedTextField tfIE;
     private javax.swing.JTextField tfNome;
+    private javax.swing.JTextField tfPesquisa;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,11 +5,13 @@
  */
 package visao;
 
-import conf.Formatacao;
 import conf.HibernateUtil;
+import conf.Popula;
 import conf.Utility;
 import entidade.Tipoveiculo;
 import java.math.BigDecimal;
+import java.util.List;
+import javax.swing.JOptionPane;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -21,13 +23,17 @@ import org.hibernate.Transaction;
  */
 public class IfTipoVeiculo extends javax.swing.JInternalFrame {
 
- private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
+    private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
+
     /**
      * Creates new form IfTipoVeiculo
      */
     public IfTipoVeiculo() {
         initComponents();
         Utility.permit(btNovo, btSalvar, btEditar, null, this);
+        habilitaCampos(false);
+        this.pesquisa();
+        jTabbedPane1StateChanged(null);
     }
 
     /**
@@ -43,7 +49,7 @@ public class IfTipoVeiculo extends javax.swing.JInternalFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        tfdescricao = new javax.swing.JTextField();
+        tfDescricao = new javax.swing.JTextField();
         tfValorDia = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -54,10 +60,10 @@ public class IfTipoVeiculo extends javax.swing.JInternalFrame {
         taObservacoes = new javax.swing.JTextArea();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        tfBusca = new javax.swing.JTextField();
+        tfPesquisa = new javax.swing.JTextField();
         btPesquisar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbFornecedores = new javax.swing.JTable();
+        tbTipoVeiculos = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
         jToolBar3 = new javax.swing.JToolBar();
         btNovo = new javax.swing.JButton();
@@ -68,7 +74,7 @@ public class IfTipoVeiculo extends javax.swing.JInternalFrame {
 
         jMenu1.setText("jMenu1");
 
-        setTitle("Cadastro Tipo Veiculo");
+        setTitle("Cadastro de Tipos de Veículo");
 
         jTabbedPane1.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -87,23 +93,23 @@ public class IfTipoVeiculo extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel4.setText("Descriçao");
+        jLabel4.setText("Descrição*:");
 
-        tfdescricao.addKeyListener(new java.awt.event.KeyAdapter() {
+        tfDescricao.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                tfdescricaoKeyTyped(evt);
+                tfDescricaoKeyTyped(evt);
             }
         });
 
-        jLabel1.setText("Valor Diária");
+        jLabel1.setText("Valor Diária*:");
 
         taEspecificacoes.setColumns(20);
         taEspecificacoes.setRows(5);
         jScrollPane2.setViewportView(taEspecificacoes);
 
-        jLabel5.setText("Especificações");
+        jLabel5.setText("Especificações*:");
 
-        jLabel9.setText("Observações");
+        jLabel9.setText("Observações:");
 
         taObservacoes.setColumns(20);
         taObservacoes.setRows(5);
@@ -123,11 +129,11 @@ public class IfTipoVeiculo extends javax.swing.JInternalFrame {
                         .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(tfdescricao)
+                    .addComponent(tfDescricao)
                     .addComponent(tfValorDia, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane2)
                     .addComponent(jScrollPane3))
-                .addContainerGap(308, Short.MAX_VALUE))
+                .addContainerGap(235, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -135,7 +141,7 @@ public class IfTipoVeiculo extends javax.swing.JInternalFrame {
                 .addGap(25, 25, 25)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(tfdescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfValorDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -161,14 +167,14 @@ public class IfTipoVeiculo extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Busca");
 
-        tfBusca.addActionListener(new java.awt.event.ActionListener() {
+        tfPesquisa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfBuscaActionPerformed(evt);
+                tfPesquisaActionPerformed(evt);
             }
         });
-        tfBusca.addKeyListener(new java.awt.event.KeyAdapter() {
+        tfPesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                tfBuscaKeyReleased(evt);
+                tfPesquisaKeyReleased(evt);
             }
         });
 
@@ -179,18 +185,31 @@ public class IfTipoVeiculo extends javax.swing.JInternalFrame {
             }
         });
 
-        tbFornecedores.setModel(new javax.swing.table.DefaultTableModel(
+        tbTipoVeiculos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Id", "Descrição", "Valor Diária", "Especificações", "Observações"
             }
-        ));
-        jScrollPane1.setViewportView(tbFornecedores);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tbTipoVeiculos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbTipoVeiculosMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tbTipoVeiculos);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -200,11 +219,11 @@ public class IfTipoVeiculo extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tfBusca)
+                .addComponent(tfPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 396, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(btPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jScrollPane1)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -214,10 +233,9 @@ public class IfTipoVeiculo extends javax.swing.JInternalFrame {
                     .addComponent(btPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel3)
-                        .addComponent(tfBusca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(tfPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Consulta Tipos", jPanel2);
@@ -267,72 +285,82 @@ public class IfTipoVeiculo extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel7)
-                .addGap(19, 19, 19))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTabbedPane1)
-                .addGap(29, 29, 29))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jToolBar3, javax.swing.GroupLayout.DEFAULT_SIZE, 581, Short.MAX_VALUE)
-                    .addContainerGap()))
+            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addComponent(jToolBar3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.LEADING))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(58, 58, 58)
-                .addComponent(jLabel7)
+                .addComponent(jToolBar3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 384, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addComponent(jToolBar3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGap(771, 771, 771)))
+                .addComponent(jLabel7)
+                .addGap(17, 17, 17)
+                .addComponent(jTabbedPane1))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
-        // TODO add your handling code here:
+        habilitaCampos(true);
+        jTabbedPane1.setSelectedIndex(0);
+        btNovo.setEnabled(false);
+        btSalvar.setEnabled(true);
     }//GEN-LAST:event_btNovoActionPerformed
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
+        if (tfDescricao.getText().trim().length() > 0 && taObservacoes.getText().trim().length() > 0
+                && taEspecificacoes.getText().trim().length() > 0 && tfValorDia.getText().trim().length() > 0) {
+            Session sessao = null;
+            try {
+                sessao = HibernateUtil.getSessionFactory().openSession();
+                Transaction t = sessao.beginTransaction();
 
-        Session sessao = null;
-        try {
-            sessao = HibernateUtil.getSessionFactory().openSession();
-            Transaction t = sessao.beginTransaction();
-           
+                Tipoveiculo tipoveiculo = new Tipoveiculo();
 
-            Tipoveiculo tipoveiculo = new Tipoveiculo();
-          
-            tipoveiculo.setDescricao(tfdescricao.getText());
-            BigDecimal bigDecimal = new BigDecimal(tfValorDia.getText());
-            tipoveiculo.setValorDiaria(bigDecimal);
-            tipoveiculo.setObservacoes(taObservacoes.getText());
-            tipoveiculo.setEspecificacoes(taEspecificacoes.getText());
-             
-            sessao.save(tipoveiculo);
-            t.commit();
+                tipoveiculo.setDescricao(tfDescricao.getText());
+                BigDecimal bigDecimal = new BigDecimal(tfValorDia.getText());
+                tipoveiculo.setValorDiaria(bigDecimal);
+                tipoveiculo.setObservacoes(taObservacoes.getText());
+                tipoveiculo.setEspecificacoes(taEspecificacoes.getText());
 
-        } catch (HibernateException he) {
-            he.printStackTrace();
-        } finally {
-            sessao.close();
+                sessao.save(tipoveiculo);
+                t.commit();
+
+            } catch (HibernateException he) {
+                he.printStackTrace();
+            } finally {
+                sessao.close();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Preencha os campos obrigatórios!");
         }
-        
-        
-        
     }//GEN-LAST:event_btSalvarActionPerformed
 
     private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
-        // TODO add your handling code here:
+        if (jTabbedPane1.getSelectedIndex() == 1) {
+            if (tbTipoVeiculos.getSelectedRow() >= 0) {
+                String cod = String.valueOf(tbTipoVeiculos.getValueAt(tbTipoVeiculos.getSelectedRow(), 0));
+                int codigo = Integer.parseInt(cod);
+                List<Tipoveiculo> l = Popula.popularTabelaTipoVeiculo(codigo, String.valueOf(codigo), tbTipoVeiculos);
+                for (Tipoveiculo lin : l) {
+                    tfDescricao.setText(lin.getDescricao());
+                    tfValorDia.setText(String.valueOf(lin.getValorDiaria()));
+                    taEspecificacoes.setText(lin.getEspecificacoes());
+                    taObservacoes.setText(lin.getObservacoes());
+                }
+                jTabbedPane1.setSelectedIndex(0);
+                habilitaCampos(true);
+                btNovo.setEnabled(false);
+                btSalvar.setEnabled(true);
+
+                tfDescricao.requestFocus();
+            } else {
+                JOptionPane.showMessageDialog(null, "Selecione algum registro!");
+            }
+        }
     }//GEN-LAST:event_btEditarActionPerformed
 
     private void btFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFecharActionPerformed
@@ -344,34 +372,75 @@ public class IfTipoVeiculo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTabbedPane1FocusGained
 
     private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
-
+        if (jTabbedPane1.getSelectedIndex() == 1) {
+            habilitaCampos(false);
+            pesquisa();
+            btSalvar.setEnabled(false);
+            btEditar.setEnabled(true);
+            btNovo.setEnabled(true);
+            // btExcluir.setEnabled(true);
+        } else if (jTabbedPane1.getSelectedIndex() == 0) {
+            btSalvar.setEnabled(false);
+            btEditar.setEnabled(false);
+            btNovo.setEnabled(true);
+            //   btExcluir.setEnabled(false);
+        }
     }//GEN-LAST:event_jTabbedPane1StateChanged
 
     private void jPanel3FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPanel3FocusGained
 
     }//GEN-LAST:event_jPanel3FocusGained
 
-    private void tfdescricaoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfdescricaoKeyTyped
+    private void tfDescricaoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDescricaoKeyTyped
 
-    }//GEN-LAST:event_tfdescricaoKeyTyped
+    }//GEN-LAST:event_tfDescricaoKeyTyped
 
     private void jPanel2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPanel2FocusGained
 
     }//GEN-LAST:event_jPanel2FocusGained
 
     private void btPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarActionPerformed
-
+        pesquisa();
     }//GEN-LAST:event_btPesquisarActionPerformed
 
-    private void tfBuscaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfBuscaKeyReleased
+    private void tfPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfPesquisaKeyReleased
+        pesquisa();
+    }//GEN-LAST:event_tfPesquisaKeyReleased
 
-    }//GEN-LAST:event_tfBuscaKeyReleased
-
-    private void tfBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfBuscaActionPerformed
+    private void tfPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfPesquisaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_tfBuscaActionPerformed
+    }//GEN-LAST:event_tfPesquisaActionPerformed
 
-    
+    private void tbTipoVeiculosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbTipoVeiculosMouseClicked
+        if (evt.getClickCount() > 1) {
+            btEditarActionPerformed(null);
+        }
+    }//GEN-LAST:event_tbTipoVeiculosMouseClicked
+
+    public void habilitaCampos(Boolean tf) {
+        if (tf == false) {
+            limpaCampos();
+        }
+        tfDescricao.setEnabled(tf);
+        tfValorDia.setEnabled(tf);
+        taEspecificacoes.setEnabled(tf);
+        taObservacoes.setEnabled(tf);
+    }
+
+    public void limpaCampos() {
+        tfValorDia.setText("");
+        tfDescricao.setText("");
+        taEspecificacoes.setText("");
+        taObservacoes.setText("");
+    }
+
+    public void pesquisa() {
+        int cod = 0;
+        if (tfPesquisa.getText().length() > 0 && tfPesquisa.getText().matches("[0-9]")) {
+            cod = Integer.parseInt(tfPesquisa.getText());
+        }
+        Popula.popularTabelaTipoVeiculo(cod, tfPesquisa.getText(), tbTipoVeiculos);
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -397,9 +466,9 @@ public class IfTipoVeiculo extends javax.swing.JInternalFrame {
     private javax.swing.JToolBar jToolBar3;
     private javax.swing.JTextArea taEspecificacoes;
     private javax.swing.JTextArea taObservacoes;
-    private javax.swing.JTable tbFornecedores;
-    private javax.swing.JTextField tfBusca;
+    private javax.swing.JTable tbTipoVeiculos;
+    private javax.swing.JTextField tfDescricao;
+    private javax.swing.JTextField tfPesquisa;
     private javax.swing.JTextField tfValorDia;
-    private javax.swing.JTextField tfdescricao;
     // End of variables declaration//GEN-END:variables
 }
