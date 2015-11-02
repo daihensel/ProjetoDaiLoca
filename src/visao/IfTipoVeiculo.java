@@ -8,6 +8,7 @@ package visao;
 import conf.HibernateUtil;
 import conf.Popula;
 import conf.Utility;
+import conf.limpaCampos;
 import entidade.Tipoveiculo;
 import java.math.BigDecimal;
 import java.util.List;
@@ -47,7 +48,7 @@ public class IfTipoVeiculo extends javax.swing.JInternalFrame {
 
         jMenu1 = new javax.swing.JMenu();
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel3 = new javax.swing.JPanel();
+        jpTipoVeiculo = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         tfDescricao = new javax.swing.JTextField();
         tfValorDia = new javax.swing.JTextField();
@@ -87,9 +88,9 @@ public class IfTipoVeiculo extends javax.swing.JInternalFrame {
             }
         });
 
-        jPanel3.addFocusListener(new java.awt.event.FocusAdapter() {
+        jpTipoVeiculo.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                jPanel3FocusGained(evt);
+                jpTipoVeiculoFocusGained(evt);
             }
         });
 
@@ -115,49 +116,49 @@ public class IfTipoVeiculo extends javax.swing.JInternalFrame {
         taObservacoes.setRows(5);
         jScrollPane3.setViewportView(taObservacoes);
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        javax.swing.GroupLayout jpTipoVeiculoLayout = new javax.swing.GroupLayout(jpTipoVeiculo);
+        jpTipoVeiculo.setLayout(jpTipoVeiculoLayout);
+        jpTipoVeiculoLayout.setHorizontalGroup(
+            jpTipoVeiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpTipoVeiculoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jpTipoVeiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel9)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpTipoVeiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel5)
                         .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jpTipoVeiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(tfDescricao)
                     .addComponent(tfValorDia, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane2)
                     .addComponent(jScrollPane3))
                 .addContainerGap(235, Short.MAX_VALUE))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        jpTipoVeiculoLayout.setVerticalGroup(
+            jpTipoVeiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpTipoVeiculoLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jpTipoVeiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(tfDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jpTipoVeiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfValorDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jpTipoVeiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
                 .addGap(16, 16, 16)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jpTipoVeiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel9)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Cadastro Tipo Veiculo", jPanel3);
+        jTabbedPane1.addTab("Cadastro Tipo Veiculo", jpTipoVeiculo);
 
         jPanel2.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -327,7 +328,11 @@ public class IfTipoVeiculo extends javax.swing.JInternalFrame {
                 tipoveiculo.setEspecificacoes(taEspecificacoes.getText());
 
                 sessao.save(tipoveiculo);
+                
                 t.commit();
+                limpaCampos lc = new limpaCampos();
+                lc.limparCampos(jpTipoVeiculo);
+                tfDescricao.requestFocus();
 
             } catch (HibernateException he) {
                 he.printStackTrace();
@@ -387,9 +392,9 @@ public class IfTipoVeiculo extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jTabbedPane1StateChanged
 
-    private void jPanel3FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPanel3FocusGained
+    private void jpTipoVeiculoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jpTipoVeiculoFocusGained
 
-    }//GEN-LAST:event_jPanel3FocusGained
+    }//GEN-LAST:event_jpTipoVeiculoFocusGained
 
     private void tfDescricaoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDescricaoKeyTyped
 
@@ -457,13 +462,13 @@ public class IfTipoVeiculo extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JToolBar.Separator jSeparator3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JToolBar jToolBar3;
+    private javax.swing.JPanel jpTipoVeiculo;
     private javax.swing.JTextArea taEspecificacoes;
     private javax.swing.JTextArea taObservacoes;
     private javax.swing.JTable tbTipoVeiculos;
