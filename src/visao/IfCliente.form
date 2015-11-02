@@ -116,9 +116,9 @@
                                       <Group type="102" attributes="0">
                                           <Component id="tfDataCadastro" min="-2" pref="121" max="-2" attributes="0"/>
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="jRadioButton1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="rbPessoaFisica" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="jRadioButton2" min="-2" max="-2" attributes="0"/>
+                                          <Component id="rbPessoaJuridica" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="tfTelefone1" min="-2" pref="81" max="-2" attributes="0"/>
@@ -155,8 +155,8 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="tfDataCadastro" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jRadioButton1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jRadioButton2" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="rbPessoaFisica" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="rbPessoaJuridica" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -357,12 +357,12 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JRadioButton" name="jRadioButton1">
+            <Component class="javax.swing.JRadioButton" name="rbPessoaFisica">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Pessoa F&#xed;sica"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JRadioButton" name="jRadioButton2">
+            <Component class="javax.swing.JRadioButton" name="rbPessoaJuridica">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Pessoa Jur&#xed;cica"/>
               </Properties>

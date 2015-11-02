@@ -242,6 +242,11 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
         btOk.setText("Reservar");
         btOk.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btOk.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btOk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btOkActionPerformed(evt);
+            }
+        });
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/!ok.png"))); // NOI18N
         jButton2.setText("Fechar");
@@ -419,6 +424,14 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
         tela.setVisible(true);
         // tela.setSize(200, 200);
     }//GEN-LAST:event_btPVeiculoActionPerformed
+
+    private void btOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btOkActionPerformed
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_btOkActionPerformed
     
   //  @Override
     public void defineCodigoCliente(int codcli) {

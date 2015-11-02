@@ -7,9 +7,17 @@ package visao;
 
 import conf.CombosDAO;
 import conf.Formatacao;
+import conf.HibernateUtil;
 import conf.Popula;
 import conf.Utility;
+import entidade.Cidade;
+import entidade.Cliente;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import org.apache.log4j.Logger;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *
@@ -68,8 +76,8 @@ public class IfCliente extends javax.swing.JInternalFrame {
         tfCEP = new javax.swing.JFormattedTextField();
         tfCEP = Formatacao.getCEP();
         tfCidade = new javax.swing.JTextField();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        rbPessoaFisica = new javax.swing.JRadioButton();
+        rbPessoaJuridica = new javax.swing.JRadioButton();
         btPCidade = new javax.swing.JButton();
         tfComplemento = new javax.swing.JFormattedTextField();
         jLabel11 = new javax.swing.JLabel();
@@ -173,9 +181,9 @@ public class IfCliente extends javax.swing.JInternalFrame {
 
         tfCidade.setPreferredSize(new java.awt.Dimension(150, 20));
 
-        jRadioButton1.setText("Pessoa Física");
+        rbPessoaFisica.setText("Pessoa Física");
 
-        jRadioButton2.setText("Pessoa Jurícica");
+        rbPessoaJuridica.setText("Pessoa Jurícica");
 
         btPCidade.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/procurar_20x20.png"))); // NOI18N
         btPCidade.addActionListener(new java.awt.event.ActionListener() {
@@ -228,9 +236,9 @@ public class IfCliente extends javax.swing.JInternalFrame {
                                 .addGroup(jPanel1Layout.createSequentialGroup()
                                     .addComponent(tfDataCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(18, 18, 18)
-                                    .addComponent(jRadioButton1)
+                                    .addComponent(rbPessoaFisica)
                                     .addGap(18, 18, 18)
-                                    .addComponent(jRadioButton2))
+                                    .addComponent(rbPessoaJuridica))
                                 .addGroup(jPanel1Layout.createSequentialGroup()
                                     .addComponent(tfTelefone1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(18, 18, 18)
@@ -258,8 +266,8 @@ public class IfCliente extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(tfDataCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2))
+                    .addComponent(rbPessoaFisica)
+                    .addComponent(rbPessoaJuridica))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -451,6 +459,26 @@ public class IfCliente extends javax.swing.JInternalFrame {
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
 
+        Session sessao = null;
+        try {
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            Transaction t = sessao.beginTransaction();
+                      
+            Cliente cliente = new Cliente();
+            cliente.setDtCadastro(geraDataAtual());
+                       
+
+            sessao.save(cliente);
+            t.commit();
+
+        } catch (HibernateException he) {
+            he.printStackTrace();
+            logger.error("Erro");
+        } finally {
+            sessao.close();
+        }
+        
+        
     }//GEN-LAST:event_btSalvarActionPerformed
 
     private void btFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFecharActionPerformed
@@ -576,6 +604,24 @@ public class IfCliente extends javax.swing.JInternalFrame {
         new CombosDAO().popularCombo("Estado", "idestado", "uf", cbEstado, "");
 
     }
+    
+    public static String geraDataAtual() {
+        //Data 
+        Date data = new Date();
+        SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
+        String data_atual_formatada = formatador.format(data);
+
+        //Hora
+   /*     Date hora = new Date();
+        SimpleDateFormat formatador_hora = new SimpleDateFormat("HH:mm");
+        String hora_atual_formatada = formatador_hora.format(hora); */
+
+        return data_atual_formatada;
+    }
+
+    
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btEditar;
     private javax.swing.JButton btFechar;
@@ -599,8 +645,6 @@ public class IfCliente extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane1;
@@ -608,6 +652,8 @@ public class IfCliente extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lbCPFouCNPJ;
     private javax.swing.JLabel lbNome;
     private javax.swing.JLabel lbRGouIE;
+    private javax.swing.JRadioButton rbPessoaFisica;
+    private javax.swing.JRadioButton rbPessoaJuridica;
     private javax.swing.JTable tbClientes;
     private javax.swing.JFormattedTextField tfBairro;
     private javax.swing.JFormattedTextField tfCEP;

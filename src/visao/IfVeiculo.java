@@ -307,24 +307,7 @@ public class IfVeiculo extends javax.swing.JInternalFrame {
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
 
-        Session sessao = null;
-        try {
-            sessao = HibernateUtil.getSessionFactory().openSession();
-            Transaction t = sessao.beginTransaction();
-
-            Cidade cidade = new Cidade();
-
-            cidade.setDescricao(tfNome.getText());
-
-            sessao.save(cidade);
-            t.commit();
-
-        } catch (HibernateException he) {
-            he.printStackTrace();
-            logger.error("Erro");
-        } finally {
-            sessao.close();
-        }
+        
 
 
     }//GEN-LAST:event_btSalvarActionPerformed
