@@ -10,8 +10,10 @@ import conf.HibernateUtil;
 import conf.Utility;
 import entidade.Populartabelacliente;
 import entidade.Populartabelaveiculo;
+import entidade.Reserva;
 import java.util.List;
 import org.apache.log4j.Logger;
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -28,7 +30,7 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
      */
     public IfReservaVeiculos() {
         initComponents();
-        Utility.permit(null, btOk, null, null, this);
+        Utility.permit(null, btReservar, null, null, this);
     }
 
     /**
@@ -65,7 +67,7 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
         btPCliente = new javax.swing.JButton();
         jLabel17 = new javax.swing.JLabel();
         tfCPF = new javax.swing.JTextField();
-        btOk = new javax.swing.JButton();
+        btReservar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -238,13 +240,13 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
                     .addComponent(jLabel14)))
         );
 
-        btOk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/ok.png"))); // NOI18N
-        btOk.setText("Reservar");
-        btOk.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btOk.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btOk.addActionListener(new java.awt.event.ActionListener() {
+        btReservar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/ok.png"))); // NOI18N
+        btReservar.setText("Reservar");
+        btReservar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btReservar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btReservar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btOkActionPerformed(evt);
+                btReservarActionPerformed(evt);
             }
         });
 
@@ -376,7 +378,7 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btOk)
+                        .addComponent(btReservar)
                         .addGap(23, 23, 23)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
@@ -398,7 +400,7 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btOk, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btReservar, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -425,13 +427,33 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
         // tela.setSize(200, 200);
     }//GEN-LAST:event_btPVeiculoActionPerformed
 
-    private void btOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btOkActionPerformed
+    private void btReservarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btReservarActionPerformed
+
+        Session sessao = null;
+            try {
+                sessao = HibernateUtil.getSessionFactory().openSession();
+                Transaction t = sessao.beginTransaction();
+                
+                Reserva reserva = new Reserva();
+                
+                reserva.setDtReserva(null);
+                
+                
+                sessao.save(reserva);
+                
+                t.commit();
+                
+                } catch (HibernateException he) {
+                he.printStackTrace();
+            } finally {
+                sessao.close();
+            }
         
         
         
         
         
-    }//GEN-LAST:event_btOkActionPerformed
+    }//GEN-LAST:event_btReservarActionPerformed
     
   //  @Override
     public void defineCodigoCliente(int codcli) {
@@ -485,9 +507,9 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btOk;
     private javax.swing.JButton btPCliente;
     private javax.swing.JButton btPVeiculo;
+    private javax.swing.JButton btReservar;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

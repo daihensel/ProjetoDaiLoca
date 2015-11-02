@@ -15,6 +15,9 @@ import entidade.Estado;
 import entidade.Tipocontato;
 import entidade.Tipoveiculo;
 import entidade.Veiculo;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JTable;
@@ -391,41 +394,40 @@ public class IfVeiculo extends javax.swing.JInternalFrame {
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
 
         Session sessao = null;
-            try {
-                sessao = HibernateUtil.getSessionFactory().openSession();
-                Transaction t = sessao.beginTransaction();
-                
-                Veiculo veiculo = new Veiculo();
-                
-                veiculo.setDescricao(tfDescricao.getText());
-                ComboItens ctv = (ComboItens) cbTipoVeiculo.getSelectedItem();
-                
-               // veiculo.setTipoveiculo();
-                
-           
-                veiculo.setDtInclusao(new Date(tfDtInclusao.getText()));
-                veiculo.setDtBaixa(new Date(tfDtBaixa.getText()));
-                veiculo.setMarca(tfMarca.getText());
-                int n = Integer.parseInt(tfAnoFab.getText());
-                veiculo.setAnoFabricacao(n);
-                int n2 = Integer.parseInt(tfAnoModelo.getText());
-                veiculo.setAnoModelo(n2);
-                int km = Integer.parseInt(tfKmAtual.getText());
-                veiculo.setKmAtual(km);
-                ComboItens csv = (ComboItens) cbStatus.getSelectedItem();
-                veiculo.setIdstatusveiculo(csv.getCodigo());
-                             
-                sessao.save(veiculo);
-                
-                t.commit();
-                
-                } catch (HibernateException he) {
-                he.printStackTrace();
-            } finally {
-                sessao.close();
-            }
-        
-        
+        try {
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            Transaction t = sessao.beginTransaction();
+
+            Veiculo veiculo = new Veiculo();
+
+            veiculo.setDescricao(tfDescricao.getText());
+            ComboItens ctv = (ComboItens) cbTipoVeiculo.getSelectedItem();
+            System.out.println(ctv.getDescricao());
+
+            // veiculo.setTipoveiculo();
+            
+            
+            veiculo.setDtInclusao(converteData(tfDtInclusao.getText()));
+            veiculo.setDtBaixa(converteData(tfDtBaixa.getText()));
+            veiculo.setMarca(tfMarca.getText());
+            int n = Integer.parseInt(tfAnoFab.getText());
+            veiculo.setAnoFabricacao(n);
+            int n2 = Integer.parseInt(tfAnoModelo.getText());
+            veiculo.setAnoModelo(n2);
+            int km = Integer.parseInt(tfKmAtual.getText());
+            veiculo.setKmAtual(km);
+            ComboItens csv = (ComboItens) cbStatus.getSelectedItem();
+            veiculo.setIdstatusveiculo(csv.getCodigo());
+
+            sessao.save(veiculo);
+
+            t.commit();
+
+        } catch (HibernateException he) {
+            he.printStackTrace();
+        } finally {
+            sessao.close();
+        }
 
 
     }//GEN-LAST:event_btSalvarActionPerformed
@@ -439,6 +441,7 @@ public class IfVeiculo extends javax.swing.JInternalFrame {
         jTabbedPane1.setSelectedIndex(0);
         btNovo.setEnabled(false);
         btSalvar.setEnabled(true);
+        tfDtInclusao.setText(Utility.geraDataAtual());
 
     }//GEN-LAST:event_btNovoActionPerformed
 
@@ -525,17 +528,32 @@ public class IfVeiculo extends javax.swing.JInternalFrame {
         Popula.popularTabelaVeiculo(cod, tfPesquisa.getText(), tbVeiculos);
     }
 
-     public void populaCombos() {
+    public void populaCombos() {
         cbTipoVeiculo.removeAllItems();
         // cbTela.addItem("Todas");
         new CombosDAO().popularCombo("Tipoveiculo", "idtipoVeiculo", "descricao", cbTipoVeiculo, "");
-        
+
         cbStatus.removeAllItems();
         new CombosDAO().popularCombo("Statusveiculo", "idstatusveiculo", "descricao", cbStatus, "");
-        
+
     }
 
+    private Date converteData(String mydata) {
+        Date data = null;
+        try {
+            DateFormat dtOutput = new SimpleDateFormat("yyyy-MM-dd");
+            data = dtOutput.parse(mydata);
 
+        } catch (ParseException e) {
+            System.out.println(e);
+
+        }
+        return data;
+    }
+    
+    
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btEditar;
     private javax.swing.JButton btExcluir;

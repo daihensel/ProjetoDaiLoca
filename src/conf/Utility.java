@@ -6,6 +6,8 @@
 package conf;
 
 import entidade.Veiculostipoestatus;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import javax.swing.JButton;
@@ -149,6 +151,20 @@ public class Utility {
 //        } catch (Exception e) {
 //            System.out.println("erro ao chamar view: " + e);
 //        }
+    }
+    
+     public static String geraDataAtual() {
+        //Data 
+        Date data = new Date();
+        SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
+        String data_atual_formatada = formatador.format(data);
+
+        //Hora
+   /*     Date hora = new Date();
+        SimpleDateFormat formatador_hora = new SimpleDateFormat("HH:mm");
+        String hora_atual_formatada = formatador_hora.format(hora); */
+
+        return data_atual_formatada;
     }
 
 }
