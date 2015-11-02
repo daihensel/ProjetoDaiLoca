@@ -14,6 +14,7 @@ import entidade.Cidade;
 import entidade.Cliente;
 import entidade.Endereco;
 import entidade.Pessoa;
+import entidade.Pessoafisica;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -512,23 +513,26 @@ public class IfCliente extends javax.swing.JInternalFrame {
             Cliente cliente = new Cliente();
             cliente.setDtCadastro(geraDataAtual());
             Pessoa pessoa = new Pessoa();
+            Pessoafisica pFisica = new Pessoafisica();
             Endereco endereco = new Endereco();
             endereco.setDescricao(tfEndereco.getText());
             endereco.setBairro(tfBairro.getText());
             endereco.setCep(tfCEP.getText());
             endereco.setComplemento(tfComplemento.getText());
-            
             Query query = (Query) sessao.createQuery(" FROM Cidade c WHERE (lower(c.descricao) LIKE '%" + tfCidade.getText() + "%'");
             List<Cidade> dadosCidade = (List<Cidade>) query.list();
-              
-         
-            
+            endereco.setCidade(dadosCidade.get(0));
             pessoa.setNome(tfNome.getText());
             pessoa.setEndereco(endereco);
             
-                       
-
+            pFisica.setPessoaIdpessoa(pessoa.getIdpessoa());
+            pFisica.setCpf(tfCPF.getText());
+            pFisica.setRg(tfRG.getText());
+            
+            sessao.save(pessoa);           
+            sessao.save(endereco);
             sessao.save(cliente);
+            sessao.save(pFisica);
             t.commit();
 
         } catch (HibernateException he) {
