@@ -401,12 +401,10 @@ public class IfVeiculo extends javax.swing.JInternalFrame {
             Veiculo veiculo = new Veiculo();
 
             veiculo.setDescricao(tfDescricao.getText());
-            ComboItens ctv = (ComboItens) cbTipoVeiculo.getSelectedItem();
-            System.out.println(ctv.getDescricao());
+            //ComboItens ctv = (ComboItens) cbTipoVeiculo.getSelectedItem();
+            Tipoveiculo tipoVeiculo = (Tipoveiculo) cbTipoVeiculo.getSelectedItem();
 
-            // veiculo.setTipoveiculo();
-            
-            
+            veiculo.setTipoveiculo(tipoVeiculo);
             veiculo.setDtInclusao(converteData(tfDtInclusao.getText()));
             veiculo.setDtBaixa(converteData(tfDtBaixa.getText()));
             veiculo.setMarca(tfMarca.getText());

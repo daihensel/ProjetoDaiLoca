@@ -436,7 +436,8 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
                 
                 Reserva reserva = new Reserva();
                 
-                reserva.setDtReserva(null);
+                
+                reserva.setDtLocacao(null);
                 
                 
                 sessao.save(reserva);
