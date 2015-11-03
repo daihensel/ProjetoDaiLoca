@@ -209,8 +209,7 @@ public class IfPermissao extends javax.swing.JInternalFrame {
             try {
                 sessao = HibernateUtil.getSessionFactory().openSession();
                 if (cbTela.getSelectedItem() == "Todas") {
-                    System.out.println("é todas");
-                    int somacombotela = cbTela.getItemCount() - 2;
+                    int somacombotela = cbTela.getItemCount() - 1;
                     for (int i = 1; i <= somacombotela; i++) {
 
                         Transaction t = sessao.beginTransaction();
@@ -222,8 +221,6 @@ public class IfPermissao extends javax.swing.JInternalFrame {
                     }
                 } else {
                     ComboItens cbit = (ComboItens) cbTela.getSelectedItem();
-                    System.out.println("não é todas");
-
                     Transaction t = sessao.beginTransaction();
                     Permissao p = salvaPerm();
 

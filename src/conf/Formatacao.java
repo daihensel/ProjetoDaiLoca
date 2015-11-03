@@ -198,4 +198,17 @@ public class Formatacao {
 
         return dataHoje;
     }
+    
+    public static Date converteParaDataAMD(String mydata) {
+        Date data = null;
+        try {
+            DateFormat dtOutput = new SimpleDateFormat("yyyy-MM-dd");
+            data = dtOutput.parse(mydata);
+
+        } catch (ParseException e) {
+            System.out.println(e);
+
+        }
+        return data;
+    }
 }

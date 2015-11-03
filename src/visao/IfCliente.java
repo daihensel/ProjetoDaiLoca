@@ -559,7 +559,7 @@ public class IfCliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tfPesquisaKeyReleased
 
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
-     //   habilitaCampos(true);
+
         rbPessoaFisica.isSelected();
         if(rbPessoaFisica.isSelected()){
             habilitaCamposPfisica(true);
@@ -583,7 +583,8 @@ public class IfCliente extends javax.swing.JInternalFrame {
 
     private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
         if (jTabbedPane1.getSelectedIndex() == 1) {
-           // habilitaCampos(false);
+            habilitaCamposPfisica(false);
+            habilitaCamposPjuridica(false);
             pesquisa();
             btSalvar.setEnabled(false);
             btEditar.setEnabled(true);

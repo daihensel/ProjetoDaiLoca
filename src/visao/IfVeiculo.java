@@ -7,6 +7,7 @@ package visao;
 
 import conf.ComboItens;
 import conf.CombosDAO;
+import conf.Formatacao;
 import conf.HibernateUtil;
 import conf.Popula;
 import conf.Utility;
@@ -20,6 +21,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import org.apache.log4j.Logger;
@@ -57,6 +59,7 @@ public class IfVeiculo extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jMenu1 = new javax.swing.JMenu();
+        jInternalFrame1 = new javax.swing.JInternalFrame();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
@@ -93,6 +96,19 @@ public class IfVeiculo extends javax.swing.JInternalFrame {
         jLabel7 = new javax.swing.JLabel();
 
         jMenu1.setText("jMenu1");
+
+        jInternalFrame1.setVisible(true);
+
+        javax.swing.GroupLayout jInternalFrame1Layout = new javax.swing.GroupLayout(jInternalFrame1.getContentPane());
+        jInternalFrame1.getContentPane().setLayout(jInternalFrame1Layout);
+        jInternalFrame1Layout.setHorizontalGroup(
+            jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jInternalFrame1Layout.setVerticalGroup(
+            jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
 
         setResizable(true);
         setTitle("Cadastro de Veículos");
@@ -131,7 +147,7 @@ public class IfVeiculo extends javax.swing.JInternalFrame {
 
         jLabel6.setText("Ano Modelo:*");
 
-        jLabel8.setText("Data Inclusão:");
+        jLabel8.setText("Data Inclusão*:");
 
         jLabel9.setText("Data Baixa:");
 
@@ -139,6 +155,7 @@ public class IfVeiculo extends javax.swing.JInternalFrame {
 
         jLabel12.setText("Status:*");
 
+        tfDtInclusao.setEditable(false);
         tfDtInclusao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfDtInclusaoActionPerformed(evt);
@@ -190,7 +207,7 @@ public class IfVeiculo extends javax.swing.JInternalFrame {
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cbTipoVeiculo, 0, 236, Short.MAX_VALUE)
+                    .addComponent(cbTipoVeiculo, 0, 230, Short.MAX_VALUE)
                     .addComponent(tfMarca))
                 .addContainerGap())
         );
@@ -394,37 +411,46 @@ public class IfVeiculo extends javax.swing.JInternalFrame {
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
 
         Session sessao = null;
-        try {
-            sessao = HibernateUtil.getSessionFactory().openSession();
-            Transaction t = sessao.beginTransaction();
+        if (tfDescricao.getText().trim().length() > 0 && tfAnoFab.getText().trim().length() > 0 && tfAnoModelo.getText().trim().length() > 0
+                && tfKmAtual.getText().trim().length() > 0 && cbStatus.getSelectedIndex() > 0
+                && cbTipoVeiculo.getSelectedIndex() > 0 && tfMarca.getText().trim().length() > 0
+                && tfDtInclusao.getText().trim().length() > 0) {
+            try {
+                sessao = HibernateUtil.getSessionFactory().openSession();
+                Transaction t = sessao.beginTransaction();
 
-            Veiculo veiculo = new Veiculo();
+                Veiculo veiculo = new Veiculo();
 
-            veiculo.setDescricao(tfDescricao.getText());
-            //ComboItens ctv = (ComboItens) cbTipoVeiculo.getSelectedItem();
-            Tipoveiculo tipoVeiculo = (Tipoveiculo) cbTipoVeiculo.getSelectedItem();
+                veiculo.setDescricao(tfDescricao.getText());
 
-            veiculo.setTipoveiculo(tipoVeiculo);
-            veiculo.setDtInclusao(converteData(tfDtInclusao.getText()));
-            veiculo.setDtBaixa(converteData(tfDtBaixa.getText()));
-            veiculo.setMarca(tfMarca.getText());
-            int n = Integer.parseInt(tfAnoFab.getText());
-            veiculo.setAnoFabricacao(n);
-            int n2 = Integer.parseInt(tfAnoModelo.getText());
-            veiculo.setAnoModelo(n2);
-            int km = Integer.parseInt(tfKmAtual.getText());
-            veiculo.setKmAtual(km);
-            ComboItens csv = (ComboItens) cbStatus.getSelectedItem();
-            veiculo.setIdstatusveiculo(csv.getCodigo());
+                Tipoveiculo tv = new Tipoveiculo();
+                ComboItens cbie = (ComboItens) cbTipoVeiculo.getSelectedItem();
+                tv.setIdtipoVeiculo(cbie.getCodigo());
+                veiculo.setTipoveiculo(tv);
 
-            sessao.save(veiculo);
+                veiculo.setDtInclusao(Formatacao.converteParaDataAMD(tfDtInclusao.getText()));
+                veiculo.setDtBaixa(Formatacao.converteParaDataAMD(tfDtBaixa.getText()));
+                veiculo.setMarca(tfMarca.getText());
+                int n = Integer.parseInt(tfAnoFab.getText());
+                veiculo.setAnoFabricacao(n);
+                int n2 = Integer.parseInt(tfAnoModelo.getText());
+                veiculo.setAnoModelo(n2);
+                int km = Integer.parseInt(tfKmAtual.getText());
+                veiculo.setKmAtual(km);
+                ComboItens csv = (ComboItens) cbStatus.getSelectedItem();
+                veiculo.setIdstatusveiculo(csv.getCodigo());
 
-            t.commit();
+                sessao.save(veiculo);
 
-        } catch (HibernateException he) {
-            he.printStackTrace();
-        } finally {
-            sessao.close();
+                t.commit();
+
+            } catch (HibernateException he) {
+                he.printStackTrace();
+            } finally {
+                sessao.close();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Preencha os campos obrigatórios!");
         }
 
 
@@ -510,12 +536,27 @@ public class IfVeiculo extends javax.swing.JInternalFrame {
         }
         tfDescricao.setEnabled(tf);
         cbTipoVeiculo.setEnabled(tf);
+        tfDtBaixa.setEnabled(tf);
+        tfAnoFab.setEnabled(tf);
+        tfAnoModelo.setEnabled(tf);
+        tfKmAtual.setEnabled(tf);
+        tfMarca.setEnabled(tf);
+        cbStatus.setEnabled(tf);
+
     }
 
     public void limpaCampos() {
         tfDescricao.setText("");
         populaCombos();
         cbTipoVeiculo.setSelectedIndex(0);
+        tfDtInclusao.setText(Formatacao.getDataAtual());
+        tfDtBaixa.setText("");
+        tfAnoFab.setText("");
+        tfAnoModelo.setText("");
+        tfKmAtual.setText("");
+        tfMarca.setText("");
+        cbStatus.setSelectedIndex(0);
+
     }
 
     public void pesquisa() {
@@ -536,22 +577,7 @@ public class IfVeiculo extends javax.swing.JInternalFrame {
 
     }
 
-    private Date converteData(String mydata) {
-        Date data = null;
-        try {
-            DateFormat dtOutput = new SimpleDateFormat("yyyy-MM-dd");
-            data = dtOutput.parse(mydata);
 
-        } catch (ParseException e) {
-            System.out.println(e);
-
-        }
-        return data;
-    }
-    
-    
-    
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btEditar;
     private javax.swing.JButton btExcluir;
@@ -561,6 +587,7 @@ public class IfVeiculo extends javax.swing.JInternalFrame {
     private javax.swing.JButton btSalvar;
     private javax.swing.JComboBox cbStatus;
     private javax.swing.JComboBox cbTipoVeiculo;
+    private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

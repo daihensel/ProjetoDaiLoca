@@ -482,7 +482,7 @@ public class IfDocumento extends javax.swing.JInternalFrame {
                 doc.setDescricao(tfDescricao.getText());
                 doc.setObservacoes(tfObservacoes.getText());
                 doc.setTipo(tfTipo.getText());
-//                doc.setDtInclusao(new Date(Formatacao.ajustaDataAMD(tfDataInclusao.getText())));
+                doc.setDtInclusao(Formatacao.converteParaDataAMD(tfDataInclusao.getText()));
                 Veiculo v = new Veiculo();
                 v.setIdveiculo(codveiculo);
                 doc.setVeiculo(v);
