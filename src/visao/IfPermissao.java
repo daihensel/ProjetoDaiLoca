@@ -10,6 +10,7 @@ import conf.CombosDAO;
 import conf.HibernateUtil;
 import conf.Utility;
 import entidade.Permissao;
+import javax.swing.JOptionPane;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -29,6 +30,8 @@ public class IfPermissao extends javax.swing.JInternalFrame {
         initComponents();
         this.populaCombos();
         Utility.permit(btNovo, btSalvar, null, null, this);
+        habilitaCampos(false);
+        btSalvar.setEnabled(false);
     }
 
     /**
@@ -54,6 +57,9 @@ public class IfPermissao extends javax.swing.JInternalFrame {
         cbExcluir = new javax.swing.JCheckBox();
         cbInserir = new javax.swing.JCheckBox();
         cbEditar = new javax.swing.JCheckBox();
+        jLabel7 = new javax.swing.JLabel();
+        cbFuncao = new javax.swing.JComboBox();
+        jLabel2 = new javax.swing.JLabel();
 
         jToolBar1.setRollover(true);
 
@@ -85,13 +91,13 @@ public class IfPermissao extends javax.swing.JInternalFrame {
         });
         jToolBar1.add(btFechar);
 
-        jLabel6.setText("Tela:");
+        jLabel6.setText("Tela*:");
 
         cbTela.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         cbUsuario.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jLabel1.setText("Adicionar permissão para usuário:");
+        jLabel1.setText("Adicionar permissão para usuário*:");
 
         cbLer.setSelected(true);
         cbLer.setText("Ler");
@@ -104,6 +110,10 @@ public class IfPermissao extends javax.swing.JInternalFrame {
 
         cbEditar.setSelected(true);
         cbEditar.setText("Editar");
+
+        jLabel7.setText("Grupo de usuários*:");
+
+        cbFuncao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -119,7 +129,11 @@ public class IfPermissao extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6)
-                            .addComponent(cbTela, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(cbTela, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addComponent(cbFuncao, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(41, 41, 41)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -127,21 +141,24 @@ public class IfPermissao extends javax.swing.JInternalFrame {
                             .addComponent(cbEditar)
                             .addComponent(cbInserir)
                             .addComponent(cbExcluir))))
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(11, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(15, 15, 15)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cbTela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(10, 10, 10)
-                        .addComponent(cbUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbFuncao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(cbLer)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -153,18 +170,26 @@ public class IfPermissao extends javax.swing.JInternalFrame {
                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
+        jLabel2.setText("Campos obrigatórios*:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -172,43 +197,55 @@ public class IfPermissao extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
- //habilitaCampos(true);
-        
+        habilitaCampos(true);
+
         btNovo.setEnabled(false);
-        btSalvar.setEnabled(true); 
+        btSalvar.setEnabled(true);
     }//GEN-LAST:event_btNovoActionPerformed
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
-        Session sessao = null;
-        try {
-            sessao = HibernateUtil.getSessionFactory().openSession();
-            Transaction t = sessao.beginTransaction();
+        if (cbTela.getSelectedIndex() >= 0 && cbFuncao.getSelectedIndex() > 0 && cbUsuario.getSelectedIndex() > 0) {
+            Session sessao = null;
+            try {
+                sessao = HibernateUtil.getSessionFactory().openSession();
+                if (cbTela.getSelectedItem() == "Todas") {
+                    System.out.println("é todas");
+                    int somacombotela = cbTela.getItemCount() - 2;
+                    for (int i = 1; i <= somacombotela; i++) {
 
-            Permissao p = new Permissao();
+                        Transaction t = sessao.beginTransaction();
+                        Permissao p = salvaPerm();
+                        p.setIdtela(i);
+                        sessao.save(p);
+                        t.commit();
+                        
+                    }
+                } else {
+                    ComboItens cbit = (ComboItens) cbTela.getSelectedItem();
+                    System.out.println("não é todas");
 
-            ComboItens cbiu = (ComboItens) cbUsuario.getSelectedItem();
-            p.setIdpessoa(cbiu.getCodigo());
+                    Transaction t = sessao.beginTransaction();
+                    Permissao p = salvaPerm();
 
-            ComboItens cbit = (ComboItens) cbTela.getSelectedItem();
-            p.setIdtela(cbit.getCodigo());
-           
-            p.setIdFuncao(1);
-            p.setLer(cbLer.isSelected());
-            p.setInserir(cbInserir.isSelected());
-            p.setEditar(cbEditar.isSelected());
-            p.setInativar(cbExcluir.isSelected());
-            sessao.save(p);
-
-            t.commit();
-
-        } catch (HibernateException he) {
-            he.printStackTrace();
-            System.out.println("Erro ao  = " + he.toString());
-            System.out.println("Erro ao  = " + he.getStackTrace().toString());
-            logger.error("Erro");
-        } finally {
-            sessao.close();
+                    p.setIdtela(cbit.getCodigo());
+                    sessao.save(p);
+                    t.commit();
+                }
+                habilitaCampos(false);
+                btNovo.setEnabled(true);
+                btSalvar.setEnabled(false);
+            } catch (HibernateException he) {
+                he.printStackTrace();
+                System.out.println("Erro ao  = " + he.toString());
+                System.out.println("Erro ao  = " + he.getStackTrace().toString());
+                logger.error("Erro");
+            } finally {
+                sessao.close();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Preencha os campos obrigatórios!");
         }
+
 
     }//GEN-LAST:event_btSalvarActionPerformed
 
@@ -216,12 +253,57 @@ public class IfPermissao extends javax.swing.JInternalFrame {
         dispose();
     }//GEN-LAST:event_btFecharActionPerformed
 
+    public void habilitaCampos(Boolean tf) {
+        if (tf == false) {
+            limpaCampos();
+        }
+        cbFuncao.setEnabled(tf);
+        cbUsuario.setEnabled(tf);
+        cbTela.setEnabled(tf);
+
+        cbEditar.setEnabled(tf);
+        cbExcluir.setEnabled(tf);
+        cbLer.setEnabled(tf);
+        cbInserir.setEnabled(tf);
+    }
+
+    public void limpaCampos() {
+
+        cbFuncao.setSelectedIndex(0);
+        cbUsuario.setSelectedIndex(0);
+        cbTela.setSelectedIndex(0);
+
+        cbEditar.setSelected(true);
+        cbExcluir.setSelected(true);
+        cbLer.setSelected(true);
+        cbInserir.setSelected(true);
+        populaCombos();
+    }
+
+    public Permissao salvaPerm() {
+        Permissao p = new Permissao();
+
+        ComboItens cbiu = (ComboItens) cbUsuario.getSelectedItem();
+        p.setIdpessoa(cbiu.getCodigo());
+        ComboItens cbif = (ComboItens) cbFuncao.getSelectedItem();
+        p.setIdFuncao(cbif.getCodigo());
+
+        p.setLer(cbLer.isSelected());
+        p.setInserir(cbInserir.isSelected());
+        p.setEditar(cbEditar.isSelected());
+        p.setInativar(cbExcluir.isSelected());
+        return p;
+    }
+
     public void populaCombos() {
         cbTela.removeAllItems();
-        // cbTela.addItem("Todas");
+        cbTela.addItem("Todas");
         new CombosDAO().popularCombo("Tela", "idtela", "descricao", cbTela, "");
+        cbTela.removeItemAt(1);
         cbUsuario.removeAllItems();
         new CombosDAO().popularCombo("Funcionario", "pessoaIdpessoa", "login", cbUsuario, "");
+        cbFuncao.removeAllItems();
+        new CombosDAO().popularCombo("Funcao", "idfuncao", "descricao", cbFuncao, "");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -230,12 +312,15 @@ public class IfPermissao extends javax.swing.JInternalFrame {
     private javax.swing.JButton btSalvar;
     private javax.swing.JCheckBox cbEditar;
     private javax.swing.JCheckBox cbExcluir;
+    private javax.swing.JComboBox cbFuncao;
     private javax.swing.JCheckBox cbInserir;
     private javax.swing.JCheckBox cbLer;
     private javax.swing.JComboBox cbTela;
     private javax.swing.JComboBox cbUsuario;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar jToolBar1;
