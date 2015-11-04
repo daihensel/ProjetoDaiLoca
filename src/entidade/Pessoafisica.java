@@ -23,7 +23,7 @@ public class Pessoafisica implements java.io.Serializable {
     @GenericGenerator(name = "generator", strategy = "foreign", parameters =
     @Parameter(name = "property", value = "pessoa"))
     @Id
-    @Column(name = "pessoaIdpessoa")
+    @Column(name = "pessoa_idpessoa")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int pessoaIdpessoa;
     @OneToOne(fetch = FetchType.LAZY)

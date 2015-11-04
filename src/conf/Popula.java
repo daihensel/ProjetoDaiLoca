@@ -8,6 +8,8 @@ package conf;
 import entidade.Cidade;
 import entidade.Documentos;
 import entidade.Funcao;
+import entidade.Pessoa;
+import entidade.Pessoajuridica;
 import entidade.Populartabelacliente;
 import entidade.Populartabelafornecedor;
 import entidade.Populartabelafuncionario;
@@ -155,8 +157,83 @@ public class Popula {
             });
 
         }
+
         sessao.getTransaction().commit();
 
+    }
+
+    public static Object retornaPessJur(int codpess) {
+        Session sessao = null;
+        Object[] object;
+        object = new Object[2];
+        sessao = HibernateUtil.getSessionFactory().openSession();
+        Transaction t = sessao.beginTransaction();
+        Query queryRetornaPesJur = (Query) sessao.createQuery(" FROM Pessoajuridica p WHERE ("
+                + " p.pessoaIdpessoa = " + codpess + ")");
+         Query queryRetornaPes = (Query) sessao.createQuery(" FROM Pessoa p WHERE ("
+                + " p.idpessoa = " + codpess + ")");
+
+        List<Pessoajuridica> dadosPesJur = (List<Pessoajuridica>) queryRetornaPesJur.list();  
+        List<Pessoa> dadosPes = (List<Pessoa>) queryRetornaPes.list();
+        sessao.getTransaction().commit();
+        object[0] = dadosPesJur;
+        object[1] = dadosPes;
+        
+        return object;
+    }
+
+    public static List popularTabelaDocumento(int cod, String criterio, JTable tb) {
+
+        DefaultTableModel tabelaModelo = (DefaultTableModel) tb.getModel();
+        tabelaModelo.setNumRows(0);
+        JTable tbAux = new JTable();
+        DefaultTableModel tabelaModeloAux = (DefaultTableModel) tbAux.getModel();
+        tabelaModeloAux.setNumRows(0);
+
+        Session sessao = null;
+
+        sessao = HibernateUtil.getSessionFactory().openSession();
+        Transaction t = sessao.beginTransaction();
+        criterio = criterio.toLowerCase();
+        Iterator qr = sessao.createQuery("SELECT d.iddocumentos, d.descricao, v.descricao, "
+                + "d.dtInclusao, d.tipo, d.observacoes  FROM Documentos d, Veiculo v WHERE ("
+                + " lower(d.descricao) LIKE '%" + criterio + "%'"
+                + " OR lower(d.tipo) LIKE '%" + criterio + "%'"
+                + " OR lower(d.observacoes) LIKE '%" + criterio + "%'"
+                + " OR lower(v.descricao) LIKE '%" + criterio + "%'"
+                + " OR d.iddocumentos = " + cod + ")"
+                + " AND v.idveiculo=d.veiculo.id"
+                + " ORDER BY d.iddocumentos").list().iterator();
+
+        Query query = (Query) sessao.createQuery(" FROM Documentos d WHERE ("
+                //+ " lower(d.descricao) LIKE '%" + criterio + "%'"
+                + " d.iddocumentos = " + cod + ")");
+        List<Documentos> dadosDocumento = (List<Documentos>) query.list();
+
+        for (Documentos lin : dadosDocumento) {
+            tabelaModeloAux.addRow(new Object[]{
+                lin.getIddocumentos(),
+                lin.getDescricao(),
+                lin.getVeiculo(),
+                lin.getDtInclusao(),
+                lin.getTipo(),
+                lin.getObservacoes()
+            });
+        }
+        while (qr.hasNext()) {
+            Object[] tuple = (Object[]) qr.next();
+            tabelaModelo.addRow(new Object[]{
+                tuple[0],
+                tuple[1],
+                tuple[2],
+                tuple[3],
+                tuple[4],
+                tuple[5]
+            });
+
+        }
+        sessao.getTransaction().commit();
+        return dadosDocumento;
     }
 
     public static void popularTabelaCliente(int codigo, String criterio, JTable tb) {
@@ -302,60 +379,6 @@ public class Popula {
         }
         sessao.getTransaction().commit();
         return dadosFuncao;
-    }
-
-    public static List popularTabelaDocumento(int cod, String criterio, JTable tb) {
-
-        DefaultTableModel tabelaModelo = (DefaultTableModel) tb.getModel();
-        tabelaModelo.setNumRows(0);
-        JTable tbAux = new JTable();
-        DefaultTableModel tabelaModeloAux = (DefaultTableModel) tbAux.getModel();
-        tabelaModeloAux.setNumRows(0);
-
-        Session sessao = null;
-
-        sessao = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = sessao.beginTransaction();
-        criterio = criterio.toLowerCase();
-        Iterator qr = sessao.createQuery("SELECT d.iddocumentos, d.descricao, v.descricao, "
-                + "d.dtInclusao, d.tipo, d.observacoes  FROM Documentos d, Veiculo v WHERE ("
-                + " lower(d.descricao) LIKE '%" + criterio + "%'"
-                + " OR lower(d.tipo) LIKE '%" + criterio + "%'"
-                + " OR lower(d.observacoes) LIKE '%" + criterio + "%'"
-                + " OR lower(v.descricao) LIKE '%" + criterio + "%'"
-                + " OR d.iddocumentos = " + cod + ")"
-                + " AND v.idveiculo=d.veiculo.id"
-                + " ORDER BY d.iddocumentos").list().iterator();
-
-        Query query = (Query) sessao.createQuery(" FROM Documentos d WHERE ("
-                //+ " lower(d.descricao) LIKE '%" + criterio + "%'"
-                + " d.iddocumentos = " + cod + ")");
-        List<Documentos> dadosDocumento = (List<Documentos>) query.list();
-
-        for (Documentos lin : dadosDocumento) {
-            tabelaModeloAux.addRow(new Object[]{
-                lin.getIddocumentos(),
-                lin.getDescricao(),
-                lin.getVeiculo(),
-                lin.getDtInclusao(),
-                lin.getTipo(),
-                lin.getObservacoes()
-            });
-        }
-        while (qr.hasNext()) {
-            Object[] tuple = (Object[]) qr.next();
-            tabelaModelo.addRow(new Object[]{
-                tuple[0],
-                tuple[1],
-                tuple[2],
-                tuple[3],
-                tuple[4],
-                tuple[5]
-            });
-
-        }
-        sessao.getTransaction().commit();
-        return dadosDocumento;
     }
 
     public static List popularTabelaCidade(int codigo, String criterio, JTable tb) {
