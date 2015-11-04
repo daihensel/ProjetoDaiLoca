@@ -280,7 +280,7 @@ public class IfTipoContato extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btNovoActionPerformed
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
-        System.out.println("oiiiiiiiiiiiiiiiiiiii");
+        
         Session sessao = null;
         if (tfdContato.getText().trim().length() > 0) {
             try {
@@ -294,7 +294,11 @@ public class IfTipoContato extends javax.swing.JInternalFrame {
                 sessao.save(tipocontato);
 
                 t.commit();
-
+                pesquisa();
+                habilitaCampos(false);
+                btNovo.setEnabled(true);
+                btSalvar.setEnabled(false);
+                tfdContato.requestFocus();
             } catch (HibernateException he) {
                 he.printStackTrace();
                 logger.error("Erro");

@@ -31,7 +31,7 @@ import org.hibernate.Transaction;
  * @author Daiane
  */
 public class IfCliente extends javax.swing.JInternalFrame {
-
+    
     private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
 
     /**
@@ -505,12 +505,12 @@ public class IfCliente extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
-
+        
         Session sessao = null;
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
             Transaction t = sessao.beginTransaction();
-                      
+            
             Cliente cliente = new Cliente();
             cliente.setDtCadastro(geraDataAtual());
             Pessoa pessoa = new Pessoa();
@@ -530,12 +530,17 @@ public class IfCliente extends javax.swing.JInternalFrame {
             pFisica.setCpf(tfCPF.getText());
             pFisica.setRg(tfRG.getText());
             
-            sessao.save(pessoa);           
+            sessao.save(pessoa);
             sessao.save(endereco);
             sessao.save(cliente);
             sessao.save(pFisica);
             t.commit();
-
+            pesquisa();
+            habilitaCamposPfisica(false);
+            habilitaCamposPjuridica(false);
+            btNovo.setEnabled(true);
+            btSalvar.setEnabled(false);
+            tfNome.requestFocus();
         } catch (HibernateException he) {
             he.printStackTrace();
             logger.error("Erro");
@@ -543,7 +548,7 @@ public class IfCliente extends javax.swing.JInternalFrame {
             sessao.close();
         }
         
-        
+
     }//GEN-LAST:event_btSalvarActionPerformed
 
     private void btFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFecharActionPerformed
@@ -559,17 +564,17 @@ public class IfCliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tfPesquisaKeyReleased
 
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
-
+        
         rbPessoaFisica.isSelected();
-        if(rbPessoaFisica.isSelected()){
+        if (rbPessoaFisica.isSelected()) {
             habilitaCamposPfisica(true);
-        }else{
+        } else {
             habilitaCamposPjuridica(true);
         }
         jTabbedPane1.setSelectedIndex(0);
         btNovo.setEnabled(false);
         btSalvar.setEnabled(true);
-
+        
 
     }//GEN-LAST:event_btNovoActionPerformed
 
@@ -628,7 +633,7 @@ public class IfCliente extends javax.swing.JInternalFrame {
     private void rbPessoaJuridicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbPessoaJuridicaActionPerformed
         habilitaCamposPjuridica(true);
     }//GEN-LAST:event_rbPessoaJuridicaActionPerformed
-
+    
     public void habilitaCamposPfisica(Boolean tf) {
         if (tf == false) {
             limpaCampos();
@@ -672,11 +677,7 @@ public class IfCliente extends javax.swing.JInternalFrame {
         tfComplemento.setEnabled(tf);
         btPCidade.setEnabled(tf);
     }
-
     
-    
-    
-
     public void limpaCampos() {
         tfDataCadastro.setText(Formatacao.getDataAtual());
         tfNome.setText("");
@@ -696,7 +697,7 @@ public class IfCliente extends javax.swing.JInternalFrame {
         populaCombos();
         cbEstado.setSelectedIndex(0);
     }
-
+    
     public void pesquisa() {
         int cod = 0;
         if (tfPesquisa.getText().length() > 0 && tfPesquisa.getText().matches("[0-9]")) {
@@ -704,15 +705,15 @@ public class IfCliente extends javax.swing.JInternalFrame {
         }
         Popula.popularTabelaCliente(cod, tfPesquisa.getText(), tbClientes);
     }
-
+    
     public void defineCodigoCidade(int cod, String nome) {
         tfCidade.setText(nome);
     }
-
+    
     public void populaCombos() {
         cbEstado.removeAllItems();
         new CombosDAO().popularCombo("Estado", "idestado", "uf", cbEstado, "");
-
+        
     }
     
     public static String geraDataAtual() {
@@ -723,15 +724,12 @@ public class IfCliente extends javax.swing.JInternalFrame {
 
         //Hora
    /*     Date hora = new Date();
-        SimpleDateFormat formatador_hora = new SimpleDateFormat("HH:mm");
-        String hora_atual_formatada = formatador_hora.format(hora); */
-
+         SimpleDateFormat formatador_hora = new SimpleDateFormat("HH:mm");
+         String hora_atual_formatada = formatador_hora.format(hora); */
         return data_atual_formatada;
     }
 
-    
-    
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btEditar;
     private javax.swing.JButton btFechar;

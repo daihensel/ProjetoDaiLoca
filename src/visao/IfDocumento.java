@@ -489,7 +489,11 @@ public class IfDocumento extends javax.swing.JInternalFrame {
 
                 sessao.save(doc);
                 t.commit();
-
+                pesquisa();
+                habilitaCampos(false);
+                btNovo.setEnabled(true);
+                btSalvar.setEnabled(false);
+                tfDescricao.requestFocus();
             } catch (HibernateException he) {
                 he.printStackTrace();
                 logger.error("Erro");

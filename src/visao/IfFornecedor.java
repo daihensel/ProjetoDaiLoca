@@ -356,7 +356,11 @@ public class IfFornecedor extends javax.swing.JInternalFrame {
 
                 sessao.save(pj);
                 t.commit();
-
+                pesquisa();
+                habilitaCampos(false);
+                btNovo.setEnabled(true);
+                btSalvar.setEnabled(false);
+                tfNome.requestFocus();
             } catch (HibernateException he) {
                 he.printStackTrace();
 

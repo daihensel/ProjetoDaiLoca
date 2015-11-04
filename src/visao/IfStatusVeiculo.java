@@ -284,7 +284,11 @@ public class IfStatusVeiculo extends javax.swing.JInternalFrame {
 
                 sessao.save(sv);
                 t.commit();
-
+                pesquisa();
+                habilitaCampos(false);
+                btNovo.setEnabled(true);
+                btSalvar.setEnabled(false);
+                tfDescricao.requestFocus();
             } catch (HibernateException he) {
                 he.printStackTrace();
                 logger.error("Erro");

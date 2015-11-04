@@ -278,10 +278,13 @@ public class IfPagamento extends javax.swing.JInternalFrame {
 
             Cidade cidade = new Cidade();
 
-           
             sessao.save(cidade);
             t.commit();
-
+            //pesquisa();
+            //habilitaCampos(false);
+            btNovo.setEnabled(true);
+            btSalvar.setEnabled(false);
+            tfNome.requestFocus();
         } catch (HibernateException he) {
             he.printStackTrace();
             logger.error("Erro");
@@ -312,7 +315,7 @@ public class IfPagamento extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTabbedPane1FocusGained
 
     private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
-        if (jTabbedPane1.getSelectedIndex() == 1) {             
+        if (jTabbedPane1.getSelectedIndex() == 1) {
             //habilitaCampos(false);
             //  pesquisa();
             btSalvar.setEnabled(false);
@@ -336,7 +339,7 @@ public class IfPagamento extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btPesquisarActionPerformed
 
     private void tfPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfPesquisaKeyReleased
-    //pesquisa():       
+        //pesquisa():       
     }//GEN-LAST:event_tfPesquisaKeyReleased
 
     private void jPanel1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPanel1FocusGained

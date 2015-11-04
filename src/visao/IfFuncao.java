@@ -282,7 +282,11 @@ public class IfFuncao extends javax.swing.JInternalFrame {
 
                 sessao.save(f);
                 t.commit();
-
+                pesquisa();
+                habilitaCampos(false);
+                btNovo.setEnabled(true);
+                btSalvar.setEnabled(false);
+                tfDescricao.requestFocus();
             } catch (HibernateException he) {
                 he.printStackTrace();
                 logger.error("Erro");

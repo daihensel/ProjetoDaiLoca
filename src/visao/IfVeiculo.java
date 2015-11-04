@@ -432,7 +432,11 @@ public class IfVeiculo extends javax.swing.JInternalFrame {
                 sessao.save(veiculo);
 
                 t.commit();
-
+                pesquisa();
+                habilitaCampos(false);
+                btNovo.setEnabled(true);
+                btSalvar.setEnabled(false);
+                tfDescricao.requestFocus();
             } catch (HibernateException he) {
                 he.printStackTrace();
             } finally {

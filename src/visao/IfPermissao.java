@@ -219,7 +219,10 @@ public class IfPermissao extends javax.swing.JInternalFrame {
                         p.setIdtela(i);
                         sessao.save(p);
                         t.commit();
-                        
+                        habilitaCampos(false);
+                        btNovo.setEnabled(true);
+                        btSalvar.setEnabled(false);
+                        cbUsuario.requestFocus();
                     }
                 } else {
                     ComboItens cbit = (ComboItens) cbTela.getSelectedItem();

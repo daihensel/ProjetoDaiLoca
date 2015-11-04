@@ -352,9 +352,9 @@ public class IfCidade extends javax.swing.JInternalFrame {
                 }
                 jTabbedPane1.setSelectedIndex(0);
                 habilitaCampos(true);
+                pesquisa();
                 btNovo.setEnabled(false);
                 btSalvar.setEnabled(true);
-
                 tfNome.requestFocus();
             } else {
                 JOptionPane.showMessageDialog(null, "Selecione algum registro!");

@@ -330,8 +330,12 @@ public class IfTipoVeiculo extends javax.swing.JInternalFrame {
                 sessao.save(tipoveiculo);
                 
                 t.commit();
-                limpaCampos lc = new limpaCampos();
-                lc.limparCampos(jpTipoVeiculo);
+//                limpaCampos lc = new limpaCampos();
+//                lc.limparCampos(jpTipoVeiculo);
+                pesquisa();
+                habilitaCampos(false);
+                btNovo.setEnabled(true);
+                btSalvar.setEnabled(false);
                 tfDescricao.requestFocus();
 
             } catch (HibernateException he) {
