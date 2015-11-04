@@ -41,7 +41,7 @@ public class Formatacao {
     public static JFormattedTextField getHora() {
         return getFormatado("##:##");
     }
-    
+
     public static JFormattedTextField getCNPJ() {
         return getFormatado("##.###.###/####-##");
     }
@@ -53,12 +53,12 @@ public class Formatacao {
     public static JFormattedTextField getData() {
         return getFormatado("##/##/####");
     }
-    
-     public static JFormattedTextField getRG() {
+
+    public static JFormattedTextField getRG() {
         return getFormatado("##########");
     }
-     
-       public static JFormattedTextField getCEP() {
+
+    public static JFormattedTextField getCEP() {
         return getFormatado("#####-###");
     }
 
@@ -79,7 +79,7 @@ public class Formatacao {
         }
     }
 
-      public static void reformatarCEP(JFormattedTextField campo) {
+    public static void reformatarCEP(JFormattedTextField campo) {
         try {
             MaskFormatter m = new MaskFormatter();
             m.setPlaceholderCharacter(' ');
@@ -91,6 +91,7 @@ public class Formatacao {
             System.err.println(e);
         }
     }
+
     public static void reformatarCpf(JFormattedTextField campo) {
         try {
             MaskFormatter m = new MaskFormatter();
@@ -116,7 +117,7 @@ public class Formatacao {
             System.err.println(e);
         }
     }
-    
+
     public static void reformatarRG(JFormattedTextField campo) {
         try {
             MaskFormatter m = new MaskFormatter();
@@ -165,6 +166,21 @@ public class Formatacao {
         return (dataFormatada);
     }
 
+    public static Date converteParaDataAMD(String mydata) {
+        String dataString = null;
+        Date dataFormatada = null;
+        try {
+            Date dataDMA = new SimpleDateFormat("dd/MM/yyyy").parse(mydata);
+            dataString = new SimpleDateFormat("yyyy-MM-dd").format(dataDMA);
+            DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            dataFormatada = (java.util.Date) formatter.parse(dataString);
+        } catch (ParseException e) {
+            System.out.println(e);
+
+        }
+        return dataFormatada;
+    }
+
     public static String removerFormatacao(String dado) {
         String retorno = "";
         for (int i = 0; i < dado.length(); i++) {
@@ -198,17 +214,5 @@ public class Formatacao {
 
         return dataHoje;
     }
-    
-    public static Date converteParaDataAMD(String mydata) {
-        Date data = null;
-        try {
-            DateFormat dtOutput = new SimpleDateFormat("yyyy-MM-dd");
-            data = dtOutput.parse(mydata);
 
-        } catch (ParseException e) {
-            System.out.println(e);
-
-        }
-        return data;
-    }
 }

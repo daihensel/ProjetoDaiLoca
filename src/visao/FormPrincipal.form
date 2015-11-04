@@ -748,6 +748,9 @@
                       <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tbVeiculosMouseEntered"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>

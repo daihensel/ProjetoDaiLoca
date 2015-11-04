@@ -311,7 +311,7 @@ public class IfCidade extends javax.swing.JInternalFrame {
 
                 sessao.save(cidade);
                 t.commit();
-
+                salvou();
             } catch (HibernateException he) {
                 he.printStackTrace();
                 logger.error("Erro");
@@ -411,21 +411,33 @@ public class IfCidade extends javax.swing.JInternalFrame {
 
             if (tbCidades.getSelectedRow() >= 0) {
                 Object[] options = {" Sim ", " Não "};
-
-                int opcaoExcluir = JOptionPane.showOptionDialog(this.getContentPane(), "Deseja excluir o registro do Serviço Predefinido "
-                        + tbCidades.getValueAt(tbCidades.getSelectedRow(), 1) + "?",
+                String descricao = String.valueOf(tbCidades.getValueAt(tbCidades.getSelectedRow(), 1));
+                int opcaoExcluir = JOptionPane.showOptionDialog(this.getContentPane(), "Deseja excluir o registro da Cidade "
+                        + descricao + "?",
                         "Informação", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[1]);
 
                 if (opcaoExcluir == 0) {
-                    int id = (int) tbCidades.getValueAt(tbCidades.getSelectedRow(), 0);
-                    System.out.println("id a ser excluido:" + id);
+                    int cod = (int) tbCidades.getValueAt(tbCidades.getSelectedRow(), 0);
+                    System.out.println("cod a ser excluido:" + cod);
                     Session sessao = null;
                     try {
                         sessao = HibernateUtil.getSessionFactory().openSession();
                         Transaction t = sessao.beginTransaction();
-
                         Cidade cidade = new Cidade();
-                        cidade.setIdcidade(id);
+                        List<Cidade> l = Popula.popularTabelaCidade(cod, String.valueOf(cod), tbCidades);
+                        pesquisa();
+                        for (Cidade lin : l) {
+
+                            cidade.setIdcidade(cod);
+                            cidade.setDescricao(lin.getDescricao());
+                            Estado estado = new Estado();
+                            estado.setIdestado(lin.getEstado().getIdestado());
+//                        estado.setUf(lin.getEstado().getUf());
+                            cidade.setEstado(estado);
+
+                        }
+
+                        // ComboItens cbie = (ComboItens) cbEstado.getSelectedItem();
                         sessao.delete(cidade);
                         t.commit();
                         JOptionPane.showMessageDialog(null, "Registro excluído!");
@@ -454,6 +466,13 @@ public class IfCidade extends javax.swing.JInternalFrame {
             btEditarActionPerformed(null);
         }
     }//GEN-LAST:event_tbCidadesMouseClicked
+
+    public void salvou() {
+        habilitaCampos(false);
+        btNovo.setEnabled(true);
+        btSalvar.setEnabled(false);
+        tfNome.requestFocus();
+    }
 
     public void habilitaCampos(Boolean tf) {
         if (tf == false) {

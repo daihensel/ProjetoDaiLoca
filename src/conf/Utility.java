@@ -69,12 +69,13 @@ public class Utility {
                     sessao = HibernateUtil.getSessionFactory().openSession();
                     Transaction t = sessao.beginTransaction();
 
-                    Query query = (Query) sessao.createQuery("UPDATE Funcionario SET "
-                            + "senha = '" + senhanova + "' "
-                            + "WHERE login = '" + login + "'");
+                    String hqlUpdate = ("UPDATE Funcionario SET"
+                            + " senha = '" + senhanova + "' "
+                            + " WHERE login = '" + login + "'");
+                    int updatedEntities = sessao.createQuery(hqlUpdate).executeUpdate();
 
                     sessao.getTransaction().commit();
-                    
+
                 } catch (HibernateException he) {
                     he.printStackTrace();
                     System.out.println("Erro atualizar Senha = " + he);
@@ -179,44 +180,35 @@ public class Utility {
         return soma;
     }
 
-    public static void popularTabelaVeiculos(JTable tb) {
-        // try{
-        DefaultTableModel tabelaModelo = (DefaultTableModel) tb.getModel();
-        tabelaModelo.setNumRows(0);
-
+    public static void popularTabelaVeiculosTipoEStatus(JTable tb) {
         Session sessao = null;
+        try {
+            DefaultTableModel tabelaModelo = (DefaultTableModel) tb.getModel();
+            tabelaModelo.setNumRows(0);
 
-        sessao = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = sessao.beginTransaction();
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            Transaction t = sessao.beginTransaction();
 
-//        Iterator query = sessao.createQuery("select v.idveiculo, v.descricao, t.descricao, s.descricao\n"
-//                + "FROM Veiculo v, Tipoveiculo t, Statusveiculo s\n"
-//                + "WHERE v.tipoveiculo=t.tipoveiculo\n"
-//                + "AND s.statusveiculo=v.statusveiculo").list().iterator();
-//         Iterator query = sessao.createQuery(" from Veiculostipoestatus").list().iterator();
-//        while (query.hasNext()) {
-//            Object[] tuple = (Object[]) query.next();
-//            Veiculostipoestatus idveiculo = (Veiculostipoestatus) tuple[0]; //id
-//            Veiculostipoestatus descricaov = (Veiculostipoestatus) tuple[1]; //desc veiculo
-//            Veiculostipoestatus descricaot = (Veiculostipoestatus) tuple[2]; //desc tipo
-//            Veiculostipoestatus descricaos = (Veiculostipoestatus) tuple[3]; //desc status
-//            tabelaModelo.addRow(tuple);
-//        }
-        Query query = (Query) sessao.createQuery(" FROM Veiculostipoestatus");
-        List<Veiculostipoestatus> dadosVTS = (List<Veiculostipoestatus>) query.list();
+            Query query = (Query) sessao.createQuery(" FROM Veiculostipoestatus");
+            List<Veiculostipoestatus> dadosVTS = (List<Veiculostipoestatus>) query.list();
 
-        for (Veiculostipoestatus v : dadosVTS) {
-            tabelaModelo.addRow(new Object[]{
-                //  v.getIdveiculo(),
-                v.getDescricaoVeiculo(),
-                v.getDescricaoTipo(),
-                v.getDescricaoStatus(),});
+            for (Veiculostipoestatus v : dadosVTS) {
+                tabelaModelo.addRow(new Object[]{
+                    //  v.getIdveiculo(),
+                    v.getDescricaoVeiculo(),
+                    v.getDescricaoTipo(),
+                    v.getDescricaoStatus(),});
+            }
+
+            sessao.getTransaction().commit();
+        } catch (HibernateException he) {
+            he.printStackTrace();
+            System.out.println("Erro popular = " + he);
+            
+        } finally {
+            sessao.close();
+
         }
 
-        sessao.getTransaction().commit();
-//        } catch (Exception e) {
-//            System.out.println("erro ao chamar view: " + e);
-//        }
     }
-
 }

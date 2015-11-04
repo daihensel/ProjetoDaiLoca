@@ -38,7 +38,17 @@ public class FormPrincipal extends javax.swing.JFrame {
     public FormPrincipal(String login) {
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH);
-        Utility.popularTabelaVeiculos(tbVeiculos);
+        atualizaDadosVeiculos();
+        pnChat.setVisible(false);
+        tfNome.setText(login);
+        this.btConectaActionPerformed(null);
+        this.login = login;
+        logger.info("Logado");
+
+    }
+
+    private void atualizaDadosVeiculos() {
+        Utility.popularTabelaVeiculosTipoEStatus(tbVeiculos);
         lbDisponiveis.setText(Utility.somaVeiculos(1));
         lbReservados.setText(Utility.somaVeiculos(2));
         lbLocados.setText(Utility.somaVeiculos(3));
@@ -47,12 +57,6 @@ public class FormPrincipal extends javax.swing.JFrame {
                 + Integer.parseInt(lbReservados.getText())
                 + Integer.parseInt(lbLocados.getText())
                 + Integer.parseInt(lbManutencao.getText())));
-        pnChat.setVisible(false);
-        tfNome.setText(login);
-        this.btConectaActionPerformed(null);
-        this.login = login;
-        logger.info("Logado");
-
     }
 
     private class ListenerSocket implements Runnable {
@@ -575,6 +579,11 @@ public class FormPrincipal extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tbVeiculos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                tbVeiculosMouseEntered(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbVeiculos);
 
         javax.swing.GroupLayout pnGeralLayout = new javax.swing.GroupLayout(pnGeral);
@@ -967,6 +976,10 @@ public class FormPrincipal extends javax.swing.JFrame {
             logger.error("usuário sem permissão");
         }
     }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void tbVeiculosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbVeiculosMouseEntered
+       atualizaDadosVeiculos();
+    }//GEN-LAST:event_tbVeiculosMouseEntered
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
