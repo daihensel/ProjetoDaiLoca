@@ -6,14 +6,17 @@
 package conf;
 
 import entidade.Veiculostipoestatus;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -24,6 +27,71 @@ import visao.FormPrincipal;
  * @author Daiane
  */
 public class Utility {
+
+    public static String pegaSenhaLogin(String login) {
+        Session sessao = null;
+        try {
+            String s = "";
+
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            Transaction t = sessao.beginTransaction();
+
+            Query query = (Query) sessao.createQuery("SELECT senha FROM Funcionario WHERE login LIKE '%" + login + "%'");
+            System.out.println("login: " + login);
+
+            s = query.list().get(0).toString();
+
+            System.out.println("senha user: " + s);
+            sessao.getTransaction().commit();
+            return s;
+        } catch (HibernateException he) {
+            he.printStackTrace();
+            System.out.println("Erro pegar dadosLogin = " + he);
+            return "";
+        } finally {
+            sessao.close();
+        }
+    }
+
+    public static boolean alteraSenha(String login, String senhaatual, String senhanova, String senhanovaconfirma) {
+        boolean ok = false;
+        String senha = pegaSenhaLogin(login);
+        if (senha.equals(senhaatual)) {
+            if (!senhanova.equals(senhanovaconfirma)) {
+                JOptionPane.showMessageDialog(null, "Senha NOVA não confere...", "Atenção", JOptionPane.ERROR_MESSAGE);
+                return (ok = false);
+            } else if (senhaatual.equals(senhanova)) {
+                JOptionPane.showMessageDialog(null, "Senha NOVA igual ATUAL...", "Atenção", JOptionPane.ERROR_MESSAGE);
+                return (ok = false);
+            } else if (senha.equals(senhaatual)) {
+                Session sessao = null;
+                try {
+                    sessao = HibernateUtil.getSessionFactory().openSession();
+                    Transaction t = sessao.beginTransaction();
+
+                    Query query = (Query) sessao.createQuery("UPDATE Funcionario SET "
+                            + "senha = '" + senhanova + "' "
+                            + "WHERE login = '" + login + "'");
+
+                    sessao.getTransaction().commit();
+                    
+                } catch (HibernateException he) {
+                    he.printStackTrace();
+                    System.out.println("Erro atualizar Senha = " + he);
+                    return (ok = false);
+                } finally {
+                    sessao.close();
+
+                }
+                //  JOptionPane.showMessageDialog(null, "Senha trocada com sucesso");
+                return (ok = true);
+            }
+        } else if (!senha.equals(senhaatual)) {
+            JOptionPane.showMessageDialog(null, "Senha ATUAL não confere...", "Atenção", JOptionPane.ERROR_MESSAGE);
+            return (ok = false);
+        }
+        return ok;
+    }
 
     public static void permit(JButton novo, JButton salvar, JButton editar, JButton excluir, JInternalFrame jif) {
 
@@ -67,8 +135,6 @@ public class Utility {
 
         }
     }
-
-    
 
     public static Boolean permitLer(JInternalFrame jif) {
 
@@ -151,20 +217,6 @@ public class Utility {
 //        } catch (Exception e) {
 //            System.out.println("erro ao chamar view: " + e);
 //        }
-    }
-    
-     public static String geraDataAtual() {
-        //Data 
-        Date data = new Date();
-        SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
-        String data_atual_formatada = formatador.format(data);
-
-        //Hora
-   /*     Date hora = new Date();
-        SimpleDateFormat formatador_hora = new SimpleDateFormat("HH:mm");
-        String hora_atual_formatada = formatador_hora.format(hora); */
-
-        return data_atual_formatada;
     }
 
 }

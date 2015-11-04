@@ -407,7 +407,45 @@ public class IfCidade extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cbEstadoItemStateChanged
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
+        if (jTabbedPane1.getSelectedIndex() == 1) {
 
+            if (tbCidades.getSelectedRow() >= 0) {
+                Object[] options = {" Sim ", " Não "};
+
+                int opcaoExcluir = JOptionPane.showOptionDialog(this.getContentPane(), "Deseja excluir o registro do Serviço Predefinido "
+                        + tbCidades.getValueAt(tbCidades.getSelectedRow(), 1) + "?",
+                        "Informação", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[1]);
+
+                if (opcaoExcluir == 0) {
+                    int id = (int) tbCidades.getValueAt(tbCidades.getSelectedRow(), 0);
+                    System.out.println("id a ser excluido:" + id);
+                    Session sessao = null;
+                    try {
+                        sessao = HibernateUtil.getSessionFactory().openSession();
+                        Transaction t = sessao.beginTransaction();
+
+                        Cidade cidade = new Cidade();
+                        cidade.setIdcidade(id);
+                        sessao.delete(cidade);
+                        t.commit();
+                        JOptionPane.showMessageDialog(null, "Registro excluído!");
+                        pesquisa();
+                    } catch (HibernateException he) {
+                        he.printStackTrace();
+                        logger.error("Erro");
+                        JOptionPane.showMessageDialog(null, "Problemas ao excluir");
+                    } finally {
+                        sessao.close();
+                    }
+                } else if (opcaoExcluir == 1) {
+                    JOptionPane.showMessageDialog(null, "Nada foi excluído!");
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Selecione algum registro!");
+            }
+
+        }
 
     }//GEN-LAST:event_btExcluirActionPerformed
 

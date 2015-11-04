@@ -11,22 +11,11 @@ import conf.Formatacao;
 import conf.HibernateUtil;
 import conf.Popula;
 import conf.Utility;
-import entidade.Cidade;
-import entidade.Estado;
-import entidade.Tipocontato;
 import entidade.Tipoveiculo;
 import entidade.Veiculo;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -465,7 +454,7 @@ public class IfVeiculo extends javax.swing.JInternalFrame {
         jTabbedPane1.setSelectedIndex(0);
         btNovo.setEnabled(false);
         btSalvar.setEnabled(true);
-        tfDtInclusao.setText(Utility.geraDataAtual());
+        tfDtInclusao.setText(Formatacao.getDataAtual());
 
     }//GEN-LAST:event_btNovoActionPerformed
 

@@ -61,6 +61,8 @@ public class IfPermissao extends javax.swing.JInternalFrame {
         cbFuncao = new javax.swing.JComboBox();
         jLabel2 = new javax.swing.JLabel();
 
+        setTitle("Cadastro de Permissões");
+
         jToolBar1.setRollover(true);
 
         btNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/novo_32x32.png"))); // NOI18N
