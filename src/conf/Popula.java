@@ -32,7 +32,7 @@ import org.hibernate.Transaction;
  */
 public class Popula {
 
-    public static void popularTabelaVeiculo(int codigo, String criterio, JTable tb) {
+    public static List popularTabelaVeiculo(int codigo, String criterio, JTable tb) {
 
         DefaultTableModel tabelaModelo = (DefaultTableModel) tb.getModel();
         tabelaModelo.setNumRows(0);
@@ -63,6 +63,7 @@ public class Popula {
 
         }
         sessao.getTransaction().commit();
+        return dadosVeiculos;
 
     }
 

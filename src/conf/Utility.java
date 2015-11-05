@@ -5,6 +5,8 @@
  */
 package conf;
 
+import entidade.Cliente;
+import entidade.Pessoa;
 import entidade.Veiculostipoestatus;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
@@ -204,11 +206,26 @@ public class Utility {
         } catch (HibernateException he) {
             he.printStackTrace();
             System.out.println("Erro popular = " + he);
-            
+
         } finally {
             sessao.close();
 
         }
+
+    }
+
+    public static List consultaPessoa(String criterio) {
+
+        Session sessao = null;
+
+        sessao = HibernateUtil.getSessionFactory().openSession();
+        Transaction t = sessao.beginTransaction();
+        Query query = (Query) sessao.createQuery(" FROM Pessoa WHERE nome LIKE '%" + criterio + ")");
+
+        List<Pessoa> dadosPessoa = (List<Pessoa>) query.list();
+        sessao.getTransaction().commit();
+
+        return dadosPessoa;
 
     }
 }

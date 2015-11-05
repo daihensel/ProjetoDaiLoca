@@ -7,7 +7,10 @@ package visao;
 
 import conf.Formatacao;
 import conf.HibernateUtil;
+import conf.Popula;
 import conf.Utility;
+import entidade.Cliente;
+import entidade.Pessoa;
 import entidade.Populartabelacliente;
 import entidade.Populartabelaveiculo;
 import entidade.Reserva;
@@ -435,9 +438,18 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
                 Transaction t = sessao.beginTransaction();
                 
                 Reserva reserva = new Reserva();
+                reserva.setDtReserva(Formatacao.converteParaDataAMD(tfDataReserva.getText()));
+                reserva.setDtLocacao(Formatacao.converteParaDataAMD(tfDataLocacao.getText()));
+                
+               List cliente = Utility.consultaPessoa(tfNomeCliente.getText());
+               
+               reserva.setCliente((Cliente) cliente.get(0));
                 
                 
-                reserva.setDtLocacao(null);
+                reserva.setCliente(null);
+                
+                
+                
                 
                 
                 sessao.save(reserva);

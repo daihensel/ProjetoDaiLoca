@@ -13,6 +13,7 @@ import conf.Popula;
 import conf.Utility;
 import entidade.Tipoveiculo;
 import entidade.Veiculo;
+import java.util.List;
 import javax.swing.JOptionPane;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
@@ -464,6 +465,17 @@ public class IfVeiculo extends javax.swing.JInternalFrame {
 
     private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
 
+        if (jTabbedPane1.getSelectedIndex() == 1) {
+            if (tbVeiculos.getSelectedRow() >= 0) {
+                String cod = String.valueOf(tbVeiculos.getValueAt(tbVeiculos.getSelectedRow(), 0));
+                int codigo = Integer.parseInt(cod);
+               
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Selecione algum registro!");
+            }
+
+        }
     }//GEN-LAST:event_btEditarActionPerformed
 
     private void jTabbedPane1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTabbedPane1FocusGained

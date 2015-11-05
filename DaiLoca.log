@@ -1108,4 +1108,41 @@ org.hibernate.hql.internal.ast.HqlParser 2015-11-02 14:51:08,653 -- WARN -- HHH0
  org.hibernate.hql.internal.ast.HqlSqlWalker 2015-11-02 19:09:08,472 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 54.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
  org.hibernate.hql.internal.ast.HqlSqlWalker 2015-11-02 19:09:08,886 -- WARN -- [DEPRECATION] Encountered positional parameter near line 3, column 25.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
  visao.FormPrincipal 2015-11-02 19:09:09,048 -- INFO -- Logado 
+ org.hibernate.annotations.common.Version 2015-11-04 23:25:17,752 -- INFO -- HCANN000001: Hibernate Commons Annotations {4.0.4.Final} 
+ org.hibernate.Version 2015-11-04 23:25:17,802 -- INFO -- HHH000412: Hibernate Core {4.3.1.Final} 
+ org.hibernate.cfg.Environment 2015-11-04 23:25:17,812 -- INFO -- HHH000206: hibernate.properties not found 
+ org.hibernate.cfg.Environment 2015-11-04 23:25:17,822 -- INFO -- HHH000021: Bytecode provider name : javassist 
+ org.hibernate.cfg.Configuration 2015-11-04 23:25:17,892 -- INFO -- HHH000043: Configuring from resource: /hibernate.cfg.xml 
+ org.hibernate.cfg.Configuration 2015-11-04 23:25:17,892 -- INFO -- HHH000040: Configuration resource: /hibernate.cfg.xml 
+ org.hibernate.internal.util.xml.DTDEntityResolver 2015-11-04 23:25:18,393 -- WARN -- HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide! 
+ org.hibernate.cfg.Configuration 2015-11-04 23:25:18,573 -- INFO -- HHH000041: Configured SessionFactory: null 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-04 23:25:19,013 -- WARN -- HHH000402: Using Hibernate built-in connection pool (not for production use!) 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-04 23:25:19,043 -- INFO -- HHH000401: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5432/ProjetoDaiLoca] 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-04 23:25:19,043 -- INFO -- HHH000046: Connection properties: {user=postgres, password=****} 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-04 23:25:19,043 -- INFO -- HHH000006: Autocommit mode: false 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-04 23:25:19,053 -- INFO -- HHH000115: Hibernate connection pool size: 20 (min=1) 
+ org.hibernate.dialect.Dialect 2015-11-04 23:25:19,844 -- INFO -- HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect 
+ org.hibernate.engine.jdbc.internal.LobCreatorBuilder 2015-11-04 23:25:19,894 -- INFO -- HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException 
+ org.hibernate.engine.transaction.internal.TransactionFactoryInitiator 2015-11-04 23:25:20,405 -- INFO -- HHH000399: Using default transaction strategy (direct JDBC transactions) 
+ org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory 2015-11-04 23:25:20,445 -- INFO -- HHH000397: Using ASTQueryTranslatorFactory 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-11-04 23:25:22,717 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 54.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-11-04 23:25:23,657 -- WARN -- [DEPRECATION] Encountered positional parameter near line 3, column 25.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ visao.FormPrincipal 2015-11-04 23:25:23,917 -- INFO -- Logado 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-04 23:27:20,856 -- WARN -- SQL Error: 0, SQLState: 23505 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-04 23:27:20,856 -- ERROR -- ERRO: duplicar valor da chave viola a restrição de unicidade "veiculo_pkey"
+  Detalhe: Chave (idveiculo)=(1) já existe. 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-04 23:27:44,682 -- WARN -- SQL Error: 0, SQLState: 25P02 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-04 23:27:44,682 -- ERROR -- ERRO: transação atual foi interrompida, comandos ignorados até o fim do bloco de transação 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-04 23:27:44,912 -- WARN -- SQL Error: 0, SQLState: 25P02 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-04 23:27:44,912 -- ERROR -- ERRO: transação atual foi interrompida, comandos ignorados até o fim do bloco de transação 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-04 23:27:45,142 -- WARN -- SQL Error: 0, SQLState: 25P02 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-04 23:27:45,142 -- ERROR -- ERRO: transação atual foi interrompida, comandos ignorados até o fim do bloco de transação 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-04 23:27:45,402 -- WARN -- SQL Error: 0, SQLState: 25P02 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-04 23:27:45,402 -- ERROR -- ERRO: transação atual foi interrompida, comandos ignorados até o fim do bloco de transação 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-04 23:27:46,175 -- WARN -- SQL Error: 0, SQLState: 25P02 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-04 23:27:46,175 -- ERROR -- ERRO: transação atual foi interrompida, comandos ignorados até o fim do bloco de transação 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-04 23:27:46,846 -- WARN -- SQL Error: 0, SQLState: 25P02 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-04 23:27:46,846 -- ERROR -- ERRO: transação atual foi interrompida, comandos ignorados até o fim do bloco de transação 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-04 23:28:11,122 -- WARN -- SQL Error: 0, SQLState: 25P02 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-04 23:28:11,122 -- ERROR -- ERRO: transação atual foi interrompida, comandos ignorados até o fim do bloco de transação 
  
