@@ -15,6 +15,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -328,7 +329,7 @@ public class IfTipoVeiculo extends javax.swing.JInternalFrame {
                 tipoveiculo.setEspecificacoes(taEspecificacoes.getText());
 
                 sessao.save(tipoveiculo);
-                
+
                 t.commit();
 //                limpaCampos lc = new limpaCampos();
 //                lc.limparCampos(jpTipoVeiculo);
@@ -364,6 +365,11 @@ public class IfTipoVeiculo extends javax.swing.JInternalFrame {
                 habilitaCampos(true);
                 btNovo.setEnabled(false);
                 btSalvar.setEnabled(true);
+
+                Session sessao = null;
+              //  Query query = (Query) sessao.createQuery(" FROM Tipoveiculo t WHERE ("
+              //          + " lower(t.descricao) LIKE '%" + tfDescricao.getText());
+              //   Query query = (Query) sessao.createQuery(" FROM Tipoveiculo t WHERE idtipo_veiculo =" + codigo;
 
                 tfDescricao.requestFocus();
             } else {
