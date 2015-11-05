@@ -19,6 +19,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -461,7 +462,22 @@ public class IfFornecedor extends javax.swing.JInternalFrame {
                 pj.setCnpj(tfCNPJ.getText());
                 pj.setInscricaoest(tfIE.getText());
 
+                Endereco e = new Endereco();
+                e.setDescricao(tfEndereco.getText());
+                e.setBairro(tfBairro.getText());
+                e.setCep(tfCEP.getText());
+                e.setComplemento(tfComplemento.getText());
+                Query query = (Query) sessao.createQuery(" FROM Cidade c WHERE (lower(c.descricao) LIKE '%" + tfCidade.getText() + "%'");
+                List<Cidade> dadosCidade = (List<Cidade>) query.list();
+                e.setCidade(dadosCidade.get(0));
+
+                Pessoa p = new Pessoa();
+                p.setNome(tfNome.getText());
+                p.setEndereco(e);
+
                 sessao.save(pj);
+                sessao.save(e);
+                sessao.save(p);
                 t.commit();
                 pesquisa();
                 habilitaCampos(false);
@@ -598,8 +614,8 @@ public class IfFornecedor extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cbEstadoItemStateChanged
 
     private void btPCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPCidadeActionPerformed
-       // DgConsultaCidade tela = new DgConsultaCidade(this);
-      //  tela.setVisible(true);
+        DgConsultaCidade tela = new DgConsultaCidade(null, this);
+        tela.setVisible(true);
     }//GEN-LAST:event_btPCidadeActionPerformed
 
     public void habilitaCampos(Boolean tf) {
@@ -609,12 +625,27 @@ public class IfFornecedor extends javax.swing.JInternalFrame {
         tfNome.setEnabled(tf);
         tfCNPJ.setEnabled(tf);
         tfIE.setEnabled(tf);
+        tfEndereco.setEnabled(tf);
+        tfBairro.setEnabled(tf);
+        tfCEP.setEnabled(tf);
+        cbEstado.setEnabled(tf);
+        tfCidade.setEnabled(tf);
+        tfComplemento.setEnabled(tf);
+        btPCidade.setEnabled(tf);
     }
 
     public void limpaCampos() {
         tfNome.setText("");
         tfCNPJ.setText("");
         tfIE.setText("");
+        tfEndereco.setText("");
+        tfBairro.setText("");
+        tfCEP.setText("");
+        tfCidade.setText("");
+        tfComplemento.setText("");
+        btPCidade.setText("");
+        populaCombos();
+        cbEstado.setSelectedIndex(0);
     }
 
     public void pesquisa() {
@@ -623,6 +654,16 @@ public class IfFornecedor extends javax.swing.JInternalFrame {
             cod = Integer.parseInt(tfPesquisa.getText());
         }
         Popula.popularTabelaFornecedor(cod, tfPesquisa.getText(), tbFornecedor);
+    }
+
+    public void populaCombos() {
+        cbEstado.removeAllItems();
+        new CombosDAO().popularCombo("Estado", "idestado", "uf", cbEstado, "");
+
+    }
+
+    public void defineCodigoCidade(int cod, String nome) {
+        tfCidade.setText(nome);
     }
 
 

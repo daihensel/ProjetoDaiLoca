@@ -5,6 +5,7 @@
  */
 package visao;
 
+import conf.ComboItens;
 import conf.CombosDAO;
 import conf.Formatacao;
 import conf.HibernateUtil;
@@ -13,6 +14,7 @@ import conf.Utility;
 import entidade.Cidade;
 import entidade.Cliente;
 import entidade.Endereco;
+import entidade.Estado;
 import entidade.Pessoa;
 import entidade.Pessoafisica;
 import java.sql.ResultSet;
@@ -31,7 +33,7 @@ import org.hibernate.Transaction;
  * @author Daiane
  */
 public class IfCliente extends javax.swing.JInternalFrame {
-    
+
     private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
 
     /**
@@ -39,7 +41,7 @@ public class IfCliente extends javax.swing.JInternalFrame {
      */
     public IfCliente() {
         initComponents();
-        
+
         Utility.permit(btNovo, btSalvar, btEditar, null, this);
         habilitaCamposPfisica(false);
         habilitaCamposPjuridica(false);
@@ -505,16 +507,17 @@ public class IfCliente extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
-        
+
         Session sessao = null;
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
             Transaction t = sessao.beginTransaction();
-            
+
             Cliente cliente = new Cliente();
-            cliente.setDtCadastro(geraDataAtual());
+            cliente.setDtCadastro(Formatacao.getDataAtual());
             Pessoa pessoa = new Pessoa();
             Pessoafisica pFisica = new Pessoafisica();
+            
             Endereco endereco = new Endereco();
             endereco.setDescricao(tfEndereco.getText());
             endereco.setBairro(tfBairro.getText());
@@ -523,13 +526,21 @@ public class IfCliente extends javax.swing.JInternalFrame {
             Query query = (Query) sessao.createQuery(" FROM Cidade c WHERE (lower(c.descricao) LIKE '%" + tfCidade.getText() + "%'");
             List<Cidade> dadosCidade = (List<Cidade>) query.list();
             endereco.setCidade(dadosCidade.get(0));
+            
             pessoa.setNome(tfNome.getText());
             pessoa.setEndereco(endereco);
-            
+
             pFisica.setPessoaIdpessoa(pessoa.getIdpessoa());
             pFisica.setCpf(tfCPF.getText());
             pFisica.setRg(tfRG.getText());
-            
+
+//            Cidade cidade = new Cidade();
+//            Estado estado = new Estado();
+//            ComboItens cbie = (ComboItens) cbEstado.getSelectedItem();
+//            estado.setIdestado(cbie.getCodigo());
+//            cidade.setEstado(estado);
+//            cidade.setDescricao(tfCidade.getText());
+//            sessao.save(cidade);
             sessao.save(pessoa);
             sessao.save(endereco);
             sessao.save(cliente);
@@ -547,7 +558,7 @@ public class IfCliente extends javax.swing.JInternalFrame {
         } finally {
             sessao.close();
         }
-        
+
 
     }//GEN-LAST:event_btSalvarActionPerformed
 
@@ -564,7 +575,7 @@ public class IfCliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tfPesquisaKeyReleased
 
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
-        
+
         rbPessoaFisica.isSelected();
         if (rbPessoaFisica.isSelected()) {
             habilitaCamposPfisica(true);
@@ -574,7 +585,7 @@ public class IfCliente extends javax.swing.JInternalFrame {
         jTabbedPane1.setSelectedIndex(0);
         btNovo.setEnabled(false);
         btSalvar.setEnabled(true);
-        
+
 
     }//GEN-LAST:event_btNovoActionPerformed
 
@@ -622,7 +633,7 @@ public class IfCliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tbClientesMouseClicked
 
     private void btPCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPCidadeActionPerformed
-        DgConsultaCidade tela = new DgConsultaCidade(this);
+        DgConsultaCidade tela = new DgConsultaCidade(this, null);
         tela.setVisible(true);
     }//GEN-LAST:event_btPCidadeActionPerformed
 
@@ -633,7 +644,7 @@ public class IfCliente extends javax.swing.JInternalFrame {
     private void rbPessoaJuridicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbPessoaJuridicaActionPerformed
         habilitaCamposPjuridica(true);
     }//GEN-LAST:event_rbPessoaJuridicaActionPerformed
-    
+
     public void habilitaCamposPfisica(Boolean tf) {
         if (tf == false) {
             limpaCampos();
@@ -655,7 +666,7 @@ public class IfCliente extends javax.swing.JInternalFrame {
         tfComplemento.setEnabled(tf);
         btPCidade.setEnabled(tf);
     }
-    
+
     public void habilitaCamposPjuridica(Boolean tf) {
         if (tf == false) {
             limpaCampos();
@@ -677,7 +688,7 @@ public class IfCliente extends javax.swing.JInternalFrame {
         tfComplemento.setEnabled(tf);
         btPCidade.setEnabled(tf);
     }
-    
+
     public void limpaCampos() {
         tfDataCadastro.setText(Formatacao.getDataAtual());
         tfNome.setText("");
@@ -697,7 +708,7 @@ public class IfCliente extends javax.swing.JInternalFrame {
         populaCombos();
         cbEstado.setSelectedIndex(0);
     }
-    
+
     public void pesquisa() {
         int cod = 0;
         if (tfPesquisa.getText().length() > 0 && tfPesquisa.getText().matches("[0-9]")) {
@@ -705,28 +716,15 @@ public class IfCliente extends javax.swing.JInternalFrame {
         }
         Popula.popularTabelaCliente(cod, tfPesquisa.getText(), tbClientes);
     }
-    
+
     public void defineCodigoCidade(int cod, String nome) {
         tfCidade.setText(nome);
     }
-    
+
     public void populaCombos() {
         cbEstado.removeAllItems();
         new CombosDAO().popularCombo("Estado", "idestado", "uf", cbEstado, "");
-        
-    }
-    
-    public static String geraDataAtual() {
-        //Data 
-        Date data = new Date();
-        SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
-        String data_atual_formatada = formatador.format(data);
 
-        //Hora
-   /*     Date hora = new Date();
-         SimpleDateFormat formatador_hora = new SimpleDateFormat("HH:mm");
-         String hora_atual_formatada = formatador_hora.format(hora); */
-        return data_atual_formatada;
     }
 
 

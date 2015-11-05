@@ -16,14 +16,16 @@ public class DgConsultaCidade extends javax.swing.JDialog {
 
     private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
     public static IfCliente telaCliente;
+     public static IfFornecedor telaFornecedor;
 
     // public static IfReservaVeiculos telaReserva;
     /**
      * Creates new form DgConsultaVeic
      */
-    public DgConsultaCidade(IfCliente janela) {
+    public DgConsultaCidade(IfCliente janela, IfFornecedor janela2) {
         initComponents();
         this.telaCliente = janela;
+        this.telaFornecedor = janela2;
         pesquisa();
     }
 
@@ -131,6 +133,9 @@ public class DgConsultaCidade extends javax.swing.JDialog {
             String nome = String.valueOf(tbCidades.getValueAt(tbCidades.getSelectedRow(), 1));
             if (telaCliente != null) {
                 telaCliente.defineCodigoCidade(codigo, nome);
+            }
+            if (telaFornecedor != null) {
+                telaFornecedor.defineCodigoCidade(codigo, nome);
             }
 
             this.dispose();

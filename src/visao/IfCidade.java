@@ -501,6 +501,7 @@ public class IfCidade extends javax.swing.JInternalFrame {
         new CombosDAO().popularCombo("Estado", "idestado", "uf", cbEstado, "");
 
     }
+    
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
