@@ -316,6 +316,10 @@ public class IfTipoVeiculo extends javax.swing.JInternalFrame {
         if (tfDescricao.getText().trim().length() > 0 && taObservacoes.getText().trim().length() > 0
                 && taEspecificacoes.getText().trim().length() > 0 && tfValorDia.getText().trim().length() > 0) {
             Session sessao = null;
+            
+            
+            
+            
             try {
                 sessao = HibernateUtil.getSessionFactory().openSession();
                 Transaction t = sessao.beginTransaction();
@@ -328,7 +332,7 @@ public class IfTipoVeiculo extends javax.swing.JInternalFrame {
                 tipoveiculo.setObservacoes(taObservacoes.getText());
                 tipoveiculo.setEspecificacoes(taEspecificacoes.getText());
 
-                sessao.save(tipoveiculo);
+                sessao.saveOrUpdate(tipoveiculo);
 
                 t.commit();
 //                limpaCampos lc = new limpaCampos();
@@ -338,6 +342,11 @@ public class IfTipoVeiculo extends javax.swing.JInternalFrame {
                 btNovo.setEnabled(true);
                 btSalvar.setEnabled(false);
                 tfDescricao.requestFocus();
+                
+                //update
+                Tipoveiculo tpveiculo = (Tipoveiculo) sessao.get(Tipoveiculo.class, 1);
+                System.out.println(tpveiculo.getDescricao());
+                
 
             } catch (HibernateException he) {
                 he.printStackTrace();
@@ -369,8 +378,8 @@ public class IfTipoVeiculo extends javax.swing.JInternalFrame {
                 Session sessao = null;
               //  Query query = (Query) sessao.createQuery(" FROM Tipoveiculo t WHERE ("
               //          + " lower(t.descricao) LIKE '%" + tfDescricao.getText());
-              //   Query query = (Query) sessao.createQuery(" FROM Tipoveiculo t WHERE idtipo_veiculo =" + codigo;
-
+              //   Query query = (Query) sessao.createQuery(" FROM Tipoveiculo t WHERE idtipo_veiculo =" + codigo);
+                 
                 tfDescricao.requestFocus();
             } else {
                 JOptionPane.showMessageDialog(null, "Selecione algum registro!");

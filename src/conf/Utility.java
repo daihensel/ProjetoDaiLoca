@@ -7,6 +7,7 @@ package conf;
 
 import entidade.Cliente;
 import entidade.Pessoa;
+import entidade.Tipoveiculo;
 import entidade.Veiculostipoestatus;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
@@ -227,5 +228,42 @@ public class Utility {
 
         return dadosPessoa;
 
+    }
+
+    public String salvarTipoVeiculo(Tipoveiculo tipoVeiculo) {
+        Session sessao = null;
+        String retorno = "";
+        
+        if (tipoVeiculo.getIdtipoVeiculo() == 0) { //insert
+
+            try {
+
+                sessao = HibernateUtil.getSessionFactory().openSession();
+                Transaction t = sessao.beginTransaction();
+
+                sessao.save(tipoVeiculo);
+                t.commit();
+            } catch (HibernateException he) {
+                System.out.println("Erro salvar Tipoveículo: \n" + he);
+            }
+
+        } else { //update
+
+            try {
+                sessao = HibernateUtil.getSessionFactory().openSession();
+                Transaction t = sessao.beginTransaction();
+
+                sessao.update(tipoVeiculo);
+
+                sessao.getTransaction().commit();
+
+            } catch (HibernateException he) {
+                he.printStackTrace();
+                System.out.println("Erro atualizar TipoVeiculo = " + he);
+
+            }
+            
+        }
+        return retorno;
     }
 }
