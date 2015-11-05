@@ -26,6 +26,7 @@ import org.hibernate.Transaction;
 public class IfTipoVeiculo extends javax.swing.JInternalFrame {
 
     private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
+    int idTipoVeiculo = 0;
 
     /**
      * Creates new form IfTipoVeiculo
@@ -315,26 +316,19 @@ public class IfTipoVeiculo extends javax.swing.JInternalFrame {
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
         if (tfDescricao.getText().trim().length() > 0 && taObservacoes.getText().trim().length() > 0
                 && taEspecificacoes.getText().trim().length() > 0 && tfValorDia.getText().trim().length() > 0) {
-            Session sessao = null;
+          
             
-            
-            
-            
-            try {
-                sessao = HibernateUtil.getSessionFactory().openSession();
-                Transaction t = sessao.beginTransaction();
-
                 Tipoveiculo tipoveiculo = new Tipoveiculo();
-
+                tipoveiculo.setIdtipoVeiculo(idTipoVeiculo);
                 tipoveiculo.setDescricao(tfDescricao.getText());
                 BigDecimal bigDecimal = new BigDecimal(tfValorDia.getText());
                 tipoveiculo.setValorDiaria(bigDecimal);
                 tipoveiculo.setObservacoes(taObservacoes.getText());
                 tipoveiculo.setEspecificacoes(taEspecificacoes.getText());
-
-                sessao.saveOrUpdate(tipoveiculo);
-
-                t.commit();
+                
+                Utility.salvarTipoVeiculo(tipoveiculo);
+                
+               
 //                limpaCampos lc = new limpaCampos();
 //                lc.limparCampos(jpTipoVeiculo);
                 pesquisa();
@@ -342,17 +336,7 @@ public class IfTipoVeiculo extends javax.swing.JInternalFrame {
                 btNovo.setEnabled(true);
                 btSalvar.setEnabled(false);
                 tfDescricao.requestFocus();
-                
-                //update
-                Tipoveiculo tpveiculo = (Tipoveiculo) sessao.get(Tipoveiculo.class, 1);
-                System.out.println(tpveiculo.getDescricao());
-                
-
-            } catch (HibernateException he) {
-                he.printStackTrace();
-            } finally {
-                sessao.close();
-            }
+             
         } else {
             JOptionPane.showMessageDialog(null, "Preencha os campos obrigatórios!");
         }

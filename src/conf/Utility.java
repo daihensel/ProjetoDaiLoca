@@ -230,7 +230,7 @@ public class Utility {
 
     }
 
-    public String salvarTipoVeiculo(Tipoveiculo tipoVeiculo) {
+    public static String salvarTipoVeiculo(Tipoveiculo tipoVeiculo) {
         Session sessao = null;
         String retorno = "";
         
