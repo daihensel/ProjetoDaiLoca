@@ -267,7 +267,7 @@ public class Utility {
         return retorno;
     }
 
-    public static String deletar(int idTipoVeiculo) {
+    public static String deletarTipoVeiculo(int idTipoVeiculo) {
         String retorno = "";
 
         Session sessao = null;
