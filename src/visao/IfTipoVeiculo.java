@@ -311,24 +311,27 @@ public class IfTipoVeiculo extends javax.swing.JInternalFrame {
         jTabbedPane1.setSelectedIndex(0);
         btNovo.setEnabled(false);
         btSalvar.setEnabled(true);
+        
+        idTipoVeiculo = 0;
+        limpaCampos();
+        tfDescricao.requestFocus();
+        
     }//GEN-LAST:event_btNovoActionPerformed
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
-        if (tfDescricao.getText().trim().length() > 0 && taObservacoes.getText().trim().length() > 0
-                && taEspecificacoes.getText().trim().length() > 0 && tfValorDia.getText().trim().length() > 0) {
-          
+        if (tfDescricao.getText().trim().length() > 0 && taEspecificacoes.getText().trim().length() > 0 && tfValorDia.getText().trim().length() > 0) {
+           
+            Tipoveiculo tipoveiculo = new Tipoveiculo();
             
-                Tipoveiculo tipoveiculo = new Tipoveiculo();
                 tipoveiculo.setIdtipoVeiculo(idTipoVeiculo);
                 tipoveiculo.setDescricao(tfDescricao.getText());
                 BigDecimal bigDecimal = new BigDecimal(tfValorDia.getText());
                 tipoveiculo.setValorDiaria(bigDecimal);
                 tipoveiculo.setObservacoes(taObservacoes.getText());
                 tipoveiculo.setEspecificacoes(taEspecificacoes.getText());
-                
+
                 Utility.salvarTipoVeiculo(tipoveiculo);
-                
-               
+
 //                limpaCampos lc = new limpaCampos();
 //                lc.limparCampos(jpTipoVeiculo);
                 pesquisa();
@@ -336,7 +339,9 @@ public class IfTipoVeiculo extends javax.swing.JInternalFrame {
                 btNovo.setEnabled(true);
                 btSalvar.setEnabled(false);
                 tfDescricao.requestFocus();
-             
+
+           
+
         } else {
             JOptionPane.showMessageDialog(null, "Preencha os campos obrigatórios!");
         }
@@ -344,11 +349,13 @@ public class IfTipoVeiculo extends javax.swing.JInternalFrame {
 
     private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
         if (jTabbedPane1.getSelectedIndex() == 1) {
+           
             if (tbTipoVeiculos.getSelectedRow() >= 0) {
                 String cod = String.valueOf(tbTipoVeiculos.getValueAt(tbTipoVeiculos.getSelectedRow(), 0));
                 int codigo = Integer.parseInt(cod);
                 List<Tipoveiculo> l = Popula.popularTabelaTipoVeiculo(codigo, String.valueOf(codigo), tbTipoVeiculos);
                 for (Tipoveiculo lin : l) {
+                    idTipoVeiculo = lin.getIdtipoVeiculo();
                     tfDescricao.setText(lin.getDescricao());
                     tfValorDia.setText(String.valueOf(lin.getValorDiaria()));
                     taEspecificacoes.setText(lin.getEspecificacoes());
@@ -356,14 +363,14 @@ public class IfTipoVeiculo extends javax.swing.JInternalFrame {
                 }
                 jTabbedPane1.setSelectedIndex(0);
                 habilitaCampos(true);
-                btNovo.setEnabled(false);
+                btNovo.setEnabled(true);
                 btSalvar.setEnabled(true);
 
                 Session sessao = null;
-              //  Query query = (Query) sessao.createQuery(" FROM Tipoveiculo t WHERE ("
-              //          + " lower(t.descricao) LIKE '%" + tfDescricao.getText());
-              //   Query query = (Query) sessao.createQuery(" FROM Tipoveiculo t WHERE idtipo_veiculo =" + codigo);
-                 
+                //  Query query = (Query) sessao.createQuery(" FROM Tipoveiculo t WHERE ("
+                //          + " lower(t.descricao) LIKE '%" + tfDescricao.getText());
+                //   Query query = (Query) sessao.createQuery(" FROM Tipoveiculo t WHERE idtipo_veiculo =" + codigo);
+
                 tfDescricao.requestFocus();
             } else {
                 JOptionPane.showMessageDialog(null, "Selecione algum registro!");
