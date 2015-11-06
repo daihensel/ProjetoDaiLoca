@@ -26,6 +26,7 @@ import org.hibernate.Transaction;
 public class IfFuncao extends javax.swing.JInternalFrame {
 
     private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
+    int idFuncao = 0;
 
     /**
      * Creates new form IfFuncao
@@ -277,11 +278,20 @@ public class IfFuncao extends javax.swing.JInternalFrame {
             try {
                 sessao = HibernateUtil.getSessionFactory().openSession();
                 Transaction t = sessao.beginTransaction();
-
+                
                 Funcao f = new Funcao();
+                if (idFuncao == 0) {
+                    
+                    f.setIdfuncao(idFuncao);
+                    f.setDescricao(tfDescricao.getText());
+                    sessao.save(f);
+                    t.commit();
+                } else {
+                       
+                    sessao.update(f);
+                    t.commit();
+                }
 
-                sessao.save(f);
-                t.commit();
                 pesquisa();
                 habilitaCampos(false);
                 btNovo.setEnabled(true);
@@ -317,6 +327,7 @@ public class IfFuncao extends javax.swing.JInternalFrame {
                 int codigo = Integer.parseInt(cod);
                 List<Funcao> l = Popula.popularTabelaFuncao(codigo, String.valueOf(codigo), tbFuncoes);
                 for (Funcao lin : l) {
+                    idFuncao = lin.getIdfuncao();
                     tfDescricao.setText(lin.getDescricao());
 
                 }
