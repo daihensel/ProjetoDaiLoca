@@ -233,7 +233,7 @@ public class Utility {
     public static String salvarTipoVeiculo(Tipoveiculo tipoVeiculo) {
         Session sessao = null;
         String retorno = "";
-        
+
         if (tipoVeiculo.getIdtipoVeiculo() == 0) { //insert
 
             try {
@@ -262,7 +262,28 @@ public class Utility {
                 System.out.println("Erro atualizar TipoVeiculo = " + he);
 
             }
-            
+
+        }
+        return retorno;
+    }
+
+    public static String deletar(int idTipoVeiculo) {
+        String retorno = "";
+
+        Session sessao = null;
+        try {
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            Transaction t = sessao.beginTransaction();
+
+            String hqlDelete = ("DELETE Tipoveiculo WHERE idtipo_veiculo = '" + idTipoVeiculo + "'");
+
+            int deleteEntities = sessao.createQuery(hqlDelete).executeUpdate();
+
+            sessao.getTransaction().commit();
+        } catch (HibernateException he) {
+            he.printStackTrace();
+            System.out.println("Erro ao excluir = " + he);
+
         }
         return retorno;
     }

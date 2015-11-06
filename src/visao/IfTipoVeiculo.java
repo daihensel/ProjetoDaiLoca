@@ -67,13 +67,13 @@ public class IfTipoVeiculo extends javax.swing.JInternalFrame {
         btPesquisar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbTipoVeiculos = new javax.swing.JTable();
-        jLabel7 = new javax.swing.JLabel();
         jToolBar3 = new javax.swing.JToolBar();
         btNovo = new javax.swing.JButton();
         btSalvar = new javax.swing.JButton();
+        btExcluir = new javax.swing.JButton();
         btEditar = new javax.swing.JButton();
-        jSeparator3 = new javax.swing.JToolBar.Separator();
         btFechar = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
 
         jMenu1.setText("jMenu1");
 
@@ -238,12 +238,10 @@ public class IfTipoVeiculo extends javax.swing.JInternalFrame {
                         .addComponent(jLabel3)
                         .addComponent(tfPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Consulta Tipos", jPanel2);
-
-        jLabel7.setText("* Campos obrigatórios");
 
         jToolBar3.setRollover(true);
 
@@ -265,6 +263,19 @@ public class IfTipoVeiculo extends javax.swing.JInternalFrame {
         });
         jToolBar3.add(btSalvar);
 
+        btExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/bExcluir.png"))); // NOI18N
+        btExcluir.setText("Excluir");
+        btExcluir.setFocusable(false);
+        btExcluir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btExcluir.setPreferredSize(new java.awt.Dimension(71, 39));
+        btExcluir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btExcluirActionPerformed(evt);
+            }
+        });
+        jToolBar3.add(btExcluir);
+
         btEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/bEditar.png"))); // NOI18N
         btEditar.setText("Editar");
         btEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -273,7 +284,6 @@ public class IfTipoVeiculo extends javax.swing.JInternalFrame {
             }
         });
         jToolBar3.add(btEditar);
-        jToolBar3.add(jSeparator3);
 
         btFechar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/fechar_32x32.png"))); // NOI18N
         btFechar.setText("Fechar");
@@ -284,23 +294,31 @@ public class IfTipoVeiculo extends javax.swing.JInternalFrame {
         });
         jToolBar3.add(btFechar);
 
+        jLabel7.setText("* Campos obrigatórios");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                .addComponent(jToolBar3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.LEADING))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel7)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jToolBar3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jToolBar3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jToolBar3, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1)
                 .addComponent(jLabel7)
-                .addGap(17, 17, 17)
-                .addComponent(jTabbedPane1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jTabbedPane1)
+                .addContainerGap())
         );
 
         pack();
@@ -311,36 +329,34 @@ public class IfTipoVeiculo extends javax.swing.JInternalFrame {
         jTabbedPane1.setSelectedIndex(0);
         btNovo.setEnabled(false);
         btSalvar.setEnabled(true);
-        
+
         idTipoVeiculo = 0;
         limpaCampos();
         tfDescricao.requestFocus();
-        
+
     }//GEN-LAST:event_btNovoActionPerformed
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
         if (tfDescricao.getText().trim().length() > 0 && taEspecificacoes.getText().trim().length() > 0 && tfValorDia.getText().trim().length() > 0) {
-           
-            Tipoveiculo tipoveiculo = new Tipoveiculo();
-            
-                tipoveiculo.setIdtipoVeiculo(idTipoVeiculo);
-                tipoveiculo.setDescricao(tfDescricao.getText());
-                BigDecimal bigDecimal = new BigDecimal(tfValorDia.getText());
-                tipoveiculo.setValorDiaria(bigDecimal);
-                tipoveiculo.setObservacoes(taObservacoes.getText());
-                tipoveiculo.setEspecificacoes(taEspecificacoes.getText());
 
-                Utility.salvarTipoVeiculo(tipoveiculo);
+            Tipoveiculo tipoveiculo = new Tipoveiculo();
+
+            tipoveiculo.setIdtipoVeiculo(idTipoVeiculo);
+            tipoveiculo.setDescricao(tfDescricao.getText());
+            BigDecimal bigDecimal = new BigDecimal(tfValorDia.getText());
+            tipoveiculo.setValorDiaria(bigDecimal);
+            tipoveiculo.setObservacoes(taObservacoes.getText());
+            tipoveiculo.setEspecificacoes(taEspecificacoes.getText());
+
+            Utility.salvarTipoVeiculo(tipoveiculo);
 
 //                limpaCampos lc = new limpaCampos();
 //                lc.limparCampos(jpTipoVeiculo);
-                pesquisa();
-                habilitaCampos(false);
-                btNovo.setEnabled(true);
-                btSalvar.setEnabled(false);
-                tfDescricao.requestFocus();
-
-           
+            pesquisa();
+            habilitaCampos(false);
+            btNovo.setEnabled(true);
+            btSalvar.setEnabled(false);
+            tfDescricao.requestFocus();
 
         } else {
             JOptionPane.showMessageDialog(null, "Preencha os campos obrigatórios!");
@@ -349,7 +365,7 @@ public class IfTipoVeiculo extends javax.swing.JInternalFrame {
 
     private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
         if (jTabbedPane1.getSelectedIndex() == 1) {
-           
+
             if (tbTipoVeiculos.getSelectedRow() >= 0) {
                 String cod = String.valueOf(tbTipoVeiculos.getValueAt(tbTipoVeiculos.getSelectedRow(), 0));
                 int codigo = Integer.parseInt(cod);
@@ -432,6 +448,27 @@ public class IfTipoVeiculo extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_tbTipoVeiculosMouseClicked
 
+    private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
+
+        if (jTabbedPane1.getSelectedIndex() == 1) {
+
+            if (tbTipoVeiculos.getSelectedRow() >= 0) {
+               
+                    Tipoveiculo tipoVeiculo = null;
+                    String cod = String.valueOf(tbTipoVeiculos.getValueAt(tbTipoVeiculos.getSelectedRow(), 0));
+                    int codigo = Integer.parseInt(cod);
+                    Utility.deletar(codigo);
+                    
+                    Popula.popularTabelaTipoVeiculo(codigo, "", tbTipoVeiculos);
+
+                    
+
+            }
+        }
+
+
+    }//GEN-LAST:event_btExcluirActionPerformed
+
     public void habilitaCampos(Boolean tf) {
         if (tf == false) {
             limpaCampos();
@@ -460,6 +497,7 @@ public class IfTipoVeiculo extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btEditar;
+    private javax.swing.JButton btExcluir;
     private javax.swing.JButton btFechar;
     private javax.swing.JButton btNovo;
     private javax.swing.JButton btPesquisar;
@@ -475,7 +513,6 @@ public class IfTipoVeiculo extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JToolBar.Separator jSeparator3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JToolBar jToolBar3;
     private javax.swing.JPanel jpTipoVeiculo;
