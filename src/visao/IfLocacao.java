@@ -56,14 +56,14 @@ public class IfLocacao extends javax.swing.JInternalFrame {
         jButton2 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
-        tfDescricaoVeiculo1 = new javax.swing.JTextField();
-        tfTipoVeiculo1 = new javax.swing.JTextField();
+        tfDataLocacao = new javax.swing.JTextField();
+        tfHoraRetirada = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
-        tfAnoModelo1 = new javax.swing.JTextField();
+        tfDias = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
-        tfKmAtual1 = new javax.swing.JTextField();
+        tfParcelas = new javax.swing.JTextField();
         jLabel22 = new javax.swing.JLabel();
-        tfAnoFabricacao1 = new javax.swing.JTextField();
+        tfValorTotal = new javax.swing.JTextField();
         jLabel24 = new javax.swing.JLabel();
         tfVendedor = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
@@ -184,17 +184,35 @@ public class IfLocacao extends javax.swing.JInternalFrame {
 
         jLabel9.setText("Data Locação:");
 
-        tfDescricaoVeiculo1.addActionListener(new java.awt.event.ActionListener() {
+        tfDataLocacao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfDescricaoVeiculo1ActionPerformed(evt);
+                tfDataLocacaoActionPerformed(evt);
             }
         });
 
         jLabel19.setText("Hora retirada:");
 
+        tfDias.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfDiasKeyTyped(evt);
+            }
+        });
+
         jLabel20.setText("Dias:");
 
+        tfParcelas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfParcelasKeyTyped(evt);
+            }
+        });
+
         jLabel22.setText("Parcelas:");
+
+        tfValorTotal.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfValorTotalKeyTyped(evt);
+            }
+        });
 
         jLabel24.setText("Valor Total:");
 
@@ -230,25 +248,25 @@ public class IfLocacao extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btPVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(tfDescricaoVeiculo1, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)
+                        .addComponent(tfDataLocacao, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel19)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tfTipoVeiculo1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(tfHoraRetirada, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(55, 55, 55)
                 .addComponent(jLabel20)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfAnoModelo1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tfDias, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel24)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tfAnoFabricacao1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tfValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel22)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tfKmAtual1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tfParcelas, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -262,16 +280,16 @@ public class IfLocacao extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(tfDescricaoVeiculo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfDataLocacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel19)
-                    .addComponent(tfTipoVeiculo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfHoraRetirada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfAnoModelo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfDias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel20)
-                    .addComponent(tfAnoFabricacao1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel24)
-                    .addComponent(tfKmAtual1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfParcelas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel22))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -543,9 +561,9 @@ public class IfLocacao extends javax.swing.JInternalFrame {
         tela.setVisible(true);
     }//GEN-LAST:event_btPReservaActionPerformed
 
-    private void tfDescricaoVeiculo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfDescricaoVeiculo1ActionPerformed
+    private void tfDataLocacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfDataLocacaoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_tfDescricaoVeiculo1ActionPerformed
+    }//GEN-LAST:event_tfDataLocacaoActionPerformed
 
     private void tfDescricaoVeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfDescricaoVeiculoActionPerformed
         // TODO add your handling code here:
@@ -564,6 +582,27 @@ public class IfLocacao extends javax.swing.JInternalFrame {
         DgConsultaFuncionario tela = new DgConsultaFuncionario(this);
         tela.setVisible(true);
     }//GEN-LAST:event_btPVendedorActionPerformed
+
+    private void tfDiasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDiasKeyTyped
+        String caracteres = "0987654321";
+        if (!caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_tfDiasKeyTyped
+
+    private void tfValorTotalKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfValorTotalKeyTyped
+        String caracteres = "0987654321";
+        if (!caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_tfValorTotalKeyTyped
+
+    private void tfParcelasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfParcelasKeyTyped
+        String caracteres = "0987654321";
+        if (!caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_tfParcelasKeyTyped
    
 
     public void defineCodigoCliente(int codcli) {
@@ -683,27 +722,27 @@ public class IfLocacao extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JTextField tfAnoFabricacao;
-    private javax.swing.JTextField tfAnoFabricacao1;
     private javax.swing.JTextField tfAnoModelo;
-    private javax.swing.JTextField tfAnoModelo1;
     private javax.swing.JTextField tfBairro;
     private javax.swing.JTextField tfCPF;
     private javax.swing.JTextField tfCidade;
+    private javax.swing.JTextField tfDataLocacao;
     private javax.swing.JTextField tfDataLocacaoNaReserva;
     private javax.swing.JTextField tfDataReserva;
     private javax.swing.JTextField tfDescricaoVeiculo;
-    private javax.swing.JTextField tfDescricaoVeiculo1;
+    private javax.swing.JTextField tfDias;
     private javax.swing.JTextField tfDiasPretendidos;
     private javax.swing.JTextField tfEndereco;
+    private javax.swing.JTextField tfHoraRetirada;
     private javax.swing.JTextField tfKmAtual;
-    private javax.swing.JTextField tfKmAtual1;
     private javax.swing.JTextField tfMarca;
     private javax.swing.JTextField tfNomeCliente;
+    private javax.swing.JTextField tfParcelas;
     private javax.swing.JTextField tfRG;
     private javax.swing.JTextField tfTelefone;
     private javax.swing.JTextField tfTipoVeiculo;
-    private javax.swing.JTextField tfTipoVeiculo1;
     private javax.swing.JTextField tfValorDiaria;
+    private javax.swing.JTextField tfValorTotal;
     private javax.swing.JTextField tfVendedor;
     // End of variables declaration//GEN-END:variables
 }

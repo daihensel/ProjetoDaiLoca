@@ -6,9 +6,14 @@
 package conf;
 
 import entidade.Cidade;
+import entidade.Cliente;
+import entidade.Contatopessoas;
 import entidade.Documentos;
 import entidade.Funcao;
+import entidade.Funcionario;
+import entidade.Permissao;
 import entidade.Pessoa;
+import entidade.Pessoafisica;
 import entidade.Pessoajuridica;
 import entidade.Populartabelacliente;
 import entidade.Populartabelafornecedor;
@@ -18,10 +23,12 @@ import entidade.Statusveiculo;
 import entidade.Tipocontato;
 import entidade.Tipoveiculo;
 import entidade.Veiculosstatus;
+import entidade.Veiculostipoestatus;
 import java.util.Iterator;
 import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -163,23 +170,56 @@ public class Popula {
 
     }
 
-    public static Object retornaPessJur(int codpess) {
+    public static Object retornaDadosPessoas(int codpess) {
+        Session sessao = null;
+        Object[] object;
+        object = new Object[6];
+        sessao = HibernateUtil.getSessionFactory().openSession();
+        Transaction t = sessao.beginTransaction();
+        Query queryRetornaPesJur = (Query) sessao.createQuery(" FROM Pessoajuridica p WHERE ("
+                + " p.pessoaIdpessoa = " + codpess + ")");
+        Query queryRetornaPes = (Query) sessao.createQuery(" FROM Pessoa p WHERE ("
+                + " p.idpessoa = " + codpess + ")");
+        Query queryRetornaPesFis = (Query) sessao.createQuery(" FROM Pessoafisica p WHERE ("
+                + " p.pessoaIdpessoa = " + codpess + ")");
+        Query queryRetornaCliente = (Query) sessao.createQuery(" FROM Cliente p WHERE ("
+                + " p.pessoaIdpessoa = " + codpess + ")");
+        Query queryRetornaFunc = (Query) sessao.createQuery(" FROM Funcionario p WHERE ("
+                + " p.pessoaIdpessoa = " + codpess + ")");
+        Query queryRetornaContatos = (Query) sessao.createQuery(" FROM Contatopessoas p WHERE ("
+                + " p.idpessoa = " + codpess + ")");
+
+        List<Pessoajuridica> dadosPesJur = (List<Pessoajuridica>) queryRetornaPesJur.list();
+        List<Pessoa> dadosPes = (List<Pessoa>) queryRetornaPes.list();
+        List<Pessoafisica> dadosPesFis = (List<Pessoafisica>) queryRetornaPesFis.list();
+        List<Cliente> dadosCliente = (List<Cliente>) queryRetornaCliente.list();
+        List<Funcionario> dadosFunc = (List<Funcionario>) queryRetornaFunc.list();
+        List<Contatopessoas> dadosContatos = (List<Contatopessoas>) queryRetornaContatos.list();
+        sessao.getTransaction().commit();
+        object[0] = dadosPesJur;
+        object[1] = dadosPes;
+        object[2] = dadosPesFis;
+        object[3] = dadosCliente;
+        object[4] = dadosFunc;
+        object[5] = dadosContatos;
+
+        return object;
+    }
+
+    public static Object retornaVeiculo(int codveiculo) {
         Session sessao = null;
         Object[] object;
         object = new Object[2];
         sessao = HibernateUtil.getSessionFactory().openSession();
         Transaction t = sessao.beginTransaction();
-        Query queryRetornaPesJur = (Query) sessao.createQuery(" FROM Pessoajuridica p WHERE ("
-                + " p.pessoaIdpessoa = " + codpess + ")");
-         Query queryRetornaPes = (Query) sessao.createQuery(" FROM Pessoa p WHERE ("
-                + " p.idpessoa = " + codpess + ")");
+        Query queryRetornaVeiculo = (Query) sessao.createQuery(" FROM Veiculo v WHERE ("
+                + " v.idveiculo = " + codveiculo + ")");
 
-        List<Pessoajuridica> dadosPesJur = (List<Pessoajuridica>) queryRetornaPesJur.list();  
-        List<Pessoa> dadosPes = (List<Pessoa>) queryRetornaPes.list();
+        List<Pessoajuridica> dadosPesJur = (List<Pessoajuridica>) queryRetornaVeiculo.list();
+
         sessao.getTransaction().commit();
         object[0] = dadosPesJur;
-        object[1] = dadosPes;
-        
+
         return object;
     }
 
@@ -269,6 +309,37 @@ public class Popula {
 
     }
 
+    public static void popularTabelaPermissao(int criterio, JTable tb) {
+
+        DefaultTableModel tabelaModelo = (DefaultTableModel) tb.getModel();
+        tabelaModelo.setNumRows(0);
+
+        Session sessao = null;
+
+        sessao = HibernateUtil.getSessionFactory().openSession();
+        Transaction t = sessao.beginTransaction();
+
+        Query query = (Query) sessao.createQuery(" FROM Permissao p WHERE (p.idpermissao = " + criterio + ""
+                + " OR p.idpessoa = " + criterio + ""
+                + " OR p.idtela = " + criterio + ")");
+        List<Permissao> dadosPerm = (List<Permissao>) query.list();
+
+        for (Permissao lin : dadosPerm) {
+            tabelaModelo.addRow(new Object[]{
+                lin.getIdpermissao(),
+                lin.isLer(),
+                lin.isInserir(),
+                lin.isEditar(),
+                lin.isInativar(),
+                lin.getIdtela(),
+                lin.getIdpessoa(),
+                lin.getIdfuncao()});
+
+        }
+        sessao.getTransaction().commit();
+
+    }
+
     public static List popularTabelaTipoContato(int cod, String criterio, JTable tb) {
 
         DefaultTableModel tabelaModelo = (DefaultTableModel) tb.getModel();
@@ -326,6 +397,38 @@ public class Popula {
         }
         sessao.getTransaction().commit();
         return dadosTipoVeiculo;
+    }
+
+    public static void popularTabelaVeiculosTipoEStatus(JTable tb) {
+        Session sessao = null;
+        try {
+            DefaultTableModel tabelaModelo = (DefaultTableModel) tb.getModel();
+            tabelaModelo.setNumRows(0);
+
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            Transaction t = sessao.beginTransaction();
+
+            Query query = (Query) sessao.createQuery(" FROM Veiculostipoestatus");
+            List<Veiculostipoestatus> dadosVTS = (List<Veiculostipoestatus>) query.list();
+
+            for (Veiculostipoestatus v : dadosVTS) {
+                tabelaModelo.addRow(new Object[]{
+                    //  v.getIdveiculo(),
+                    v.getDescricaoVeiculo(),
+                    v.getDescricaoTipo(),
+                    v.getDescricaoStatus(),});
+            }
+
+            sessao.getTransaction().commit();
+        } catch (HibernateException he) {
+            he.printStackTrace();
+            System.out.println("Erro popular = " + he);
+
+        } finally {
+            sessao.close();
+
+        }
+
     }
 
     public static List popularTabelaStatusVeiculo(int cod, String criterio, JTable tb) {

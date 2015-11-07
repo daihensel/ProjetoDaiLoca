@@ -7,6 +7,7 @@ package visao;
 import static java.awt.Frame.MAXIMIZED_BOTH;
 import bean.ChatMessage;
 import bean.ChatMessage.Action;
+import conf.Popula;
 import conf.Utility;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -48,7 +49,7 @@ public class FormPrincipal extends javax.swing.JFrame {
     }
 
     private void atualizaDadosVeiculos() {
-        Utility.popularTabelaVeiculosTipoEStatus(tbVeiculos);
+        Popula.popularTabelaVeiculosTipoEStatus(tbVeiculos);
         lbDisponiveis.setText(Utility.somaVeiculos(1));
         lbReservados.setText(Utility.somaVeiculos(2));
         lbLocados.setText(Utility.somaVeiculos(3));
@@ -725,7 +726,6 @@ public class FormPrincipal extends javax.swing.JFrame {
 
     private void btNovoFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoFornecedorActionPerformed
         IfFornecedor janela = new IfFornecedor();
-        janela.setSize(590, 430);
         dp.add(janela);
         if (Utility.permitLer(janela) == true) {
             janela.setVisible(true);

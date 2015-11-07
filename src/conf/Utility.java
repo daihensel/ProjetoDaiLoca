@@ -5,20 +5,12 @@
  */
 package conf;
 
-import entidade.Cliente;
 import entidade.Pessoa;
-import entidade.Tipoveiculo;
-import entidade.Veiculostipoestatus;
-import java.sql.Statement;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -173,9 +165,9 @@ public class Utility {
         sessao = HibernateUtil.getSessionFactory().openSession();
         Transaction t = sessao.beginTransaction();
 
-        Query qr = (Query) sessao.createQuery("select count(idveiculo) FROM Veiculo v, Statusveiculo sv\n"
-                + "WHERE sv.idstatusveiculo=v.idstatusveiculo\n"
-                + "AND sv.idstatusveiculo= ? ").setInteger(0, idstatusveiculo);
+        Query qr = (Query) sessao.createQuery("select count(idveiculo) FROM Veiculo v, Statusveiculo sv"
+                + " WHERE sv.idstatusveiculo=v.statusveiculo.id"
+                + " AND sv.idstatusveiculo= ? ").setInteger(0, idstatusveiculo);
 
         soma = qr.list().get(0).toString();
 
@@ -183,38 +175,7 @@ public class Utility {
         return soma;
     }
 
-    public static void popularTabelaVeiculosTipoEStatus(JTable tb) {
-        Session sessao = null;
-        try {
-            DefaultTableModel tabelaModelo = (DefaultTableModel) tb.getModel();
-            tabelaModelo.setNumRows(0);
-
-            sessao = HibernateUtil.getSessionFactory().openSession();
-            Transaction t = sessao.beginTransaction();
-
-            Query query = (Query) sessao.createQuery(" FROM Veiculostipoestatus");
-            List<Veiculostipoestatus> dadosVTS = (List<Veiculostipoestatus>) query.list();
-
-            for (Veiculostipoestatus v : dadosVTS) {
-                tabelaModelo.addRow(new Object[]{
-                    //  v.getIdveiculo(),
-                    v.getDescricaoVeiculo(),
-                    v.getDescricaoTipo(),
-                    v.getDescricaoStatus(),});
-            }
-
-            sessao.getTransaction().commit();
-        } catch (HibernateException he) {
-            he.printStackTrace();
-            System.out.println("Erro popular = " + he);
-
-        } finally {
-            sessao.close();
-
-        }
-
-    }
-
+  
     public static List consultaPessoa(String criterio) {
 
         Session sessao = null;
@@ -230,64 +191,6 @@ public class Utility {
 
     }
 
-    public static String salvarTipoVeiculo(Tipoveiculo tipoVeiculo) {
-        Session sessao = null;
-        String retorno = "";
-
-        if (tipoVeiculo.getIdtipoVeiculo() == 0) { //insert
-
-            try {
-
-                sessao = HibernateUtil.getSessionFactory().openSession();
-                Transaction t = sessao.beginTransaction();
-
-                sessao.save(tipoVeiculo);
-                t.commit();
-            } catch (HibernateException he) {
-                System.out.println("Erro salvar Tipoveículo: \n" + he);
-            }
-
-        } else { //update
-
-            try {
-                sessao = HibernateUtil.getSessionFactory().openSession();
-                Transaction t = sessao.beginTransaction();
-
-                sessao.update(tipoVeiculo);
-
-                sessao.getTransaction().commit();
-
-            } catch (HibernateException he) {
-                he.printStackTrace();
-                System.out.println("Erro atualizar TipoVeiculo = " + he);
-
-            }
-
-        }
-        return retorno;
-    }
-
-    public static String deletarTipoVeiculo(int idTipoVeiculo) {
-        String retorno = "";
-
-        Session sessao = null;
-        try {
-            sessao = HibernateUtil.getSessionFactory().openSession();
-            Transaction t = sessao.beginTransaction();
-
-            String hqlDelete = ("DELETE Tipoveiculo WHERE idtipo_veiculo = '" + idTipoVeiculo + "'");
-
-            int deleteEntities = sessao.createQuery(hqlDelete).executeUpdate();
-
-            sessao.getTransaction().commit();
-        } catch (HibernateException he) {
-            he.printStackTrace();
-            System.out.println("Erro ao excluir = " + he);
-
-        }
-        return retorno;
-    }
-    
     
     
     

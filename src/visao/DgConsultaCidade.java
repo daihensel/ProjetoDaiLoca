@@ -16,16 +16,18 @@ public class DgConsultaCidade extends javax.swing.JDialog {
 
     private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
     public static IfCliente telaCliente;
-     public static IfFornecedor telaFornecedor;
+    public static IfFornecedor telaFornecedor;
+    public static IfFuncionario telaFuncionario;
 
     // public static IfReservaVeiculos telaReserva;
     /**
      * Creates new form DgConsultaVeic
      */
-    public DgConsultaCidade(IfCliente janela, IfFornecedor janela2) {
+    public DgConsultaCidade(IfCliente jCli, IfFornecedor jForn, IfFuncionario jfunc) {
         initComponents();
-        this.telaCliente = janela;
-        this.telaFornecedor = janela2;
+        this.telaCliente = jCli;
+        this.telaFornecedor = jForn;
+        this.telaFuncionario = jfunc;
         pesquisa();
     }
 
@@ -131,13 +133,16 @@ public class DgConsultaCidade extends javax.swing.JDialog {
             String cod = String.valueOf(tbCidades.getValueAt(tbCidades.getSelectedRow(), 0));
             int codigo = Integer.parseInt(cod);
             String nome = String.valueOf(tbCidades.getValueAt(tbCidades.getSelectedRow(), 1));
+            String uf = String.valueOf(tbCidades.getValueAt(tbCidades.getSelectedRow(), 2));
             if (telaCliente != null) {
-                telaCliente.defineCodigoCidade(codigo, nome);
+                telaCliente.defineCodigoCidade(codigo, nome, uf);
             }
             if (telaFornecedor != null) {
-                telaFornecedor.defineCodigoCidade(codigo, nome);
+                telaFornecedor.defineCodigoCidade(codigo, nome, uf);
             }
-
+            if (telaFuncionario != null) {
+                telaFuncionario.defineCodigoCidade(codigo, nome, uf);
+            }
             this.dispose();
         }
     }//GEN-LAST:event_tbCidadesMouseClicked

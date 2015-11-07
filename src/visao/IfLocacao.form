@@ -219,11 +219,11 @@
                           <Component id="btPVendedor" min="-2" pref="20" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="tfDescricaoVeiculo1" pref="239" max="32767" attributes="0"/>
+                          <Component id="tfDataLocacao" pref="239" max="32767" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="tfTipoVeiculo1" min="-2" pref="134" max="-2" attributes="0"/>
+                          <Component id="tfHoraRetirada" min="-2" pref="134" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -232,15 +232,15 @@
                   <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
                   <Component id="jLabel20" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="tfAnoModelo1" min="-2" pref="91" max="-2" attributes="0"/>
+                  <Component id="tfDias" min="-2" pref="91" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jLabel24" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="tfAnoFabricacao1" min="-2" pref="69" max="-2" attributes="0"/>
+                  <Component id="tfValorTotal" min="-2" pref="69" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jLabel22" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="tfKmAtual1" min="-2" pref="107" max="-2" attributes="0"/>
+                  <Component id="tfParcelas" min="-2" pref="107" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -258,17 +258,17 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="tfDescricaoVeiculo1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="tfDataLocacao" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel19" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="tfTipoVeiculo1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="tfHoraRetirada" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="tfAnoModelo1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="tfDias" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel20" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="tfAnoFabricacao1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="tfValorTotal" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel24" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="tfKmAtual1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="tfParcelas" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel22" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
@@ -282,33 +282,42 @@
             <Property name="text" type="java.lang.String" value="Data Loca&#xe7;&#xe3;o:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="tfDescricaoVeiculo1">
+        <Component class="javax.swing.JTextField" name="tfDataLocacao">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfDescricaoVeiculo1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfDataLocacaoActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="tfTipoVeiculo1">
+        <Component class="javax.swing.JTextField" name="tfHoraRetirada">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel19">
           <Properties>
             <Property name="text" type="java.lang.String" value="Hora retirada:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="tfAnoModelo1">
+        <Component class="javax.swing.JTextField" name="tfDias">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tfDiasKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel20">
           <Properties>
             <Property name="text" type="java.lang.String" value="Dias:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="tfKmAtual1">
+        <Component class="javax.swing.JTextField" name="tfParcelas">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tfParcelasKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel22">
           <Properties>
             <Property name="text" type="java.lang.String" value="Parcelas:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="tfAnoFabricacao1">
+        <Component class="javax.swing.JTextField" name="tfValorTotal">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tfValorTotalKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel24">
           <Properties>

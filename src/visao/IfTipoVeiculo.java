@@ -5,19 +5,14 @@
  */
 package visao;
 
-import conf.HibernateUtil;
 import conf.Popula;
 import conf.Utility;
-import conf.limpaCampos;
+import conf.DAO;
 import entidade.Tipoveiculo;
 import java.math.BigDecimal;
 import java.util.List;
 import javax.swing.JOptionPane;
 import org.apache.log4j.Logger;
-import org.hibernate.HibernateException;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 /**
  *
@@ -101,6 +96,12 @@ public class IfTipoVeiculo extends javax.swing.JInternalFrame {
         tfDescricao.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 tfDescricaoKeyTyped(evt);
+            }
+        });
+
+        tfValorDia.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfValorDiaKeyTyped(evt);
             }
         });
 
@@ -266,9 +267,7 @@ public class IfTipoVeiculo extends javax.swing.JInternalFrame {
         btExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/bExcluir.png"))); // NOI18N
         btExcluir.setText("Excluir");
         btExcluir.setFocusable(false);
-        btExcluir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btExcluir.setPreferredSize(new java.awt.Dimension(71, 39));
-        btExcluir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btExcluirActionPerformed(evt);
@@ -348,7 +347,7 @@ public class IfTipoVeiculo extends javax.swing.JInternalFrame {
             tipoveiculo.setObservacoes(taObservacoes.getText());
             tipoveiculo.setEspecificacoes(taEspecificacoes.getText());
 
-            Utility.salvarTipoVeiculo(tipoveiculo);
+            DAO.salvarTipoVeiculo(tipoveiculo);
 
 //                limpaCampos lc = new limpaCampos();
 //                lc.limparCampos(jpTipoVeiculo);
@@ -381,12 +380,6 @@ public class IfTipoVeiculo extends javax.swing.JInternalFrame {
                 habilitaCampos(true);
                 btNovo.setEnabled(true);
                 btSalvar.setEnabled(true);
-
-                Session sessao = null;
-                //  Query query = (Query) sessao.createQuery(" FROM Tipoveiculo t WHERE ("
-                //          + " lower(t.descricao) LIKE '%" + tfDescricao.getText());
-                //   Query query = (Query) sessao.createQuery(" FROM Tipoveiculo t WHERE idtipo_veiculo =" + codigo);
-
                 tfDescricao.requestFocus();
             } else {
                 JOptionPane.showMessageDialog(null, "Selecione algum registro!");
@@ -409,12 +402,12 @@ public class IfTipoVeiculo extends javax.swing.JInternalFrame {
             btSalvar.setEnabled(false);
             btEditar.setEnabled(true);
             btNovo.setEnabled(true);
-            // btExcluir.setEnabled(true);
+            btExcluir.setEnabled(true);
         } else if (jTabbedPane1.getSelectedIndex() == 0) {
             btSalvar.setEnabled(false);
             btEditar.setEnabled(false);
             btNovo.setEnabled(true);
-            //   btExcluir.setEnabled(false);
+            btExcluir.setEnabled(false);
         }
     }//GEN-LAST:event_jTabbedPane1StateChanged
 
@@ -453,21 +446,26 @@ public class IfTipoVeiculo extends javax.swing.JInternalFrame {
         if (jTabbedPane1.getSelectedIndex() == 1) {
 
             if (tbTipoVeiculos.getSelectedRow() >= 0) {
-               
-                    Tipoveiculo tipoVeiculo = null;
-                    String cod = String.valueOf(tbTipoVeiculos.getValueAt(tbTipoVeiculos.getSelectedRow(), 0));
-                    int codigo = Integer.parseInt(cod);
-                    Utility.deletarTipoVeiculo(codigo);
-                    
-                    Popula.popularTabelaTipoVeiculo(codigo, "", tbTipoVeiculos);
 
-                    
+                Tipoveiculo tipoVeiculo = null;
+                String cod = String.valueOf(tbTipoVeiculos.getValueAt(tbTipoVeiculos.getSelectedRow(), 0));
+                int codigo = Integer.parseInt(cod);
+                DAO.deletarTipoVeiculo(codigo);
+
+                Popula.popularTabelaTipoVeiculo(codigo, "", tbTipoVeiculos);
 
             }
         }
 
 
     }//GEN-LAST:event_btExcluirActionPerformed
+
+    private void tfValorDiaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfValorDiaKeyTyped
+        String caracteres = "0987654321";
+        if (!caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_tfValorDiaKeyTyped
 
     public void habilitaCampos(Boolean tf) {
         if (tf == false) {

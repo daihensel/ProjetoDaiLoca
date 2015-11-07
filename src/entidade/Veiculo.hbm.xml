@@ -8,9 +8,9 @@
             <column name="idveiculo" />
             <generator class="increment" />
         </id>
-        <property name="idstatusveiculo" class="entidade.Statusveiculo" fetch="select">
+        <many-to-one name="statusveiculo" class="entidade.Statusveiculo" fetch="select">
             <column name="idstatusveiculo" not-null="true" />
-        </property>
+        </many-to-one>
         <many-to-one name="tipoveiculo" class="entidade.Tipoveiculo" fetch="select">
             <column name="idtipoVeiculo" not-null="true" />
         </many-to-one>

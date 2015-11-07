@@ -48,8 +48,9 @@ public class Veiculo implements java.io.Serializable {
     private Date dtBaixa;
     @Column(name = "km_atual", nullable = false)
     private int kmAtual;
-    @Column(name = "idstatusveiculo", nullable = false)
-    private int idstatusveiculo;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idstatusveiculo", nullable = false)
+    private Statusveiculo statusveiculo;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "veiculo")
     private Set<Locacao> locacaos = new HashSet(0);
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "veiculo")
@@ -62,7 +63,7 @@ public class Veiculo implements java.io.Serializable {
     public Veiculo() {
     }
 
-    public Veiculo(int idveiculo, Tipoveiculo tipoveiculo, String descricao, String marca, int anoFabricacao, int anoModelo, Date dtInclusao, int kmAtual, int statusveiculo) {
+    public Veiculo(int idveiculo, Tipoveiculo tipoveiculo, String descricao, String marca, int anoFabricacao, int anoModelo, Date dtInclusao, int kmAtual, Statusveiculo statusveiculo) {
         this.idveiculo = idveiculo;
         this.tipoveiculo = tipoveiculo;
         this.descricao = descricao;
@@ -71,10 +72,10 @@ public class Veiculo implements java.io.Serializable {
         this.anoModelo = anoModelo;
         this.dtInclusao = dtInclusao;
         this.kmAtual = kmAtual;
-        this.idstatusveiculo = statusveiculo;
+        this.statusveiculo = statusveiculo;
     }
 
-    public Veiculo(int idveiculo, Tipoveiculo tipoveiculo, String descricao, String marca, int anoFabricacao, int anoModelo, Date dtInclusao, Date dtBaixa, int kmAtual, int statusveiculo, Set locacaos, Set documentoses, Set reservas, Set manutencaos) {
+    public Veiculo(int idveiculo, Tipoveiculo tipoveiculo, String descricao, String marca, int anoFabricacao, int anoModelo, Date dtInclusao, Date dtBaixa, int kmAtual, Statusveiculo statusveiculo, Set locacaos, Set documentoses, Set reservas, Set manutencaos) {
         this.idveiculo = idveiculo;
         this.tipoveiculo = tipoveiculo;
         this.descricao = descricao;
@@ -84,7 +85,7 @@ public class Veiculo implements java.io.Serializable {
         this.dtInclusao = dtInclusao;
         this.dtBaixa = dtBaixa;
         this.kmAtual = kmAtual;
-        this.idstatusveiculo = statusveiculo;
+        this.statusveiculo = statusveiculo;
         this.locacaos = locacaos;
         this.reservas = reservas;
         this.manutencaos = manutencaos;
@@ -182,15 +183,15 @@ public class Veiculo implements java.io.Serializable {
 
     }
 
-    public int getIdstatusveiculo() {
-        return this.idstatusveiculo;
+    public Statusveiculo getStatusveiculo() {
+        return this.statusveiculo;
     }
 
-    public void setIdstatusveiculo(int idstatusveiculo) {
-        this.idstatusveiculo = idstatusveiculo;
+    public void setStatusveiculo(Statusveiculo statusveiculo) {
+        Statusveiculo oldStatusveiculo = this.statusveiculo;
+        this.statusveiculo = statusveiculo;
 
     }
-
     public Set getLocacaos() {
         return this.locacaos;
     }

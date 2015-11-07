@@ -68,6 +68,12 @@ public class IfDevolucao extends javax.swing.JInternalFrame  {
 
         jLabel1.setText("Km rodados:");
 
+        tfKmRodados.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfKmRodadosKeyTyped(evt);
+            }
+        });
+
         jLabel2.setText("Data Devolução:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -334,6 +340,13 @@ public class IfDevolucao extends javax.swing.JInternalFrame  {
     private void tfRGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfRGActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfRGActionPerformed
+
+    private void tfKmRodadosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfKmRodadosKeyTyped
+       String caracteres = "0987654321";
+        if (!caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_tfKmRodadosKeyTyped
 
  public void defineLocacao(int cod) {
        

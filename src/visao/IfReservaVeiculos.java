@@ -93,6 +93,12 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Data Locação:");
 
+        jTextField3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField3KeyTyped(evt);
+            }
+        });
+
         jLabel3.setText("Dias pretendidos:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -467,6 +473,13 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
         
         
     }//GEN-LAST:event_btReservarActionPerformed
+
+    private void jTextField3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField3KeyTyped
+       String caracteres = "0987654321";
+        if (!caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jTextField3KeyTyped
     
   //  @Override
     public void defineCodigoCliente(int codcli) {

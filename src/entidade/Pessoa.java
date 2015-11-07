@@ -41,18 +41,18 @@ public class Pessoa implements java.io.Serializable {
     private Pessoafisica pessoafisica;
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "pessoa")
     private Funcionario funcionario;
-    @OneToMany(fetch=FetchType.LAZY, mappedBy="pessoa")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "pessoa")
     private Set<Log> logs = new HashSet(0);
 //	@OneToMany(fetch=FetchType.LAZY, mappedBy="pessoa")
 //	private Set<Permissao> permissaos = new HashSet(0);
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="pessoa")
-private Set<Auditoria> auditorias = new HashSet(0);
-@ManyToMany(fetch=FetchType.LAZY)
-    @JoinTable(name="contato_pessoa", schema="public", joinColumns = { 
-        @JoinColumn(name="pessoa_idpessoa", nullable=false, updatable=false) }, inverseJoinColumns = { 
-        @JoinColumn(name="contato_idcontato", nullable=false, updatable=false) })
-  
-private Set<Contato> contatos = new HashSet(0);
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "pessoa")
+    private Set<Auditoria> auditorias = new HashSet(0);
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "contato_pessoa", schema = "public", joinColumns = {
+        @JoinColumn(name = "pessoa_idpessoa", nullable = false, updatable = false)}, inverseJoinColumns = {
+        @JoinColumn(name = "contato_idcontato", nullable = false, updatable = false)})
+
+    private Set<Contato> contatos = new HashSet(0);
 
     public Pessoa() {
     }
@@ -63,7 +63,6 @@ private Set<Contato> contatos = new HashSet(0);
         this.nome = nome;
     }
 
-  
 //         public Pessoa(int idpessoa, Endereco endereco, String nome, Cliente cliente, Pessoajuridica pessoajuridica, Set logs, Set contatos, Pessoafisica pessoafisica, Set permissaos, Funcionario funcionario, Set auditorias) {
 //       this.idpessoa = idpessoa;
 //       this.endereco = endereco;
@@ -77,7 +76,6 @@ private Set<Contato> contatos = new HashSet(0);
 //       this.funcionario = funcionario;
 //       this.auditorias = auditorias;
 //    }
-
     public int getIdpessoa() {
         return this.idpessoa;
     }
@@ -133,28 +131,27 @@ private Set<Contato> contatos = new HashSet(0);
     public void setFuncionario(Funcionario funcionario) {
         this.funcionario = funcionario;
     }
- 
-    
+
     public Set getLogs() {
         return this.logs;
     }
-    
+
     public void setLogs(Set logs) {
         this.logs = logs;
     }
-	
-	 public Set getAuditorias() {
+
+    public Set getAuditorias() {
         return this.auditorias;
     }
-    
+
     public void setAuditorias(Set auditorias) {
         this.auditorias = auditorias;
     }
 
-	   public Set getContatos() {
+    public Set getContatos() {
         return this.contatos;
     }
-    
+
     public void setContatos(Set contatos) {
         this.contatos = contatos;
     }
@@ -166,6 +163,5 @@ private Set<Contato> contatos = new HashSet(0);
 //    public void setPermissaos(Set permissaos) {
 //        this.permissaos = permissaos;
 //    }
-	
-	
+
 }

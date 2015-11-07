@@ -622,6 +622,14 @@ public class IfDocumento extends javax.swing.JInternalFrame {
         tfDataInclusao.setEnabled(tf);
         tfTipo.setEnabled(tf);
         tfObservacoes.setEnabled(tf);
+        btPVeiculo.setEnabled(tf);
+        tfDescricaoVeiculo.setEnabled(false);
+        tfTipoVeiculo.setEnabled(false);
+        tfMarca.setEnabled(false);
+        tfAnoModelo.setEnabled(false);
+        tfAnoFabricacao.setEnabled(false);
+        tfValorDiaria.setEnabled(false);
+        tfKmAtual.setEnabled(false);
     }
 
     public void limpaCampos() {
