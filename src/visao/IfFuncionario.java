@@ -18,6 +18,8 @@ import entidade.Funcionario;
 import entidade.Pessoa;
 import entidade.Pessoafisica;
 import entidade.Pessoajuridica;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import javax.swing.JOptionPane;
@@ -423,18 +425,18 @@ public class IfFuncionario extends javax.swing.JInternalFrame {
                             .addComponent(jLabel15)
                             .addComponent(tfCEP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(7, 7, 7)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel10)
                                 .addComponent(jLabel9)
-                                .addComponent(tfUF, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btPCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(tfUF, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btPCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfCidade, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel22)
                             .addComponent(tfComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(63, Short.MAX_VALUE))))
+                        .addContainerGap(57, Short.MAX_VALUE))))
         );
 
         jTabbedPane1.addTab("Cadastro", jPanel1);
@@ -644,11 +646,40 @@ public class IfFuncionario extends javax.swing.JInternalFrame {
 
                     Pessoa p = linf.getPessoa();
                     tfNome.setText(p.getNome());
+                    String tel1 = "";
+                    String tel2 = "";
+                    String email = "";
+                    Set<Contato> contato;
+                    contato = new HashSet<Contato>();
+                    contato = p.getContatos();
+                    Iterator<Contato> contatoIterator = contato.iterator();
+                    while (contatoIterator.hasNext()) {
+                        Contato c = contatoIterator.next();
+                        tel1 = c.getDescricao();
+                        tfTelefone1.setText(tel1);
+                        if (contatoIterator.hasNext()) {
+                            c = contatoIterator.next();
+                            tel2 = c.getDescricao();
+                            String primeiroTel2 = String.valueOf(tel2.charAt(0));
+                            if (primeiroTel2.equals("(")) {
+                                tfTelefone2.setText(tel2);
+                            }else{
+                                tfEmail.setText(tel2);
+                            }
+                        }
+                        if (contatoIterator.hasNext()) {
+                            c = contatoIterator.next();
+                            email = c.getDescricao();
+                        }
+                    }
+                    System.out.println("tel1:" + tel1);
+                    System.out.println("tel1:" + tel2);
+                    System.out.println("email:" + email);
                     tfDataAdmissao.setText(Formatacao.ajustaDataDMA(String.valueOf(linf.getDtAdmissao())));
                     if (linf.getDtDemissao() != null) {
                         tfDataDemissao.setText(Formatacao.ajustaDataDMA(String.valueOf(linf.getDtDemissao())));
                     }
-                    
+
                     tfNumCTPS.setText(linf.getNumCtps());
                     tfSerieCTPS.setText(linf.getSerieCtps());
                     tfLogin.setText(linf.getLogin());

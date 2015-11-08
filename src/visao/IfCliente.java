@@ -13,6 +13,7 @@ import conf.Popula;
 import conf.Utility;
 import entidade.Cidade;
 import entidade.Cliente;
+import entidade.Contato;
 import entidade.Endereco;
 import entidade.Estado;
 import entidade.Pessoa;
@@ -21,8 +22,10 @@ import entidade.Pessoajuridica;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import org.apache.log4j.Logger;
@@ -345,11 +348,11 @@ public class IfCliente extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jpCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btPCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addGroup(jpCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE, false)
+                    .addComponent(tfCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfUF, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jpCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel10)
-                        .addComponent(jLabel9)
-                        .addComponent(tfCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(tfUF, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel9)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jpCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -615,11 +618,39 @@ public class IfCliente extends javax.swing.JInternalFrame {
                 object = (Object[]) Popula.retornaDadosPessoas(codigo);
                 List<Cliente> lc = (List<Cliente>) object[3];
                 for (Cliente linc : lc) {
+
                     tfDataCadastro.setText(Formatacao.ajustaDataDMA(linc.getDtCadastro()));
                     Pessoa p = linc.getPessoa();
                     tfNome.setText(p.getNome());
-                    p.getContatos();
-
+                    String tel1 = "";
+                    String tel2 = "";
+                    String email = "";
+                    Set<Contato> contato;
+                    contato = new HashSet<Contato>();
+                    contato = p.getContatos();
+                    Iterator<Contato> contatoIterator = contato.iterator();
+                    while (contatoIterator.hasNext()) {
+                        Contato c = contatoIterator.next();
+                        tel1 = c.getDescricao();
+                        tfTelefone1.setText(tel1);
+                        if (contatoIterator.hasNext()) {
+                            c = contatoIterator.next();
+                            tel2 = c.getDescricao();
+                            String primeiroTel2 = String.valueOf(tel2.charAt(0));
+                            if (primeiroTel2.equals("(")) {
+                                tfTelefone2.setText(tel2);
+                            } else {
+                                tfEmail.setText(tel2);
+                            }
+                        }
+                        if (contatoIterator.hasNext()) {
+                            c = contatoIterator.next();
+                            email = c.getDescricao();
+                        }
+                    }
+                    System.out.println("tel1:" + tel1);
+                    System.out.println("tel1:" + tel2);
+                    System.out.println("email:" + email);
                     Pessoafisica pf = linc.getPessoa().getPessoafisica();
                     if (pf != null) {
                         tfCPF.setText(pf.getCpf());
