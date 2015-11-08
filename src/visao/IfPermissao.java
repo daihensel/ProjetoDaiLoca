@@ -7,6 +7,7 @@ package visao;
 
 import conf.ComboItens;
 import conf.CombosDAO;
+import conf.DAO;
 import conf.HibernateUtil;
 import conf.Popula;
 import conf.Utility;
@@ -406,7 +407,7 @@ public class IfPermissao extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btPesquisarActionPerformed
 
     private void tbPermissaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbPermissaoMouseClicked
-        
+
     }//GEN-LAST:event_tbPermissaoMouseClicked
 
     private void jPanel2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPanel2FocusGained
@@ -432,7 +433,28 @@ public class IfPermissao extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTabbedPane1FocusGained
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
+        if (jTabbedPane1.getSelectedIndex() == 1) {
+            if (tbPermissao.getSelectedRow() >= 0) {
+                Object[] options = {" Sim ", " Não "};
+                String descricao = String.valueOf(tbPermissao.getValueAt(tbPermissao.getSelectedRow(), 1));
+                int opcaoExcluir = JOptionPane.showOptionDialog(this.getContentPane(), "Deseja excluir o registro "
+                        + descricao + "?",
+                        "Informação", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[1]);
 
+                if (opcaoExcluir == 0) {
+                    int id = (int) tbPermissao.getValueAt(tbPermissao.getSelectedRow(), 0);
+                    System.out.println("id a ser excluido:" + id);
+                    if (DAO.deletarPermissao(id)) {
+                        JOptionPane.showMessageDialog(null, "Registro excluído!");
+                        pesquisa();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Problemas ao excluir");
+                    }
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Selecione algum registro!");
+            }
+        }
     }//GEN-LAST:event_btExcluirActionPerformed
 
     public void habilitaCampos(Boolean tf) {
@@ -487,7 +509,7 @@ public class IfPermissao extends javax.swing.JInternalFrame {
         cbFuncao.removeAllItems();
         new CombosDAO().popularCombo("Funcao", "idfuncao", "descricao", cbFuncao, "");
     }
-    
+
     public void pesquisa() {
         int cod = 0;
         if (tfPesquisa.getText().length() > 0 && tfPesquisa.getText().matches("[0-9]")) {

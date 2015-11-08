@@ -442,22 +442,28 @@ public class IfTipoVeiculo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tbTipoVeiculosMouseClicked
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
-
         if (jTabbedPane1.getSelectedIndex() == 1) {
-
             if (tbTipoVeiculos.getSelectedRow() >= 0) {
+                Object[] options = {" Sim ", " Não "};
+                String descricao = String.valueOf(tbTipoVeiculos.getValueAt(tbTipoVeiculos.getSelectedRow(), 1));
+                int opcaoExcluir = JOptionPane.showOptionDialog(this.getContentPane(), "Deseja excluir o registro "
+                        + descricao + "?",
+                        "Informação", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[1]);
 
-                Tipoveiculo tipoVeiculo = null;
-                String cod = String.valueOf(tbTipoVeiculos.getValueAt(tbTipoVeiculos.getSelectedRow(), 0));
-                int codigo = Integer.parseInt(cod);
-                DAO.deletarTipoVeiculo(codigo);
-
-                Popula.popularTabelaTipoVeiculo(codigo, "", tbTipoVeiculos);
-
+                if (opcaoExcluir == 0) {
+                    int id = (int) tbTipoVeiculos.getValueAt(tbTipoVeiculos.getSelectedRow(), 0);
+                    System.out.println("id a ser excluido:" + id);
+                    if (DAO.deletarTipoVeiculo(id)) {
+                        JOptionPane.showMessageDialog(null, "Registro excluído!");
+                        pesquisa();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Problemas ao excluir");
+                    }
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Selecione algum registro!");
             }
         }
-
-
     }//GEN-LAST:event_btExcluirActionPerformed
 
     private void tfValorDiaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfValorDiaKeyTyped

@@ -7,6 +7,7 @@ package visao;
 
 import conf.ComboItens;
 import conf.CombosDAO;
+import conf.DAO;
 import conf.HibernateUtil;
 import conf.Popula;
 import conf.Utility;
@@ -408,57 +409,27 @@ public class IfCidade extends javax.swing.JInternalFrame {
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
         if (jTabbedPane1.getSelectedIndex() == 1) {
-
             if (tbCidades.getSelectedRow() >= 0) {
                 Object[] options = {" Sim ", " Não "};
                 String descricao = String.valueOf(tbCidades.getValueAt(tbCidades.getSelectedRow(), 1));
-                int opcaoExcluir = JOptionPane.showOptionDialog(this.getContentPane(), "Deseja excluir o registro da Cidade "
+                int opcaoExcluir = JOptionPane.showOptionDialog(this.getContentPane(), "Deseja excluir o registro "
                         + descricao + "?",
                         "Informação", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[1]);
 
                 if (opcaoExcluir == 0) {
-                    int cod = (int) tbCidades.getValueAt(tbCidades.getSelectedRow(), 0);
-                    System.out.println("cod a ser excluido:" + cod);
-                    Session sessao = null;
-                    try {
-                        sessao = HibernateUtil.getSessionFactory().openSession();
-                        Transaction t = sessao.beginTransaction();
-                        Cidade cidade = new Cidade();
-                        List<Cidade> l = Popula.popularTabelaCidade(cod, String.valueOf(cod), tbCidades);
-                        pesquisa();
-                        for (Cidade lin : l) {
-
-                            cidade.setIdcidade(cod);
-                            cidade.setDescricao(lin.getDescricao());
-                            Estado estado = new Estado();
-                            estado.setIdestado(lin.getEstado().getIdestado());
-//                        estado.setUf(lin.getEstado().getUf());
-                            cidade.setEstado(estado);
-
-                        }
-
-                        // ComboItens cbie = (ComboItens) cbEstado.getSelectedItem();
-                        sessao.delete(cidade);
-                        t.commit();
+                    int id = (int) tbCidades.getValueAt(tbCidades.getSelectedRow(), 0);
+                    System.out.println("id a ser excluido:" + id);
+                    if (DAO.deletarCidade(id)) {
                         JOptionPane.showMessageDialog(null, "Registro excluído!");
                         pesquisa();
-                    } catch (HibernateException he) {
-                        he.printStackTrace();
-                        logger.error("Erro");
+                    } else {
                         JOptionPane.showMessageDialog(null, "Problemas ao excluir");
-                    } finally {
-                        sessao.close();
                     }
-                } else if (opcaoExcluir == 1) {
-                    JOptionPane.showMessageDialog(null, "Nada foi excluído!");
                 }
-
             } else {
                 JOptionPane.showMessageDialog(null, "Selecione algum registro!");
             }
-
         }
-
     }//GEN-LAST:event_btExcluirActionPerformed
 
     private void tbCidadesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbCidadesMouseClicked
@@ -501,7 +472,6 @@ public class IfCidade extends javax.swing.JInternalFrame {
         new CombosDAO().popularCombo("Estado", "idestado", "uf", cbEstado, "");
 
     }
-    
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -7,6 +7,7 @@ package visao;
 
 import conf.ComboItens;
 import conf.CombosDAO;
+import conf.DAO;
 import conf.Formatacao;
 import conf.HibernateUtil;
 import conf.Popula;
@@ -583,7 +584,28 @@ public class IfDocumento extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tfDataInclusaoKeyTyped
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
+        if (jTabbedPane1.getSelectedIndex() == 1) {
+            if (tbDocumentos.getSelectedRow() >= 0) {
+                Object[] options = {" Sim ", " Não "};
+                String descricao = String.valueOf(tbDocumentos.getValueAt(tbDocumentos.getSelectedRow(), 1));
+                int opcaoExcluir = JOptionPane.showOptionDialog(this.getContentPane(), "Deseja excluir o registro "
+                        + descricao + "?",
+                        "Informação", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[1]);
 
+                if (opcaoExcluir == 0) {
+                    int id = (int) tbDocumentos.getValueAt(tbDocumentos.getSelectedRow(), 0);
+                    System.out.println("id a ser excluido:" + id);
+                    if (DAO.deletarDocumento(id)) {
+                        JOptionPane.showMessageDialog(null, "Registro excluído!");
+                        pesquisa();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Problemas ao excluir");
+                    }
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Selecione algum registro!");
+            }
+        }
 
     }//GEN-LAST:event_btExcluirActionPerformed
 

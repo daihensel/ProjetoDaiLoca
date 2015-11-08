@@ -5,6 +5,7 @@
  */
 package visao;
 
+import conf.DAO;
 import conf.HibernateUtil;
 import conf.Popula;
 import conf.Utility;
@@ -375,7 +376,28 @@ public class IfStatusVeiculo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tfDescricaoKeyTyped
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
+if (jTabbedPane1.getSelectedIndex() == 1) {
+            if (tbStatusVeiculos.getSelectedRow() >= 0) {
+                Object[] options = {" Sim ", " Não "};
+                String descricao = String.valueOf(tbStatusVeiculos.getValueAt(tbStatusVeiculos.getSelectedRow(), 1));
+                int opcaoExcluir = JOptionPane.showOptionDialog(this.getContentPane(), "Deseja excluir o registro "
+                        + descricao + "?",
+                        "Informação", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[1]);
 
+                if (opcaoExcluir == 0) {
+                    int id = (int) tbStatusVeiculos.getValueAt(tbStatusVeiculos.getSelectedRow(), 0);
+                    System.out.println("id a ser excluido:" + id);
+                    if (DAO.deletarStatusVeiculo(id)) {
+                        JOptionPane.showMessageDialog(null, "Registro excluído!");
+                        pesquisa();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Problemas ao excluir");
+                    }
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Selecione algum registro!");
+            }
+        }
 
     }//GEN-LAST:event_btExcluirActionPerformed
 

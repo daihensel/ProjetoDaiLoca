@@ -7,6 +7,7 @@ package visao;
 
 import conf.ComboItens;
 import conf.CombosDAO;
+import conf.DAO;
 import conf.Formatacao;
 import conf.HibernateUtil;
 import conf.Popula;
@@ -440,9 +441,15 @@ public class IfFornecedor extends javax.swing.JInternalFrame {
                 e.setBairro(tfBairro.getText());
                 e.setCep(tfCEP.getText());
                 e.setComplemento(tfComplemento.getText());
-                Query query = (Query) sessao.createQuery(" FROM Cidade c WHERE (lower(c.descricao) LIKE '%" + tfCidade.getText() + "%'");
-                List<Cidade> dadosCidade = (List<Cidade>) query.list();
-                e.setCidade(dadosCidade.get(0));
+
+                //Cidade c = Popula.popularTabelaCidade(0, tfPesquisa.getText(), tbFornecedor);
+                //Query query = (Query) sessao.createQuery(" FROM Cidade c WHERE (lower(c.descricao) LIKE lower('%" + tfCidade.getText() + "%')");
+                Object o = Popula.popularTabelaCidade(0, tfPesquisa.getText(), tbFornecedor);
+                List<Cidade> l = (List<Cidade>) o;
+                for (Cidade lin : l) {
+                    Cidade c = lin;
+                    e.setCidade(c);
+                }
 
                 Pessoa p = new Pessoa();
                 p.setNome(tfNome.getText());
@@ -517,6 +524,28 @@ public class IfFornecedor extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btEditarActionPerformed
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
+        if (jTabbedPane1.getSelectedIndex() == 1) {
+            if (tbFornecedor.getSelectedRow() >= 0) {
+                Object[] options = {" Sim ", " Não "};
+                String descricao = String.valueOf(tbFornecedor.getValueAt(tbFornecedor.getSelectedRow(), 1));
+                int opcaoExcluir = JOptionPane.showOptionDialog(this.getContentPane(), "Deseja excluir o registro "
+                        + descricao + "?",
+                        "Informação", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[1]);
+
+                if (opcaoExcluir == 0) {
+                    int id = (int) tbFornecedor.getValueAt(tbFornecedor.getSelectedRow(), 0);
+                    System.out.println("id a ser excluido:" + id);
+                    if (DAO.deletarFornecedor(id)) {
+                        JOptionPane.showMessageDialog(null, "Registro excluído!");
+                        pesquisa();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Problemas ao excluir");
+                    }
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Selecione algum registro!");
+            }
+        }
 
     }//GEN-LAST:event_btExcluirActionPerformed
 
