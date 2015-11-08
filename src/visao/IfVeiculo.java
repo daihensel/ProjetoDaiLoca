@@ -7,6 +7,7 @@ package visao;
 
 import conf.ComboItens;
 import conf.CombosDAO;
+import conf.DAO;
 import conf.Formatacao;
 import conf.HibernateUtil;
 import conf.Popula;
@@ -28,6 +29,7 @@ import org.hibernate.Transaction;
 public class IfVeiculo extends javax.swing.JInternalFrame {
 
     private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
+    int idVeiculo = 0;
 
     /**
      * Creates new form IfVeiculo
@@ -409,47 +411,37 @@ public class IfVeiculo extends javax.swing.JInternalFrame {
                 && tfKmAtual.getText().trim().length() > 0 && cbStatusVeiculo.getSelectedIndex() > 0
                 && cbTipoVeiculo.getSelectedIndex() > 0 && tfMarca.getText().trim().length() > 0
                 && tfDtInclusao.getText().trim().length() > 0) {
-            try {
-                sessao = HibernateUtil.getSessionFactory().openSession();
-                Transaction t = sessao.beginTransaction();
 
-                Veiculo veiculo = new Veiculo();
+            Veiculo veiculo = new Veiculo();
+            veiculo.setIdveiculo(idVeiculo);
+            veiculo.setDescricao(tfDescricao.getText());
+            veiculo.setMarca(tfMarca.getText());
+            int n = Integer.parseInt(tfAnoFab.getText());
+            veiculo.setAnoFabricacao(n);
+            int n2 = Integer.parseInt(tfAnoModelo.getText());
+            veiculo.setAnoModelo(n2);
+            veiculo.setDtInclusao(Formatacao.converteParaDataAMD(tfDtInclusao.getText()));
+            veiculo.setDtBaixa(Formatacao.converteParaDataAMD(tfDtBaixa.getText()));
+            int km = Integer.parseInt(tfKmAtual.getText());
+            veiculo.setKmAtual(km);
 
-                veiculo.setDescricao(tfDescricao.getText());
+            Tipoveiculo tv = new Tipoveiculo();
+            ComboItens cbiTV = (ComboItens) cbTipoVeiculo.getSelectedItem();
+            tv.setIdtipoVeiculo(cbiTV.getCodigo());
+            veiculo.setTipoveiculo(tv);
 
-                Tipoveiculo tv = new Tipoveiculo();
-                ComboItens cbiTV = (ComboItens) cbTipoVeiculo.getSelectedItem();
-                tv.setIdtipoVeiculo(cbiTV.getCodigo());
-                veiculo.setTipoveiculo(tv);
+            Statusveiculo sv = new Statusveiculo();
+            ComboItens cbiSV = (ComboItens) cbStatusVeiculo.getSelectedItem();
+            sv.setIdstatusVeiculo(cbiSV.getCodigo());
+            veiculo.setStatusveiculo(sv);
 
-                veiculo.setDtInclusao(Formatacao.converteParaDataAMD(tfDtInclusao.getText()));
-                veiculo.setDtBaixa(Formatacao.converteParaDataAMD(tfDtBaixa.getText()));
-                veiculo.setMarca(tfMarca.getText());
-                int n = Integer.parseInt(tfAnoFab.getText());
-                veiculo.setAnoFabricacao(n);
-                int n2 = Integer.parseInt(tfAnoModelo.getText());
-                veiculo.setAnoModelo(n2);
-                int km = Integer.parseInt(tfKmAtual.getText());
-                veiculo.setKmAtual(km);
+            DAO.salvarVeiculo(veiculo);
+            pesquisa();
+            habilitaCampos(false);
+            btNovo.setEnabled(true);
+            btSalvar.setEnabled(false);
+            tfDescricao.requestFocus();
 
-                Statusveiculo sv = new Statusveiculo();
-                ComboItens cbiSV = (ComboItens) cbStatusVeiculo.getSelectedItem();
-                sv.setIdstatusVeiculo(cbiSV.getCodigo());
-                veiculo.setStatusveiculo(sv);
-
-                sessao.save(veiculo);
-
-                t.commit();
-                pesquisa();
-                habilitaCampos(false);
-                btNovo.setEnabled(true);
-                btSalvar.setEnabled(false);
-                tfDescricao.requestFocus();
-            } catch (HibernateException he) {
-                he.printStackTrace();
-            } finally {
-                sessao.close();
-            }
         } else {
             JOptionPane.showMessageDialog(null, "Preencha os campos obrigatórios!");
         }
@@ -480,6 +472,7 @@ public class IfVeiculo extends javax.swing.JInternalFrame {
                 object = (Object[]) Popula.retornaVeiculo(codigo);
                 List<Veiculo> l = (List<Veiculo>) object[0];
                 for (Veiculo lin : l) {
+                    idVeiculo = codigo;
                     tfDescricao.setText(lin.getDescricao());
                     tfDtInclusao.setText(Formatacao.ajustaDataDMA(String.valueOf(lin.getDtInclusao())));
                     if (!String.valueOf(lin.getDtBaixa()).equals(null)) {

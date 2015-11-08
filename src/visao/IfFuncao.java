@@ -276,34 +276,20 @@ public class IfFuncao extends javax.swing.JInternalFrame {
 
         Session sessao = null;
         if (tfDescricao.getText().trim().length() > 0) {
-            try {
-                sessao = HibernateUtil.getSessionFactory().openSession();
-                Transaction t = sessao.beginTransaction();
-                
-                Funcao f = new Funcao();
-                if (idFuncao == 0) {
-                    
-                    f.setIdfuncao(idFuncao);
-                    f.setDescricao(tfDescricao.getText());
-                    sessao.save(f);
-                    t.commit();
-                } else {
-                       
-                    sessao.update(f);
-                    t.commit();
-                }
 
-                pesquisa();
-                habilitaCampos(false);
-                btNovo.setEnabled(true);
-                btSalvar.setEnabled(false);
-                tfDescricao.requestFocus();
-            } catch (HibernateException he) {
-                he.printStackTrace();
-                logger.error("Erro");
-            } finally {
-                sessao.close();
-            }
+            Funcao f = new Funcao();
+
+            f.setIdfuncao(idFuncao);
+            f.setDescricao(tfDescricao.getText());
+            
+            DAO.salvarFuncao(f);
+
+            pesquisa();
+            habilitaCampos(false);
+            btNovo.setEnabled(true);
+            btSalvar.setEnabled(false);
+            tfDescricao.requestFocus();
+
         } else {
             JOptionPane.showMessageDialog(null, "Preencha os campos obrigatórios!");
         }
@@ -385,7 +371,7 @@ public class IfFuncao extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tfDescricaoKeyTyped
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
-if (jTabbedPane1.getSelectedIndex() == 1) {
+        if (jTabbedPane1.getSelectedIndex() == 1) {
             if (tbFuncoes.getSelectedRow() >= 0) {
                 Object[] options = {" Sim ", " Não "};
                 String descricao = String.valueOf(tbFuncoes.getValueAt(tbFuncoes.getSelectedRow(), 1));

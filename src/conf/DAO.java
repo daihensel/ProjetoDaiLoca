@@ -5,8 +5,11 @@
  */
 package conf;
 
+import entidade.Documentos;
+import entidade.Funcao;
 import entidade.Statusveiculo;
 import entidade.Tipoveiculo;
+import entidade.Veiculo;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -17,7 +20,44 @@ import org.hibernate.Transaction;
  * @author Daiane
  */
 public class DAO {
+    
+    public static String salvarVeiculo(Veiculo veiculo) {
+        Session sessao = null;
+        String retorno = "";
 
+        if (veiculo.getIdveiculo() == 0) { //insert
+
+            try {
+
+                sessao = HibernateUtil.getSessionFactory().openSession();
+                Transaction t = sessao.beginTransaction();
+
+                sessao.save(veiculo);
+                t.commit();
+            } catch (HibernateException he) {
+                System.out.println("Erro salvar Veículo: \n" + he);
+            }
+
+        } else { //update
+
+            try {
+                sessao = HibernateUtil.getSessionFactory().openSession();
+                Transaction t = sessao.beginTransaction();
+
+                sessao.update(veiculo);
+
+                sessao.getTransaction().commit();
+
+            } catch (HibernateException he) {
+                he.printStackTrace();
+                System.out.println("Erro atualizar Veiculo = " + he);
+
+            }
+
+        }
+        return retorno;
+    }
+    
     public static String salvarTipoVeiculo(Tipoveiculo tipoVeiculo) {
         Session sessao = null;
         String retorno = "";
@@ -91,8 +131,82 @@ public class DAO {
         }
         return retorno;
     }
+    
+    public static String salvarDocumento( Documentos documentos) {
+        Session sessao = null;
+        String retorno = "";
+
+        if (documentos.getIddocumentos() == 0) { //insert
+
+            try {
+
+                sessao = HibernateUtil.getSessionFactory().openSession();
+                Transaction t = sessao.beginTransaction();
+
+                sessao.save(documentos);
+                t.commit();
+            } catch (HibernateException he) {
+                System.out.println("Erro salvar Documentos: \n" + he);
+            }
+
+        } else { //update
+
+            try {
+                sessao = HibernateUtil.getSessionFactory().openSession();
+                Transaction t = sessao.beginTransaction();
+
+                sessao.update(documentos);
+
+                sessao.getTransaction().commit();
+
+            } catch (HibernateException he) {
+                he.printStackTrace();
+                System.out.println("Erro atualizar Status Veiculo = " + he);
+
+            }
+
+        }
+        return retorno;
+    }
 
 
+    public static String salvarFuncao( Funcao funcao) {
+        Session sessao = null;
+        String retorno = "";
+
+        if (funcao.getIdfuncao() == 0) { //insert
+
+            try {
+
+                sessao = HibernateUtil.getSessionFactory().openSession();
+                Transaction t = sessao.beginTransaction();
+
+                sessao.save(funcao);
+                t.commit();
+            } catch (HibernateException he) {
+                System.out.println("Erro salvar Funcao: \n" + he);
+            }
+
+        } else { //update
+
+            try {
+                sessao = HibernateUtil.getSessionFactory().openSession();
+                Transaction t = sessao.beginTransaction();
+
+                sessao.update(funcao);
+
+                sessao.getTransaction().commit();
+
+            } catch (HibernateException he) {
+                he.printStackTrace();
+                System.out.println("Erro atualizar funcao = " + he);
+
+            }
+
+        }
+        return retorno;
+    }
+    
     public static Boolean deletarTipoVeiculo(int id) {
         Boolean retorno = false;
 
