@@ -485,10 +485,20 @@ public class IfDocumento extends javax.swing.JInternalFrame {
                 doc.setTipo(tfTipo.getText());
                 doc.setDtInclusao(Formatacao.converteParaDataAMD(tfDataInclusao.getText()));
                 
+                Object[] object;
+                object = (Object[]) Popula.retornaVeiculo(codveiculo);
+                List<Veiculo> l = (List<Veiculo>) object[0];
+                for (Veiculo lin : l) {
+                    codveiculo = lin.getIdveiculo();
+                    
+                }
+                doc.setVeiculo(null);
+               
                 
-                Veiculo v = new Veiculo();
-                v.setIdveiculo(codveiculo);
-               doc.setVeiculo(v);
+                //Veiculo v = new Veiculo();
+                
+               // v.setIdveiculo(1);
+               // doc.setVeiculo(v);
 
                 DAO.salvarDocumento(doc);
                 pesquisa();

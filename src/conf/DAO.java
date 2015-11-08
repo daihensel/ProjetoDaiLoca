@@ -20,7 +20,7 @@ import org.hibernate.Transaction;
  * @author Daiane
  */
 public class DAO {
-    
+
     public static String salvarVeiculo(Veiculo veiculo) {
         Session sessao = null;
         String retorno = "";
@@ -57,7 +57,7 @@ public class DAO {
         }
         return retorno;
     }
-    
+
     public static String salvarTipoVeiculo(Tipoveiculo tipoVeiculo) {
         Session sessao = null;
         String retorno = "";
@@ -94,8 +94,8 @@ public class DAO {
         }
         return retorno;
     }
-    
-    public static String salvarStatusVeiculo( Statusveiculo statusVeiculo) {
+
+    public static String salvarStatusVeiculo(Statusveiculo statusVeiculo) {
         Session sessao = null;
         String retorno = "";
 
@@ -131,8 +131,8 @@ public class DAO {
         }
         return retorno;
     }
-    
-    public static String salvarDocumento( Documentos documentos) {
+
+    public static String salvarDocumento(Documentos documentos) {
         Session sessao = null;
         String retorno = "";
 
@@ -146,7 +146,7 @@ public class DAO {
                 sessao.save(documentos);
                 t.commit();
             } catch (HibernateException he) {
-                System.out.println("Erro salvar Documentos: \n" + he);
+                System.out.println("Erro ao salvar Documentos: \n" + he);
             }
 
         } else { //update
@@ -168,8 +168,9 @@ public class DAO {
         }
         return retorno;
     }
+
     
-    public static String salvarFuncao( Funcao funcao) {
+    public static String salvarFuncao(Funcao funcao) {
         Session sessao = null;
         String retorno = "";
 
@@ -205,7 +206,7 @@ public class DAO {
         }
         return retorno;
     }
-    
+
     public static Boolean deletarTipoVeiculo(int id) {
         Boolean retorno = false;
 
@@ -319,7 +320,7 @@ public class DAO {
         }
         return retorno;
     }
-    
+
     public static Boolean deletarStatusVeiculo(int id) {
         Boolean retorno = false;
 
@@ -342,8 +343,8 @@ public class DAO {
         }
         return retorno;
     }
-    
-     public static Boolean deletarTipoContato(int id) {
+
+    public static Boolean deletarTipoContato(int id) {
         Boolean retorno = false;
 
         Session sessao = null;
@@ -365,8 +366,7 @@ public class DAO {
         }
         return retorno;
     }
-    
-    
+
     public static Boolean deletarFornecedor(int id) {
         Boolean retorno = false;
 
@@ -377,17 +377,17 @@ public class DAO {
             Query querye = (Query) sessao.createQuery("SELECT endereco.id FROM Pessoa WHERE idpessoa = ?").setInteger(0, id);
             int idEndereco = (int) querye.list().get(0);
            // Query queryc = (Query) sessao.createQuery("SELECT contato_idcontato FROM contato_pessoa WHERE idpessoa = ?").setInteger(0, id);
-           // int idContato = (int) queryc.list().get(0);
-            
+            // int idContato = (int) queryc.list().get(0);
+
             String hqlDeletePJ = ("DELETE Pessoajuridica WHERE pessoa_idpessoa = " + id + "");
             String hqlDeleteP = ("DELETE Pessoa WHERE idpessoa = " + id + "");
             String hqlDeleteE = ("DELETE Endereco WHERE idendereco = " + idEndereco + "");
            // String hqlDeleteC = ("DELETE Contato WHERE idcontato = " + idContato + "");
-            
+
             int deleteEntities = sessao.createQuery(hqlDeletePJ).executeUpdate();
             deleteEntities = sessao.createQuery(hqlDeleteP).executeUpdate();
             deleteEntities = sessao.createQuery(hqlDeleteE).executeUpdate();
-           // deleteEntities = sessao.createQuery(hqlDeleteC).executeUpdate();
+            // deleteEntities = sessao.createQuery(hqlDeleteC).executeUpdate();
 
             sessao.getTransaction().commit();
             retorno = true;
