@@ -27,6 +27,7 @@ import org.hibernate.Transaction;
 public class IfStatusVeiculo extends javax.swing.JInternalFrame {
 
     private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
+    int idStatus = 0;
 
     /**
      * Creates new form IfStatusVeiculo
@@ -275,27 +276,20 @@ public class IfStatusVeiculo extends javax.swing.JInternalFrame {
 
         Session sessao = null;
         if (tfDescricao.getText().trim().length() > 0) {
-            try {
-                sessao = HibernateUtil.getSessionFactory().openSession();
-                Transaction t = sessao.beginTransaction();
 
-                Statusveiculo sv = new Statusveiculo();
+            Statusveiculo sv = new Statusveiculo();
 
-                sv.setDescricao(tfDescricao.getText());
+            sv.setIdstatusVeiculo(idStatus);
+            sv.setDescricao(tfDescricao.getText());
+            
+            DAO.salvarStatusVeiculo(sv);
 
-                sessao.save(sv);
-                t.commit();
-                pesquisa();
-                habilitaCampos(false);
-                btNovo.setEnabled(true);
-                btSalvar.setEnabled(false);
-                tfDescricao.requestFocus();
-            } catch (HibernateException he) {
-                he.printStackTrace();
-                logger.error("Erro");
-            } finally {
-                sessao.close();
-            }
+            pesquisa();
+            habilitaCampos(false);
+            btNovo.setEnabled(true);
+            btSalvar.setEnabled(false);
+            tfDescricao.requestFocus();
+
         } else {
             JOptionPane.showMessageDialog(null, "Preencha os campos obrigatórios!");
         }
@@ -320,6 +314,7 @@ public class IfStatusVeiculo extends javax.swing.JInternalFrame {
                 int codigo = Integer.parseInt(cod);
                 List<Statusveiculo> l = Popula.popularTabelaStatusVeiculo(codigo, String.valueOf(codigo), tbStatusVeiculos);
                 for (Statusveiculo lin : l) {
+                    idStatus = lin.getIdstatusVeiculo();
                     tfDescricao.setText(lin.getDescricao());
                 }
                 jTabbedPane1.setSelectedIndex(0);
@@ -376,7 +371,7 @@ public class IfStatusVeiculo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tfDescricaoKeyTyped
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
-if (jTabbedPane1.getSelectedIndex() == 1) {
+        if (jTabbedPane1.getSelectedIndex() == 1) {
             if (tbStatusVeiculos.getSelectedRow() >= 0) {
                 Object[] options = {" Sim ", " Não "};
                 String descricao = String.valueOf(tbStatusVeiculos.getValueAt(tbStatusVeiculos.getSelectedRow(), 1));

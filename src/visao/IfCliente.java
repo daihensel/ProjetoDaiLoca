@@ -519,8 +519,10 @@ public class IfCliente extends javax.swing.JInternalFrame {
             Cliente cliente = new Cliente();
             cliente.setDtCadastro(String.valueOf(Formatacao.converteParaDataAMD(tfDataCadastro.getText())));
             Pessoa pessoa = new Pessoa();
-            Pessoafisica pFisica = new Pessoafisica();
-
+                 
+            pessoa.setIdpessoa(0);
+            pessoa.setNome(tfNome.getText());
+            
             Endereco endereco = new Endereco();
             endereco.setDescricao(tfEndereco.getText());
             endereco.setBairro(tfBairro.getText());
@@ -532,17 +534,22 @@ public class IfCliente extends javax.swing.JInternalFrame {
                 Cidade c = lin;
                 endereco.setCidade(c);
             }
-
-            pessoa.setNome(tfNome.getText());
+            
             pessoa.setEndereco(endereco);
-
+           
+            cliente.setPessoa(pessoa);
+                        
+            Pessoafisica pFisica = new Pessoafisica();
             pFisica.setPessoaIdpessoa(pessoa.getIdpessoa());
             pFisica.setCpf(tfCPF.getText());
             pFisica.setRg(tfRG.getText());
+                      
             sessao.save(endereco);
             sessao.save(pessoa);
+            
             sessao.save(cliente);
             sessao.save(pFisica);
+            
             t.commit();
             pesquisa();
             habilitaCamposPfisica(false);

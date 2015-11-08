@@ -1509,4 +1509,381 @@ org.hibernate.hql.internal.ast.HqlParser 2015-11-02 14:51:08,653 -- WARN -- HHH0
  org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-08 11:52:55,771 -- ERROR -- ERRO: transação atual foi interrompida, comandos ignorados até o fim do bloco de transação 
  org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-08 11:52:55,809 -- WARN -- SQL Error: 0, SQLState: 25P02 
  org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-08 11:52:55,809 -- ERROR -- ERRO: transação atual foi interrompida, comandos ignorados até o fim do bloco de transação 
+ org.hibernate.annotations.common.Version 2015-11-08 13:31:30,106 -- INFO -- HCANN000001: Hibernate Commons Annotations {4.0.4.Final} 
+ org.hibernate.Version 2015-11-08 13:31:30,118 -- INFO -- HHH000412: Hibernate Core {4.3.1.Final} 
+ org.hibernate.cfg.Environment 2015-11-08 13:31:30,122 -- INFO -- HHH000206: hibernate.properties not found 
+ org.hibernate.cfg.Environment 2015-11-08 13:31:30,124 -- INFO -- HHH000021: Bytecode provider name : javassist 
+ org.hibernate.cfg.Configuration 2015-11-08 13:31:30,151 -- INFO -- HHH000043: Configuring from resource: /hibernate.cfg.xml 
+ org.hibernate.cfg.Configuration 2015-11-08 13:31:30,151 -- INFO -- HHH000040: Configuration resource: /hibernate.cfg.xml 
+ org.hibernate.internal.util.xml.DTDEntityResolver 2015-11-08 13:31:30,219 -- WARN -- HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide! 
+ org.hibernate.cfg.Configuration 2015-11-08 13:31:30,275 -- INFO -- HHH000041: Configured SessionFactory: null 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 13:31:30,407 -- WARN -- HHH000402: Using Hibernate built-in connection pool (not for production use!) 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 13:31:30,418 -- INFO -- HHH000401: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5432/ProjetoDaiLoca] 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 13:31:30,423 -- INFO -- HHH000046: Connection properties: {user=postgres, password=****} 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 13:31:30,424 -- INFO -- HHH000006: Autocommit mode: false 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 13:31:30,427 -- INFO -- HHH000115: Hibernate connection pool size: 20 (min=1) 
+ org.hibernate.dialect.Dialect 2015-11-08 13:31:30,874 -- INFO -- HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect 
+ org.hibernate.engine.jdbc.internal.LobCreatorBuilder 2015-11-08 13:31:30,892 -- INFO -- HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException 
+ org.hibernate.engine.transaction.internal.TransactionFactoryInitiator 2015-11-08 13:31:31,236 -- INFO -- HHH000399: Using default transaction strategy (direct JDBC transactions) 
+ org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory 2015-11-08 13:31:31,243 -- INFO -- HHH000397: Using ASTQueryTranslatorFactory 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-11-08 13:31:32,371 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 54.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-11-08 13:31:32,792 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 144.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ visao.FormPrincipal 2015-11-08 13:31:32,976 -- INFO -- Logado 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-08 13:31:53,970 -- WARN -- SQL Error: 0, SQLState: 42703 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-08 13:31:53,971 -- ERROR -- ERRO: coluna veiculosst0_.idveiculo não existe
+  Posição: 8 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-08 13:31:58,418 -- WARN -- SQL Error: 0, SQLState: 42703 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-08 13:31:58,419 -- ERROR -- ERRO: coluna veiculosst0_.idveiculo não existe
+  Posição: 8 
+ org.hibernate.annotations.common.Version 2015-11-08 13:36:55,545 -- INFO -- HCANN000001: Hibernate Commons Annotations {4.0.4.Final} 
+ org.hibernate.Version 2015-11-08 13:36:55,557 -- INFO -- HHH000412: Hibernate Core {4.3.1.Final} 
+ org.hibernate.cfg.Environment 2015-11-08 13:36:55,560 -- INFO -- HHH000206: hibernate.properties not found 
+ org.hibernate.cfg.Environment 2015-11-08 13:36:55,563 -- INFO -- HHH000021: Bytecode provider name : javassist 
+ org.hibernate.cfg.Configuration 2015-11-08 13:36:55,588 -- INFO -- HHH000043: Configuring from resource: /hibernate.cfg.xml 
+ org.hibernate.cfg.Configuration 2015-11-08 13:36:55,590 -- INFO -- HHH000040: Configuration resource: /hibernate.cfg.xml 
+ org.hibernate.internal.util.xml.DTDEntityResolver 2015-11-08 13:36:55,657 -- WARN -- HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide! 
+ org.hibernate.cfg.Configuration 2015-11-08 13:36:55,714 -- INFO -- HHH000041: Configured SessionFactory: null 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 13:36:55,842 -- WARN -- HHH000402: Using Hibernate built-in connection pool (not for production use!) 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 13:36:55,853 -- INFO -- HHH000401: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5432/ProjetoDaiLoca] 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 13:36:55,858 -- INFO -- HHH000046: Connection properties: {user=postgres, password=****} 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 13:36:55,859 -- INFO -- HHH000006: Autocommit mode: false 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 13:36:55,861 -- INFO -- HHH000115: Hibernate connection pool size: 20 (min=1) 
+ org.hibernate.dialect.Dialect 2015-11-08 13:36:56,326 -- INFO -- HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect 
+ org.hibernate.engine.jdbc.internal.LobCreatorBuilder 2015-11-08 13:36:56,344 -- INFO -- HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException 
+ org.hibernate.engine.transaction.internal.TransactionFactoryInitiator 2015-11-08 13:36:56,685 -- INFO -- HHH000399: Using default transaction strategy (direct JDBC transactions) 
+ org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory 2015-11-08 13:36:56,693 -- INFO -- HHH000397: Using ASTQueryTranslatorFactory 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-11-08 13:36:57,812 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 54.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-11-08 13:36:58,269 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 144.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ visao.FormPrincipal 2015-11-08 13:36:58,434 -- INFO -- Logado 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-08 13:37:02,139 -- WARN -- SQL Error: 0, SQLState: 42703 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-08 13:37:02,140 -- ERROR -- ERRO: coluna veiculosst0_.idveiculo não existe
+  Posição: 8 
+ org.hibernate.annotations.common.Version 2015-11-08 13:40:29,625 -- INFO -- HCANN000001: Hibernate Commons Annotations {4.0.4.Final} 
+ org.hibernate.Version 2015-11-08 13:40:29,637 -- INFO -- HHH000412: Hibernate Core {4.3.1.Final} 
+ org.hibernate.cfg.Environment 2015-11-08 13:40:29,640 -- INFO -- HHH000206: hibernate.properties not found 
+ org.hibernate.cfg.Environment 2015-11-08 13:40:29,643 -- INFO -- HHH000021: Bytecode provider name : javassist 
+ org.hibernate.cfg.Configuration 2015-11-08 13:40:29,674 -- INFO -- HHH000043: Configuring from resource: /hibernate.cfg.xml 
+ org.hibernate.cfg.Configuration 2015-11-08 13:40:29,675 -- INFO -- HHH000040: Configuration resource: /hibernate.cfg.xml 
+ org.hibernate.internal.util.xml.DTDEntityResolver 2015-11-08 13:40:29,740 -- WARN -- HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide! 
+ org.hibernate.cfg.Configuration 2015-11-08 13:40:29,797 -- INFO -- HHH000041: Configured SessionFactory: null 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 13:40:29,924 -- WARN -- HHH000402: Using Hibernate built-in connection pool (not for production use!) 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 13:40:29,934 -- INFO -- HHH000401: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5432/ProjetoDaiLoca] 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 13:40:29,936 -- INFO -- HHH000046: Connection properties: {user=postgres, password=****} 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 13:40:29,936 -- INFO -- HHH000006: Autocommit mode: false 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 13:40:29,939 -- INFO -- HHH000115: Hibernate connection pool size: 20 (min=1) 
+ org.hibernate.dialect.Dialect 2015-11-08 13:40:30,417 -- INFO -- HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect 
+ org.hibernate.engine.jdbc.internal.LobCreatorBuilder 2015-11-08 13:40:30,435 -- INFO -- HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException 
+ org.hibernate.engine.transaction.internal.TransactionFactoryInitiator 2015-11-08 13:40:30,771 -- INFO -- HHH000399: Using default transaction strategy (direct JDBC transactions) 
+ org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory 2015-11-08 13:40:30,778 -- INFO -- HHH000397: Using ASTQueryTranslatorFactory 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-11-08 13:40:31,913 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 54.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-11-08 13:40:32,330 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 144.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ visao.FormPrincipal 2015-11-08 13:40:32,489 -- INFO -- Logado 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-08 13:40:36,400 -- WARN -- SQL Error: 0, SQLState: 42703 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-08 13:40:36,401 -- ERROR -- ERRO: coluna veiculosst0_.idveiculo não existe
+  Posição: 8 
+ visao.FormPrincipal 2015-11-08 13:41:35,990 -- ERROR -- usuário sem permissão 
+ org.hibernate.annotations.common.Version 2015-11-08 13:45:04,782 -- INFO -- HCANN000001: Hibernate Commons Annotations {4.0.4.Final} 
+ org.hibernate.Version 2015-11-08 13:45:04,795 -- INFO -- HHH000412: Hibernate Core {4.3.1.Final} 
+ org.hibernate.cfg.Environment 2015-11-08 13:45:04,798 -- INFO -- HHH000206: hibernate.properties not found 
+ org.hibernate.cfg.Environment 2015-11-08 13:45:04,800 -- INFO -- HHH000021: Bytecode provider name : javassist 
+ org.hibernate.cfg.Configuration 2015-11-08 13:45:04,828 -- INFO -- HHH000043: Configuring from resource: /hibernate.cfg.xml 
+ org.hibernate.cfg.Configuration 2015-11-08 13:45:04,833 -- INFO -- HHH000040: Configuration resource: /hibernate.cfg.xml 
+ org.hibernate.internal.util.xml.DTDEntityResolver 2015-11-08 13:45:04,906 -- WARN -- HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide! 
+ org.hibernate.cfg.Configuration 2015-11-08 13:45:04,980 -- INFO -- HHH000041: Configured SessionFactory: null 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 13:45:05,147 -- WARN -- HHH000402: Using Hibernate built-in connection pool (not for production use!) 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 13:45:05,157 -- INFO -- HHH000401: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5432/ProjetoDaiLoca] 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 13:45:05,158 -- INFO -- HHH000046: Connection properties: {user=postgres, password=****} 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 13:45:05,159 -- INFO -- HHH000006: Autocommit mode: false 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 13:45:05,161 -- INFO -- HHH000115: Hibernate connection pool size: 20 (min=1) 
+ org.hibernate.dialect.Dialect 2015-11-08 13:45:05,624 -- INFO -- HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect 
+ org.hibernate.engine.jdbc.internal.LobCreatorBuilder 2015-11-08 13:45:05,641 -- INFO -- HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException 
+ org.hibernate.engine.transaction.internal.TransactionFactoryInitiator 2015-11-08 13:45:05,990 -- INFO -- HHH000399: Using default transaction strategy (direct JDBC transactions) 
+ org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory 2015-11-08 13:45:05,998 -- INFO -- HHH000397: Using ASTQueryTranslatorFactory 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-11-08 13:45:07,135 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 54.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-11-08 13:45:07,585 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 144.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ visao.FormPrincipal 2015-11-08 13:45:07,803 -- INFO -- Logado 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-08 13:45:10,843 -- WARN -- SQL Error: 0, SQLState: 42703 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-08 13:45:10,844 -- ERROR -- ERRO: coluna veiculosst0_.idveiculo não existe
+  Posição: 8 
+ org.hibernate.annotations.common.Version 2015-11-08 14:40:54,208 -- INFO -- HCANN000001: Hibernate Commons Annotations {4.0.4.Final} 
+ org.hibernate.Version 2015-11-08 14:40:54,221 -- INFO -- HHH000412: Hibernate Core {4.3.1.Final} 
+ org.hibernate.cfg.Environment 2015-11-08 14:40:54,224 -- INFO -- HHH000206: hibernate.properties not found 
+ org.hibernate.cfg.Environment 2015-11-08 14:40:54,227 -- INFO -- HHH000021: Bytecode provider name : javassist 
+ org.hibernate.cfg.Configuration 2015-11-08 14:40:54,254 -- INFO -- HHH000043: Configuring from resource: /hibernate.cfg.xml 
+ org.hibernate.cfg.Configuration 2015-11-08 14:40:54,254 -- INFO -- HHH000040: Configuration resource: /hibernate.cfg.xml 
+ org.hibernate.internal.util.xml.DTDEntityResolver 2015-11-08 14:40:54,350 -- WARN -- HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide! 
+ org.hibernate.cfg.Configuration 2015-11-08 14:40:54,460 -- INFO -- HHH000041: Configured SessionFactory: null 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 14:40:54,586 -- WARN -- HHH000402: Using Hibernate built-in connection pool (not for production use!) 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 14:40:54,597 -- INFO -- HHH000401: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5432/ProjetoDaiLoca] 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 14:40:54,602 -- INFO -- HHH000046: Connection properties: {user=postgres, password=****} 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 14:40:54,603 -- INFO -- HHH000006: Autocommit mode: false 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 14:40:54,606 -- INFO -- HHH000115: Hibernate connection pool size: 20 (min=1) 
+ org.hibernate.dialect.Dialect 2015-11-08 14:40:55,061 -- INFO -- HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect 
+ org.hibernate.engine.jdbc.internal.LobCreatorBuilder 2015-11-08 14:40:55,080 -- INFO -- HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException 
+ org.hibernate.engine.transaction.internal.TransactionFactoryInitiator 2015-11-08 14:40:55,422 -- INFO -- HHH000399: Using default transaction strategy (direct JDBC transactions) 
+ org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory 2015-11-08 14:40:55,429 -- INFO -- HHH000397: Using ASTQueryTranslatorFactory 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-11-08 14:40:56,510 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 54.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-11-08 14:40:57,165 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 144.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ visao.FormPrincipal 2015-11-08 14:40:57,341 -- INFO -- Logado 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-08 14:41:05,494 -- WARN -- SQL Error: 0, SQLState: 42703 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-08 14:41:05,495 -- ERROR -- ERRO: coluna veiculosst0_.idveiculo não existe
+  Posição: 8 
+ org.hibernate.annotations.common.Version 2015-11-08 14:42:31,892 -- INFO -- HCANN000001: Hibernate Commons Annotations {4.0.4.Final} 
+ org.hibernate.Version 2015-11-08 14:42:31,905 -- INFO -- HHH000412: Hibernate Core {4.3.1.Final} 
+ org.hibernate.cfg.Environment 2015-11-08 14:42:31,908 -- INFO -- HHH000206: hibernate.properties not found 
+ org.hibernate.cfg.Environment 2015-11-08 14:42:31,911 -- INFO -- HHH000021: Bytecode provider name : javassist 
+ org.hibernate.cfg.Configuration 2015-11-08 14:42:31,939 -- INFO -- HHH000043: Configuring from resource: /hibernate.cfg.xml 
+ org.hibernate.cfg.Configuration 2015-11-08 14:42:31,940 -- INFO -- HHH000040: Configuration resource: /hibernate.cfg.xml 
+ org.hibernate.internal.util.xml.DTDEntityResolver 2015-11-08 14:42:32,007 -- WARN -- HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide! 
+ org.hibernate.cfg.Configuration 2015-11-08 14:42:32,062 -- INFO -- HHH000041: Configured SessionFactory: null 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 14:42:32,196 -- WARN -- HHH000402: Using Hibernate built-in connection pool (not for production use!) 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 14:42:32,206 -- INFO -- HHH000401: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5432/ProjetoDaiLoca] 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 14:42:32,211 -- INFO -- HHH000046: Connection properties: {user=postgres, password=****} 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 14:42:32,212 -- INFO -- HHH000006: Autocommit mode: false 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 14:42:32,214 -- INFO -- HHH000115: Hibernate connection pool size: 20 (min=1) 
+ org.hibernate.dialect.Dialect 2015-11-08 14:42:32,650 -- INFO -- HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect 
+ org.hibernate.engine.jdbc.internal.LobCreatorBuilder 2015-11-08 14:42:32,667 -- INFO -- HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException 
+ org.hibernate.engine.transaction.internal.TransactionFactoryInitiator 2015-11-08 14:42:33,001 -- INFO -- HHH000399: Using default transaction strategy (direct JDBC transactions) 
+ org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory 2015-11-08 14:42:33,008 -- INFO -- HHH000397: Using ASTQueryTranslatorFactory 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-11-08 14:42:34,082 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 54.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-11-08 14:42:34,488 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 144.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ visao.FormPrincipal 2015-11-08 14:42:34,682 -- INFO -- Logado 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-08 14:42:38,604 -- WARN -- SQL Error: 0, SQLState: 42703 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-08 14:42:38,605 -- ERROR -- ERRO: coluna populartab0_.descricaocontato não existe
+  Posição: 77 
+ org.hibernate.annotations.common.Version 2015-11-08 14:45:00,515 -- INFO -- HCANN000001: Hibernate Commons Annotations {4.0.4.Final} 
+ org.hibernate.Version 2015-11-08 14:45:00,527 -- INFO -- HHH000412: Hibernate Core {4.3.1.Final} 
+ org.hibernate.cfg.Environment 2015-11-08 14:45:00,530 -- INFO -- HHH000206: hibernate.properties not found 
+ org.hibernate.cfg.Environment 2015-11-08 14:45:00,533 -- INFO -- HHH000021: Bytecode provider name : javassist 
+ org.hibernate.cfg.Configuration 2015-11-08 14:45:00,558 -- INFO -- HHH000043: Configuring from resource: /hibernate.cfg.xml 
+ org.hibernate.cfg.Configuration 2015-11-08 14:45:00,559 -- INFO -- HHH000040: Configuration resource: /hibernate.cfg.xml 
+ org.hibernate.internal.util.xml.DTDEntityResolver 2015-11-08 14:45:00,623 -- WARN -- HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide! 
+ org.hibernate.cfg.Configuration 2015-11-08 14:45:00,677 -- INFO -- HHH000041: Configured SessionFactory: null 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 14:45:00,805 -- WARN -- HHH000402: Using Hibernate built-in connection pool (not for production use!) 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 14:45:00,826 -- INFO -- HHH000401: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5432/ProjetoDaiLoca] 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 14:45:00,828 -- INFO -- HHH000046: Connection properties: {user=postgres, password=****} 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 14:45:00,829 -- INFO -- HHH000006: Autocommit mode: false 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 14:45:00,832 -- INFO -- HHH000115: Hibernate connection pool size: 20 (min=1) 
+ org.hibernate.dialect.Dialect 2015-11-08 14:45:01,303 -- INFO -- HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect 
+ org.hibernate.engine.jdbc.internal.LobCreatorBuilder 2015-11-08 14:45:01,320 -- INFO -- HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException 
+ org.hibernate.engine.transaction.internal.TransactionFactoryInitiator 2015-11-08 14:45:01,656 -- INFO -- HHH000399: Using default transaction strategy (direct JDBC transactions) 
+ org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory 2015-11-08 14:45:01,663 -- INFO -- HHH000397: Using ASTQueryTranslatorFactory 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-11-08 14:45:02,752 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 54.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-11-08 14:45:03,171 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 144.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ visao.FormPrincipal 2015-11-08 14:45:03,338 -- INFO -- Logado 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-08 14:45:10,302 -- WARN -- SQL Error: 0, SQLState: 42703 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-08 14:45:10,303 -- ERROR -- ERRO: coluna veiculosst0_.idveiculo não existe
+  Posição: 8 
+ org.hibernate.annotations.common.Version 2015-11-08 14:46:34,483 -- INFO -- HCANN000001: Hibernate Commons Annotations {4.0.4.Final} 
+ org.hibernate.Version 2015-11-08 14:46:34,495 -- INFO -- HHH000412: Hibernate Core {4.3.1.Final} 
+ org.hibernate.cfg.Environment 2015-11-08 14:46:34,498 -- INFO -- HHH000206: hibernate.properties not found 
+ org.hibernate.cfg.Environment 2015-11-08 14:46:34,501 -- INFO -- HHH000021: Bytecode provider name : javassist 
+ org.hibernate.cfg.Configuration 2015-11-08 14:46:34,526 -- INFO -- HHH000043: Configuring from resource: /hibernate.cfg.xml 
+ org.hibernate.cfg.Configuration 2015-11-08 14:46:34,527 -- INFO -- HHH000040: Configuration resource: /hibernate.cfg.xml 
+ org.hibernate.internal.util.xml.DTDEntityResolver 2015-11-08 14:46:34,591 -- WARN -- HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide! 
+ org.hibernate.cfg.Configuration 2015-11-08 14:46:34,645 -- INFO -- HHH000041: Configured SessionFactory: null 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 14:46:34,768 -- WARN -- HHH000402: Using Hibernate built-in connection pool (not for production use!) 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 14:46:34,781 -- INFO -- HHH000401: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5432/ProjetoDaiLoca] 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 14:46:34,788 -- INFO -- HHH000046: Connection properties: {user=postgres, password=****} 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 14:46:34,789 -- INFO -- HHH000006: Autocommit mode: false 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 14:46:34,791 -- INFO -- HHH000115: Hibernate connection pool size: 20 (min=1) 
+ org.hibernate.dialect.Dialect 2015-11-08 14:46:35,273 -- INFO -- HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect 
+ org.hibernate.engine.jdbc.internal.LobCreatorBuilder 2015-11-08 14:46:35,291 -- INFO -- HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException 
+ org.hibernate.engine.transaction.internal.TransactionFactoryInitiator 2015-11-08 14:46:35,699 -- INFO -- HHH000399: Using default transaction strategy (direct JDBC transactions) 
+ org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory 2015-11-08 14:46:35,706 -- INFO -- HHH000397: Using ASTQueryTranslatorFactory 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-11-08 14:46:36,883 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 54.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-11-08 14:46:37,328 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 144.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ visao.FormPrincipal 2015-11-08 14:46:37,491 -- INFO -- Logado 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-08 14:48:28,986 -- WARN -- SQL Error: 0, SQLState: 23505 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-08 14:48:28,987 -- ERROR -- ERRO: duplicar valor da chave viola a restrição de unicidade "endereco_pkey"
+  Detalhe: Chave (idendereco)=(1) já existe. 
+ visao.DgLogin 2015-11-08 14:48:29,033 -- ERROR -- Erro 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-08 14:48:47,205 -- WARN -- SQL Error: 0, SQLState: 25P02 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-08 14:48:47,207 -- ERROR -- ERRO: transação atual foi interrompida, comandos ignorados até o fim do bloco de transação 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-08 14:48:47,261 -- WARN -- SQL Error: 0, SQLState: 25P02 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-08 14:48:47,263 -- ERROR -- ERRO: transação atual foi interrompida, comandos ignorados até o fim do bloco de transação 
+ org.hibernate.annotations.common.Version 2015-11-08 14:49:05,053 -- INFO -- HCANN000001: Hibernate Commons Annotations {4.0.4.Final} 
+ org.hibernate.Version 2015-11-08 14:49:05,065 -- INFO -- HHH000412: Hibernate Core {4.3.1.Final} 
+ org.hibernate.cfg.Environment 2015-11-08 14:49:05,069 -- INFO -- HHH000206: hibernate.properties not found 
+ org.hibernate.cfg.Environment 2015-11-08 14:49:05,072 -- INFO -- HHH000021: Bytecode provider name : javassist 
+ org.hibernate.cfg.Configuration 2015-11-08 14:49:05,102 -- INFO -- HHH000043: Configuring from resource: /hibernate.cfg.xml 
+ org.hibernate.cfg.Configuration 2015-11-08 14:49:05,103 -- INFO -- HHH000040: Configuration resource: /hibernate.cfg.xml 
+ org.hibernate.internal.util.xml.DTDEntityResolver 2015-11-08 14:49:05,162 -- WARN -- HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide! 
+ org.hibernate.cfg.Configuration 2015-11-08 14:49:05,224 -- INFO -- HHH000041: Configured SessionFactory: null 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 14:49:05,355 -- WARN -- HHH000402: Using Hibernate built-in connection pool (not for production use!) 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 14:49:05,365 -- INFO -- HHH000401: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5432/ProjetoDaiLoca] 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 14:49:05,366 -- INFO -- HHH000046: Connection properties: {user=postgres, password=****} 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 14:49:05,367 -- INFO -- HHH000006: Autocommit mode: false 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 14:49:05,369 -- INFO -- HHH000115: Hibernate connection pool size: 20 (min=1) 
+ org.hibernate.dialect.Dialect 2015-11-08 14:49:05,814 -- INFO -- HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect 
+ org.hibernate.engine.jdbc.internal.LobCreatorBuilder 2015-11-08 14:49:05,831 -- INFO -- HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException 
+ org.hibernate.engine.transaction.internal.TransactionFactoryInitiator 2015-11-08 14:49:06,178 -- INFO -- HHH000399: Using default transaction strategy (direct JDBC transactions) 
+ org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory 2015-11-08 14:49:06,184 -- INFO -- HHH000397: Using ASTQueryTranslatorFactory 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-11-08 14:49:07,288 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 54.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-11-08 14:49:07,684 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 144.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ visao.FormPrincipal 2015-11-08 14:49:07,848 -- INFO -- Logado 
+ org.hibernate.annotations.common.Version 2015-11-08 14:52:15,030 -- INFO -- HCANN000001: Hibernate Commons Annotations {4.0.4.Final} 
+ org.hibernate.Version 2015-11-08 14:52:15,042 -- INFO -- HHH000412: Hibernate Core {4.3.1.Final} 
+ org.hibernate.cfg.Environment 2015-11-08 14:52:15,045 -- INFO -- HHH000206: hibernate.properties not found 
+ org.hibernate.cfg.Environment 2015-11-08 14:52:15,048 -- INFO -- HHH000021: Bytecode provider name : javassist 
+ org.hibernate.cfg.Configuration 2015-11-08 14:52:15,073 -- INFO -- HHH000043: Configuring from resource: /hibernate.cfg.xml 
+ org.hibernate.cfg.Configuration 2015-11-08 14:52:15,074 -- INFO -- HHH000040: Configuration resource: /hibernate.cfg.xml 
+ org.hibernate.internal.util.xml.DTDEntityResolver 2015-11-08 14:52:15,138 -- WARN -- HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide! 
+ org.hibernate.cfg.Configuration 2015-11-08 14:52:15,194 -- INFO -- HHH000041: Configured SessionFactory: null 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 14:52:15,322 -- WARN -- HHH000402: Using Hibernate built-in connection pool (not for production use!) 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 14:52:15,336 -- INFO -- HHH000401: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5432/ProjetoDaiLoca] 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 14:52:15,337 -- INFO -- HHH000046: Connection properties: {user=postgres, password=****} 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 14:52:15,338 -- INFO -- HHH000006: Autocommit mode: false 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 14:52:15,341 -- INFO -- HHH000115: Hibernate connection pool size: 20 (min=1) 
+ org.hibernate.dialect.Dialect 2015-11-08 14:52:15,790 -- INFO -- HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect 
+ org.hibernate.engine.jdbc.internal.LobCreatorBuilder 2015-11-08 14:52:15,807 -- INFO -- HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException 
+ org.hibernate.engine.transaction.internal.TransactionFactoryInitiator 2015-11-08 14:52:16,135 -- INFO -- HHH000399: Using default transaction strategy (direct JDBC transactions) 
+ org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory 2015-11-08 14:52:16,141 -- INFO -- HHH000397: Using ASTQueryTranslatorFactory 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-11-08 14:52:17,200 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 54.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-11-08 14:52:17,636 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 144.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ visao.FormPrincipal 2015-11-08 14:52:17,799 -- INFO -- Logado 
+ org.hibernate.annotations.common.Version 2015-11-08 15:05:30,519 -- INFO -- HCANN000001: Hibernate Commons Annotations {4.0.4.Final} 
+ org.hibernate.Version 2015-11-08 15:05:30,531 -- INFO -- HHH000412: Hibernate Core {4.3.1.Final} 
+ org.hibernate.cfg.Environment 2015-11-08 15:05:30,534 -- INFO -- HHH000206: hibernate.properties not found 
+ org.hibernate.cfg.Environment 2015-11-08 15:05:30,537 -- INFO -- HHH000021: Bytecode provider name : javassist 
+ org.hibernate.cfg.Configuration 2015-11-08 15:05:30,563 -- INFO -- HHH000043: Configuring from resource: /hibernate.cfg.xml 
+ org.hibernate.cfg.Configuration 2015-11-08 15:05:30,564 -- INFO -- HHH000040: Configuration resource: /hibernate.cfg.xml 
+ org.hibernate.internal.util.xml.DTDEntityResolver 2015-11-08 15:05:30,630 -- WARN -- HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide! 
+ org.hibernate.cfg.Configuration 2015-11-08 15:05:30,685 -- INFO -- HHH000041: Configured SessionFactory: null 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 15:05:30,815 -- WARN -- HHH000402: Using Hibernate built-in connection pool (not for production use!) 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 15:05:30,825 -- INFO -- HHH000401: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5432/ProjetoDaiLoca] 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 15:05:30,830 -- INFO -- HHH000046: Connection properties: {user=postgres, password=****} 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 15:05:30,831 -- INFO -- HHH000006: Autocommit mode: false 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 15:05:30,834 -- INFO -- HHH000115: Hibernate connection pool size: 20 (min=1) 
+ org.hibernate.dialect.Dialect 2015-11-08 15:05:31,342 -- INFO -- HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect 
+ org.hibernate.engine.jdbc.internal.LobCreatorBuilder 2015-11-08 15:05:31,360 -- INFO -- HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException 
+ org.hibernate.engine.transaction.internal.TransactionFactoryInitiator 2015-11-08 15:05:31,690 -- INFO -- HHH000399: Using default transaction strategy (direct JDBC transactions) 
+ org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory 2015-11-08 15:05:31,696 -- INFO -- HHH000397: Using ASTQueryTranslatorFactory 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-11-08 15:05:32,818 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 54.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-11-08 15:05:33,259 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 144.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ visao.FormPrincipal 2015-11-08 15:05:33,458 -- INFO -- Logado 
+ org.hibernate.annotations.common.Version 2015-11-08 15:22:23,418 -- INFO -- HCANN000001: Hibernate Commons Annotations {4.0.4.Final} 
+ org.hibernate.Version 2015-11-08 15:22:23,430 -- INFO -- HHH000412: Hibernate Core {4.3.1.Final} 
+ org.hibernate.cfg.Environment 2015-11-08 15:22:23,434 -- INFO -- HHH000206: hibernate.properties not found 
+ org.hibernate.cfg.Environment 2015-11-08 15:22:23,437 -- INFO -- HHH000021: Bytecode provider name : javassist 
+ org.hibernate.cfg.Configuration 2015-11-08 15:22:23,463 -- INFO -- HHH000043: Configuring from resource: /hibernate.cfg.xml 
+ org.hibernate.cfg.Configuration 2015-11-08 15:22:23,464 -- INFO -- HHH000040: Configuration resource: /hibernate.cfg.xml 
+ org.hibernate.internal.util.xml.DTDEntityResolver 2015-11-08 15:22:23,528 -- WARN -- HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide! 
+ org.hibernate.cfg.Configuration 2015-11-08 15:22:23,582 -- INFO -- HHH000041: Configured SessionFactory: null 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 15:22:23,710 -- WARN -- HHH000402: Using Hibernate built-in connection pool (not for production use!) 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 15:22:23,724 -- INFO -- HHH000401: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5432/ProjetoDaiLoca] 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 15:22:23,729 -- INFO -- HHH000046: Connection properties: {user=postgres, password=****} 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 15:22:23,730 -- INFO -- HHH000006: Autocommit mode: false 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 15:22:23,732 -- INFO -- HHH000115: Hibernate connection pool size: 20 (min=1) 
+ org.hibernate.dialect.Dialect 2015-11-08 15:22:24,207 -- INFO -- HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect 
+ org.hibernate.engine.jdbc.internal.LobCreatorBuilder 2015-11-08 15:22:24,224 -- INFO -- HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException 
+ org.hibernate.engine.transaction.internal.TransactionFactoryInitiator 2015-11-08 15:22:24,552 -- INFO -- HHH000399: Using default transaction strategy (direct JDBC transactions) 
+ org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory 2015-11-08 15:22:24,559 -- INFO -- HHH000397: Using ASTQueryTranslatorFactory 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-11-08 15:22:25,696 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 54.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-11-08 15:22:26,149 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 144.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ visao.FormPrincipal 2015-11-08 15:22:26,323 -- INFO -- Logado 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-08 15:22:57,408 -- WARN -- SQL Error: 0, SQLState: 23505 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-08 15:22:57,409 -- ERROR -- ERRO: duplicar valor da chave viola a restrição de unicidade "pessoa_pkey"
+  Detalhe: Chave (idpessoa)=(1) já existe. 
+ visao.DgLogin 2015-11-08 15:22:57,458 -- ERROR -- Erro 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-08 15:33:35,963 -- WARN -- SQL Error: 0, SQLState: 25P02 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-08 15:33:35,964 -- ERROR -- ERRO: transação atual foi interrompida, comandos ignorados até o fim do bloco de transação 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-08 15:33:36,005 -- WARN -- SQL Error: 0, SQLState: 25P02 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-08 15:33:36,006 -- ERROR -- ERRO: transação atual foi interrompida, comandos ignorados até o fim do bloco de transação 
+ org.hibernate.annotations.common.Version 2015-11-08 15:33:45,460 -- INFO -- HCANN000001: Hibernate Commons Annotations {4.0.4.Final} 
+ org.hibernate.Version 2015-11-08 15:33:45,472 -- INFO -- HHH000412: Hibernate Core {4.3.1.Final} 
+ org.hibernate.cfg.Environment 2015-11-08 15:33:45,476 -- INFO -- HHH000206: hibernate.properties not found 
+ org.hibernate.cfg.Environment 2015-11-08 15:33:45,478 -- INFO -- HHH000021: Bytecode provider name : javassist 
+ org.hibernate.cfg.Configuration 2015-11-08 15:33:45,504 -- INFO -- HHH000043: Configuring from resource: /hibernate.cfg.xml 
+ org.hibernate.cfg.Configuration 2015-11-08 15:33:45,505 -- INFO -- HHH000040: Configuration resource: /hibernate.cfg.xml 
+ org.hibernate.internal.util.xml.DTDEntityResolver 2015-11-08 15:33:45,571 -- WARN -- HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide! 
+ org.hibernate.cfg.Configuration 2015-11-08 15:33:45,629 -- INFO -- HHH000041: Configured SessionFactory: null 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 15:33:45,772 -- WARN -- HHH000402: Using Hibernate built-in connection pool (not for production use!) 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 15:33:45,788 -- INFO -- HHH000401: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5432/ProjetoDaiLoca] 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 15:33:45,795 -- INFO -- HHH000046: Connection properties: {user=postgres, password=****} 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 15:33:45,797 -- INFO -- HHH000006: Autocommit mode: false 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 15:33:45,801 -- INFO -- HHH000115: Hibernate connection pool size: 20 (min=1) 
+ org.hibernate.dialect.Dialect 2015-11-08 15:33:46,267 -- INFO -- HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect 
+ org.hibernate.engine.jdbc.internal.LobCreatorBuilder 2015-11-08 15:33:46,286 -- INFO -- HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException 
+ org.hibernate.engine.transaction.internal.TransactionFactoryInitiator 2015-11-08 15:33:46,635 -- INFO -- HHH000399: Using default transaction strategy (direct JDBC transactions) 
+ org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory 2015-11-08 15:33:46,642 -- INFO -- HHH000397: Using ASTQueryTranslatorFactory 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-11-08 15:33:47,787 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 54.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-11-08 15:33:48,214 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 144.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ visao.FormPrincipal 2015-11-08 15:33:48,389 -- INFO -- Logado 
+ org.hibernate.action.internal.UnresolvedEntityInsertActions 2015-11-08 15:34:18,484 -- WARN -- HHH000437: Attempting to save one or more entities that have a non-nullable association with an unsaved transient entity. The unsaved transient entity must be saved in an operation prior to saving these dependent entities.
+	Unsaved transient entity: ([entidade.Endereco#0])
+	Dependent entities: ([[entidade.Pessoa#<null>]])
+	Non-nullable association(s): ([entidade.Pessoa.endereco]) 
+ visao.DgLogin 2015-11-08 15:34:18,487 -- ERROR -- Erro 
+ org.hibernate.annotations.common.Version 2015-11-08 15:42:27,791 -- INFO -- HCANN000001: Hibernate Commons Annotations {4.0.4.Final} 
+ org.hibernate.Version 2015-11-08 15:42:27,803 -- INFO -- HHH000412: Hibernate Core {4.3.1.Final} 
+ org.hibernate.cfg.Environment 2015-11-08 15:42:27,806 -- INFO -- HHH000206: hibernate.properties not found 
+ org.hibernate.cfg.Environment 2015-11-08 15:42:27,809 -- INFO -- HHH000021: Bytecode provider name : javassist 
+ org.hibernate.cfg.Configuration 2015-11-08 15:42:27,840 -- INFO -- HHH000043: Configuring from resource: /hibernate.cfg.xml 
+ org.hibernate.cfg.Configuration 2015-11-08 15:42:27,841 -- INFO -- HHH000040: Configuration resource: /hibernate.cfg.xml 
+ org.hibernate.internal.util.xml.DTDEntityResolver 2015-11-08 15:42:27,909 -- WARN -- HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide! 
+ org.hibernate.cfg.Configuration 2015-11-08 15:42:27,961 -- INFO -- HHH000041: Configured SessionFactory: null 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 15:42:28,095 -- WARN -- HHH000402: Using Hibernate built-in connection pool (not for production use!) 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 15:42:28,105 -- INFO -- HHH000401: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5432/ProjetoDaiLoca] 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 15:42:28,106 -- INFO -- HHH000046: Connection properties: {user=postgres, password=****} 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 15:42:28,107 -- INFO -- HHH000006: Autocommit mode: false 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 15:42:28,109 -- INFO -- HHH000115: Hibernate connection pool size: 20 (min=1) 
+ org.hibernate.dialect.Dialect 2015-11-08 15:42:28,545 -- INFO -- HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect 
+ org.hibernate.engine.jdbc.internal.LobCreatorBuilder 2015-11-08 15:42:28,561 -- INFO -- HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException 
+ org.hibernate.engine.transaction.internal.TransactionFactoryInitiator 2015-11-08 15:42:28,894 -- INFO -- HHH000399: Using default transaction strategy (direct JDBC transactions) 
+ org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory 2015-11-08 15:42:28,900 -- INFO -- HHH000397: Using ASTQueryTranslatorFactory 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-11-08 15:42:29,964 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 54.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-11-08 15:42:30,404 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 144.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ visao.FormPrincipal 2015-11-08 15:42:30,569 -- INFO -- Logado 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-08 15:43:00,186 -- WARN -- SQL Error: 0, SQLState: 23505 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-08 15:43:00,186 -- ERROR -- ERRO: duplicar valor da chave viola a restrição de unicidade "pessoa_pkey"
+  Detalhe: Chave (idpessoa)=(2) já existe. 
+ visao.DgLogin 2015-11-08 15:43:00,230 -- ERROR -- Erro 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-08 15:45:41,705 -- WARN -- SQL Error: 0, SQLState: 25P02 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-08 15:45:41,705 -- ERROR -- ERRO: transação atual foi interrompida, comandos ignorados até o fim do bloco de transação 
+ visao.DgLogin 2015-11-08 15:45:41,740 -- ERROR -- Erro 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-08 16:00:53,053 -- WARN -- SQL Error: 0, SQLState: 25P02 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-08 16:00:53,053 -- ERROR -- ERRO: transação atual foi interrompida, comandos ignorados até o fim do bloco de transação 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-08 16:00:53,093 -- WARN -- SQL Error: 0, SQLState: 25P02 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-08 16:00:53,094 -- ERROR -- ERRO: transação atual foi interrompida, comandos ignorados até o fim do bloco de transação 
+ org.hibernate.annotations.common.Version 2015-11-08 16:01:02,968 -- INFO -- HCANN000001: Hibernate Commons Annotations {4.0.4.Final} 
+ org.hibernate.Version 2015-11-08 16:01:02,980 -- INFO -- HHH000412: Hibernate Core {4.3.1.Final} 
+ org.hibernate.cfg.Environment 2015-11-08 16:01:02,983 -- INFO -- HHH000206: hibernate.properties not found 
+ org.hibernate.cfg.Environment 2015-11-08 16:01:02,985 -- INFO -- HHH000021: Bytecode provider name : javassist 
+ org.hibernate.cfg.Configuration 2015-11-08 16:01:03,015 -- INFO -- HHH000043: Configuring from resource: /hibernate.cfg.xml 
+ org.hibernate.cfg.Configuration 2015-11-08 16:01:03,015 -- INFO -- HHH000040: Configuration resource: /hibernate.cfg.xml 
+ org.hibernate.internal.util.xml.DTDEntityResolver 2015-11-08 16:01:03,079 -- WARN -- HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide! 
+ org.hibernate.cfg.Configuration 2015-11-08 16:01:03,132 -- INFO -- HHH000041: Configured SessionFactory: null 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 16:01:03,251 -- WARN -- HHH000402: Using Hibernate built-in connection pool (not for production use!) 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 16:01:03,261 -- INFO -- HHH000401: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5432/ProjetoDaiLoca] 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 16:01:03,262 -- INFO -- HHH000046: Connection properties: {user=postgres, password=****} 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 16:01:03,268 -- INFO -- HHH000006: Autocommit mode: false 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 16:01:03,271 -- INFO -- HHH000115: Hibernate connection pool size: 20 (min=1) 
+ org.hibernate.dialect.Dialect 2015-11-08 16:01:03,744 -- INFO -- HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect 
+ org.hibernate.engine.jdbc.internal.LobCreatorBuilder 2015-11-08 16:01:03,773 -- INFO -- HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException 
+ org.hibernate.engine.transaction.internal.TransactionFactoryInitiator 2015-11-08 16:01:04,118 -- INFO -- HHH000399: Using default transaction strategy (direct JDBC transactions) 
+ org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory 2015-11-08 16:01:04,125 -- INFO -- HHH000397: Using ASTQueryTranslatorFactory 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-11-08 16:01:05,160 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 54.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-11-08 16:01:05,588 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 144.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ visao.FormPrincipal 2015-11-08 16:01:05,752 -- INFO -- Logado 
+ org.hibernate.annotations.common.Version 2015-11-08 16:02:59,387 -- INFO -- HCANN000001: Hibernate Commons Annotations {4.0.4.Final} 
+ org.hibernate.Version 2015-11-08 16:02:59,401 -- INFO -- HHH000412: Hibernate Core {4.3.1.Final} 
+ org.hibernate.cfg.Environment 2015-11-08 16:02:59,405 -- INFO -- HHH000206: hibernate.properties not found 
+ org.hibernate.cfg.Environment 2015-11-08 16:02:59,409 -- INFO -- HHH000021: Bytecode provider name : javassist 
+ org.hibernate.cfg.Configuration 2015-11-08 16:02:59,434 -- INFO -- HHH000043: Configuring from resource: /hibernate.cfg.xml 
+ org.hibernate.cfg.Configuration 2015-11-08 16:02:59,435 -- INFO -- HHH000040: Configuration resource: /hibernate.cfg.xml 
+ org.hibernate.internal.util.xml.DTDEntityResolver 2015-11-08 16:02:59,498 -- WARN -- HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide! 
+ org.hibernate.cfg.Configuration 2015-11-08 16:02:59,560 -- INFO -- HHH000041: Configured SessionFactory: null 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 16:02:59,692 -- WARN -- HHH000402: Using Hibernate built-in connection pool (not for production use!) 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 16:02:59,701 -- INFO -- HHH000401: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5432/ProjetoDaiLoca] 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 16:02:59,703 -- INFO -- HHH000046: Connection properties: {user=postgres, password=****} 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 16:02:59,708 -- INFO -- HHH000006: Autocommit mode: false 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 16:02:59,711 -- INFO -- HHH000115: Hibernate connection pool size: 20 (min=1) 
+ org.hibernate.dialect.Dialect 2015-11-08 16:03:00,163 -- INFO -- HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect 
+ org.hibernate.engine.jdbc.internal.LobCreatorBuilder 2015-11-08 16:03:00,180 -- INFO -- HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException 
+ org.hibernate.engine.transaction.internal.TransactionFactoryInitiator 2015-11-08 16:03:00,529 -- INFO -- HHH000399: Using default transaction strategy (direct JDBC transactions) 
+ org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory 2015-11-08 16:03:00,535 -- INFO -- HHH000397: Using ASTQueryTranslatorFactory 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-11-08 16:03:01,602 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 54.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-11-08 16:03:02,017 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 144.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ visao.FormPrincipal 2015-11-08 16:03:02,174 -- INFO -- Logado 
  

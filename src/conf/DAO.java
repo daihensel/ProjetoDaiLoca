@@ -5,6 +5,7 @@
  */
 package conf;
 
+import entidade.Statusveiculo;
 import entidade.Tipoveiculo;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -53,6 +54,44 @@ public class DAO {
         }
         return retorno;
     }
+    
+    public static String salvarStatusVeiculo( Statusveiculo statusVeiculo) {
+        Session sessao = null;
+        String retorno = "";
+
+        if (statusVeiculo.getIdstatusVeiculo() == 0) { //insert
+
+            try {
+
+                sessao = HibernateUtil.getSessionFactory().openSession();
+                Transaction t = sessao.beginTransaction();
+
+                sessao.save(statusVeiculo);
+                t.commit();
+            } catch (HibernateException he) {
+                System.out.println("Erro salvar Status: \n" + he);
+            }
+
+        } else { //update
+
+            try {
+                sessao = HibernateUtil.getSessionFactory().openSession();
+                Transaction t = sessao.beginTransaction();
+
+                sessao.update(statusVeiculo);
+
+                sessao.getTransaction().commit();
+
+            } catch (HibernateException he) {
+                he.printStackTrace();
+                System.out.println("Erro atualizar Status Veiculo = " + he);
+
+            }
+
+        }
+        return retorno;
+    }
+
 
     public static Boolean deletarTipoVeiculo(int id) {
         Boolean retorno = false;

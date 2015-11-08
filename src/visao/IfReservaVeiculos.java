@@ -450,11 +450,17 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
                 reserva.setDiasPretendidos(Integer.parseInt(tfDiasPretendidos.getText()));
                 
                 List cliente = Utility.consultaPessoa(tfNomeCliente.getText());
-                reserva.setCliente((Cliente) cliente.get(0));
+                reserva.setCliente(null);
+                
+                               
+               // reserva.setCliente((Cliente) cliente.get(0));
+                
                 
                 List veiculo = Utility.consultaVeiculo(tfDescricaoVeiculo.getText());
                 reserva.setVeiculo((Veiculo) veiculo.get(0));
-                         
+                
+               
+                
                 sessao.save(reserva);
                 
                 t.commit();

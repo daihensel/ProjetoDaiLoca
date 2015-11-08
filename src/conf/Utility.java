@@ -183,7 +183,7 @@ public class Utility {
 
         sessao = HibernateUtil.getSessionFactory().openSession();
         Transaction t = sessao.beginTransaction();
-        Query query = (Query) sessao.createQuery(" FROM Pessoa WHERE nome LIKE '%" + criterio + ")");
+        Query query = (Query) sessao.createQuery(" FROM Pessoa WHERE nome LIKE '%" + criterio + "')");
 
         List<Pessoa> dadosPessoa = (List<Pessoa>) query.list();
         sessao.getTransaction().commit();
