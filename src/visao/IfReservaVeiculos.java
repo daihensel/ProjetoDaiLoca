@@ -14,6 +14,7 @@ import entidade.Pessoa;
 import entidade.Populartabelacliente;
 import entidade.Populartabelaveiculo;
 import entidade.Reserva;
+import entidade.Veiculo;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
@@ -52,7 +53,7 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
         tfDataLocacao = new javax.swing.JTextField();
         tfDataLocacao = Formatacao.getData();
         jLabel2 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        tfDiasPretendidos = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
@@ -93,9 +94,9 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Data Locação:");
 
-        jTextField3.addKeyListener(new java.awt.event.KeyAdapter() {
+        tfDiasPretendidos.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextField3KeyTyped(evt);
+                tfDiasPretendidosKeyTyped(evt);
             }
         });
 
@@ -111,7 +112,7 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(tfDiasPretendidos, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(14, 14, 14)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -139,7 +140,7 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfDiasPretendidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
@@ -446,18 +447,14 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
                 Reserva reserva = new Reserva();
                 reserva.setDtReserva(Formatacao.converteParaDataAMD(tfDataReserva.getText()));
                 reserva.setDtLocacao(Formatacao.converteParaDataAMD(tfDataLocacao.getText()));
+                reserva.setDiasPretendidos(Integer.parseInt(tfDiasPretendidos.getText()));
                 
-               List cliente = Utility.consultaPessoa(tfNomeCliente.getText());
-               
-               reserva.setCliente((Cliente) cliente.get(0));
+                List cliente = Utility.consultaPessoa(tfNomeCliente.getText());
+                reserva.setCliente((Cliente) cliente.get(0));
                 
-                
-                reserva.setCliente(null);
-                
-                
-                
-                
-                
+                List veiculo = Utility.consultaVeiculo(tfDescricaoVeiculo.getText());
+                reserva.setVeiculo((Veiculo) veiculo.get(0));
+                         
                 sessao.save(reserva);
                 
                 t.commit();
@@ -474,12 +471,12 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_btReservarActionPerformed
 
-    private void jTextField3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField3KeyTyped
+    private void tfDiasPretendidosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDiasPretendidosKeyTyped
        String caracteres = "0987654321";
         if (!caracteres.contains(evt.getKeyChar() + "")) {
             evt.consume();
         }
-    }//GEN-LAST:event_jTextField3KeyTyped
+    }//GEN-LAST:event_tfDiasPretendidosKeyTyped
     
   //  @Override
     public void defineCodigoCliente(int codcli) {
@@ -557,7 +554,6 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField tfAnoFabricacao;
     private javax.swing.JTextField tfAnoModelo;
     private javax.swing.JTextField tfBairro;
@@ -566,6 +562,7 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
     private javax.swing.JTextField tfDataLocacao;
     private javax.swing.JTextField tfDataReserva;
     private javax.swing.JTextField tfDescricaoVeiculo;
+    private javax.swing.JTextField tfDiasPretendidos;
     private javax.swing.JTextField tfEndereco;
     private javax.swing.JTextField tfKmAtual;
     private javax.swing.JTextField tfMarca;
