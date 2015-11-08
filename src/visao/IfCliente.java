@@ -517,7 +517,7 @@ public class IfCliente extends javax.swing.JInternalFrame {
             Transaction t = sessao.beginTransaction();
 
             Cliente cliente = new Cliente();
-            cliente.setDtCadastro(Formatacao.getDataAtual());
+            cliente.setDtCadastro(String.valueOf(Formatacao.converteParaDataAMD(tfDataCadastro.getText())));
             Pessoa pessoa = new Pessoa();
             Pessoafisica pFisica = new Pessoafisica();
 
@@ -526,9 +526,12 @@ public class IfCliente extends javax.swing.JInternalFrame {
             endereco.setBairro(tfBairro.getText());
             endereco.setCep(tfCEP.getText());
             endereco.setComplemento(tfComplemento.getText());
-            Query query = (Query) sessao.createQuery(" FROM Cidade c WHERE (lower(c.descricao) LIKE '%" + tfCidade.getText() + "%'");
-            List<Cidade> dadosCidade = (List<Cidade>) query.list();
-            endereco.setCidade(dadosCidade.get(0));
+            Object o = Popula.popularTabelaCidade(0, tfPesquisa.getText(), tbClientes);
+            List<Cidade> l = (List<Cidade>) o;
+            for (Cidade lin : l) {
+                Cidade c = lin;
+                endereco.setCidade(c);
+            }
 
             pessoa.setNome(tfNome.getText());
             pessoa.setEndereco(endereco);
@@ -536,9 +539,8 @@ public class IfCliente extends javax.swing.JInternalFrame {
             pFisica.setPessoaIdpessoa(pessoa.getIdpessoa());
             pFisica.setCpf(tfCPF.getText());
             pFisica.setRg(tfRG.getText());
-
-            sessao.save(pessoa);
             sessao.save(endereco);
+            sessao.save(pessoa);
             sessao.save(cliente);
             sessao.save(pFisica);
             t.commit();
