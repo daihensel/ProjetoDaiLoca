@@ -34,6 +34,7 @@ public class IfDocumento extends javax.swing.JInternalFrame {
 
     private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
     private int codveiculo;
+    int idDocumento = 0;
 
     /**
      * Creates new form IfDocumento
@@ -472,35 +473,30 @@ public class IfDocumento extends javax.swing.JInternalFrame {
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
 
-        Session sessao = null;
+        
         if (tfDescricao.getText().trim().length() > 0 && tfTipo.getText().trim().length() > 0
                 && tfDataInclusao.getText().trim().length() > 0) {
-            try {
-                sessao = HibernateUtil.getSessionFactory().openSession();
-                Transaction t = sessao.beginTransaction();
-
+           
+                
                 Documentos doc = new Documentos();
+                doc.setIddocumentos(idDocumento);
                 doc.setDescricao(tfDescricao.getText());
                 doc.setObservacoes(tfObservacoes.getText());
                 doc.setTipo(tfTipo.getText());
                 doc.setDtInclusao(Formatacao.converteParaDataAMD(tfDataInclusao.getText()));
+                
+                
                 Veiculo v = new Veiculo();
                 v.setIdveiculo(codveiculo);
-                doc.setVeiculo(v);
+               doc.setVeiculo(v);
 
-                sessao.save(doc);
-                t.commit();
+                DAO.salvarDocumento(doc);
                 pesquisa();
                 habilitaCampos(false);
                 btNovo.setEnabled(true);
                 btSalvar.setEnabled(false);
                 tfDescricao.requestFocus();
-            } catch (HibernateException he) {
-                he.printStackTrace();
-                logger.error("Erro");
-            } finally {
-                sessao.close();
-            }
+           
         } else {
             JOptionPane.showMessageDialog(null, "Preencha os campos obrigatórios!");
         }

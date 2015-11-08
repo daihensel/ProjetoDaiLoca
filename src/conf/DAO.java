@@ -168,8 +168,7 @@ public class DAO {
         }
         return retorno;
     }
-
-
+    
     public static String salvarFuncao( Funcao funcao) {
         Session sessao = null;
         String retorno = "";
