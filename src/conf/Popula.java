@@ -22,6 +22,7 @@ import entidade.Populartabelalocacao;
 import entidade.Statusveiculo;
 import entidade.Tipocontato;
 import entidade.Tipoveiculo;
+import entidade.Veiculo;
 import entidade.Veiculosstatus;
 import entidade.Veiculostipoestatus;
 import java.util.Iterator;
@@ -215,10 +216,10 @@ public class Popula {
         Query queryRetornaVeiculo = (Query) sessao.createQuery(" FROM Veiculo v WHERE ("
                 + " v.idveiculo = " + codveiculo + ")");
 
-        List<Pessoajuridica> dadosPesJur = (List<Pessoajuridica>) queryRetornaVeiculo.list();
+        List<Veiculo> dadosVeiculo = (List<Veiculo>) queryRetornaVeiculo.list();
 
         sessao.getTransaction().commit();
-        object[0] = dadosPesJur;
+        object[0] = dadosVeiculo;
 
         return object;
     }

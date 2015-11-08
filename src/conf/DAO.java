@@ -146,6 +146,7 @@ public class DAO {
                 sessao.save(documentos);
                 t.commit();
             } catch (HibernateException he) {
+                he.printStackTrace();
                 System.out.println("Erro ao salvar Documentos: \n" + he);
             }
 
@@ -161,7 +162,7 @@ public class DAO {
 
             } catch (HibernateException he) {
                 he.printStackTrace();
-                System.out.println("Erro atualizar Status Veiculo = " + he);
+                System.out.println("Erro atualizar Documento = " + he);
 
             }
 

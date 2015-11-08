@@ -473,40 +473,32 @@ public class IfDocumento extends javax.swing.JInternalFrame {
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
 
-        
         if (tfDescricao.getText().trim().length() > 0 && tfTipo.getText().trim().length() > 0
                 && tfDataInclusao.getText().trim().length() > 0) {
-           
-                
-                Documentos doc = new Documentos();
-                doc.setIddocumentos(idDocumento);
-                doc.setDescricao(tfDescricao.getText());
-                doc.setObservacoes(tfObservacoes.getText());
-                doc.setTipo(tfTipo.getText());
-                doc.setDtInclusao(Formatacao.converteParaDataAMD(tfDataInclusao.getText()));
-                
-                Object[] object;
-                object = (Object[]) Popula.retornaVeiculo(codveiculo);
-                List<Veiculo> l = (List<Veiculo>) object[0];
-                for (Veiculo lin : l) {
-                    codveiculo = lin.getIdveiculo();
-                    
-                }
-                doc.setVeiculo(null);
-               
-                
-                //Veiculo v = new Veiculo();
-                
-               // v.setIdveiculo(1);
-               // doc.setVeiculo(v);
 
-                DAO.salvarDocumento(doc);
-                pesquisa();
-                habilitaCampos(false);
-                btNovo.setEnabled(true);
-                btSalvar.setEnabled(false);
-                tfDescricao.requestFocus();
-           
+            Documentos doc = new Documentos();
+            doc.setIddocumentos(idDocumento);
+            doc.setDescricao(tfDescricao.getText());
+            doc.setObservacoes(tfObservacoes.getText());
+            doc.setTipo(tfTipo.getText());
+            doc.setDtInclusao(Formatacao.converteParaDataAMD(tfDataInclusao.getText()));
+
+            
+            Object[] object;
+            object = (Object[]) Popula.retornaVeiculo(codveiculo);
+            List<Veiculo> l = (List<Veiculo>) object[0];
+            for (Veiculo lin : l) {
+                Veiculo v = lin;
+                doc.setVeiculo(v);
+            }
+
+            DAO.salvarDocumento(doc);
+            pesquisa();
+            habilitaCampos(false);
+            btNovo.setEnabled(true);
+            btSalvar.setEnabled(false);
+            tfDescricao.requestFocus();
+
         } else {
             JOptionPane.showMessageDialog(null, "Preencha os campos obrigatórios!");
         }
@@ -519,6 +511,7 @@ public class IfDocumento extends javax.swing.JInternalFrame {
 
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
         habilitaCampos(true);
+        idDocumento = 0;
         jTabbedPane1.setSelectedIndex(0);
         btNovo.setEnabled(false);
         btSalvar.setEnabled(true);
@@ -531,6 +524,7 @@ public class IfDocumento extends javax.swing.JInternalFrame {
                 int codigo = Integer.parseInt(cod);
                 List<Documentos> l = Popula.popularTabelaDocumento(codigo, String.valueOf(codigo), tbDocumentos);
                 for (Documentos lin : l) {
+                    idDocumento = lin.getIddocumentos();
                     tfDescricao.setText(lin.getDescricao());
                     this.defineCodigoVeiculo(lin.getVeiculo().getIdveiculo());
                     tfDataInclusao.setText(Formatacao.ajustaDataDMA(String.valueOf((lin.getDtInclusao()))));
@@ -688,12 +682,12 @@ public class IfDocumento extends javax.swing.JInternalFrame {
 
         sessao = HibernateUtil.getSessionFactory().openSession();
         Transaction t = sessao.beginTransaction();
-
+        codveiculo = cod;
         Query query = (Query) sessao.createQuery(" FROM Populartabelaveiculo WHERE "
                 + " idveiculo = " + cod + "");
-        List<Populartabelaveiculo> dadosCliente = (List<Populartabelaveiculo>) query.list();
+        List<Populartabelaveiculo> dadosVeiculo = (List<Populartabelaveiculo>) query.list();
 
-        for (Populartabelaveiculo lin : dadosCliente) {
+        for (Populartabelaveiculo lin : dadosVeiculo) {
             tfDescricaoVeiculo.setText(lin.getDescricaoVeiculo());
             tfTipoVeiculo.setText(lin.getDescricaoTipo());
             tfMarca.setText(lin.getMarca());
