@@ -20,8 +20,8 @@
         <property name="telefone" type="string">
             <column name="telefone" length="60" not-null="true" />
         </property>
-        <property name="dtLocacao" type="date">
-            <column name="dt_locacao" length="13" not-null="true" />
+        <property name="dtlocacao" type="date">
+            <column name="dtlocacao" length="13" not-null="true" />
         </property>
         <property name="dias" type="int">
             <column name="dias" not-null="true" />

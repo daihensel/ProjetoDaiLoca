@@ -32,8 +32,8 @@ public class Populartabelalocacao implements java.io.Serializable {
     @Column(name = "telefone", nullable = false, length = 45)
     private String telefone;
     @Temporal(TemporalType.DATE)
-    @Column(name = "dt_locacao", nullable = false, length = 13)
-    private Date dtLocacao;
+    @Column(name = "dtlocacao", nullable = false, length = 13)
+    private Date dtlocacao;
     @Column(name = "dias", nullable = false)
     private int dias;
     @Column(name = "valor_total", nullable = false, precision = 11)
@@ -89,11 +89,11 @@ public class Populartabelalocacao implements java.io.Serializable {
     }
 
     public Date getDtLocacao() {
-        return this.dtLocacao;
+        return this.dtlocacao;
     }
 
-    public void setDtLocacao(Date dtLocacao) {
-        this.dtLocacao = dtLocacao;
+    public void setDtLocacao(Date dtlocacao) {
+        this.dtlocacao = dtlocacao;
     }
 
     public int getDias() {

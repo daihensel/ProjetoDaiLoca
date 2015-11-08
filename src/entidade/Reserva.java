@@ -42,8 +42,8 @@ public class Reserva implements java.io.Serializable {
     @Column(name = "dt_reserva", nullable = false, length = 13)
     private Date dtReserva;
     @Temporal(TemporalType.DATE)
-    @Column(name = "dt_locacao", nullable = false, length = 13)
-    private Date dtLocacao;
+    @Column(name = "dtlocacao", nullable = false, length = 13)
+    private Date dtlocacao;
     @Column(name = "dias_pretendidos", nullable = false)
     private int diasPretendidos;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "reserva")
@@ -52,23 +52,23 @@ public class Reserva implements java.io.Serializable {
     public Reserva() {
     }
 
-    public Reserva(int idreserva, Cliente cliente, Funcionario funcionario, Veiculo veiculo, Date dtReserva, Date dtLocacao, int diasPretendidos) {
+    public Reserva(int idreserva, Cliente cliente, Funcionario funcionario, Veiculo veiculo, Date dtReserva, Date dtlocacao, int diasPretendidos) {
         this.idreserva = idreserva;
         this.cliente = cliente;
         this.funcionario = funcionario;
         this.veiculo = veiculo;
         this.dtReserva = dtReserva;
-        this.dtLocacao = dtLocacao;
+        this.dtlocacao = dtlocacao;
         this.diasPretendidos = diasPretendidos;
     }
 
-    public Reserva(int idreserva, entidade.Cliente cliente, entidade.Funcionario funcionario, Veiculo veiculo, Date dtReserva, Date dtLocacao, int diasPretendidos, Set locacaos) {
+    public Reserva(int idreserva, entidade.Cliente cliente, entidade.Funcionario funcionario, Veiculo veiculo, Date dtReserva, Date dtlocacao, int diasPretendidos, Set locacaos) {
         this.idreserva = idreserva;
         this.cliente = cliente;
         this.funcionario = funcionario;
         this.veiculo = veiculo;
         this.dtReserva = dtReserva;
-        this.dtLocacao = dtLocacao;
+        this.dtlocacao = dtlocacao;
         this.diasPretendidos = diasPretendidos;
         this.locacaos = locacaos;
     }
@@ -114,11 +114,11 @@ public class Reserva implements java.io.Serializable {
     }
 
     public Date getDtLocacao() {
-        return this.dtLocacao;
+        return this.dtlocacao;
     }
 
-    public void setDtLocacao(Date dtLocacao) {
-        this.dtLocacao = dtLocacao;
+    public void setDtLocacao(Date dtlocacao) {
+        this.dtlocacao = dtlocacao;
     }
 
     public int getDiasPretendidos() {

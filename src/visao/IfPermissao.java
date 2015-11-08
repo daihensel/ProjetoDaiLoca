@@ -348,22 +348,18 @@ public class IfPermissao extends javax.swing.JInternalFrame {
                 if (cbTela.getSelectedItem() == "Todas") {
                     int somacombotela = cbTela.getItemCount() - 1;
                     for (int i = 1; i <= somacombotela; i++) {
-
                         Transaction t = sessao.beginTransaction();
                         Permissao p = salvaPerm();
+                        System.out.println("é Todas");
                         p.setIdtela(i);
                         sessao.save(p);
                         t.commit();
-                        habilitaCampos(false);
-                        btNovo.setEnabled(true);
-                        btSalvar.setEnabled(false);
-                        cbUsuario.requestFocus();
                     }
                 } else {
                     ComboItens cbit = (ComboItens) cbTela.getSelectedItem();
                     Transaction t = sessao.beginTransaction();
                     Permissao p = salvaPerm();
-
+                    System.out.println("é 1 tela só");
                     p.setIdtela(cbit.getCodigo());
                     sessao.save(p);
                     t.commit();
@@ -436,13 +432,12 @@ public class IfPermissao extends javax.swing.JInternalFrame {
         if (jTabbedPane1.getSelectedIndex() == 1) {
             if (tbPermissao.getSelectedRow() >= 0) {
                 Object[] options = {" Sim ", " Não "};
-                String descricao = String.valueOf(tbPermissao.getValueAt(tbPermissao.getSelectedRow(), 1));
+                int id = (int) tbPermissao.getValueAt(tbPermissao.getSelectedRow(), 0);
                 int opcaoExcluir = JOptionPane.showOptionDialog(this.getContentPane(), "Deseja excluir o registro "
-                        + descricao + "?",
+                        + id + "?",
                         "Informação", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[1]);
 
                 if (opcaoExcluir == 0) {
-                    int id = (int) tbPermissao.getValueAt(tbPermissao.getSelectedRow(), 0);
                     System.out.println("id a ser excluido:" + id);
                     if (DAO.deletarPermissao(id)) {
                         JOptionPane.showMessageDialog(null, "Registro excluído!");
@@ -511,7 +506,7 @@ public class IfPermissao extends javax.swing.JInternalFrame {
     }
 
     public void pesquisa() {
-        int cod = 0;
+        int cod = 1;
         if (tfPesquisa.getText().length() > 0 && tfPesquisa.getText().matches("[0-9]")) {
             cod = Integer.parseInt(tfPesquisa.getText());
         }

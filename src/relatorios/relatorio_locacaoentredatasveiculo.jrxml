@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relatorio_abertoentredatas" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8fb03dda-391a-454f-8201-56229b7f054f">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="datainicial" class="java.util.Date"/>
+	<parameter name="datafinal" class="java.util.Date"/>
+	<parameter name="nomesistema" class="java.lang.String"/>
+	<parameter name="veiculo" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT * FROM Populartabelalocacao p
+ WHERE
+ (dtlocacao BETWEEN $P{datainicial} AND $P{datafinal})
+AND descricaoveiculo = $P{veiculo}]]>
+	</queryString>
+	<field name="idlocacao" class="java.lang.Integer"/>
+	<field name="nomecliente" class="java.lang.String"/>
+	<field name="rg" class="java.lang.String"/>
+	<field name="cpf" class="java.lang.String"/>
+	<field name="telefone" class="java.lang.String"/>
+	<field name="dtlocacao" class="java.sql.Date"/>
+	<field name="dias" class="java.lang.Integer"/>
+	<field name="valor_total" class="java.math.BigDecimal"/>
+	<field name="num_parcelas" class="java.lang.Integer"/>
+	<field name="descricaoveiculo" class="java.lang.String"/>
+	<field name="descricaotipoveiculo" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="54" splitType="Stretch">
+			<staticText>
+				<reportElement x="46" y="13" width="465" height="41" uuid="f6933c03-6cf4-4e61-96db-f5a76a44939c"/>
+				<textElement>
+					<font size="22"/>
+				</textElement>
+				<text><![CDATA[Relatório de locações entre datas por veículo]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="65" y="15" width="78" height="20" uuid="d6f96eac-ac46-4f04-be95-edbb9f298f1b"/>
+				<textFieldExpression><![CDATA[$P{datainicial}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="201" y="15" width="72" height="20" uuid="dc58da5d-f96c-4c5d-bf6a-eec693d7c674"/>
+				<textFieldExpression><![CDATA[$P{datafinal}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="15" width="64" height="20" uuid="b07468f6-3e32-4b08-b501-0315ca83027e"/>
+				<textElement>
+					<font isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Data inicial:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="143" y="15" width="58" height="20" uuid="e70094bb-154f-4cfa-af39-5037ae72be40"/>
+				<textElement>
+					<font isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Data final:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="273" y="15" width="51" height="20" uuid="da0392ea-638f-4c7a-8871-9773f1a4fa50"/>
+				<textElement>
+					<font isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Veículo:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="324" y="15" width="121" height="20" uuid="2b8721d2-26dc-4255-8866-23d40b46b992"/>
+				<textFieldExpression><![CDATA[$F{descricaoveiculo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="445" y="15" width="110" height="20" uuid="374e28db-9ae9-4997-8fb8-5eadb8e1f54c"/>
+				<textFieldExpression><![CDATA[$F{descricaotipoveiculo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="1" y="15" width="20" height="20" uuid="2cee0442-095b-4b8c-9cee-c0c82ab488bf"/>
+				<text><![CDATA[ID:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="21" y="15" width="152" height="20" uuid="5ed9bfde-cddd-4cfe-9b7e-51009d82f846"/>
+				<text><![CDATA[Nome cliente:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="173" y="15" width="76" height="20" uuid="c6c93d4d-c183-43c0-8de0-fc8a88895f46"/>
+				<text><![CDATA[CPF:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="249" y="15" width="87" height="20" uuid="fc8af558-5e55-4231-b9b9-ab2c142d5c37"/>
+				<text><![CDATA[Telefone:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="336" y="15" width="78" height="20" uuid="d29b5911-b29b-4893-98a4-6fd9f922dc99"/>
+				<text><![CDATA[Data locação:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="414" y="15" width="31" height="20" uuid="48e2cd8f-d6d0-4b88-85c5-dd635164c99a"/>
+				<text><![CDATA[Dias:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="455" y="15" width="100" height="20" uuid="2e9c483a-0383-4f34-829d-03e4ddf5115d"/>
+				<text><![CDATA[Valor total:]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="28" splitType="Stretch">
+			<textField>
+				<reportElement x="1" y="0" width="20" height="20" uuid="ebfe4b71-ef14-45af-adb1-a0545de40443"/>
+				<textFieldExpression><![CDATA[$F{idlocacao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="21" y="0" width="152" height="20" uuid="ad7c0e0d-5779-4d56-b30a-ccbcf2581779"/>
+				<textFieldExpression><![CDATA[$F{nomecliente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="173" y="0" width="76" height="20" uuid="e2b5158b-3f68-477d-8dc7-0e3c6795352b"/>
+				<textFieldExpression><![CDATA[$F{cpf}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="249" y="0" width="87" height="20" uuid="9fb890f4-c829-44da-bf8b-e74511e68742"/>
+				<textFieldExpression><![CDATA[$F{telefone}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="336" y="0" width="78" height="20" uuid="e943f0c3-73db-4482-8006-cd6e86cf0b88"/>
+				<textFieldExpression><![CDATA[$F{dtlocacao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="414" y="0" width="31" height="20" uuid="5d542a9c-b98b-4e5b-a70e-66cc49601588"/>
+				<textFieldExpression><![CDATA[$F{dias}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="0" width="100" height="20" uuid="bb13d8b0-be67-4cec-9194-89fe8fa3bacb"/>
+				<textFieldExpression><![CDATA[$F{valor_total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="224" y="0" width="100" height="20" uuid="94321e43-38cf-425f-8d74-2582e6bf4f50"/>
+				<textFieldExpression><![CDATA[$P{nomesistema}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

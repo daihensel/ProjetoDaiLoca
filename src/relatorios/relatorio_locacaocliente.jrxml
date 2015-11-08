@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relatorio_abertoentredatas" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8fb03dda-391a-454f-8201-56229b7f054f">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="nomesistema" class="java.lang.String"/>
+	<parameter name="cliente" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT * FROM Populartabelalocacao p WHERE
+nomecliente = $P{cliente}]]>
+	</queryString>
+	<field name="idlocacao" class="java.lang.Integer"/>
+	<field name="nomecliente" class="java.lang.String"/>
+	<field name="rg" class="java.lang.String"/>
+	<field name="cpf" class="java.lang.String"/>
+	<field name="telefone" class="java.lang.String"/>
+	<field name="dtlocacao" class="java.sql.Date"/>
+	<field name="dias" class="java.lang.Integer"/>
+	<field name="valor_total" class="java.math.BigDecimal"/>
+	<field name="num_parcelas" class="java.lang.Integer"/>
+	<field name="descricaoveiculo" class="java.lang.String"/>
+	<field name="descricaotipoveiculo" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="52" splitType="Stretch">
+			<staticText>
+				<reportElement x="154" y="11" width="224" height="41" uuid="f6933c03-6cf4-4e61-96db-f5a76a44939c"/>
+				<textElement>
+					<font size="22"/>
+				</textElement>
+				<text><![CDATA[Relatório de locações]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="19" y="15" width="53" height="20" uuid="cec8ef15-d9ae-4952-bbe4-3e65184e2725"/>
+				<textElement>
+					<font isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Cliente:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="72" y="15" width="167" height="20" uuid="1f53ecf8-21ac-4868-8521-54a7bbfd1bf1"/>
+				<textFieldExpression><![CDATA[$F{nomecliente}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="239" y="15" width="30" height="20" uuid="586f393b-16bf-4508-a3a5-3bec43422f8b"/>
+				<text><![CDATA[CPF:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="269" y="15" width="85" height="20" uuid="0b98d8ab-cdba-4435-bead-114984ef4623"/>
+				<textFieldExpression><![CDATA[$F{cpf}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="367" y="15" width="60" height="20" uuid="218f7e6b-3b9a-4f6b-af61-9e2fb640f77a"/>
+				<text><![CDATA[Telefone:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="427" y="15" width="72" height="20" uuid="06236739-3b66-481b-8bef-89b2cde7300d"/>
+				<textFieldExpression><![CDATA[$F{telefone}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="16" width="26" height="20" uuid="5deed3da-6199-4994-a94c-66e9201e1869"/>
+				<text><![CDATA[ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="299" y="16" width="100" height="20" uuid="e678fbff-0790-40e8-9a87-6d82a05abefa"/>
+				<text><![CDATA[Data locação:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="399" y="16" width="49" height="20" uuid="9f8527c7-480d-42bd-a47d-f8c6b0eabf42"/>
+				<text><![CDATA[Dias:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="448" y="16" width="95" height="20" uuid="a86a702b-9cc5-4cbf-a0e8-8c33eb5574a7"/>
+				<text><![CDATA[Valor total:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="26" y="16" width="128" height="20" uuid="c6a0b8db-357c-4e1c-994b-6ae48b775400"/>
+				<text><![CDATA[Veículo:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="154" y="16" width="125" height="20" uuid="d4ef1eb2-adce-4782-98c5-51c53b750f44"/>
+				<text><![CDATA[Tipo veículo:]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="27" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="26" height="20" uuid="b7aa2194-1285-497f-bc6d-c2a5b0096806"/>
+				<textFieldExpression><![CDATA[$F{idlocacao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="299" y="0" width="100" height="20" uuid="353a9ec7-a2f3-4f08-8b25-f560283e625c"/>
+				<textFieldExpression><![CDATA[$F{dtlocacao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="399" y="0" width="49" height="20" uuid="f024d423-f4b5-456f-9348-464e892ab209"/>
+				<textFieldExpression><![CDATA[$F{dias}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="448" y="0" width="95" height="20" uuid="334ba2a5-f922-49fc-8ebc-d236ec75da50"/>
+				<textFieldExpression><![CDATA[$F{valor_total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="26" y="0" width="128" height="20" uuid="fb057d2e-ac3f-4a29-8ccf-1cfa054f2b13"/>
+				<textFieldExpression><![CDATA[$F{descricaoveiculo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="154" y="0" width="125" height="20" uuid="170ea36f-696f-4f06-9596-42d597254de3"/>
+				<textFieldExpression><![CDATA[$F{descricaotipoveiculo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="227" y="0" width="100" height="20" uuid="012cf0bd-005a-4ed6-b5eb-7ef3c8fabd73"/>
+				<textFieldExpression><![CDATA[$P{nomesistema}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

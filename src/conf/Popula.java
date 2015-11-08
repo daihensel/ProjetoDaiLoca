@@ -74,7 +74,7 @@ public class Popula {
 
     }
 
-    public static void popularTabelaLocacao(int codigo, String criterio, JTable tb) {
+    public static List popularTabelaLocacao(int codigo, String criterio, JTable tb) {
 
         DefaultTableModel tabelaModelo = (DefaultTableModel) tb.getModel();
         tabelaModelo.setNumRows(0);
@@ -100,7 +100,7 @@ public class Popula {
 
         };
         sessao.getTransaction().commit();
-
+        return dadosLocacao;
     }
 
     public static void popularTabelaFuncionario(int codigo, String criterio, JTable tb) {
