@@ -56,10 +56,6 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        tfDataReserva = new javax.swing.JTextField();
-        tfDataReserva = Formatacao.getData();
-        tfDataLocacao = new javax.swing.JTextField();
-        tfDataLocacao = Formatacao.getData();
         jLabel2 = new javax.swing.JLabel();
         tfDiasPretendidos = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -67,6 +63,7 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
         tfVendedor = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         btPVendedor = new javax.swing.JButton();
+        cbDataLocacao = new conf.JCalendar(false);
         jPanel3 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         tfNomeCliente = new javax.swing.JTextField();
@@ -115,6 +112,11 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
         jLabel3.setText("Dias pretendidos:");
 
         cbDataReserva.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbDataReserva.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbDataReservaActionPerformed(evt);
+            }
+        });
 
         tfVendedor.setEditable(false);
         tfVendedor.addActionListener(new java.awt.event.ActionListener() {
@@ -132,13 +134,15 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
             }
         });
 
+        cbDataLocacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -147,18 +151,16 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
                         .addGap(14, 14, 14)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tfDataReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(27, 27, 27)
-                                .addComponent(cbDataReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tfDataLocacao, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(128, Short.MAX_VALUE))
+                                .addComponent(cbDataLocacao, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cbDataReserva, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                .addContainerGap(298, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(42, Short.MAX_VALUE)
                 .addComponent(jLabel16)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -172,12 +174,11 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(tfDataReserva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbDataReserva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(tfDataLocacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbDataLocacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
@@ -511,7 +512,8 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
 
             //   reserva.setDtReserva(Formatacao.converteParaDataAMD(tfDataReserva.getText()));
             reserva.setDtReserva(Formatacao.converteParaDataAMD(((JCalendar) cbDataReserva).getText()));
-            reserva.setDtLocacao(Formatacao.converteParaDataAMD(tfDataLocacao.getText()));
+            //reserva.setDtLocacao(Formatacao.converteParaDataAMD(tfDataLocacao.getText()));
+            reserva.setDtLocacao(Formatacao.converteParaDataAMD(((JCalendar) cbDataLocacao).getText()));
             reserva.setDiasPretendidos(Integer.parseInt(tfDiasPretendidos.getText()));
 
             Object[] object;
@@ -550,6 +552,10 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
         DgConsultaFuncionario tela = new DgConsultaFuncionario(null, this);
         tela.setVisible(true);
     }//GEN-LAST:event_btPVendedorActionPerformed
+
+    private void cbDataReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbDataReservaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbDataReservaActionPerformed
 
     //  @Override
     public void defineCodigoCliente(int codcli) {
@@ -613,6 +619,7 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
     private javax.swing.JButton btPVeiculo;
     private javax.swing.JButton btPVendedor;
     private javax.swing.JButton btReservar;
+    private javax.swing.JComboBox cbDataLocacao;
     private javax.swing.JComboBox cbDataReserva;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
@@ -641,8 +648,6 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
     private javax.swing.JTextField tfBairro;
     private javax.swing.JTextField tfCPF;
     private javax.swing.JTextField tfCidade;
-    private javax.swing.JTextField tfDataLocacao;
-    private javax.swing.JTextField tfDataReserva;
     private javax.swing.JTextField tfDescricaoVeiculo;
     private javax.swing.JTextField tfDiasPretendidos;
     private javax.swing.JTextField tfEndereco;
