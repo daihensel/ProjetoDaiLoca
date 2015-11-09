@@ -9,6 +9,7 @@ import com.sun.media.jfxmedia.logging.Logger;
 import entidade.Documentos;
 import entidade.Funcao;
 import entidade.Funcionario;
+import entidade.Pessoa;
 import entidade.Statusveiculo;
 import entidade.Tipoveiculo;
 import entidade.Veiculo;
@@ -97,6 +98,46 @@ public class DAO {
         }
         return retorno;
     }
+    
+    
+    public static String salvarPessoa(Pessoa pessoa) {
+        Session sessao = null;
+        String retorno = "";
+
+        if (pessoa.getIdpessoa()== 0) { //insert
+
+            try {
+
+                sessao = HibernateUtil.getSessionFactory().openSession();
+                Transaction t = sessao.beginTransaction();
+
+                sessao.save(pessoa);
+                t.commit();
+            } catch (HibernateException he) {
+                System.out.println("Erro salvar Pessoa: \n" + he);
+                
+            }
+
+        } else { //update
+
+            try {
+                sessao = HibernateUtil.getSessionFactory().openSession();
+                Transaction t = sessao.beginTransaction();
+
+                sessao.update(pessoa);
+
+                sessao.getTransaction().commit();
+
+            } catch (HibernateException he) {
+                he.printStackTrace();
+                System.out.println("Erro atualizar Pessoa = " + he);
+
+            }
+
+        }
+        return retorno;
+    }
+    
     
     
     
