@@ -42,7 +42,7 @@ public class Reserva implements java.io.Serializable {
     @Column(name = "dt_reserva", nullable = false, length = 13)
     private Date dtReserva;
     @Temporal(TemporalType.DATE)
-    @Column(name = "dtlocacao", nullable = false, length = 13)
+    @Column(name = "dt_locacao", nullable = false, length = 13)
     private Date dtlocacao;
     @Column(name = "dias_pretendidos", nullable = false)
     private int diasPretendidos;

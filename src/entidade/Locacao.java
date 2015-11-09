@@ -42,7 +42,7 @@ public class Locacao implements java.io.Serializable {
     @JoinColumn(name = "veiculo_idveiculo", nullable = false)
     private Veiculo veiculo;
     @Temporal(TemporalType.DATE)
-    @Column(name = "dtlocacao", nullable = false, length = 13)
+    @Column(name = "dt_locacao", nullable = false, length = 13)
     private Date dtlocacao;
     @Temporal(TemporalType.TIME)
     @Column(name = "hora_retirada", nullable = false, length = 15)

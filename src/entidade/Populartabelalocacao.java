@@ -32,7 +32,7 @@ public class Populartabelalocacao implements java.io.Serializable {
     @Column(name = "telefone", nullable = false, length = 45)
     private String telefone;
     @Temporal(TemporalType.DATE)
-    @Column(name = "dtlocacao", nullable = false, length = 13)
+    @Column(name = "dt_locacao", nullable = false, length = 13)
     private Date dtlocacao;
     @Column(name = "dias", nullable = false)
     private int dias;
