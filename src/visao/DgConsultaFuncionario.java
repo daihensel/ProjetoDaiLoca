@@ -16,14 +16,16 @@ public class DgConsultaFuncionario extends javax.swing.JDialog {
 
     private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
     IfLocacao telaLocacao;
+    IfReservaVeiculos telaReserva;
 
     // public static IfReservaVeiculos telaReserva;
     /**
      * Creates new form DgConsultaVeic
      */
-    public DgConsultaFuncionario(IfLocacao telaLocacao) {
+    public DgConsultaFuncionario(IfLocacao telaLocacao, IfReservaVeiculos telaReserva) {
         initComponents();
         this.telaLocacao = telaLocacao;
+        this.telaReserva = telaReserva;
         pesquisa();
     }
 
@@ -129,7 +131,13 @@ public class DgConsultaFuncionario extends javax.swing.JDialog {
             String cod = String.valueOf(tbFuncionarios.getValueAt(tbFuncionarios.getSelectedRow(), 0));
             int codigo = Integer.parseInt(cod);
             String nome = String.valueOf(tbFuncionarios.getValueAt(tbFuncionarios.getSelectedRow(), 1));
-            telaLocacao.defineCodigoFuncionario(codigo, nome);
+            if (telaReserva != null) {
+                telaReserva.defineCodigoFuncionario(codigo, nome);
+            }
+            if (telaLocacao != null) {
+                telaLocacao.defineCodigoFuncionario(codigo, nome);
+            }
+
             this.dispose();
         }
     }//GEN-LAST:event_tbFuncionariosMouseClicked

@@ -23,7 +23,9 @@ import org.hibernate.Transaction;
  */
 public class IfLocacao extends javax.swing.JInternalFrame {
 
-     private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
+    private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
+    private int codFunc;
+
     /**
      * Creates new form IfReservaVeiculos
      */
@@ -169,6 +171,11 @@ public class IfLocacao extends javax.swing.JInternalFrame {
         btOk.setText("Locar");
         btOk.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btOk.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btOk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btOkActionPerformed(evt);
+            }
+        });
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/!ok.png"))); // NOI18N
         jButton2.setText("Fechar");
@@ -579,7 +586,7 @@ public class IfLocacao extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tfVendedorActionPerformed
 
     private void btPVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPVendedorActionPerformed
-        DgConsultaFuncionario tela = new DgConsultaFuncionario(this);
+        DgConsultaFuncionario tela = new DgConsultaFuncionario(this, null);
         tela.setVisible(true);
     }//GEN-LAST:event_btPVendedorActionPerformed
 
@@ -603,7 +610,10 @@ public class IfLocacao extends javax.swing.JInternalFrame {
             evt.consume();
         }
     }//GEN-LAST:event_tfParcelasKeyTyped
-   
+
+    private void btOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btOkActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btOkActionPerformed
 
     public void defineCodigoCliente(int codcli) {
 
@@ -684,6 +694,7 @@ public class IfLocacao extends javax.swing.JInternalFrame {
 
     public void defineCodigoFuncionario(int cod, String nome) {
         tfVendedor.setText(nome);
+        codFunc = cod;
     }
 
 

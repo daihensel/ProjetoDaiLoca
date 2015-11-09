@@ -5,7 +5,6 @@
  */
 package conf;
 
-import com.sun.media.jfxmedia.logging.Logger;
 import entidade.Documentos;
 import entidade.Endereco;
 import entidade.Funcao;

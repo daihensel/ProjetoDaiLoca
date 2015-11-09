@@ -11,6 +11,7 @@ import conf.JCalendar;
 import conf.Popula;
 import conf.Utility;
 import entidade.Cliente;
+import entidade.Funcionario;
 import entidade.Pessoa;
 import entidade.Populartabelacliente;
 import entidade.Populartabelaveiculo;
@@ -34,6 +35,7 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
     int idReserva = 0;
     int codveiculo = 0;
     int codCliente = 0;
+    private int codFunc = 0;
 
     /**
      * Creates new form IfReservaVeiculos
@@ -62,6 +64,9 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
         tfDiasPretendidos = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         cbDataReserva = new conf.JCalendar(false);
+        tfVendedor = new javax.swing.JTextField();
+        jLabel16 = new javax.swing.JLabel();
+        btPVendedor = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         tfNomeCliente = new javax.swing.JTextField();
@@ -111,6 +116,22 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
 
         cbDataReserva.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        tfVendedor.setEditable(false);
+        tfVendedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfVendedorActionPerformed(evt);
+            }
+        });
+
+        jLabel16.setText("Vendedor:");
+
+        btPVendedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/procurar_20x20.png"))); // NOI18N
+        btPVendedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btPVendedorActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -135,7 +156,15 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(tfDataLocacao, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(93, Short.MAX_VALUE))
+                .addContainerGap(128, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel16)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tfVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btPVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -153,7 +182,13 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(tfDiasPretendidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(tfVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btPVendedor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados Cliente"));
@@ -457,19 +492,28 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
             Transaction t = sessao.beginTransaction();
 
             Reserva reserva = new Reserva();
-         
+
+            Object[] objectc;
+            objectc = (Object[]) Popula.retornaDadosPessoas(codCliente);
+            List<Cliente> lc = (List<Cliente>) objectc[3];
+            for (Cliente linc : lc) {
+                Cliente c = linc;
+                reserva.setCliente(c);
+            }
             
-           
-            List Pessoa;
-            Pessoa = (List) Popula.retornaDadosPessoas(codCliente);
-            
-            
-            
+            Object[] objectf;
+            objectf = (Object[]) Popula.retornaDadosPessoas(codCliente);
+            List<Funcionario> lf = (List<Funcionario>) objectf[4];
+            for (Funcionario linf : lf) {
+                Funcionario f = linf;
+                reserva.setFuncionario(f);
+            }
+
             //   reserva.setDtReserva(Formatacao.converteParaDataAMD(tfDataReserva.getText()));
             reserva.setDtReserva(Formatacao.converteParaDataAMD(((JCalendar) cbDataReserva).getText()));
             reserva.setDtLocacao(Formatacao.converteParaDataAMD(tfDataLocacao.getText()));
             reserva.setDiasPretendidos(Integer.parseInt(tfDiasPretendidos.getText()));
-              
+
             Object[] object;
             object = (Object[]) Popula.retornaVeiculo(codveiculo);
             List<Veiculo> l = (List<Veiculo>) object[0];
@@ -477,9 +521,6 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
                 Veiculo v = lin;
                 reserva.setVeiculo(v);
             }
-            
-            
-            
 
             sessao.save(reserva);
 
@@ -500,6 +541,15 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
             evt.consume();
         }
     }//GEN-LAST:event_tfDiasPretendidosKeyTyped
+
+    private void tfVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfVendedorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfVendedorActionPerformed
+
+    private void btPVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPVendedorActionPerformed
+        DgConsultaFuncionario tela = new DgConsultaFuncionario(null, this);
+        tela.setVisible(true);
+    }//GEN-LAST:event_btPVendedorActionPerformed
 
     //  @Override
     public void defineCodigoCliente(int codcli) {
@@ -553,9 +603,15 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
 
     }
 
+    public void defineCodigoFuncionario(int cod, String nome) {
+        tfVendedor.setText(nome);
+        codFunc = cod;
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btPCliente;
     private javax.swing.JButton btPVeiculo;
+    private javax.swing.JButton btPVendedor;
     private javax.swing.JButton btReservar;
     private javax.swing.JComboBox cbDataReserva;
     private javax.swing.JButton jButton2;
@@ -566,6 +622,7 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
@@ -596,6 +653,7 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
     private javax.swing.JTextField tfTelefone;
     private javax.swing.JTextField tfTipoVeiculo;
     private javax.swing.JTextField tfValorDiaria;
+    private javax.swing.JTextField tfVendedor;
     // End of variables declaration//GEN-END:variables
 
 }
