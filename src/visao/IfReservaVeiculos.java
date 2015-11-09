@@ -28,7 +28,11 @@ import org.hibernate.Transaction;
  */
 public class IfReservaVeiculos extends javax.swing.JInternalFrame {
 
-     private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
+    private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
+    int idReserva = 0;
+    int codveiculo = 0;
+    int codCliente = 0;
+
     /**
      * Creates new form IfReservaVeiculos
      */
@@ -440,62 +444,59 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
     private void btReservarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btReservarActionPerformed
 
         Session sessao = null;
-            try {
-                sessao = HibernateUtil.getSessionFactory().openSession();
-                Transaction t = sessao.beginTransaction();
-                
-                Reserva reserva = new Reserva();
-                reserva.setDtReserva(Formatacao.converteParaDataAMD(tfDataReserva.getText()));
-                reserva.setDtLocacao(Formatacao.converteParaDataAMD(tfDataLocacao.getText()));
-                reserva.setDiasPretendidos(Integer.parseInt(tfDiasPretendidos.getText()));
-                
-                List cliente = Utility.consultaPessoa(tfNomeCliente.getText());
-                reserva.setCliente(null);
-                
-                               
-               // reserva.setCliente((Cliente) cliente.get(0));
-                
-                
-                List veiculo = Utility.consultaVeiculo(tfDescricaoVeiculo.getText());
-                reserva.setVeiculo((Veiculo) veiculo.get(0));
-                
-               
-                
-                sessao.save(reserva);
-                
-                t.commit();
-                
-                } catch (HibernateException he) {
-                he.printStackTrace();
-            } finally {
-                sessao.close();
+        try {
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            Transaction t = sessao.beginTransaction();
+
+            Reserva reserva = new Reserva();
+            reserva.setDtReserva(Formatacao.converteParaDataAMD(tfDataReserva.getText()));
+            reserva.setDtLocacao(Formatacao.converteParaDataAMD(tfDataLocacao.getText()));
+            reserva.setDiasPretendidos(Integer.parseInt(tfDiasPretendidos.getText()));
+              
+            Object[] object;
+            object = (Object[]) Popula.retornaVeiculo(codveiculo);
+            List<Veiculo> l = (List<Veiculo>) object[0];
+            for (Veiculo lin : l) {
+                Veiculo v = lin;
+                reserva.setVeiculo(v);
             }
-        
-        
-        
-        
-        
+            
+            
+            
+
+            sessao.save(reserva);
+
+            t.commit();
+
+        } catch (HibernateException he) {
+            he.printStackTrace();
+        } finally {
+            sessao.close();
+        }
+
+
     }//GEN-LAST:event_btReservarActionPerformed
 
     private void tfDiasPretendidosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDiasPretendidosKeyTyped
-       String caracteres = "0987654321";
+        String caracteres = "0987654321";
         if (!caracteres.contains(evt.getKeyChar() + "")) {
             evt.consume();
         }
     }//GEN-LAST:event_tfDiasPretendidosKeyTyped
-    
-  //  @Override
+
+    //  @Override
     public void defineCodigoCliente(int codcli) {
-        
+
         Session sessao = null;
-        
+
         sessao = HibernateUtil.getSessionFactory().openSession();
         Transaction t = sessao.beginTransaction();
-        
+        codCliente = codcli;
+
         Query query = (Query) sessao.createQuery(" FROM Populartabelacliente p WHERE "
                 + " idcliente = " + codcli + "");
         List<Populartabelacliente> dadosCliente = (List<Populartabelacliente>) query.list();
-        
+
         for (Populartabelacliente lin : dadosCliente) {
             tfNomeCliente.setText(lin.getNome());
             tfRG.setText(lin.getRg());
@@ -504,24 +505,24 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
             tfEndereco.setText(lin.getDescricaoendereco());
             tfBairro.setText(lin.getBairro());
             tfCidade.setText(lin.getDescricaocidade());
-            
+
         }
         sessao.getTransaction().commit();
-        
+
     }
-    
-    public void defineCodigoVeiculo(int codcli) {
+
+    public void defineCodigoVeiculo(int cod) {
 
         Session sessao = null;
 
         sessao = HibernateUtil.getSessionFactory().openSession();
         Transaction t = sessao.beginTransaction();
-
+        codveiculo = cod;
         Query query = (Query) sessao.createQuery(" FROM Populartabelaveiculo WHERE "
-                + " idveiculo = " + codcli + "");
-        List<Populartabelaveiculo> dadosCliente = (List<Populartabelaveiculo>) query.list();
+                + " idveiculo = " + cod + "");
+        List<Populartabelaveiculo> dadosVeiculo = (List<Populartabelaveiculo>) query.list();
 
-        for (Populartabelaveiculo lin : dadosCliente) {
+        for (Populartabelaveiculo lin : dadosVeiculo) {
             tfDescricaoVeiculo.setText(lin.getDescricaoVeiculo());
             tfTipoVeiculo.setText(lin.getDescricaoTipo());
             tfMarca.setText(lin.getMarca());
@@ -579,5 +580,4 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
     private javax.swing.JTextField tfValorDiaria;
     // End of variables declaration//GEN-END:variables
 
-  
 }

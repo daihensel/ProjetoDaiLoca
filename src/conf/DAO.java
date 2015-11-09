@@ -5,8 +5,10 @@
  */
 package conf;
 
+import com.sun.media.jfxmedia.logging.Logger;
 import entidade.Documentos;
 import entidade.Funcao;
+import entidade.Funcionario;
 import entidade.Statusveiculo;
 import entidade.Tipoveiculo;
 import entidade.Veiculo;
@@ -57,6 +59,47 @@ public class DAO {
         }
         return retorno;
     }
+    
+    public static String salvarFuncionario(Funcionario funcionario) {
+        Session sessao = null;
+        String retorno = "";
+
+        if (funcionario.getPessoaIdpessoa() == 0) { //insert
+
+            try {
+
+                sessao = HibernateUtil.getSessionFactory().openSession();
+                Transaction t = sessao.beginTransaction();
+
+                sessao.save(funcionario);
+                t.commit();
+            } catch (HibernateException he) {
+                System.out.println("Erro salvar Funcionario: \n" + he);
+                
+            }
+
+        } else { //update
+
+            try {
+                sessao = HibernateUtil.getSessionFactory().openSession();
+                Transaction t = sessao.beginTransaction();
+
+                sessao.update(funcionario);
+
+                sessao.getTransaction().commit();
+
+            } catch (HibernateException he) {
+                he.printStackTrace();
+                System.out.println("Erro atualizar Funcionario = " + he);
+
+            }
+
+        }
+        return retorno;
+    }
+    
+    
+    
 
     public static String salvarTipoVeiculo(Tipoveiculo tipoVeiculo) {
         Session sessao = null;

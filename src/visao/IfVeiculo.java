@@ -406,7 +406,6 @@ public class IfVeiculo extends javax.swing.JInternalFrame {
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
 
-        Session sessao = null;
         if (tfDescricao.getText().trim().length() > 0 && tfAnoFab.getText().trim().length() > 0 && tfAnoModelo.getText().trim().length() > 0
                 && tfKmAtual.getText().trim().length() > 0 && cbStatusVeiculo.getSelectedIndex() > 0
                 && cbTipoVeiculo.getSelectedIndex() > 0 && tfMarca.getText().trim().length() > 0

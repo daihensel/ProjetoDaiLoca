@@ -172,4 +172,6 @@ public class Funcionario implements java.io.Serializable {
     public void setLocacaos(Set locacaos) {
         this.locacaos = locacaos;
     }
+
+    
 }

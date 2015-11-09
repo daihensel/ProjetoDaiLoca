@@ -223,6 +223,24 @@ public class Popula {
 
         return object;
     }
+    
+     public static Object retornaCidade(int codCidade) {
+        Session sessao = null;
+        Object[] object;
+        object = new Object[2];
+        sessao = HibernateUtil.getSessionFactory().openSession();
+        Transaction t = sessao.beginTransaction();
+        Query queryRetornaCidade = (Query) sessao.createQuery(" FROM Cidade c WHERE ("
+                + " c.idcidade = " + codCidade + ")");
+
+        List<Cidade> dadosVeiculo = (List<Cidade>) queryRetornaCidade.list();
+
+        sessao.getTransaction().commit();
+        object[0] = dadosVeiculo;
+
+        return object;
+    }
+    
 
     public static List popularTabelaDocumento(int cod, String criterio, JTable tb) {
 

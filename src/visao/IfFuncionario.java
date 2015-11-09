@@ -7,10 +7,12 @@ package visao;
 
 import conf.ComboItens;
 import conf.CombosDAO;
+import conf.DAO;
 import conf.Formatacao;
 import conf.Popula;
 import conf.Utility;
 import conf.Validacao;
+import entidade.Cidade;
 import entidade.Cliente;
 import entidade.Contato;
 import entidade.Endereco;
@@ -18,6 +20,7 @@ import entidade.Funcionario;
 import entidade.Pessoa;
 import entidade.Pessoafisica;
 import entidade.Pessoajuridica;
+import entidade.Veiculo;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -32,6 +35,8 @@ import org.apache.log4j.Logger;
 public class IfFuncionario extends javax.swing.JInternalFrame {
 
     private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
+    int idPessoa = 0;
+    int codcidade = 0;
 
     /**
      * Creates new form IfmVeiculo
@@ -591,6 +596,41 @@ public class IfFuncionario extends javax.swing.JInternalFrame {
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
 
+        Funcionario funcionario = new Funcionario();
+        //nova pessoa
+        Pessoa pessoa = new Pessoa();
+        
+        pessoa.setNome(tfNome.getText());
+        //endereço da pessoa
+        Endereco endereco = new Endereco();
+        endereco.setDescricao(tfEndereco.getText());
+        endereco.setBairro(tfBairro.getText());
+        endereco.setCep(tfCEP.getText());
+        endereco.setComplemento(tfComplemento.getText());
+        
+        Object[] object;
+            object = (Object[]) Popula.retornaCidade(codcidade);
+            List<Cidade> l = (List<Cidade>) object[0];
+            for (Cidade lin : l) {
+                Cidade c = lin;
+                endereco.setCidade(c);
+            }
+        pessoa.setEndereco(endereco);
+        
+        funcionario.setPessoa(pessoa);
+        funcionario.setDtAdmissao(Formatacao.converteParaDataAMD(tfDataAdmissao.getText()));
+        funcionario.setDtDemissao(Formatacao.converteParaDataAMD(tfDataDemissao.getText()));
+        funcionario.setNumCtps(tfNumCTPS.getText());
+        funcionario.setSerieCtps(tfSerieCTPS.getText());
+        funcionario.setLogin(tfLogin.getText());
+        String senha = pfSenha.getPassword().toString();
+        funcionario.setSenha(senha);
+        
+        DAO.salvarFuncionario(funcionario);
+        
+        
+        
+        
     }//GEN-LAST:event_btSalvarActionPerformed
 
     private void btFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFecharActionPerformed
@@ -827,6 +867,7 @@ public class IfFuncionario extends javax.swing.JInternalFrame {
     }
 
     public void defineCodigoCidade(int cod, String nome, String uf) {
+        codcidade = cod;
         tfCidade.setText(nome);
         tfUF.setText(uf);
     }
