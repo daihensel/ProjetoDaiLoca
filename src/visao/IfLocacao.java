@@ -7,12 +7,16 @@ package visao;
 
 import conf.Formatacao;
 import conf.HibernateUtil;
+import conf.Popula;
 import conf.Utility;
+import entidade.Cliente;
+import entidade.Locacao;
 import entidade.Populartabelacliente;
 import entidade.Populartabelareserva;
 import entidade.Populartabelaveiculo;
 import java.util.List;
 import org.apache.log4j.Logger;
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -25,6 +29,7 @@ public class IfLocacao extends javax.swing.JInternalFrame {
 
     private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
     private int codFunc;
+    int codCliente = 0;
 
     /**
      * Creates new form IfReservaVeiculos
@@ -612,14 +617,33 @@ public class IfLocacao extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tfParcelasKeyTyped
 
     private void btLocarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLocarActionPerformed
+
+        Session sessao = null;
+        try {
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            Transaction t = sessao.beginTransaction();
+
+            Locacao locacao = new Locacao();
+            
+            Object[] objectc;
+            objectc = (Object[]) Popula.retornaDadosPessoas(codCliente);
+            List<Cliente> lc = (List<Cliente>) objectc[3];
+            for (Cliente linc : lc) {
+                Cliente c = linc;
+                locacao.setCliente(c);
+            }
+            
+            
+            
         
         
-        
-        
-        
-        
-        
-        
+        } catch (HibernateException he) {
+            he.printStackTrace();
+        } finally {
+            sessao.close();
+        }
+
+
     }//GEN-LAST:event_btLocarActionPerformed
 
     public void defineCodigoCliente(int codcli) {
@@ -628,6 +652,7 @@ public class IfLocacao extends javax.swing.JInternalFrame {
 
         sessao = HibernateUtil.getSessionFactory().openSession();
         Transaction t = sessao.beginTransaction();
+        codCliente = codcli;
 
         Query query = (Query) sessao.createQuery(" FROM Populartabelacliente p WHERE "
                 + " idcliente = " + codcli + "");
