@@ -348,8 +348,8 @@ public class IfDevolucao extends javax.swing.JInternalFrame {
             object = (Object[]) Popula.retornaLocacao(codLocacao);
             List<Locacao> l = (List<Locacao>) object[0];
             for (Locacao lin : l) {
-                Locacao l = lin;
-                devolucao.setLocacao(l);
+                Locacao loc = lin;
+                devolucao.setLocacao(loc);
             }   
             
             devolucao.setKmRodados(Integer.parseInt(tfKmRodados.getText()));

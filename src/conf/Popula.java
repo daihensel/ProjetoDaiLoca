@@ -76,6 +76,44 @@ public class Popula {
         return dadosVeiculos;
 
     }
+    
+    public static Veiculo alteraStatusVeiculo(String descricao, Veiculo v) {
+        Session sessao = null;
+
+        try {
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            Transaction t = sessao.beginTransaction();
+            descricao = descricao.toLowerCase();
+            Query queryRetornaStatus = (Query) sessao.createQuery(
+                    " FROM Statusveiculo s WHERE("
+                    + " lower(s.descricao) LIKE '%" + descricao + "%')"
+            );
+            List<Statusveiculo> dadosStatus = (List<Statusveiculo>) queryRetornaStatus.list();
+            sessao.getTransaction().commit();
+
+            t = sessao.beginTransaction();
+            int idStatusVeiculo = 0;
+            String descVeiculo = "";
+            for (Statusveiculo lin : dadosStatus) {
+                v.setStatusveiculo(lin);
+                descVeiculo = v.getDescricao();
+                idStatusVeiculo = lin.getIdstatusVeiculo();
+            }
+            String hqlUpdate = ("UPDATE Veiculo SET"
+                    + " statusveiculo = " + idStatusVeiculo + " "
+                    + " WHERE descricao = '" + descVeiculo + "'");
+            int updatedEntities = sessao.createQuery(hqlUpdate).executeUpdate();
+
+            sessao.getTransaction().commit();
+            sessao.close();
+        } catch (HibernateException he) {
+            he.printStackTrace();
+            System.out.println("Erro atualizar Veiculo = " + he);
+        }
+
+        return v;
+    }
+    
 
     public static List popularTabelaLocacao(int codigo, String criterio, JTable tb) {
 
