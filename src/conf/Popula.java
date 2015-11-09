@@ -11,6 +11,7 @@ import entidade.Contatopessoas;
 import entidade.Documentos;
 import entidade.Funcao;
 import entidade.Funcionario;
+import entidade.Locacao;
 import entidade.Permissao;
 import entidade.Pessoa;
 import entidade.Pessoafisica;
@@ -19,6 +20,7 @@ import entidade.Populartabelacliente;
 import entidade.Populartabelafornecedor;
 import entidade.Populartabelafuncionario;
 import entidade.Populartabelalocacao;
+import entidade.Reserva;
 import entidade.Statusveiculo;
 import entidade.Tipocontato;
 import entidade.Tipoveiculo;
@@ -223,26 +225,42 @@ public class Popula {
 
         return object;
     }
-    
+
     public static Object retornaReserva(int codreserva) {
         Session sessao = null;
         Object[] object;
         object = new Object[2];
         sessao = HibernateUtil.getSessionFactory().openSession();
         Transaction t = sessao.beginTransaction();
-        Query queryRetornaVeiculo = (Query) sessao.createQuery(" FROM Reserva r WHERE ("
+        Query queryRetornaReserva = (Query) sessao.createQuery(" FROM Reserva r WHERE ("
                 + " r.idreserva = " + codreserva + ")");
 
-        List<Veiculo> dadosReserva = (List<Veiculo>) queryRetornaVeiculo.list();
+        List<Reserva> dadosReserva = (List<Reserva>) queryRetornaReserva.list();
 
         sessao.getTransaction().commit();
         object[0] = dadosReserva;
 
         return object;
     }
-    
-    
-     public static Object retornaCidade(int codCidade) {
+
+    public static Object retornaLocacao(int codlocacao) {
+        Session sessao = null;
+        Object[] object;
+        object = new Object[2];
+        sessao = HibernateUtil.getSessionFactory().openSession();
+        Transaction t = sessao.beginTransaction();
+        Query queryRetornaLocacao = (Query) sessao.createQuery(" FROM Locacao l WHERE ("
+                + " l.idlocacao = " + codlocacao + ")");
+
+        List<Locacao> dadosLocacao = (List<Locacao>) queryRetornaLocacao.list();
+
+        sessao.getTransaction().commit();
+        object[0] = dadosLocacao;
+        
+        return object;
+    }
+
+    public static Object retornaCidade(int codCidade) {
         Session sessao = null;
         Object[] object;
         object = new Object[2];
@@ -258,26 +276,25 @@ public class Popula {
 
         return object;
     }
-    
-     public static List RetornaPessoa(int codPessoa){
+
+    public static List RetornaPessoa(int codPessoa) {
         Session sessao = null;
 
         sessao = HibernateUtil.getSessionFactory().openSession();
         Transaction t = sessao.beginTransaction();
-        
+
         Query queryRetornaPes = (Query) sessao.createQuery(" FROM Pessoa p WHERE ("
                 + " p.idpessoa = " + codPessoa + ")");
         List<Pessoa> dadosPessoa = (List<Pessoa>) queryRetornaPes.list();
-        
-         for (Pessoa lin : dadosPessoa) {
-             lin.getIdpessoa();
-             lin.getNome();
-             lin.getEndereco();
-         } 
-         
-         
-        return dadosPessoa; 
-     }
+
+        for (Pessoa lin : dadosPessoa) {
+            lin.getIdpessoa();
+            lin.getNome();
+            lin.getEndereco();
+        }
+
+        return dadosPessoa;
+    }
 
     public static List popularTabelaDocumento(int cod, String criterio, JTable tb) {
 

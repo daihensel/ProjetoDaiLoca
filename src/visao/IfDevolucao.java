@@ -7,10 +7,14 @@ package visao;
 
 import conf.Formatacao;
 import conf.HibernateUtil;
+import conf.Popula;
 import conf.Utility;
+import entidade.Devolucao;
+import entidade.Locacao;
 import entidade.Populartabelalocacao;
 import java.util.List;
 import org.apache.log4j.Logger;
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -19,15 +23,17 @@ import org.hibernate.Transaction;
  *
  * @author Daiane
  */
-public class IfDevolucao extends javax.swing.JInternalFrame  {
+public class IfDevolucao extends javax.swing.JInternalFrame {
 
-     private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
+    private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
+    int codLocacao = 0;
+    
     /**
      * Creates new form IfReservaVeiculos
      */
     public IfDevolucao() {
         initComponents();
-        Utility.permit(null, btOk, null,null, this);
+        Utility.permit(null, btOk, null, null, this);
     }
 
     /**
@@ -39,12 +45,12 @@ public class IfDevolucao extends javax.swing.JInternalFrame  {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         tfKmRodados = new javax.swing.JTextField();
-        tfDataDevolucao = new javax.swing.JTextField();
-        tfDataDevolucao = Formatacao.getData();
         jLabel2 = new javax.swing.JLabel();
+        dcDataDevolucao = new com.toedter.calendar.JDateChooser();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         tfVeiculoLocacao = new javax.swing.JTextField();
@@ -82,15 +88,13 @@ public class IfDevolucao extends javax.swing.JInternalFrame  {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tfKmRodados))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfDataDevolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(tfKmRodados)
+                    .addComponent(dcDataDevolucao, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE))
                 .addContainerGap(262, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -101,9 +105,9 @@ public class IfDevolucao extends javax.swing.JInternalFrame  {
                     .addComponent(jLabel1)
                     .addComponent(tfKmRodados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
-                    .addComponent(tfDataDevolucao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dcDataDevolucao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -322,7 +326,7 @@ public class IfDevolucao extends javax.swing.JInternalFrame  {
     }//GEN-LAST:event_btPLocacaoActionPerformed
 
     private void btFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFecharActionPerformed
-      dispose();
+        dispose();
     }//GEN-LAST:event_btFecharActionPerformed
 
     private void tfValorTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfValorTotalActionPerformed
@@ -330,7 +334,36 @@ public class IfDevolucao extends javax.swing.JInternalFrame  {
     }//GEN-LAST:event_tfValorTotalActionPerformed
 
     private void btOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btOkActionPerformed
-        // TODO add your handling code here:
+
+        Session sessao = null;
+        try {
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            Transaction t = sessao.beginTransaction();
+            Devolucao devolucao = new Devolucao();
+            
+            
+            devolucao.setDtDevolucao(Formatacao.converteDataParaDataAMD(dcDataDevolucao.getDate()));
+            
+            Object[] object;
+            object = (Object[]) Popula.retornaLocacao(codLocacao);
+            List<Locacao> l = (List<Locacao>) object[0];
+            for (Locacao lin : l) {
+                Locacao l = lin;
+                devolucao.setLocacao(l);
+            }   
+            
+            devolucao.setKmRodados(Integer.parseInt(tfKmRodados.getText()));
+            
+            sessao.save(devolucao);
+            
+            
+        } catch (HibernateException he) {
+            he.printStackTrace();
+        } finally {
+            sessao.close();
+        }
+
+
     }//GEN-LAST:event_btOkActionPerformed
 
     private void tfCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfCPFActionPerformed
@@ -342,44 +375,46 @@ public class IfDevolucao extends javax.swing.JInternalFrame  {
     }//GEN-LAST:event_tfRGActionPerformed
 
     private void tfKmRodadosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfKmRodadosKeyTyped
-       String caracteres = "0987654321";
+        String caracteres = "0987654321";
         if (!caracteres.contains(evt.getKeyChar() + "")) {
             evt.consume();
         }
     }//GEN-LAST:event_tfKmRodadosKeyTyped
 
- public void defineLocacao(int cod) {
-       
+    public void defineLocacao(int cod) {
+
         Session sessao = null;
 
         sessao = HibernateUtil.getSessionFactory().openSession();
         Transaction t = sessao.beginTransaction();
-       
+        codLocacao = cod;
+
         Query query = (Query) sessao.createQuery(" FROM Populartabelalocacao p WHERE "
                 + " idlocacao = " + cod + "");
         List<Populartabelalocacao> dadosLocacao = (List<Populartabelalocacao>) query.list();
 
         for (Populartabelalocacao lin : dadosLocacao) {
-           tfVeiculoLocacao.setText(lin.getDescricaoVeiculo());
-           tfNomeCliente.setText(lin.getNomecliente());
-           tfValorTotal.setText(String.valueOf(lin.getValorTotal()));
-           tfCPF.setText(lin.getCpf());
-           tfDataLocacao.setText(Formatacao.ajustaDataDMA(String.valueOf(lin.getDtLocacao())));
-           tfDias.setText(String.valueOf(lin.getDias()));
-          tfTelefone.setText(lin.getTelefone());
-          tfRG.setText(lin.getRg());
-           
+            tfVeiculoLocacao.setText(lin.getDescricaoVeiculo());
+            tfNomeCliente.setText(lin.getNomecliente());
+            tfValorTotal.setText(String.valueOf(lin.getValorTotal()));
+            tfCPF.setText(lin.getCpf());
+            tfDataLocacao.setText(Formatacao.ajustaDataDMA(String.valueOf(lin.getDtLocacao())));
+            tfDias.setText(String.valueOf(lin.getDias()));
+            tfTelefone.setText(lin.getTelefone());
+            tfRG.setText(lin.getRg());
 
         }
         sessao.getTransaction().commit();
 
     }
-    
-    
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btFechar;
     private javax.swing.JButton btOk;
     private javax.swing.JButton btPLocacao;
+    private com.toedter.calendar.JDateChooser dcDataDevolucao;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel16;
@@ -393,7 +428,6 @@ public class IfDevolucao extends javax.swing.JInternalFrame  {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField tfCPF;
-    private javax.swing.JTextField tfDataDevolucao;
     private javax.swing.JTextField tfDataLocacao;
     private javax.swing.JTextField tfDias;
     private javax.swing.JTextField tfKmRodados;

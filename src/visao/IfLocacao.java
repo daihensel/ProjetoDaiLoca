@@ -667,8 +667,7 @@ public class IfLocacao extends javax.swing.JInternalFrame {
                 Funcionario f = linf;
                 locacao.setFuncionario(f);
             }
-                    
-            
+                 
             // set Cliente    
             }
             Object[] objectc;
