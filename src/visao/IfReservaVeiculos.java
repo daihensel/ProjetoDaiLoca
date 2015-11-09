@@ -496,7 +496,7 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
             }
 
             Object[] objectf;
-            objectf = (Object[]) Popula.retornaDadosPessoas(codCliente);
+            objectf = (Object[]) Popula.retornaDadosPessoas(codFunc);
             List<Funcionario> lf = (List<Funcionario>) objectf[4];
             for (Funcionario linf : lf) {
                 Funcionario f = linf;

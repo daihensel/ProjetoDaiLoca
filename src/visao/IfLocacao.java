@@ -32,7 +32,7 @@ import org.hibernate.Transaction;
 public class IfLocacao extends javax.swing.JInternalFrame {
 
     private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
-    private int codFunc;
+    private int codFunc = 0;
     int codCliente = 0;
     int codReserva = 0;
     int codveiculo = 0;
@@ -634,7 +634,9 @@ public class IfLocacao extends javax.swing.JInternalFrame {
             Locacao locacao = new Locacao();
 
             locacao.setDtLocacao(Formatacao.converteParaDataAMD(tfDataLocacaoNaReserva.getText()));
-            locacao.setHoraRetirada(Formatacao.converteParaDataAMD(tfHoraRetirada.getText()));
+            //locacao.setHoraRetirada(Formatacao.converteParaDataAMD(tfHoraRetirada.getText()));
+            locacao.setHoraRetirada(Formatacao.converteParaDataAMD(tfDataLocacaoNaReserva.getText()));
+            
             locacao.setDias(Integer.parseInt(tfDias.getText()));
             
             //set Reserva
@@ -661,7 +663,7 @@ public class IfLocacao extends javax.swing.JInternalFrame {
             //set funcionario
             
             Object[] objectf;
-            objectf = (Object[]) Popula.retornaDadosPessoas(codCliente);
+            objectf = (Object[]) Popula.retornaDadosPessoas(codFunc);
             List<Funcionario> lf = (List<Funcionario>) objectf[4];
             for (Funcionario linf : lf) {
                 Funcionario f = linf;
@@ -671,7 +673,7 @@ public class IfLocacao extends javax.swing.JInternalFrame {
             // set Cliente    
             }
             Object[] objectc;
-            objectc = (Object[]) Popula.retornaDadosPessoas(1);
+            objectc = (Object[]) Popula.retornaDadosPessoas(codCliente);
             List<Cliente> lc = (List<Cliente>) objectc[3];
             for (Cliente linc : lc) {
                 Cliente c = linc;
