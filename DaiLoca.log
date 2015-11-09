@@ -2130,4 +2130,39 @@ org.hibernate.hql.internal.ast.HqlParser 2015-11-02 14:51:08,653 -- WARN -- HHH0
  org.hibernate.hql.internal.ast.HqlSqlWalker 2015-11-08 23:31:47,364 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 54.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
  org.hibernate.hql.internal.ast.HqlSqlWalker 2015-11-08 23:31:47,906 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 144.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
  visao.FormPrincipal 2015-11-08 23:31:48,112 -- INFO -- Logado 
+ org.hibernate.annotations.common.Version 2015-11-08 23:47:20,070 -- INFO -- HCANN000001: Hibernate Commons Annotations {4.0.4.Final} 
+ org.hibernate.Version 2015-11-08 23:47:20,083 -- INFO -- HHH000412: Hibernate Core {4.3.1.Final} 
+ org.hibernate.cfg.Environment 2015-11-08 23:47:20,087 -- INFO -- HHH000206: hibernate.properties not found 
+ org.hibernate.cfg.Environment 2015-11-08 23:47:20,090 -- INFO -- HHH000021: Bytecode provider name : javassist 
+ org.hibernate.cfg.Configuration 2015-11-08 23:47:20,117 -- INFO -- HHH000043: Configuring from resource: /hibernate.cfg.xml 
+ org.hibernate.cfg.Configuration 2015-11-08 23:47:20,118 -- INFO -- HHH000040: Configuration resource: /hibernate.cfg.xml 
+ org.hibernate.internal.util.xml.DTDEntityResolver 2015-11-08 23:47:20,182 -- WARN -- HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide! 
+ org.hibernate.cfg.Configuration 2015-11-08 23:47:20,245 -- INFO -- HHH000041: Configured SessionFactory: null 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 23:47:20,397 -- WARN -- HHH000402: Using Hibernate built-in connection pool (not for production use!) 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 23:47:20,407 -- INFO -- HHH000401: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5432/ProjetoDaiLoca] 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 23:47:20,408 -- INFO -- HHH000046: Connection properties: {user=postgres, password=****} 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 23:47:20,409 -- INFO -- HHH000006: Autocommit mode: false 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-11-08 23:47:20,412 -- INFO -- HHH000115: Hibernate connection pool size: 20 (min=1) 
+ org.hibernate.dialect.Dialect 2015-11-08 23:47:20,899 -- INFO -- HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect 
+ org.hibernate.engine.jdbc.internal.LobCreatorBuilder 2015-11-08 23:47:20,916 -- INFO -- HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException 
+ org.hibernate.engine.transaction.internal.TransactionFactoryInitiator 2015-11-08 23:47:21,258 -- INFO -- HHH000399: Using default transaction strategy (direct JDBC transactions) 
+ org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory 2015-11-08 23:47:21,265 -- INFO -- HHH000397: Using ASTQueryTranslatorFactory 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-11-08 23:47:22,352 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 54.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-11-08 23:47:22,767 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 144.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ visao.FormPrincipal 2015-11-08 23:47:22,938 -- INFO -- Logado 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-08 23:49:00,933 -- WARN -- SQL Error: 0, SQLState: 23505 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-08 23:49:00,934 -- ERROR -- ERRO: duplicar valor da chave viola a restrição de unicidade "pessoa_pkey"
+  Detalhe: Chave (idpessoa)=(3) já existe. 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-08 23:49:01,087 -- WARN -- SQL Error: 0, SQLState: 23502 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-08 23:49:01,088 -- ERROR -- ERRO: valor nulo na coluna "pessoa_idpessoa" viola a restrição não-nula
+  Detalhe: Registro que falhou contém (null, 1212-12-12, null, 1223434, 11, aaa, [C@1f143cf, 2). 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-08 23:49:24,066 -- WARN -- SQL Error: 0, SQLState: 23505 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-08 23:49:24,067 -- ERROR -- ERRO: duplicar valor da chave viola a restrição de unicidade "pessoa_pkey"
+  Detalhe: Chave (idpessoa)=(4) já existe. 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-08 23:49:24,122 -- WARN -- SQL Error: 0, SQLState: 23502 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-08 23:49:24,123 -- ERROR -- ERRO: valor nulo na coluna "pessoa_idpessoa" viola a restrição não-nula
+  Detalhe: Registro que falhou contém (null, 1212-12-12, null, 1223434, 11, aaa, [C@4aec48, 2). 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-08 23:49:52,556 -- WARN -- SQL Error: 0, SQLState: 23502 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-11-08 23:49:52,556 -- ERROR -- ERRO: valor nulo na coluna "pessoa_idpessoa" viola a restrição não-nula
+  Detalhe: Registro que falhou contém (null, 1212-12-12, null, 1223434, 11, aaa, [C@4dad0d, 2). 
  

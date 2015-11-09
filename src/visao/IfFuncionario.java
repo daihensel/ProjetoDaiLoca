@@ -16,6 +16,7 @@ import entidade.Cidade;
 import entidade.Cliente;
 import entidade.Contato;
 import entidade.Endereco;
+import entidade.Funcao;
 import entidade.Funcionario;
 import entidade.Pessoa;
 import entidade.Pessoafisica;
@@ -600,6 +601,7 @@ public class IfFuncionario extends javax.swing.JInternalFrame {
         //nova pessoa
         Pessoa pessoa = new Pessoa();
         
+        pessoa.setIdpessoa(idPessoa);
         pessoa.setNome(tfNome.getText());
         //endereço da pessoa
         Endereco endereco = new Endereco();
@@ -608,6 +610,8 @@ public class IfFuncionario extends javax.swing.JInternalFrame {
         endereco.setCep(tfCEP.getText());
         endereco.setComplemento(tfComplemento.getText());
         
+        
+        
         Object[] object;
             object = (Object[]) Popula.retornaCidade(codcidade);
             List<Cidade> l = (List<Cidade>) object[0];
@@ -615,7 +619,11 @@ public class IfFuncionario extends javax.swing.JInternalFrame {
                 Cidade c = lin;
                 endereco.setCidade(c);
             }
+        DAO.salvarEndereco(endereco);   
+        
         pessoa.setEndereco(endereco);
+        
+        DAO.salvarPessoa(pessoa);
         
         funcionario.setPessoa(pessoa);
         funcionario.setDtAdmissao(Formatacao.converteParaDataAMD(tfDataAdmissao.getText()));
@@ -625,6 +633,12 @@ public class IfFuncionario extends javax.swing.JInternalFrame {
         funcionario.setLogin(tfLogin.getText());
         String senha = pfSenha.getPassword().toString();
         funcionario.setSenha(senha);
+        
+        Funcao f = new Funcao();
+        ComboItens cbif = (ComboItens) cbFuncao.getSelectedItem();
+            f.setIdfuncao(cbif.getCodigo());
+        funcionario.setFuncao(f);
+        
         
         DAO.salvarFuncionario(funcionario);
         

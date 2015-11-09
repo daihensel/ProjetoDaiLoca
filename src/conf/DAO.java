@@ -7,6 +7,7 @@ package conf;
 
 import com.sun.media.jfxmedia.logging.Logger;
 import entidade.Documentos;
+import entidade.Endereco;
 import entidade.Funcao;
 import entidade.Funcionario;
 import entidade.Pessoa;
@@ -60,6 +61,44 @@ public class DAO {
         }
         return retorno;
     }
+    
+     public static String salvarEndereco(Endereco endereco) {
+        Session sessao = null;
+        String retorno = "";
+
+        if (endereco.getIdendereco()== 0) { //insert
+
+            try {
+
+                sessao = HibernateUtil.getSessionFactory().openSession();
+                Transaction t = sessao.beginTransaction();
+
+                sessao.save(endereco);
+                t.commit();
+            } catch (HibernateException he) {
+                System.out.println("Erro salvar Endereco: \n" + he);
+            }
+
+        } else { //update
+
+            try {
+                sessao = HibernateUtil.getSessionFactory().openSession();
+                Transaction t = sessao.beginTransaction();
+
+                sessao.update(endereco);
+
+                sessao.getTransaction().commit();
+
+            } catch (HibernateException he) {
+                he.printStackTrace();
+                System.out.println("Erro atualizar Endereco = " + he);
+
+            }
+
+        }
+        return retorno;
+    }
+    
     
     public static String salvarFuncionario(Funcionario funcionario) {
         Session sessao = null;
