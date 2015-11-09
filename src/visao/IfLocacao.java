@@ -31,7 +31,7 @@ public class IfLocacao extends javax.swing.JInternalFrame {
      */
     public IfLocacao() {
         initComponents();
-        Utility.permit(null, btOk, null, null, this);
+        Utility.permit(null, btLocar, null, null, this);
 
     }
 
@@ -54,7 +54,7 @@ public class IfLocacao extends javax.swing.JInternalFrame {
         tfDataReserva = Formatacao.getData();
         jLabel3 = new javax.swing.JLabel();
         btPReserva = new javax.swing.JButton();
-        btOk = new javax.swing.JButton();
+        btLocar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
@@ -167,13 +167,13 @@ public class IfLocacao extends javax.swing.JInternalFrame {
                     .addComponent(jLabel1)))
         );
 
-        btOk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/ok.png"))); // NOI18N
-        btOk.setText("Locar");
-        btOk.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btOk.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btOk.addActionListener(new java.awt.event.ActionListener() {
+        btLocar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/ok.png"))); // NOI18N
+        btLocar.setText("Locar");
+        btLocar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btLocar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btLocar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btOkActionPerformed(evt);
+                btLocarActionPerformed(evt);
             }
         });
 
@@ -523,7 +523,7 @@ public class IfLocacao extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btOk)
+                        .addComponent(btLocar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -545,7 +545,7 @@ public class IfLocacao extends javax.swing.JInternalFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btOk, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btLocar, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -611,9 +611,16 @@ public class IfLocacao extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_tfParcelasKeyTyped
 
-    private void btOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btOkActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btOkActionPerformed
+    private void btLocarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLocarActionPerformed
+        
+        
+        
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_btLocarActionPerformed
 
     public void defineCodigoCliente(int codcli) {
 
@@ -699,7 +706,7 @@ public class IfLocacao extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btOk;
+    private javax.swing.JButton btLocar;
     private javax.swing.JButton btPCliente;
     private javax.swing.JButton btPReserva;
     private javax.swing.JButton btPVeiculo;

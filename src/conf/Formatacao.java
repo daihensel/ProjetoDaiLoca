@@ -214,5 +214,21 @@ public class Formatacao {
 
         return dataHoje;
     }
+    
+    public static Date converteDataParaDataAMD(Date mydata) {
+
+        Date dataFormatada = null;
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            String data = sdf.format(mydata);
+            dataFormatada = (Date) sdf.parse(data);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return dataFormatada;
+    }
+    
+    
 
 }

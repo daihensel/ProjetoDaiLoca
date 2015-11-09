@@ -529,9 +529,7 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
 
             t.commit();
             limpa();
-            
-
-            
+                        
             
         } catch (HibernateException he) {
             he.printStackTrace();
