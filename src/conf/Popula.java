@@ -241,6 +241,25 @@ public class Popula {
         return object;
     }
     
+     public static List RetornaPessoa(int codPessoa){
+        Session sessao = null;
+
+        sessao = HibernateUtil.getSessionFactory().openSession();
+        Transaction t = sessao.beginTransaction();
+        
+        Query queryRetornaPes = (Query) sessao.createQuery(" FROM Pessoa p WHERE ("
+                + " p.idpessoa = " + codPessoa + ")");
+        List<Pessoa> dadosPessoa = (List<Pessoa>) queryRetornaPes.list();
+        
+         for (Pessoa lin : dadosPessoa) {
+             lin.getIdpessoa();
+             lin.getNome();
+             lin.getEndereco();
+         } 
+         
+         
+        return dadosPessoa; 
+     }
 
     public static List popularTabelaDocumento(int cod, String criterio, JTable tb) {
 

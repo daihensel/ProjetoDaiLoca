@@ -16,6 +16,7 @@ import entidade.Populartabelacliente;
 import entidade.Populartabelaveiculo;
 import entidade.Reserva;
 import entidade.Veiculo;
+import static java.util.Collections.list;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
@@ -456,7 +457,15 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
             Transaction t = sessao.beginTransaction();
 
             Reserva reserva = new Reserva();
-         //   reserva.setDtReserva(Formatacao.converteParaDataAMD(tfDataReserva.getText()));
+         
+            
+           
+            List Pessoa;
+            Pessoa = (List) Popula.retornaDadosPessoas(codCliente);
+            
+            
+            
+            //   reserva.setDtReserva(Formatacao.converteParaDataAMD(tfDataReserva.getText()));
             reserva.setDtReserva(Formatacao.converteParaDataAMD(((JCalendar) cbDataReserva).getText()));
             reserva.setDtLocacao(Formatacao.converteParaDataAMD(tfDataLocacao.getText()));
             reserva.setDiasPretendidos(Integer.parseInt(tfDiasPretendidos.getText()));
