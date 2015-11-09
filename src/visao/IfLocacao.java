@@ -10,10 +10,14 @@ import conf.HibernateUtil;
 import conf.Popula;
 import conf.Utility;
 import entidade.Cliente;
+import entidade.Funcionario;
 import entidade.Locacao;
 import entidade.Populartabelacliente;
 import entidade.Populartabelareserva;
 import entidade.Populartabelaveiculo;
+import entidade.Reserva;
+import entidade.Veiculo;
+import java.math.BigDecimal;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
@@ -30,6 +34,8 @@ public class IfLocacao extends javax.swing.JInternalFrame {
     private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
     private int codFunc;
     int codCliente = 0;
+    int codReserva = 0;
+    int codveiculo = 0;
 
     /**
      * Creates new form IfReservaVeiculos
@@ -136,23 +142,25 @@ public class IfLocacao extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfDiasPretendidos, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(25, 25, 25)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tfDataReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfDataLocacaoNaReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addGap(26, 26, 26)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tfDataLocacaoNaReserva))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tfDiasPretendidos, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btPReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(287, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -624,19 +632,56 @@ public class IfLocacao extends javax.swing.JInternalFrame {
             Transaction t = sessao.beginTransaction();
 
             Locacao locacao = new Locacao();
+
+            locacao.setDtLocacao(Formatacao.converteParaDataAMD(tfDataLocacaoNaReserva.getText()));
+            locacao.setHoraRetirada(Formatacao.converteParaDataAMD(tfHoraRetirada.getText()));
+            locacao.setDias(Integer.parseInt(tfDias.getText()));
             
+            //set Reserva
+            if (tfDataLocacaoNaReserva.getText().trim().length() > 0) {
+                Object[] objectr;
+                objectr = (Object[]) Popula.retornaReserva(codReserva);
+                List<Reserva> rs = (List<Reserva>) objectr[2];
+                for (Reserva linr : rs) {
+                    Reserva r = linr;
+                    locacao.setReserva(r);
+                }
+            //set Veiculo    
+            Object[] object;
+            object = (Object[]) Popula.retornaVeiculo(codveiculo);
+            List<Veiculo> l = (List<Veiculo>) object[0];
+            for (Veiculo lin : l) {
+                Veiculo v = lin;
+                locacao.setVeiculo(v);
+            }    
+            BigDecimal bigDecimal = new BigDecimal(tfValorTotal.getText());
+            locacao.setValorTotal(bigDecimal);
+            locacao.setParcelas(Integer.parseInt(tfParcelas.getText()));
+            
+            //set funcionario
+            
+            Object[] objectf;
+            objectf = (Object[]) Popula.retornaDadosPessoas(codCliente);
+            List<Funcionario> lf = (List<Funcionario>) objectf[4];
+            for (Funcionario linf : lf) {
+                Funcionario f = linf;
+                locacao.setFuncionario(f);
+            }
+                    
+            
+            // set Cliente    
+            }
             Object[] objectc;
-            objectc = (Object[]) Popula.retornaDadosPessoas(codCliente);
+            objectc = (Object[]) Popula.retornaDadosPessoas(1);
             List<Cliente> lc = (List<Cliente>) objectc[3];
             for (Cliente linc : lc) {
                 Cliente c = linc;
                 locacao.setCliente(c);
             }
+                         
+            sessao.save(locacao);
             
-            
-            
-        
-        
+
         } catch (HibernateException he) {
             he.printStackTrace();
         } finally {
@@ -678,6 +723,7 @@ public class IfLocacao extends javax.swing.JInternalFrame {
 
         sessao = HibernateUtil.getSessionFactory().openSession();
         Transaction t = sessao.beginTransaction();
+        codReserva = cod;
 
         Query query = (Query) sessao.createQuery(" FROM Populartabelareserva p WHERE "
                 + " idreserva = " + cod + "");
@@ -705,6 +751,7 @@ public class IfLocacao extends javax.swing.JInternalFrame {
 
         sessao = HibernateUtil.getSessionFactory().openSession();
         Transaction t = sessao.beginTransaction();
+        codveiculo = cod;
 
         Query query = (Query) sessao.createQuery(" FROM Populartabelaveiculo WHERE "
                 + " idveiculo = " + cod + "");

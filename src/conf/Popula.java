@@ -224,6 +224,24 @@ public class Popula {
         return object;
     }
     
+    public static Object retornaReserva(int codreserva) {
+        Session sessao = null;
+        Object[] object;
+        object = new Object[2];
+        sessao = HibernateUtil.getSessionFactory().openSession();
+        Transaction t = sessao.beginTransaction();
+        Query queryRetornaVeiculo = (Query) sessao.createQuery(" FROM Reserva r WHERE ("
+                + " r.idreserva = " + codreserva + ")");
+
+        List<Veiculo> dadosReserva = (List<Veiculo>) queryRetornaVeiculo.list();
+
+        sessao.getTransaction().commit();
+        object[0] = dadosReserva;
+
+        return object;
+    }
+    
+    
      public static Object retornaCidade(int codCidade) {
         Session sessao = null;
         Object[] object;
