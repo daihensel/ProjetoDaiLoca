@@ -176,6 +176,9 @@ public class Popula {
         sessao.getTransaction().commit();
 
     }
+    
+    
+    
 
     public static void popularTabelaFornecedor(int codigo, String criterio, JTable tb) {
 

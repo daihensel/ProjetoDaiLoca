@@ -60,7 +60,7 @@ public class IfDevolucao extends javax.swing.JInternalFrame {
         jLabel6 = new javax.swing.JLabel();
         tfDataLocacao = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        tfDias = new javax.swing.JTextField();
+        tfDataDevolucao = new javax.swing.JTextField();
         btPLocacao = new javax.swing.JButton();
         tfTelefone = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
@@ -139,7 +139,7 @@ public class IfDevolucao extends javax.swing.JInternalFrame {
 
         jLabel8.setText("Data Locação:");
 
-        tfDias.setEditable(false);
+        tfDataDevolucao.setEditable(false);
 
         btPLocacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/procurar_20x20.png"))); // NOI18N
         btPLocacao.addActionListener(new java.awt.event.ActionListener() {
@@ -152,7 +152,7 @@ public class IfDevolucao extends javax.swing.JInternalFrame {
 
         jLabel16.setText("Telefone:");
 
-        jLabel18.setText("Dias:");
+        jLabel18.setText("Data Devolução:");
 
         tfCPF.setEditable(false);
         tfCPF.addActionListener(new java.awt.event.ActionListener() {
@@ -199,7 +199,8 @@ public class IfDevolucao extends javax.swing.JInternalFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(tfDataLocacao, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(tfDataLocacao, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(6, 6, 6))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -209,11 +210,11 @@ public class IfDevolucao extends javax.swing.JInternalFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel18)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tfDias, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addComponent(tfDataDevolucao)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(tfValorTotal))
+                                .addComponent(tfValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel10)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
@@ -249,13 +250,12 @@ public class IfDevolucao extends javax.swing.JInternalFrame {
                         .addComponent(jLabel10)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tfValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(tfValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel6))
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(tfDias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tfDataDevolucao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel18)
-                        .addComponent(tfDataLocacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(tfDataLocacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel6))
                     .addComponent(jLabel8))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
@@ -399,7 +399,7 @@ public class IfDevolucao extends javax.swing.JInternalFrame {
             tfValorTotal.setText(String.valueOf(lin.getValorTotal()));
             tfCPF.setText(lin.getCpf());
             tfDataLocacao.setText(Formatacao.ajustaDataDMA(String.valueOf(lin.getDtLocacao())));
-            tfDias.setText(String.valueOf(lin.getDias()));
+            tfDataDevolucao.setText(Formatacao.ajustaDataDMA(String.valueOf(lin.getDtDevolucao())));
             tfTelefone.setText(lin.getTelefone());
             tfRG.setText(lin.getRg());
 
@@ -428,8 +428,8 @@ public class IfDevolucao extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField tfCPF;
+    private javax.swing.JTextField tfDataDevolucao;
     private javax.swing.JTextField tfDataLocacao;
-    private javax.swing.JTextField tfDias;
     private javax.swing.JTextField tfKmRodados;
     private javax.swing.JTextField tfNomeCliente;
     private javax.swing.JTextField tfRG;

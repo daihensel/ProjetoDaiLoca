@@ -59,7 +59,7 @@ public class IfLocacao extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         tfDataLocacaoNaReserva = new javax.swing.JTextField();
         tfDataLocacaoNaReserva = Formatacao.getData();
-        tfDiasPretendidos = new javax.swing.JTextField();
+        dtDevolucao = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         tfDataReserva = new javax.swing.JTextField();
         tfDataReserva = Formatacao.getData();
@@ -69,10 +69,8 @@ public class IfLocacao extends javax.swing.JInternalFrame {
         jButton2 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
-        tfDataLocacao = new javax.swing.JTextField();
         tfHoraRetirada = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
-        tfDias = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
         tfParcelas = new javax.swing.JTextField();
         jLabel22 = new javax.swing.JLabel();
@@ -81,6 +79,8 @@ public class IfLocacao extends javax.swing.JInternalFrame {
         tfVendedor = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         btPVendedor = new javax.swing.JButton();
+        dcDataDevolucao = new com.toedter.calendar.JDateChooser();
+        dcDataLocacao = new com.toedter.calendar.JDateChooser();
         jPanel3 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         tfNomeCliente = new javax.swing.JTextField();
@@ -120,13 +120,13 @@ public class IfLocacao extends javax.swing.JInternalFrame {
 
         tfDataLocacaoNaReserva.setEditable(false);
 
-        tfDiasPretendidos.setEditable(false);
+        dtDevolucao.setEditable(false);
 
         jLabel2.setText("Data Locação:");
 
         tfDataReserva.setEditable(false);
 
-        jLabel3.setText("Dias pretendidos:");
+        jLabel3.setText("Data Devolução:");
 
         btPReserva.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/procurar_20x20.png"))); // NOI18N
         btPReserva.addActionListener(new java.awt.event.ActionListener() {
@@ -147,20 +147,20 @@ public class IfLocacao extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tfDataReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                 .addGap(26, 26, 26)
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tfDataLocacaoNaReserva))
+                                .addComponent(tfDataLocacaoNaReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tfDiasPretendidos, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(dtDevolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btPReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(287, Short.MAX_VALUE))
+                .addContainerGap(321, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -172,7 +172,7 @@ public class IfLocacao extends javax.swing.JInternalFrame {
                     .addComponent(btPReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfDiasPretendidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dtDevolucao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -204,21 +204,9 @@ public class IfLocacao extends javax.swing.JInternalFrame {
 
         jLabel9.setText("Data Locação:");
 
-        tfDataLocacao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfDataLocacaoActionPerformed(evt);
-            }
-        });
-
         jLabel19.setText("Hora retirada:");
 
-        tfDias.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                tfDiasKeyTyped(evt);
-            }
-        });
-
-        jLabel20.setText("Dias:");
+        jLabel20.setText("Data Devolução:");
 
         tfParcelas.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -259,35 +247,32 @@ public class IfLocacao extends javax.swing.JInternalFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel20)
                     .addComponent(jLabel9)
                     .addComponent(jLabel16))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(dcDataDevolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel24)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(tfValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel22)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(tfParcelas))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(tfVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btPVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(tfDataLocacao, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
+                        .addComponent(dcDataLocacao, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel19)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tfHoraRetirada, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(55, 55, 55)
-                .addComponent(jLabel20)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfDias, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel24)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tfValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel22)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tfParcelas, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(tfHoraRetirada, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -298,19 +283,21 @@ public class IfLocacao extends javax.swing.JInternalFrame {
                         .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btPVendedor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(tfDataLocacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel19)
-                    .addComponent(tfHoraRetirada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel9)
+                        .addComponent(jLabel19)
+                        .addComponent(tfHoraRetirada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dcDataLocacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfDias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(tfValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel24)
+                        .addComponent(tfParcelas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel22))
                     .addComponent(jLabel20)
-                    .addComponent(tfValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel24)
-                    .addComponent(tfParcelas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel22))
+                    .addComponent(dcDataDevolucao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -491,7 +478,7 @@ public class IfLocacao extends javax.swing.JInternalFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tfKmAtual, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
+                                .addComponent(tfKmAtual, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel25)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -581,10 +568,6 @@ public class IfLocacao extends javax.swing.JInternalFrame {
         tela.setVisible(true);
     }//GEN-LAST:event_btPReservaActionPerformed
 
-    private void tfDataLocacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfDataLocacaoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfDataLocacaoActionPerformed
-
     private void tfDescricaoVeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfDescricaoVeiculoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfDescricaoVeiculoActionPerformed
@@ -602,13 +585,6 @@ public class IfLocacao extends javax.swing.JInternalFrame {
         DgConsultaFuncionario tela = new DgConsultaFuncionario(this, null);
         tela.setVisible(true);
     }//GEN-LAST:event_btPVendedorActionPerformed
-
-    private void tfDiasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDiasKeyTyped
-        String caracteres = "0987654321";
-        if (!caracteres.contains(evt.getKeyChar() + "")) {
-            evt.consume();
-        }
-    }//GEN-LAST:event_tfDiasKeyTyped
 
     private void tfValorTotalKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfValorTotalKeyTyped
         String caracteres = "0987654321";
@@ -637,13 +613,13 @@ public class IfLocacao extends javax.swing.JInternalFrame {
             //locacao.setHoraRetirada(Formatacao.converteParaDataAMD(tfHoraRetirada.getText()));
             locacao.setHoraRetirada(Formatacao.converteParaDataAMD(tfDataLocacaoNaReserva.getText()));
             
-            locacao.setDias(Integer.parseInt(tfDias.getText()));
+            locacao.setDtDevolucao(Formatacao.converteDataParaDataAMD(dcDataDevolucao.getDate()));
             
             //set Reserva
             if (tfDataLocacaoNaReserva.getText().trim().length() > 0) {
                 Object[] objectr;
                 objectr = (Object[]) Popula.retornaReserva(codReserva);
-                List<Reserva> rs = (List<Reserva>) objectr[2];
+                List<Reserva> rs = (List<Reserva>) objectr[0];
                 for (Reserva linr : rs) {
                     Reserva r = linr;
                     locacao.setReserva(r);
@@ -654,6 +630,7 @@ public class IfLocacao extends javax.swing.JInternalFrame {
             List<Veiculo> l = (List<Veiculo>) object[0];
             for (Veiculo lin : l) {
                 Veiculo v = lin;
+                v = Popula.alteraStatusVeiculo("locado", v);
                 locacao.setVeiculo(v);
             }    
             BigDecimal bigDecimal = new BigDecimal(tfValorTotal.getText());
@@ -681,7 +658,7 @@ public class IfLocacao extends javax.swing.JInternalFrame {
             }
                          
             sessao.save(locacao);
-            
+            sessao.getTransaction().commit();
 
         } catch (HibernateException he) {
             he.printStackTrace();
@@ -733,7 +710,7 @@ public class IfLocacao extends javax.swing.JInternalFrame {
         for (Populartabelareserva lin : dadosCliente) {
             tfDataLocacaoNaReserva.setText(Formatacao.ajustaDataDMA(String.valueOf(lin.getDtLocacao())));
             tfDataReserva.setText(Formatacao.ajustaDataDMA(String.valueOf(lin.getDtReserva())));
-            tfDiasPretendidos.setText(String.valueOf(lin.getDiasPretendidos()));
+            dtDevolucao.setText(Formatacao.ajustaDataDMA(String.valueOf(lin.getDtDevolucao())));
 
 //            tfNomeCliente.setText(lin.getNomecliente());
 //            tfDescricaoVeiculo.setText(lin.getDescricaoVeiculo());
@@ -784,6 +761,9 @@ public class IfLocacao extends javax.swing.JInternalFrame {
     private javax.swing.JButton btPReserva;
     private javax.swing.JButton btPVeiculo;
     private javax.swing.JButton btPVendedor;
+    private com.toedter.calendar.JDateChooser dcDataDevolucao;
+    private com.toedter.calendar.JDateChooser dcDataLocacao;
+    private javax.swing.JTextField dtDevolucao;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -817,12 +797,9 @@ public class IfLocacao extends javax.swing.JInternalFrame {
     private javax.swing.JTextField tfBairro;
     private javax.swing.JTextField tfCPF;
     private javax.swing.JTextField tfCidade;
-    private javax.swing.JTextField tfDataLocacao;
     private javax.swing.JTextField tfDataLocacaoNaReserva;
     private javax.swing.JTextField tfDataReserva;
     private javax.swing.JTextField tfDescricaoVeiculo;
-    private javax.swing.JTextField tfDias;
-    private javax.swing.JTextField tfDiasPretendidos;
     private javax.swing.JTextField tfEndereco;
     private javax.swing.JTextField tfHoraRetirada;
     private javax.swing.JTextField tfKmAtual;

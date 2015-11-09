@@ -22,14 +22,6 @@
             </key>
             <one-to-many class="entidade.Log" />
         </set>
-        <set name="contatos" table="contato_pessoa" inverse="false" lazy="true" fetch="select">
-            <key>
-                <column name="pessoa_idpessoa" not-null="true" />
-            </key>
-            <many-to-many entity-name="entidade.Contato">
-                <column name="contato_idcontato" not-null="true" />
-            </many-to-many>
-        </set>
         <one-to-one name="pessoafisica" class="entidade.Pessoafisica"></one-to-one>
         
         <one-to-one name="funcionario" class="entidade.Funcionario"></one-to-one>

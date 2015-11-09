@@ -28,6 +28,9 @@ public class Contato implements java.io.Serializable {
     private Tipocontato tipocontato;
     @Column(name = "descricao", nullable = false, length = 60)
     private String descricao;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "pessoa_idpessoa", nullable = false)
+    private Pessoa pessoa_idpessoa;
 
     public Contato() {
     }
@@ -67,5 +70,14 @@ public class Contato implements java.io.Serializable {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+    
+    
+    public Pessoa getPessoa() {
+        return this.pessoa_idpessoa;
+    }
+
+    public void setPessoa(Pessoa pessoa_idpessoa) {
+        this.pessoa_idpessoa = pessoa_idpessoa;
     }
 }

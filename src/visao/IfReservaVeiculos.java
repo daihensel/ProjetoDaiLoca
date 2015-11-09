@@ -59,13 +59,13 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
         jpReserva = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        tfDiasPretendidos = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
         tfVendedor = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         btPVendedor = new javax.swing.JButton();
         dcDataReserva = new com.toedter.calendar.JDateChooser();
         dcDataLocacao = new com.toedter.calendar.JDateChooser();
+        jLabel9 = new javax.swing.JLabel();
+        dcDataDevolucao = new com.toedter.calendar.JDateChooser();
         jpCliente = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         tfNomeCliente = new javax.swing.JTextField();
@@ -105,14 +105,6 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Data Locação:");
 
-        tfDiasPretendidos.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                tfDiasPretendidosKeyTyped(evt);
-            }
-        });
-
-        jLabel3.setText("Dias pretendidos:");
-
         tfVendedor.setEditable(false);
         tfVendedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -129,36 +121,40 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel9.setText("Data Devolução:");
+
         javax.swing.GroupLayout jpReservaLayout = new javax.swing.GroupLayout(jpReserva);
         jpReserva.setLayout(jpReservaLayout);
         jpReservaLayout.setHorizontalGroup(
             jpReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpReservaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jpReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jpReservaLayout.createSequentialGroup()
-                        .addComponent(jLabel3)
+                .addGroup(jpReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpReservaLayout.createSequentialGroup()
+                        .addContainerGap(42, Short.MAX_VALUE)
+                        .addComponent(jLabel16)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfDiasPretendidos, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(tfVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btPVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jpReservaLayout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addGroup(jpReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jpReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jpReservaLayout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(dcDataLocacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jpReservaLayout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(dcDataReserva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpReservaLayout.createSequentialGroup()
-                .addContainerGap(42, Short.MAX_VALUE)
-                .addComponent(jLabel16)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btPVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap()
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(dcDataDevolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jpReservaLayout.createSequentialGroup()
+                                .addGap(24, 24, 24)
+                                .addGroup(jpReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(jpReservaLayout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(dcDataLocacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(jpReservaLayout.createSequentialGroup()
+                                        .addComponent(jLabel1)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(dcDataReserva, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 288, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jpReservaLayout.setVerticalGroup(
@@ -174,9 +170,9 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
                     .addComponent(dcDataLocacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jpReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(tfDiasPretendidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jLabel9)
+                    .addComponent(dcDataDevolucao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(11, 11, 11)
                 .addGroup(jpReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(tfVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -509,7 +505,7 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
 
             //reserva.setDtLocacao(Formatacao.converteParaDataAMD(((JCalendar) cbDataLocacao).getText()));
             reserva.setDtLocacao(Formatacao.converteDataParaDataAMD(dcDataLocacao.getDate()));
-            reserva.setDiasPretendidos(Integer.parseInt(tfDiasPretendidos.getText()));
+            reserva.setDtDevolucao(Formatacao.converteDataParaDataAMD(dcDataDevolucao.getDate()));
 
             Object[] object;
             object = (Object[]) Popula.retornaVeiculo(codveiculo);
@@ -534,13 +530,6 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
 
 
     }//GEN-LAST:event_btReservarActionPerformed
-
-    private void tfDiasPretendidosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDiasPretendidosKeyTyped
-        String caracteres = "0987654321";
-        if (!caracteres.contains(evt.getKeyChar() + "")) {
-            evt.consume();
-        }
-    }//GEN-LAST:event_tfDiasPretendidosKeyTyped
 
     private void tfVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfVendedorActionPerformed
         // TODO add your handling code here:
@@ -617,6 +606,9 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
         
         limpaCampos lv = new limpaCampos();
         lv.limparCampos(jpVeiculo);
+        dcDataLocacao.setDate(null);
+        dcDataReserva.setDate(null);
+        dcDataDevolucao.setDate(null);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -624,6 +616,7 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
     private javax.swing.JButton btPVeiculo;
     private javax.swing.JButton btPVendedor;
     private javax.swing.JButton btReservar;
+    private com.toedter.calendar.JDateChooser dcDataDevolucao;
     private com.toedter.calendar.JDateChooser dcDataLocacao;
     private com.toedter.calendar.JDateChooser dcDataReserva;
     private javax.swing.JButton jButton2;
@@ -640,12 +633,12 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jpCliente;
     private javax.swing.JPanel jpReserva;
     private javax.swing.JPanel jpVeiculo;
@@ -655,7 +648,6 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
     private javax.swing.JTextField tfCPF;
     private javax.swing.JTextField tfCidade;
     private javax.swing.JTextField tfDescricaoVeiculo;
-    private javax.swing.JTextField tfDiasPretendidos;
     private javax.swing.JTextField tfEndereco;
     private javax.swing.JTextField tfKmAtual;
     private javax.swing.JTextField tfMarca;

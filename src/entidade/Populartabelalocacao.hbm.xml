@@ -23,8 +23,8 @@
         <property name="dtlocacao" type="date">
             <column name="dtlocacao" length="13" not-null="true" />
         </property>
-        <property name="dias" type="int">
-            <column name="dias" not-null="true" />
+        <property name="dtdevolucao" type="int">
+            <column name="dtdevolucao" not-null="true" />
         </property>
         <property name="valorTotal" type="big_decimal">
             <column name="valor_total" precision="11" not-null="true" />

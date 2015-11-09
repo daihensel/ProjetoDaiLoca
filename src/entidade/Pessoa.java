@@ -47,12 +47,9 @@ public class Pessoa implements java.io.Serializable {
 //	private Set<Permissao> permissaos = new HashSet(0);
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "pessoa")
     private Set<Auditoria> auditorias = new HashSet(0);
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "contato_pessoa", schema = "public", joinColumns = {
-        @JoinColumn(name = "pessoa_idpessoa", nullable = false, updatable = false)}, inverseJoinColumns = {
-        @JoinColumn(name = "contato_idcontato", nullable = false, updatable = false)})
-
-    private Set<Contato> contatos = new HashSet(0);
+    
+   
+    
 
     public Pessoa() {
     }
@@ -148,13 +145,7 @@ public class Pessoa implements java.io.Serializable {
         this.auditorias = auditorias;
     }
 
-    public Set getContatos() {
-        return this.contatos;
-    }
-
-    public void setContatos(Set contatos) {
-        this.contatos = contatos;
-    }
+    
 //	
 //	 public Set getPermissaos() {
 //        return this.permissaos;

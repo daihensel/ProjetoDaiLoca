@@ -14,5 +14,8 @@
         <property name="descricao" type="string">
             <column name="descricao" length="60" not-null="true" />
         </property>
+        <many-to-one name="pessoa_idpessoa" class="entidade.Pessoa" fetch="select">
+            <column name="pessoa_idpessoa" not-null="true" />
+        </many-to-one>
     </class>
 </hibernate-mapping>

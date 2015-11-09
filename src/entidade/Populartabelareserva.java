@@ -40,8 +40,8 @@ public class Populartabelareserva implements java.io.Serializable {
     @Temporal(TemporalType.DATE)
     @Column(name = "dt_locacao", nullable = false, length = 13)
     private Date dtlocacao;
-    @Column(name = "dias_pretendidos", nullable = false)
-    private int diasPretendidos;
+    @Column(name = "dtdevolucao", nullable = false)
+    private Date dtdevolucao;
     @Column(name = "descricaoveiculo", nullable = false, length = 45)
     private String descricaoveiculo;
     @Column(name = "descricaotipo", nullable = false, length = 45)
@@ -123,12 +123,12 @@ public class Populartabelareserva implements java.io.Serializable {
         this.dtlocacao = dtlocacao;
     }
 
-    public int getDiasPretendidos() {
-        return this.diasPretendidos;
+    public Date getDtDevolucao() {
+        return this.dtdevolucao;
     }
 
-    public void setDiasPretendidos(int diasPretendidos) {
-        this.diasPretendidos = diasPretendidos;
+    public void setDtDevolucao(Date dtdevolucao) {
+        this.dtdevolucao = dtdevolucao;
     }
 
     public String getDescricaoVeiculo() {

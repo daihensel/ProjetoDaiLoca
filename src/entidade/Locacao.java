@@ -47,8 +47,8 @@ public class Locacao implements java.io.Serializable {
     @Temporal(TemporalType.TIME)
     @Column(name = "hora_retirada", nullable = false, length = 15)
     private Date horaRetirada;
-    @Column(name = "dias", nullable = false)
-    private int dias;
+    @Column(name = "dtdevolucao", nullable = false)
+    private Date dtdevolucao;
     @Column(name = "valor_total", nullable = false, precision = 11)
     private BigDecimal valorTotal;
     @Column(name = "parcelas", nullable = false)
@@ -61,19 +61,19 @@ public class Locacao implements java.io.Serializable {
     public Locacao() {
     }
 
-    public Locacao(int idlocacao, Cliente cliente, Funcionario funcionario, Parcelaspagamento parcelaspagamento, Veiculo veiculo, Date dtlocacao, Date horaRetirada, int dias, BigDecimal valorTotal, int parcelas) {
+    public Locacao(int idlocacao, Cliente cliente, Funcionario funcionario, Parcelaspagamento parcelaspagamento, Veiculo veiculo, Date dtlocacao, Date horaRetirada, Date dtdevolucao, BigDecimal valorTotal, int parcelas) {
         this.idlocacao = idlocacao;
         this.cliente = cliente;
         this.funcionario = funcionario;
         this.veiculo = veiculo;
         this.dtlocacao = dtlocacao;
         this.horaRetirada = horaRetirada;
-        this.dias = dias;
+        this.dtdevolucao = dtdevolucao;
         this.valorTotal = valorTotal;
         this.parcelas = parcelas;
     }
 
-    public Locacao(int idlocacao, entidade.Cliente cliente, entidade.Funcionario funcionario, Reserva reserva, Veiculo veiculo, Date dtlocacao, Date horaRetirada, int dias, BigDecimal valorTotal, int parcelas, Set parcelaspagamento, Set devolucaos) {
+    public Locacao(int idlocacao, entidade.Cliente cliente, entidade.Funcionario funcionario, Reserva reserva, Veiculo veiculo, Date dtlocacao, Date horaRetirada, Date dtdevolucao, BigDecimal valorTotal, int parcelas, Set parcelaspagamento, Set devolucaos) {
         this.idlocacao = idlocacao;
         this.cliente = cliente;
         this.funcionario = funcionario;
@@ -81,7 +81,7 @@ public class Locacao implements java.io.Serializable {
         this.veiculo = veiculo;
         this.dtlocacao = dtlocacao;
         this.horaRetirada = horaRetirada;
-        this.dias = dias;
+        this.dtdevolucao = dtdevolucao;
         this.valorTotal = valorTotal;
         this.parcelas = parcelas;
         this.parcelaspagamento = parcelaspagamento;
@@ -144,12 +144,12 @@ public class Locacao implements java.io.Serializable {
         this.horaRetirada = horaRetirada;
     }
 
-    public int getDias() {
-        return this.dias;
+    public Date getDtDevolucao() {
+        return this.dtdevolucao;
     }
 
-    public void setDias(int dias) {
-        this.dias = dias;
+    public void setDtDevolucao(Date dtdevolucao) {
+        this.dtdevolucao = dtdevolucao;
     }
 
     public BigDecimal getValorTotal() {

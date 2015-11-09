@@ -26,8 +26,8 @@
         <property name="horaRetirada" type="time">
             <column name="hora_retirada" length="15" not-null="true" />
         </property>
-        <property name="dias" type="int">
-            <column name="dias" not-null="true" />
+        <property name="dtdevolucao" type="int">
+            <column name="dtdevolucao" not-null="true" />
         </property>
         <property name="valorTotal" type="big_decimal">
             <column name="valor_total" precision="11" not-null="true" />

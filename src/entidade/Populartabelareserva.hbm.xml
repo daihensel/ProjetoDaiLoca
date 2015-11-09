@@ -32,8 +32,8 @@
         <property name="dtlocacao" type="date">
             <column name="dtlocacao" length="13" not-null="true" />
         </property>
-        <property name="diasPretendidos" type="int">
-            <column name="dias_pretendidos" not-null="true" />
+        <property name="dtdevolucao" type="int">
+            <column name="dtdevolucao" not-null="true" />
         </property>
 		 <property name="descricaoveiculo" type="string">
             <column name="descricaoveiculo" length="45" not-null="true" />

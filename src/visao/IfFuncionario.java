@@ -700,35 +700,35 @@ public class IfFuncionario extends javax.swing.JInternalFrame {
 
                     Pessoa p = linf.getPessoa();
                     tfNome.setText(p.getNome());
-                    String tel1 = "";
-                    String tel2 = "";
-                    String email = "";
-                    Set<Contato> contato;
-                    contato = new HashSet<Contato>();
-                    contato = p.getContatos();
-                    Iterator<Contato> contatoIterator = contato.iterator();
-                    while (contatoIterator.hasNext()) {
-                        Contato c = contatoIterator.next();
-                        tel1 = c.getDescricao();
-                        tfTelefone1.setText(tel1);
-                        if (contatoIterator.hasNext()) {
-                            c = contatoIterator.next();
-                            tel2 = c.getDescricao();
-                            String primeiroTel2 = String.valueOf(tel2.charAt(0));
-                            if (primeiroTel2.equals("(")) {
-                                tfTelefone2.setText(tel2);
-                            }else{
-                                tfEmail.setText(tel2);
-                            }
-                        }
-                        if (contatoIterator.hasNext()) {
-                            c = contatoIterator.next();
-                            email = c.getDescricao();
-                        }
-                    }
-                    System.out.println("tel1:" + tel1);
-                    System.out.println("tel1:" + tel2);
-                    System.out.println("email:" + email);
+//                    String tel1 = "";
+//                    String tel2 = "";
+//                    String email = "";
+//                    Set<Contato> contato;
+//                    contato = new HashSet<Contato>();
+//                    contato = p.getContatos();
+//                    Iterator<Contato> contatoIterator = contato.iterator();
+//                    while (contatoIterator.hasNext()) {
+//                        Contato c = contatoIterator.next();
+//                        tel1 = c.getDescricao();
+//                        tfTelefone1.setText(tel1);
+//                        if (contatoIterator.hasNext()) {
+//                            c = contatoIterator.next();
+//                            tel2 = c.getDescricao();
+//                            String primeiroTel2 = String.valueOf(tel2.charAt(0));
+//                            if (primeiroTel2.equals("(")) {
+//                                tfTelefone2.setText(tel2);
+//                            }else{
+//                                tfEmail.setText(tel2);
+//                            }
+//                        }
+//                        if (contatoIterator.hasNext()) {
+//                            c = contatoIterator.next();
+//                            email = c.getDescricao();
+//                        }
+//                    }
+//                    System.out.println("tel1:" + tel1);
+//                    System.out.println("tel1:" + tel2);
+//                    System.out.println("email:" + email);
                     tfDataAdmissao.setText(Formatacao.ajustaDataDMA(String.valueOf(linf.getDtAdmissao())));
                     if (linf.getDtDemissao() != null) {
                         tfDataDemissao.setText(Formatacao.ajustaDataDMA(String.valueOf(linf.getDtDemissao())));

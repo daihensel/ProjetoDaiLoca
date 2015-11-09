@@ -555,35 +555,35 @@ public class IfFornecedor extends javax.swing.JInternalFrame {
                 }
                 List<Pessoa> lp = (List<Pessoa>) object[1];
                 for (Pessoa linp : lp) {
-                    String tel1 = "";
-                    String tel2 = "";
-                    String email = "";
-                    Set<Contato> contato;
-                    contato = new HashSet<Contato>();
-                    contato = linp.getContatos();
-                    Iterator<Contato> contatoIterator = contato.iterator();
-                    while (contatoIterator.hasNext()) {
-                        Contato c = contatoIterator.next();
-                        tel1 = c.getDescricao();
-                        tfTelefone1.setText(tel1);
-                        if (contatoIterator.hasNext()) {
-                            c = contatoIterator.next();
-                            tel2 = c.getDescricao();
-                            String primeiroTel2 = String.valueOf(tel2.charAt(0));
-                            if (primeiroTel2.equals("(")) {
-                                tfTelefone2.setText(tel2);
-                            } else {
-                                tfEmail.setText(tel2);
-                            }
-                        }
-                        if (contatoIterator.hasNext()) {
-                            c = contatoIterator.next();
-                            email = c.getDescricao();
-                        }
-                    }
-                    System.out.println("tel1:" + tel1);
-                    System.out.println("tel1:" + tel2);
-                    System.out.println("email:" + email);
+//                    String tel1 = "";
+//                    String tel2 = "";
+//                    String email = "";
+//                    Set<Contato> contato;
+//                    contato = new HashSet<Contato>();
+//                    contato = linp.getContatos();
+//                    Iterator<Contato> contatoIterator = contato.iterator();
+//                    while (contatoIterator.hasNext()) {
+//                        Contato c = contatoIterator.next();
+//                        tel1 = c.getDescricao();
+//                        tfTelefone1.setText(tel1);
+//                        if (contatoIterator.hasNext()) {
+//                            c = contatoIterator.next();
+//                            tel2 = c.getDescricao();
+//                            String primeiroTel2 = String.valueOf(tel2.charAt(0));
+//                            if (primeiroTel2.equals("(")) {
+//                                tfTelefone2.setText(tel2);
+//                            } else {
+//                                tfEmail.setText(tel2);
+//                            }
+//                        }
+//                        if (contatoIterator.hasNext()) {
+//                            c = contatoIterator.next();
+//                            email = c.getDescricao();
+//                        }
+//                    }
+//                    System.out.println("tel1:" + tel1);
+//                    System.out.println("tel1:" + tel2);
+//                    System.out.println("email:" + email);
 
                     Endereco e = linp.getEndereco();
                     tfEndereco.setText(e.getDescricao());

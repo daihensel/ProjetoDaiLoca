@@ -143,7 +143,6 @@ public class DgConsultaReserva extends javax.swing.JDialog {
             this.dispose();
         }
     }//GEN-LAST:event_tbReservaMouseClicked
-    
     public void popularTabelaReserva(String criterio, JTable tb) {
         
         DefaultTableModel tabelaModelo = (DefaultTableModel) tb.getModel();
@@ -164,7 +163,7 @@ public class DgConsultaReserva extends javax.swing.JDialog {
                 lin.getIdreserva(),
                 Formatacao.ajustaDataDMA(String.valueOf(lin.getDtReserva())),
                 Formatacao.ajustaDataDMA(String.valueOf(lin.getDtLocacao())),
-                lin.getDiasPretendidos(),
+                lin.getDtDevolucao(),
                 lin.getNomecliente(),
                 lin.getDescricaoVeiculo(),
                 lin.getDescricaoTipo(),
@@ -177,6 +176,7 @@ public class DgConsultaReserva extends javax.swing.JDialog {
         
     }
 
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btPesquisar;
