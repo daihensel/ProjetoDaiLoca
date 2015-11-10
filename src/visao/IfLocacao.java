@@ -577,7 +577,7 @@ public class IfLocacao extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void btPReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPReservaActionPerformed
-        DgConsultaReserva tela = new DgConsultaReserva(this);
+        DgConsultaReserva tela = new DgConsultaReserva(this, null);
         tela.setVisible(true);
     }//GEN-LAST:event_btPReservaActionPerformed
 
@@ -595,7 +595,7 @@ public class IfLocacao extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tfVendedorActionPerformed
 
     private void btPVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPVendedorActionPerformed
-        DgConsultaFuncionario tela = new DgConsultaFuncionario(this, null);
+        DgConsultaFuncionario tela = new DgConsultaFuncionario(this, null, null);
         tela.setVisible(true);
     }//GEN-LAST:event_btPVendedorActionPerformed
 

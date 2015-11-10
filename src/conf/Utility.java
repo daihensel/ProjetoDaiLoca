@@ -114,18 +114,18 @@ public class Utility {
 //            }
             Boolean inser = (boolean) tuple[1];
             if (novo != null) {
-                novo.setEnabled(inser);
+                novo.setVisible(inser);
             }
             if (salvar != null) {
-                salvar.setEnabled(inser);
+                salvar.setVisible(inser);
             }
             Boolean edit = (boolean) tuple[2];
             if (editar != null) {
-                editar.setEnabled(edit);
+                editar.setVisible(edit);
             }
             Boolean exc = (boolean) tuple[3];
             if (excluir != null) {
-                excluir.setEnabled(exc);
+                excluir.setVisible(exc);
             }
 
             sessao.getTransaction().commit();

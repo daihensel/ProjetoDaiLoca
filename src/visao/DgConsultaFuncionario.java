@@ -17,15 +17,17 @@ public class DgConsultaFuncionario extends javax.swing.JDialog {
     private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
     IfLocacao telaLocacao;
     IfReservaVeiculos telaReserva;
+    IfCancelamento telaCancelamento;
 
     // public static IfReservaVeiculos telaReserva;
     /**
      * Creates new form DgConsultaVeic
      */
-    public DgConsultaFuncionario(IfLocacao telaLocacao, IfReservaVeiculos telaReserva) {
+    public DgConsultaFuncionario(IfLocacao telaLocacao, IfReservaVeiculos telaReserva, IfCancelamento telaCancelamento) {
         initComponents();
         this.telaLocacao = telaLocacao;
         this.telaReserva = telaReserva;
+        this.telaCancelamento = telaCancelamento;
         pesquisa();
     }
 
@@ -136,6 +138,10 @@ public class DgConsultaFuncionario extends javax.swing.JDialog {
             }
             if (telaLocacao != null) {
                 telaLocacao.defineCodigoFuncionario(codigo, nome);
+            }
+            
+            if (telaCancelamento != null) {
+                telaCancelamento.defineCodigoFuncionario(codigo, nome);
             }
 
             this.dispose();

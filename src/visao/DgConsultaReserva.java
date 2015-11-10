@@ -24,13 +24,15 @@ public class DgConsultaReserva extends javax.swing.JDialog {
     
     private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
     IfLocacao telaLocacao;
+    IfCancelamento telaCancelamento;
     int codigoVeiculo;
     int codigoCliente;
     
-    public DgConsultaReserva(IfLocacao janela) {
+    public DgConsultaReserva(IfLocacao janelaLocacao, IfCancelamento janelaCancelamento) {
         
         initComponents();
-        telaLocacao = janela;
+        this.telaLocacao = janelaLocacao;
+        this.telaCancelamento = janelaCancelamento;
         codigoVeiculo = 0;
         codigoCliente = 0;
         this.popularTabelaReserva(tfPesquisa.getText(), tbReserva);
@@ -137,9 +139,16 @@ public class DgConsultaReserva extends javax.swing.JDialog {
         if (evt.getClickCount() > 1) {
             String cod = String.valueOf(tbReserva.getValueAt(tbReserva.getSelectedRow(), 0));
             int codigo = Integer.parseInt(cod);
-            telaLocacao.defineCodigoReserva(codigo);
+            if (telaLocacao != null) {
+                telaLocacao.defineCodigoReserva(codigo);
             telaLocacao.defineCodigoCliente(codigoCliente);
             telaLocacao.defineCodigoVeiculo(codigoVeiculo);
+            }
+             if (telaCancelamento != null) {
+            telaCancelamento.defineCodigoReserva(codigo);
+            telaCancelamento.defineCodigoCliente(codigoCliente);
+            telaCancelamento.defineCodigoVeiculo(codigoVeiculo);
+             }
             this.dispose();
         }
     }//GEN-LAST:event_tbReservaMouseClicked
