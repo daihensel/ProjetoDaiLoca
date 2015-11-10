@@ -41,6 +41,8 @@ public class Manutencao implements java.io.Serializable {
     private Date dtRetorno;
     @Column(name = "observacao", length = 100)
     private String observacao;
+    @Column(name = "solucao", length = 150)
+    private String solucao;
 
     public Manutencao() {
     }
@@ -54,7 +56,7 @@ public class Manutencao implements java.io.Serializable {
         this.dtRetorno = dtRetorno;
     }
 
-    public Manutencao(int idmanutencao, Veiculo veiculo, Pessoajuridica pessoajuridica, String motivo, Date dtManutencao, Date dtRetorno, String observacao) {
+    public Manutencao(int idmanutencao, Veiculo veiculo, Pessoajuridica pessoajuridica, String motivo, Date dtManutencao, Date dtRetorno, String observacao, String solucao) {
         this.idmanutencao = idmanutencao;
         this.veiculo = veiculo;
         this.pessoajuridica = pessoajuridica;
@@ -62,6 +64,7 @@ public class Manutencao implements java.io.Serializable {
         this.dtManutencao = dtManutencao;
         this.dtRetorno = dtRetorno;
         this.observacao = observacao;
+        this.solucao = solucao;
     }
 
     public Pessoajuridica getPessoajuridica() {
@@ -118,5 +121,13 @@ public class Manutencao implements java.io.Serializable {
 
     public void setObservacao(String observacao) {
         this.observacao = observacao;
+    }
+    
+     public String getSolucao() {
+        return this.solucao;
+    }
+
+    public void setSolucao(String solucao) {
+        this.solucao = solucao;
     }
 }
