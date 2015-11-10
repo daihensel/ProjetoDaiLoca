@@ -19,6 +19,7 @@ public class DgConsultaVeiculo extends javax.swing.JDialog {
     public static IfLocacao telaLocacao;
     public static IfManutencaoVeiculos telaManutencao;
     public static IfDocumento telaDoc;
+    String status = "";
 
     /**
      * Creates new form DgConsultaVeic
@@ -27,7 +28,13 @@ public class DgConsultaVeiculo extends javax.swing.JDialog {
 
         initComponents();
         this.telaReserva = telaReserva;
+        if (telaReserva != null) {
+            status = "Disponível";
+        }
         this.telaLocacao = telaLocacao;
+        if (telaLocacao != null) {
+            status = "Disponível";
+        }
         this.telaManutencao = telaManutencao;
         this.telaDoc = telaDoc;
         pesquisa();
@@ -166,7 +173,7 @@ public class DgConsultaVeiculo extends javax.swing.JDialog {
         if (tfPesquisa.getText().length() > 0 && tfPesquisa.getText().matches("[0-9]")) {
             cod = Integer.parseInt(tfPesquisa.getText());
         }
-        Popula.popularTabelaVeiculo(cod, tfPesquisa.getText(), tbVeiculos);
+        Popula.popularTabelaVeiculo(cod, tfPesquisa.getText(), tbVeiculos, status);
     }
 
 

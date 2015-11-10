@@ -519,7 +519,7 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
             sessao.save(reserva);
 
             t.commit();
-            limpa();
+            limpaCampos();
                         
             
         } catch (HibernateException he) {
@@ -597,15 +597,11 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
         codFunc = cod;
     }
     
-    public void limpa(){
-        limpaCampos lr = new limpaCampos();
-        lr.limparCampos(jpReserva);
-        
+    public void limpaCampos(){
         limpaCampos lc = new limpaCampos();
+        lc.limparCampos(jpReserva);
         lc.limparCampos(jpCliente);
-        
-        limpaCampos lv = new limpaCampos();
-        lv.limparCampos(jpVeiculo);
+        lc.limparCampos(jpVeiculo);
         dcDataLocacao.setDate(null);
         dcDataReserva.setDate(null);
         dcDataDevolucao.setDate(null);

@@ -25,6 +25,8 @@ public class Populartabelalocacao implements java.io.Serializable {
     private int idlocacao;
     @Column(name = "nomecliente", nullable = false, length = 45)
     private String nomecliente;
+    @Column(name = "idveiculo", nullable = false, length = 45)
+    private int idveiculo;
     @Column(name = "rg", nullable = false, length = 45)
     private String rg;
     @Column(name = "cpf", nullable = false, length = 45)
@@ -54,6 +56,14 @@ public class Populartabelalocacao implements java.io.Serializable {
 
     public void setIdlocacao(int idlocacao) {
         this.idlocacao = idlocacao;
+    }
+    
+    public int getIdveiculo() {
+        return this.idveiculo;
+    }
+
+    public void setIdveiculo(int idveiculo) {
+        this.idveiculo = idveiculo;
     }
 
     public String getNomecliente() {

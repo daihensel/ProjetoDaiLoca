@@ -614,7 +614,7 @@ public class IfVeiculo extends javax.swing.JInternalFrame {
         if (tfPesquisa.getText().length() > 0 && tfPesquisa.getText().matches("[0-9]")) {
             cod = Integer.parseInt(tfPesquisa.getText());
         }
-        Popula.popularTabelaVeiculo(cod, tfPesquisa.getText(), tbVeiculos);
+        Popula.popularTabelaVeiculo(cod, tfPesquisa.getText(), tbVeiculos, "");
     }
 
     public void populaCombos() {

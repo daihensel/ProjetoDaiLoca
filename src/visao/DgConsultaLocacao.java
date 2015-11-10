@@ -6,6 +6,7 @@
 package visao;
 
 import conf.Popula;
+import conf.limpaCampos;
 import org.apache.log4j.Logger;
 
 /**
@@ -136,7 +137,6 @@ public class DgConsultaLocacao extends javax.swing.JDialog {
         }
         Popula.popularTabelaLocacao(cod, tfPesquisa.getText(), tbLocacoes);
     }
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btPesquisar;

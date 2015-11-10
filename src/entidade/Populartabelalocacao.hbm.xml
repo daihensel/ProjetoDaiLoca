@@ -11,6 +11,9 @@
         <property name="nomecliente" type="string">
             <column name="nomecliente" length="45" not-null="true" />
         </property>
+        <property name="idveiculo" type="string">
+            <column name="idveiculo" length="45" not-null="true" />
+        </property>
         <property name="rg" type="string">
             <column name="rg" length="45" not-null="true" />
         </property>
@@ -21,7 +24,7 @@
             <column name="telefone" length="60" not-null="true" />
         </property>
         <property name="dtlocacao" type="date">
-            <column name="dtlocacao" length="13" not-null="true" />
+            <column name="dt_locacao" length="13" not-null="true" />
         </property>
         <property name="dtdevolucao" type="int">
             <column name="dtdevolucao" not-null="true" />

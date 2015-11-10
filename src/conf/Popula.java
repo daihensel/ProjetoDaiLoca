@@ -42,7 +42,7 @@ import org.hibernate.Transaction;
  */
 public class Popula {
 
-    public static List popularTabelaVeiculo(int codigo, String criterio, JTable tb) {
+    public static List popularTabelaVeiculo(int codigo, String criterio, JTable tb, String status) {
 
         DefaultTableModel tabelaModelo = (DefaultTableModel) tb.getModel();
         tabelaModelo.setNumRows(0);
@@ -52,11 +52,11 @@ public class Popula {
         sessao = HibernateUtil.getSessionFactory().openSession();
         Transaction t = sessao.beginTransaction();
         criterio = criterio.toLowerCase();
+        status = status.toLowerCase();
         Query query = (Query) sessao.createQuery(" FROM Veiculosstatus v WHERE (lower(v.descricaoveiculo) LIKE '%" + criterio + "%'"
                 + " OR lower(v.marca) LIKE '%" + criterio + "%'"
                 + " OR lower(v.descricaotipo) LIKE '%" + criterio + "%'"
-                + " OR lower(v.descricaostatus) LIKE '%" + criterio + "%'"
-                + " OR v.idveiculo = " + codigo + " ) ");
+                + " OR v.idveiculo = " + codigo + " ) AND lower(v.descricaostatus) LIKE '%" + status + "%'");
         List<Veiculosstatus> dadosVeiculos = (List<Veiculosstatus>) query.list();
 
         for (Veiculosstatus lin : dadosVeiculos) {
@@ -76,7 +76,7 @@ public class Popula {
         return dadosVeiculos;
 
     }
-    
+
     public static Veiculo alteraStatusVeiculo(String descricao, Veiculo v) {
         Session sessao = null;
 
@@ -113,7 +113,6 @@ public class Popula {
 
         return v;
     }
-    
 
     public static List popularTabelaLocacao(int codigo, String criterio, JTable tb) {
 
@@ -176,9 +175,6 @@ public class Popula {
         sessao.getTransaction().commit();
 
     }
-    
-    
-    
 
     public static void popularTabelaFornecedor(int codigo, String criterio, JTable tb) {
 
@@ -297,7 +293,7 @@ public class Popula {
 
         sessao.getTransaction().commit();
         object[0] = dadosLocacao;
-        
+
         return object;
     }
 
@@ -310,15 +306,15 @@ public class Popula {
         Query queryRetornaCidade = (Query) sessao.createQuery(" FROM Cidade c WHERE ("
                 + " c.idcidade = " + codCidade + ")");
 
-        List<Cidade> dadosVeiculo = (List<Cidade>) queryRetornaCidade.list();
+        List<Cidade> dadosCidade = (List<Cidade>) queryRetornaCidade.list();
 
         sessao.getTransaction().commit();
-        object[0] = dadosVeiculo;
+        object[0] = dadosCidade;
 
         return object;
     }
 
-    public static List RetornaPessoa(int codPessoa) {
+    public static List retornaPessoa(int codPessoa) {
         Session sessao = null;
 
         sessao = HibernateUtil.getSessionFactory().openSession();
@@ -327,13 +323,7 @@ public class Popula {
         Query queryRetornaPes = (Query) sessao.createQuery(" FROM Pessoa p WHERE ("
                 + " p.idpessoa = " + codPessoa + ")");
         List<Pessoa> dadosPessoa = (List<Pessoa>) queryRetornaPes.list();
-
-        for (Pessoa lin : dadosPessoa) {
-            lin.getIdpessoa();
-            lin.getNome();
-            lin.getEndereco();
-        }
-
+        
         return dadosPessoa;
     }
 
@@ -341,9 +331,9 @@ public class Popula {
 
         DefaultTableModel tabelaModelo = (DefaultTableModel) tb.getModel();
         tabelaModelo.setNumRows(0);
-        JTable tbAux = new JTable();
-        DefaultTableModel tabelaModeloAux = (DefaultTableModel) tbAux.getModel();
-        tabelaModeloAux.setNumRows(0);
+//        JTable tbAux = new JTable();
+//        DefaultTableModel tabelaModeloAux = (DefaultTableModel) tbAux.getModel();
+//        tabelaModeloAux.setNumRows(0);
 
         Session sessao = null;
 
@@ -365,16 +355,16 @@ public class Popula {
                 + " d.iddocumentos = " + cod + ")");
         List<Documentos> dadosDocumento = (List<Documentos>) query.list();
 
-        for (Documentos lin : dadosDocumento) {
-            tabelaModeloAux.addRow(new Object[]{
-                lin.getIddocumentos(),
-                lin.getDescricao(),
-                lin.getVeiculo(),
-                lin.getDtInclusao(),
-                lin.getTipo(),
-                lin.getObservacoes()
-            });
-        }
+//        for (Documentos lin : dadosDocumento) {
+//            tabelaModeloAux.addRow(new Object[]{
+//                lin.getIddocumentos(),
+//                lin.getDescricao(),
+//                lin.getVeiculo(),
+//                lin.getDtInclusao(),
+//                lin.getTipo(),
+//                lin.getObservacoes()
+//            });
+//        }
         while (qr.hasNext()) {
             Object[] tuple = (Object[]) qr.next();
             tabelaModelo.addRow(new Object[]{
