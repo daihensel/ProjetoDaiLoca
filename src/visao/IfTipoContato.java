@@ -26,7 +26,8 @@ public class IfTipoContato extends javax.swing.JInternalFrame {
      * Creates new form TipoContato
      */
     private org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(IfTipoContato.class.getName());
-
+    int idTipoContato = 0;
+    
     public IfTipoContato() {
         initComponents();
         Utility.permit(btNovo, btSalvar, btEditar, btExcluir, this);
@@ -54,7 +55,7 @@ public class IfTipoContato extends javax.swing.JInternalFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel4 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        tfdContato = new javax.swing.JTextField();
+        tfContato = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         tfPesquisa = new javax.swing.JTextField();
@@ -135,9 +136,9 @@ public class IfTipoContato extends javax.swing.JInternalFrame {
 
         jLabel6.setText("Descrição tipo contato*:");
 
-        tfdContato.addKeyListener(new java.awt.event.KeyAdapter() {
+        tfContato.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                tfdContatoKeyTyped(evt);
+                tfContatoKeyTyped(evt);
             }
         });
 
@@ -149,7 +150,7 @@ public class IfTipoContato extends javax.swing.JInternalFrame {
                 .addGap(19, 19, 19)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfdContato, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tfContato, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(95, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -158,7 +159,7 @@ public class IfTipoContato extends javax.swing.JInternalFrame {
                 .addGap(25, 25, 25)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(tfdContato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfContato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(201, Short.MAX_VALUE))
         );
 
@@ -257,7 +258,7 @@ public class IfTipoContato extends javax.swing.JInternalFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel16))
-                    .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 517, Short.MAX_VALUE)))
+                    .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
             .addComponent(jTabbedPane1)
         );
         layout.setVerticalGroup(
@@ -275,37 +276,24 @@ public class IfTipoContato extends javax.swing.JInternalFrame {
 
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
         habilitaCampos(true);
+        idTipoContato = 0;
         jTabbedPane1.setSelectedIndex(0);
         btNovo.setEnabled(false);
         btSalvar.setEnabled(true);
     }//GEN-LAST:event_btNovoActionPerformed
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
-        
-        Session sessao = null;
-        if (tfdContato.getText().trim().length() > 0) {
-            try {
-                sessao = HibernateUtil.getSessionFactory().openSession();
-                Transaction t = sessao.beginTransaction();
-
-                Tipocontato tipocontato = new Tipocontato();
-                //  tipocontato.setIdtipoContato(20);   //se campo for increment, não precisa
-                tipocontato.setDescricao(tfdContato.getText());
-
-                sessao.save(tipocontato);
-
-                t.commit();
-                pesquisa();
-                habilitaCampos(false);
-                btNovo.setEnabled(true);
-                btSalvar.setEnabled(false);
-                tfdContato.requestFocus();
-            } catch (HibernateException he) {
-                he.printStackTrace();
-                logger.error("Erro");
-            } finally {
-                sessao.close();
-            }
+        if (tfContato.getText().trim().length() > 0) {
+            
+            Tipocontato tipocontato = new Tipocontato();
+            tipocontato.setIdtipoContato(idTipoContato);
+            tipocontato.setDescricao(tfContato.getText());
+            
+            DAO.salvarTipoContato(tipocontato);
+            
+            pesquisa();
+            habilitaCampos(false);
+            
         } else {
             JOptionPane.showMessageDialog(null, "Preencha os campos obrigatórios!");
         }
@@ -318,19 +306,20 @@ public class IfTipoContato extends javax.swing.JInternalFrame {
                 int codigo = Integer.parseInt(cod);
                 List<Tipocontato> l = Popula.popularTabelaTipoContato(codigo, String.valueOf(codigo), tbTipocontato);
                 for (Tipocontato lin : l) {
-                    tfdContato.setText(lin.getDescricao());
+                    idTipoContato = lin.getIdtipoContato();
+                    tfContato.setText(lin.getDescricao());
                 }
                 jTabbedPane1.setSelectedIndex(0);
                 habilitaCampos(true);
                 btNovo.setEnabled(false);
                 btSalvar.setEnabled(true);
-
-                tfdContato.requestFocus();
+                
+                tfContato.requestFocus();
             } else {
                 JOptionPane.showMessageDialog(null, "Selecione algum registro!");
             }
         }
-
+        
 
     }//GEN-LAST:event_btEditarActionPerformed
 
@@ -338,9 +327,9 @@ public class IfTipoContato extends javax.swing.JInternalFrame {
         dispose();
     }//GEN-LAST:event_btFechar1ActionPerformed
 
-    private void tfdContatoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfdContatoKeyTyped
+    private void tfContatoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfContatoKeyTyped
 
-    }//GEN-LAST:event_tfdContatoKeyTyped
+    }//GEN-LAST:event_tfContatoKeyTyped
 
     private void jPanel4FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPanel4FocusGained
 
@@ -389,14 +378,14 @@ public class IfTipoContato extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tbTipocontatoMouseClicked
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
-if (jTabbedPane1.getSelectedIndex() == 1) {
+        if (jTabbedPane1.getSelectedIndex() == 1) {
             if (tbTipocontato.getSelectedRow() >= 0) {
                 Object[] options = {" Sim ", " Não "};
                 String descricao = String.valueOf(tbTipocontato.getValueAt(tbTipocontato.getSelectedRow(), 1));
                 int opcaoExcluir = JOptionPane.showOptionDialog(this.getContentPane(), "Deseja excluir o registro "
                         + descricao + "?",
                         "Informação", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[1]);
-
+                
                 if (opcaoExcluir == 0) {
                     int id = (int) tbTipocontato.getValueAt(tbTipocontato.getSelectedRow(), 0);
                     System.out.println("id a ser excluido:" + id);
@@ -412,18 +401,20 @@ if (jTabbedPane1.getSelectedIndex() == 1) {
             }
         }
     }//GEN-LAST:event_btExcluirActionPerformed
-
+    
     public void habilitaCampos(Boolean tf) {
         if (tf == false) {
             limpaCampos();
+            btNovo.setEnabled(true);
+            btSalvar.setEnabled(false);
         }
-        tfdContato.setEnabled(tf);
+        tfContato.setEnabled(tf);
     }
-
+    
     public void limpaCampos() {
-        tfdContato.setText("");
+        tfContato.setText("");
     }
-
+    
     public void pesquisa() {
         int cod = 0;
         if (tfPesquisa.getText().length() > 0 && tfPesquisa.getText().matches("[0-9]")) {
@@ -449,7 +440,7 @@ if (jTabbedPane1.getSelectedIndex() == 1) {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JTable tbTipocontato;
+    private javax.swing.JTextField tfContato;
     private javax.swing.JTextField tfPesquisa;
-    private javax.swing.JTextField tfdContato;
     // End of variables declaration//GEN-END:variables
 }

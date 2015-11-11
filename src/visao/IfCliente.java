@@ -41,13 +41,13 @@ import org.hibernate.Transaction;
 public class IfCliente extends javax.swing.JInternalFrame {
 
     private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
+    int idPessoa = 0;
 
     /**
      * Creates new form IfCliente
      */
     public IfCliente() {
         initComponents();
-
         Utility.permit(btNovo, btSalvar, btEditar, null, this);
         habilitaCamposPfisica(false);
         habilitaCamposPjuridica(false);
@@ -519,10 +519,10 @@ public class IfCliente extends javax.swing.JInternalFrame {
             Cliente cliente = new Cliente();
             cliente.setDtCadastro(String.valueOf(Formatacao.converteParaDataAMD(tfDataCadastro.getText())));
             Pessoa pessoa = new Pessoa();
-                 
+
             pessoa.setIdpessoa(0);
             pessoa.setNome(tfNome.getText());
-            
+
             Endereco endereco = new Endereco();
             endereco.setDescricao(tfEndereco.getText());
             endereco.setBairro(tfBairro.getText());
@@ -534,29 +534,26 @@ public class IfCliente extends javax.swing.JInternalFrame {
                 Cidade c = lin;
                 endereco.setCidade(c);
             }
-            
+
             pessoa.setEndereco(endereco);
-           
+
             cliente.setPessoa(pessoa);
-                        
+
             Pessoafisica pFisica = new Pessoafisica();
             pFisica.setPessoaIdpessoa(pessoa.getIdpessoa());
             pFisica.setCpf(tfCPF.getText());
             pFisica.setRg(tfRG.getText());
-                      
+
             sessao.save(endereco);
             sessao.save(pessoa);
-            
+
             sessao.save(cliente);
             sessao.save(pFisica);
-            
+
             t.commit();
             pesquisa();
             habilitaCamposPfisica(false);
             habilitaCamposPjuridica(false);
-            btNovo.setEnabled(true);
-            btSalvar.setEnabled(false);
-            tfNome.requestFocus();
         } catch (HibernateException he) {
             he.printStackTrace();
             logger.error("Erro");
@@ -591,8 +588,8 @@ public class IfCliente extends javax.swing.JInternalFrame {
         jTabbedPane1.setSelectedIndex(0);
         btNovo.setEnabled(false);
         btSalvar.setEnabled(true);
-
         tfDataCadastro.setText(Formatacao.getDataAtual());
+        idPessoa = 0;
     }//GEN-LAST:event_btNovoActionPerformed
 
     private void jTabbedPane1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTabbedPane1FocusGained
@@ -738,6 +735,8 @@ public class IfCliente extends javax.swing.JInternalFrame {
     public void habilitaCamposPfisica(Boolean tf) {
         if (tf == false) {
             limpaCampos();
+            btNovo.setEnabled(true);
+            btSalvar.setEnabled(false);
         }
 
         tfNome.setEnabled(tf);
@@ -760,6 +759,8 @@ public class IfCliente extends javax.swing.JInternalFrame {
     public void habilitaCamposPjuridica(Boolean tf) {
         if (tf == false) {
             limpaCampos();
+            btNovo.setEnabled(true);
+            btSalvar.setEnabled(false);
         }
         tfNome.setEnabled(tf);
         tfTelefone1.setEnabled(tf);

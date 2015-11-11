@@ -5,12 +5,14 @@
  */
 package conf;
 
+import entidade.Cidade;
 import entidade.Documentos;
 import entidade.Endereco;
 import entidade.Funcao;
 import entidade.Funcionario;
 import entidade.Pessoa;
 import entidade.Statusveiculo;
+import entidade.Tipocontato;
 import entidade.Tipoveiculo;
 import entidade.Veiculo;
 import org.hibernate.HibernateException;
@@ -60,12 +62,49 @@ public class DAO {
         }
         return retorno;
     }
-    
-     public static String salvarEndereco(Endereco endereco) {
+
+    public static String salvarCidade(Cidade cidade) {
         Session sessao = null;
         String retorno = "";
 
-        if (endereco.getIdendereco()== 0) { //insert
+        if (cidade.getIdcidade() == 0) { //insert
+
+            try {
+
+                sessao = HibernateUtil.getSessionFactory().openSession();
+                Transaction t = sessao.beginTransaction();
+
+                sessao.save(cidade);
+                t.commit();
+            } catch (HibernateException he) {
+                System.out.println("Erro salvar Cidade: \n" + he);
+            }
+
+        } else { //update
+
+            try {
+                sessao = HibernateUtil.getSessionFactory().openSession();
+                Transaction t = sessao.beginTransaction();
+
+                sessao.update(cidade);
+
+                sessao.getTransaction().commit();
+
+            } catch (HibernateException he) {
+                he.printStackTrace();
+                System.out.println("Erro atualizar Cidade = " + he);
+
+            }
+
+        }
+        return retorno;
+    }
+
+    public static String salvarEndereco(Endereco endereco) {
+        Session sessao = null;
+        String retorno = "";
+
+        if (endereco.getIdendereco() == 0) { //insert
 
             try {
 
@@ -97,8 +136,7 @@ public class DAO {
         }
         return retorno;
     }
-    
-    
+
     public static String salvarFuncionario(Funcionario funcionario) {
         Session sessao = null;
         String retorno = "";
@@ -114,7 +152,7 @@ public class DAO {
                 t.commit();
             } catch (HibernateException he) {
                 System.out.println("Erro salvar Funcionario: \n" + he);
-                
+
             }
 
         } else { //update
@@ -136,13 +174,12 @@ public class DAO {
         }
         return retorno;
     }
-    
-    
+
     public static String salvarPessoa(Pessoa pessoa) {
         Session sessao = null;
         String retorno = "";
 
-        if (pessoa.getIdpessoa()== 0) { //insert
+        if (pessoa.getIdpessoa() == 0) { //insert
 
             try {
 
@@ -153,7 +190,7 @@ public class DAO {
                 t.commit();
             } catch (HibernateException he) {
                 System.out.println("Erro salvar Pessoa: \n" + he);
-                
+
             }
 
         } else { //update
@@ -175,10 +212,6 @@ public class DAO {
         }
         return retorno;
     }
-    
-    
-    
-    
 
     public static String salvarTipoVeiculo(Tipoveiculo tipoVeiculo) {
         Session sessao = null;
@@ -210,6 +243,43 @@ public class DAO {
             } catch (HibernateException he) {
                 he.printStackTrace();
                 System.out.println("Erro atualizar TipoVeiculo = " + he);
+
+            }
+
+        }
+        return retorno;
+    }
+
+    public static String salvarTipoContato(Tipocontato tipoContato) {
+        Session sessao = null;
+        String retorno = "";
+
+        if (tipoContato.getIdtipoContato() == 0) { //insert
+
+            try {
+
+                sessao = HibernateUtil.getSessionFactory().openSession();
+                Transaction t = sessao.beginTransaction();
+
+                sessao.save(tipoContato);
+                t.commit();
+            } catch (HibernateException he) {
+                System.out.println("Erro salvar Tipocontato: \n" + he);
+            }
+
+        } else { //update
+
+            try {
+                sessao = HibernateUtil.getSessionFactory().openSession();
+                Transaction t = sessao.beginTransaction();
+
+                sessao.update(tipoContato);
+
+                sessao.getTransaction().commit();
+
+            } catch (HibernateException he) {
+                he.printStackTrace();
+                System.out.println("Erro atualizar Tipocontato = " + he);
 
             }
 
@@ -292,7 +362,6 @@ public class DAO {
         return retorno;
     }
 
-    
     public static String salvarFuncao(Funcao funcao) {
         Session sessao = null;
         String retorno = "";
@@ -499,13 +568,13 @@ public class DAO {
             Transaction t = sessao.beginTransaction();
             Query querye = (Query) sessao.createQuery("SELECT endereco.id FROM Pessoa WHERE idpessoa = ?").setInteger(0, id);
             int idEndereco = (int) querye.list().get(0);
-           // Query queryc = (Query) sessao.createQuery("SELECT contato_idcontato FROM contato_pessoa WHERE idpessoa = ?").setInteger(0, id);
+            // Query queryc = (Query) sessao.createQuery("SELECT contato_idcontato FROM contato_pessoa WHERE idpessoa = ?").setInteger(0, id);
             // int idContato = (int) queryc.list().get(0);
 
             String hqlDeletePJ = ("DELETE Pessoajuridica WHERE pessoa_idpessoa = " + id + "");
             String hqlDeleteP = ("DELETE Pessoa WHERE idpessoa = " + id + "");
             String hqlDeleteE = ("DELETE Endereco WHERE idendereco = " + idEndereco + "");
-           // String hqlDeleteC = ("DELETE Contato WHERE idcontato = " + idContato + "");
+            // String hqlDeleteC = ("DELETE Contato WHERE idcontato = " + idContato + "");
 
             int deleteEntities = sessao.createQuery(hqlDeletePJ).executeUpdate();
             deleteEntities = sessao.createQuery(hqlDeleteP).executeUpdate();

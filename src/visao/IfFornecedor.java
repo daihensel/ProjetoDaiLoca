@@ -35,6 +35,7 @@ import org.hibernate.Transaction;
 public class IfFornecedor extends javax.swing.JInternalFrame {
 
     private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
+    int idPessoa = 0;
 
     /**
      * Creates new form IfmVeiculo
@@ -537,6 +538,7 @@ public class IfFornecedor extends javax.swing.JInternalFrame {
         jTabbedPane1.setSelectedIndex(0);
         btNovo.setEnabled(false);
         btSalvar.setEnabled(true);
+        idPessoa = 0;
     }//GEN-LAST:event_btNovoActionPerformed
 
     private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
@@ -548,6 +550,7 @@ public class IfFornecedor extends javax.swing.JInternalFrame {
                 object = (Object[]) Popula.retornaDadosPessoas(codigo);
                 List<Pessoajuridica> l = (List<Pessoajuridica>) object[0];
                 for (Pessoajuridica lin : l) {
+                    idPessoa = lin.getPessoaIdpessoa();
                     tfCNPJ.setText(lin.getCnpj());
                     tfIE.setText(lin.getInscricaoest());
                     tfNome.setText(lin.getPessoa().getNome());

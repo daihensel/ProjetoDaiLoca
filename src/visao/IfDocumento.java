@@ -483,7 +483,6 @@ public class IfDocumento extends javax.swing.JInternalFrame {
             doc.setTipo(tfTipo.getText());
             doc.setDtInclusao(Formatacao.converteParaDataAMD(tfDataInclusao.getText()));
 
-            
             Object[] object;
             object = (Object[]) Popula.retornaVeiculo(codveiculo);
             List<Veiculo> l = (List<Veiculo>) object[0];
@@ -495,9 +494,6 @@ public class IfDocumento extends javax.swing.JInternalFrame {
             DAO.salvarDocumento(doc);
             pesquisa();
             habilitaCampos(false);
-            btNovo.setEnabled(true);
-            btSalvar.setEnabled(false);
-            tfDescricao.requestFocus();
 
         } else {
             JOptionPane.showMessageDialog(null, "Preencha os campos obrigatórios!");
@@ -639,6 +635,8 @@ public class IfDocumento extends javax.swing.JInternalFrame {
     public void habilitaCampos(Boolean tf) {
         if (tf == false) {
             limpaCampos();
+            btNovo.setEnabled(true);
+            btSalvar.setEnabled(false);
         }
         tfDescricao.setEnabled(tf);
         tfDataInclusao.setEnabled(tf);

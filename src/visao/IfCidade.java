@@ -27,6 +27,7 @@ import org.hibernate.Transaction;
 public class IfCidade extends javax.swing.JInternalFrame {
 
     private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
+    int idCidade = 0;
 
     /**
      * Creates new form FrCidade
@@ -293,37 +294,24 @@ public class IfCidade extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
-
-        Session sessao = null;
         if (tfNome.getText().trim().length() > 0 && cbEstado.getSelectedIndex() > 0) {
-            try {
-                sessao = HibernateUtil.getSessionFactory().openSession();
-                Transaction t = sessao.beginTransaction();
 
-                Cidade cidade = new Cidade();
+            Cidade cidade = new Cidade();
 
-                cidade.setDescricao(tfNome.getText());
+            cidade.setIdcidade(idCidade);
+            cidade.setDescricao(tfNome.getText());
 
-                Estado estado = new Estado();
-                ComboItens cbie = (ComboItens) cbEstado.getSelectedItem();
+            Estado estado = new Estado();
+            ComboItens cbie = (ComboItens) cbEstado.getSelectedItem();
+            estado.setIdestado(cbie.getCodigo());
+            cidade.setEstado(estado);
 
-                estado.setIdestado(cbie.getCodigo());
-                cidade.setEstado(estado);
+            DAO.salvarCidade(cidade);
+            habilitaCampos(false);
 
-                sessao.save(cidade);
-                t.commit();
-                salvou();
-            } catch (HibernateException he) {
-                he.printStackTrace();
-                logger.error("Erro");
-            } finally {
-                sessao.close();
-            }
         } else {
             JOptionPane.showMessageDialog(null, "Preencha os campos obrigatórios!");
         }
-
-
     }//GEN-LAST:event_btSalvarActionPerformed
 
     private void btFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFecharActionPerformed
@@ -335,6 +323,7 @@ public class IfCidade extends javax.swing.JInternalFrame {
         jTabbedPane1.setSelectedIndex(0);
         btNovo.setEnabled(false);
         btSalvar.setEnabled(true);
+        idCidade = 0;
     }//GEN-LAST:event_btNovoActionPerformed
 
     private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
@@ -344,6 +333,7 @@ public class IfCidade extends javax.swing.JInternalFrame {
                 int codigo = Integer.parseInt(cod);
                 List<Cidade> l = Popula.popularTabelaCidade(codigo, String.valueOf(codigo), tbCidades);
                 for (Cidade lin : l) {
+                    idCidade = lin.getIdcidade();
                     tfNome.setText(lin.getDescricao());
                     ComboItens cbi = new ComboItens();
                     cbi.setDescricao(lin.getEstado().getUf());
@@ -438,16 +428,11 @@ public class IfCidade extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_tbCidadesMouseClicked
 
-    public void salvou() {
-        habilitaCampos(false);
-        btNovo.setEnabled(true);
-        btSalvar.setEnabled(false);
-        tfNome.requestFocus();
-    }
-
     public void habilitaCampos(Boolean tf) {
         if (tf == false) {
             limpaCampos();
+            btNovo.setEnabled(true);
+            btSalvar.setEnabled(false);
         }
         tfNome.setEnabled(tf);
         cbEstado.setEnabled(tf);

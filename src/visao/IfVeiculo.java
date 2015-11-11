@@ -437,9 +437,6 @@ public class IfVeiculo extends javax.swing.JInternalFrame {
             DAO.salvarVeiculo(veiculo);
             pesquisa();
             habilitaCampos(false);
-            btNovo.setEnabled(true);
-            btSalvar.setEnabled(false);
-            tfDescricao.requestFocus();
 
         } else {
             JOptionPane.showMessageDialog(null, "Preencha os campos obrigatórios!");
@@ -458,7 +455,7 @@ public class IfVeiculo extends javax.swing.JInternalFrame {
         btNovo.setEnabled(false);
         btSalvar.setEnabled(true);
         tfDtInclusao.setText(Formatacao.getDataAtual());
-
+        idVeiculo = 0;
     }//GEN-LAST:event_btNovoActionPerformed
 
     private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
@@ -583,6 +580,8 @@ public class IfVeiculo extends javax.swing.JInternalFrame {
     public void habilitaCampos(Boolean tf) {
         if (tf == false) {
             limpaCampos();
+            btNovo.setEnabled(true);
+            btSalvar.setEnabled(false);
         }
         tfDescricao.setEnabled(tf);
         cbTipoVeiculo.setEnabled(tf);
