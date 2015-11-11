@@ -45,7 +45,8 @@ public class IfLocacao extends javax.swing.JInternalFrame {
      */
     public IfLocacao() {
         initComponents();
-        Utility.permit(null, btLocar, null, null, this);
+        Utility.permit(btNovo, btSalvar, btEditar, null, this);
+        habilitaCampos(false);
 
     }
 
@@ -62,14 +63,14 @@ public class IfLocacao extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         tfDataLocacaoNaReserva = new javax.swing.JTextField();
         tfDataLocacaoNaReserva = Formatacao.getData();
-        dtDevolucao = new javax.swing.JTextField();
+        tfDataDevolucaoNaReserva = new javax.swing.JTextField();
+        tfDataDevolucaoNaReserva = Formatacao.getData();
         jLabel2 = new javax.swing.JLabel();
         tfDataReserva = new javax.swing.JTextField();
         tfDataReserva = Formatacao.getData();
         jLabel3 = new javax.swing.JLabel();
         btPReserva = new javax.swing.JButton();
         btLocar = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         jpLocacao = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         tfHoraRetirada = new javax.swing.JTextField();
@@ -116,6 +117,15 @@ public class IfLocacao extends javax.swing.JInternalFrame {
         tfValorDiaria = new javax.swing.JTextField();
         jLabel25 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
+        jToolBar1 = new javax.swing.JToolBar();
+        btNovo = new javax.swing.JButton();
+        btSalvar = new javax.swing.JButton();
+        btEditar = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JToolBar.Separator();
+        btFechar1 = new javax.swing.JButton();
+        jLabel21 = new javax.swing.JLabel();
+
+        setTitle("Locação de Veículos");
 
         jpReserva.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados Reserva"));
 
@@ -123,7 +133,7 @@ public class IfLocacao extends javax.swing.JInternalFrame {
 
         tfDataLocacaoNaReserva.setEditable(false);
 
-        dtDevolucao.setEditable(false);
+        tfDataDevolucaoNaReserva.setEditable(false);
 
         jLabel2.setText("Data Locação:");
 
@@ -160,7 +170,7 @@ public class IfLocacao extends javax.swing.JInternalFrame {
                                 .addContainerGap()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(dtDevolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(tfDataDevolucaoNaReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btPReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(321, Short.MAX_VALUE))
@@ -175,7 +185,7 @@ public class IfLocacao extends javax.swing.JInternalFrame {
                     .addComponent(btPReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jpReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(dtDevolucao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfDataDevolucaoNaReserva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jpReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -190,16 +200,6 @@ public class IfLocacao extends javax.swing.JInternalFrame {
         btLocar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btLocarActionPerformed(evt);
-            }
-        });
-
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/!ok.png"))); // NOI18N
-        jButton2.setText("Fechar");
-        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
             }
         });
 
@@ -371,7 +371,7 @@ public class IfLocacao extends javax.swing.JInternalFrame {
                         .addComponent(btPCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(6, 6, 6))
                     .addGroup(jpClienteLayout.createSequentialGroup()
-                        .addComponent(tfRG)
+                        .addComponent(tfRG, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel17)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -529,6 +529,42 @@ public class IfLocacao extends javax.swing.JInternalFrame {
                     .addComponent(jLabel8)))
         );
 
+        jToolBar1.setRollover(true);
+
+        btNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/novo_32x32.png"))); // NOI18N
+        btNovo.setText("Novo");
+        btNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btNovoActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btNovo);
+
+        btSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/salvar_32x32.png"))); // NOI18N
+        btSalvar.setText("Salvar");
+        btSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSalvarActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btSalvar);
+
+        btEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/bEditar.png"))); // NOI18N
+        btEditar.setText("Editar");
+        btEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btEditarActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btEditar);
+        jToolBar1.add(jSeparator1);
+
+        btFechar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/fechar_32x32.png"))); // NOI18N
+        btFechar1.setText("Fechar");
+        jToolBar1.add(btFechar1);
+
+        jLabel21.setText("* Campos obrigatórios");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -537,18 +573,26 @@ public class IfLocacao extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btLocar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jpVeiculo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jpCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jpLocacao, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jpReserva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(75, 75, 75))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jpLocacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jpVeiculo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jpReserva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel21)))
+                        .addComponent(jpCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 20, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel21))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jpReserva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jpLocacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -556,10 +600,8 @@ public class IfLocacao extends javax.swing.JInternalFrame {
                 .addComponent(jpCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jpVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btLocar, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                .addComponent(btLocar, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -571,10 +613,6 @@ public class IfLocacao extends javax.swing.JInternalFrame {
         tela.setVisible(true);
 
     }//GEN-LAST:event_btPClienteActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void btPReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPReservaActionPerformed
         DgConsultaReserva tela = new DgConsultaReserva(this, null);
@@ -614,6 +652,23 @@ public class IfLocacao extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tfParcelasKeyTyped
 
     private void btLocarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLocarActionPerformed
+
+
+    }//GEN-LAST:event_btLocarActionPerformed
+
+    private void dcDataLocacaoAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_dcDataLocacaoAncestorAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dcDataLocacaoAncestorAdded
+
+    private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
+        habilitaCampos(true);
+
+        btNovo.setEnabled(false);
+        btSalvar.setEnabled(true);
+        btEditar.setEnabled(false);
+    }//GEN-LAST:event_btNovoActionPerformed
+
+    private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
 
         Session sessao = null;
         try {
@@ -671,19 +726,19 @@ public class IfLocacao extends javax.swing.JInternalFrame {
 
             sessao.save(locacao);
             sessao.getTransaction().commit();
-            limpaCampos();
+            habilitaCampos(false);
+
         } catch (HibernateException he) {
             he.printStackTrace();
         } finally {
             sessao.close();
         }
 
+    }//GEN-LAST:event_btSalvarActionPerformed
 
-    }//GEN-LAST:event_btLocarActionPerformed
-
-    private void dcDataLocacaoAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_dcDataLocacaoAncestorAdded
+    private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_dcDataLocacaoAncestorAdded
+    }//GEN-LAST:event_btEditarActionPerformed
 
     public void defineCodigoCliente(int codcli) {
 
@@ -726,7 +781,7 @@ public class IfLocacao extends javax.swing.JInternalFrame {
         for (Populartabelareserva lin : dadosCliente) {
             tfDataLocacaoNaReserva.setText(Formatacao.ajustaDataDMA(String.valueOf(lin.getDtLocacao())));
             tfDataReserva.setText(Formatacao.ajustaDataDMA(String.valueOf(lin.getDtReserva())));
-            dtDevolucao.setText(Formatacao.ajustaDataDMA(String.valueOf(lin.getDtDevolucao())));
+            tfDataDevolucaoNaReserva.setText(Formatacao.ajustaDataDMA(String.valueOf(lin.getDtDevolucao())));
             dcDataLocacao.setDate(lin.getDtLocacao());
             dcDataDevolucao.setDate(lin.getDtDevolucao());
         }
@@ -793,16 +848,38 @@ public class IfLocacao extends javax.swing.JInternalFrame {
         dcDataDevolucao.setDate(null);
     }
 
+    private void habilitaCampos(boolean tf) {
+        if (tf == false) {
+            limpaCampos();
+            btSalvar.setEnabled(false);
+            btEditar.setEnabled(true);
+            btNovo.setEnabled(true);
+        }
+        dcDataDevolucao.setEnabled(tf);
+        dcDataLocacao.setEnabled(tf);
+        tfValorTotal.setEnabled(tf);
+        tfParcelas.setEnabled(tf);
+        tfHoraRetirada.setEnabled(tf);
+        btPCliente.setEnabled(tf);
+        btPReserva.setEnabled(tf);
+        btPVeiculo.setEnabled(tf);
+        btPVendedor.setEnabled(tf);
+                
+    }
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btEditar;
+    private javax.swing.JButton btFechar1;
     private javax.swing.JButton btLocar;
+    private javax.swing.JButton btNovo;
     private javax.swing.JButton btPCliente;
     private javax.swing.JButton btPReserva;
     private javax.swing.JButton btPVeiculo;
     private javax.swing.JButton btPVendedor;
+    private javax.swing.JButton btSalvar;
     private com.toedter.calendar.JDateChooser dcDataDevolucao;
     private com.toedter.calendar.JDateChooser dcDataLocacao;
-    private javax.swing.JTextField dtDevolucao;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -816,6 +893,7 @@ public class IfLocacao extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
@@ -826,6 +904,8 @@ public class IfLocacao extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JToolBar.Separator jSeparator1;
+    private javax.swing.JToolBar jToolBar1;
     private javax.swing.JPanel jpCliente;
     private javax.swing.JPanel jpLocacao;
     private javax.swing.JPanel jpReserva;
@@ -835,6 +915,7 @@ public class IfLocacao extends javax.swing.JInternalFrame {
     private javax.swing.JTextField tfBairro;
     private javax.swing.JTextField tfCPF;
     private javax.swing.JTextField tfCidade;
+    private javax.swing.JTextField tfDataDevolucaoNaReserva;
     private javax.swing.JTextField tfDataLocacaoNaReserva;
     private javax.swing.JTextField tfDataReserva;
     private javax.swing.JTextField tfDescricaoVeiculo;

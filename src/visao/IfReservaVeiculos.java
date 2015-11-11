@@ -43,7 +43,8 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
      */
     public IfReservaVeiculos() {
         initComponents();
-        Utility.permit(null, btReservar, null, null, this);
+        Utility.permit(btNovo, btSalvar, btEditar, null, this);
+        habilitaCampos(false);
     }
 
     /**
@@ -82,8 +83,6 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
         btPCliente = new javax.swing.JButton();
         jLabel17 = new javax.swing.JLabel();
         tfCPF = new javax.swing.JTextField();
-        btReservar = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         jpVeiculo = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         tfDescricaoVeiculo = new javax.swing.JTextField();
@@ -100,10 +99,19 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
         tfValorDiaria = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
+        jToolBar1 = new javax.swing.JToolBar();
+        btNovo = new javax.swing.JButton();
+        btSalvar = new javax.swing.JButton();
+        btEditar = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JToolBar.Separator();
+        btFechar = new javax.swing.JButton();
+        jLabel20 = new javax.swing.JLabel();
 
-        jLabel1.setText("Data Reserva:");
+        setTitle("Reserva de Veículos");
 
-        jLabel2.setText("Data Locação:");
+        jLabel1.setText("Data Reserva*:");
+
+        jLabel2.setText("Data Locação*:");
 
         tfVendedor.setEditable(false);
         tfVendedor.addActionListener(new java.awt.event.ActionListener() {
@@ -112,7 +120,7 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel16.setText("Vendedor:");
+        jLabel16.setText("Vendedor*:");
 
         btPVendedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/procurar_20x20.png"))); // NOI18N
         btPVendedor.addActionListener(new java.awt.event.ActionListener() {
@@ -121,7 +129,7 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel9.setText("Data Devolução:");
+        jLabel9.setText("Data Devolução*:");
 
         javax.swing.GroupLayout jpReservaLayout = new javax.swing.GroupLayout(jpReserva);
         jpReserva.setLayout(jpReservaLayout);
@@ -130,9 +138,9 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
             .addGroup(jpReservaLayout.createSequentialGroup()
                 .addGroup(jpReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpReservaLayout.createSequentialGroup()
-                        .addContainerGap(42, Short.MAX_VALUE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel16)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(tfVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btPVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -154,7 +162,7 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
                                         .addComponent(jLabel1)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(dcDataReserva, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 288, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 294, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jpReservaLayout.setVerticalGroup(
@@ -287,26 +295,6 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
                     .addComponent(jLabel14)))
         );
 
-        btReservar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/ok.png"))); // NOI18N
-        btReservar.setText("Reservar");
-        btReservar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btReservar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btReservar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btReservarActionPerformed(evt);
-            }
-        });
-
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/!ok.png"))); // NOI18N
-        jButton2.setText("Fechar");
-        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
         jpVeiculo.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados Veículo"));
 
         jLabel4.setText("Descrição:");
@@ -417,17 +405,48 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
+        jToolBar1.setRollover(true);
+
+        btNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/novo_32x32.png"))); // NOI18N
+        btNovo.setText("Novo");
+        btNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btNovoActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btNovo);
+
+        btSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/salvar_32x32.png"))); // NOI18N
+        btSalvar.setText("Salvar");
+        btSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSalvarActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btSalvar);
+
+        btEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/bEditar.png"))); // NOI18N
+        btEditar.setText("Editar");
+        btEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btEditarActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btEditar);
+        jToolBar1.add(jSeparator1);
+
+        btFechar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/fechar_32x32.png"))); // NOI18N
+        btFechar.setText("Fechar");
+        jToolBar1.add(btFechar);
+
+        jLabel20.setText("* Campos obrigatórios");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btReservar)
-                        .addGap(23, 23, 23)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jpReserva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
@@ -436,19 +455,26 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jpCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel20)
+                .addGap(84, 84, 84))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel20)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jpReserva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jpVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jpCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btReservar, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -460,10 +486,6 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
         tela.setVisible(true);
     }//GEN-LAST:event_btPClienteActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
-
     private void tfDescricaoVeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfDescricaoVeiculoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfDescricaoVeiculoActionPerformed
@@ -474,8 +496,16 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
         // tela.setSize(200, 200);
     }//GEN-LAST:event_btPVeiculoActionPerformed
 
-    private void btReservarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btReservarActionPerformed
+    private void tfVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfVendedorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfVendedorActionPerformed
 
+    private void btPVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPVendedorActionPerformed
+        DgConsultaFuncionario tela = new DgConsultaFuncionario(null, this, null);
+        tela.setVisible(true);
+    }//GEN-LAST:event_btPVendedorActionPerformed
+
+    private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
         Session sessao = null;
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
@@ -499,7 +529,6 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
                 reserva.setFuncionario(f);
             }
 
-           
             //reserva.setDtReserva(Formatacao.converteParaDataAMD(((JCalendar) cbDataReserva).getText()));
             reserva.setDtReserva(Formatacao.converteDataParaDataAMD(dcDataReserva.getDate()));
 
@@ -519,26 +548,27 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
             sessao.save(reserva);
 
             t.commit();
-            limpaCampos();
-                        
-            
+            habilitaCampos(false);
+           
         } catch (HibernateException he) {
             he.printStackTrace();
         } finally {
             sessao.close();
         }
 
+    }//GEN-LAST:event_btSalvarActionPerformed
 
-    }//GEN-LAST:event_btReservarActionPerformed
-
-    private void tfVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfVendedorActionPerformed
+    private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_tfVendedorActionPerformed
+    }//GEN-LAST:event_btEditarActionPerformed
 
-    private void btPVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPVendedorActionPerformed
-        DgConsultaFuncionario tela = new DgConsultaFuncionario(null, this, null);
-        tela.setVisible(true);
-    }//GEN-LAST:event_btPVendedorActionPerformed
+    private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
+        habilitaCampos(true);
+
+        btNovo.setEnabled(false);
+        btSalvar.setEnabled(true);
+        btEditar.setEnabled(false);
+    }//GEN-LAST:event_btNovoActionPerformed
 
     //  @Override
     public void defineCodigoCliente(int codcli) {
@@ -596,8 +626,8 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
         tfVendedor.setText(nome);
         codFunc = cod;
     }
-    
-    public void limpaCampos(){
+
+    public void limpaCampos() {
         limpaCampos lc = new limpaCampos();
         lc.limparCampos(jpReserva);
         lc.limparCampos(jpCliente);
@@ -607,15 +637,32 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
         dcDataDevolucao.setDate(null);
     }
 
+    private void habilitaCampos(boolean tf) {
+        if (tf == false) {
+            limpaCampos();
+             btSalvar.setEnabled(false);
+            btEditar.setEnabled(true);
+            btNovo.setEnabled(true);
+        }
+        dcDataDevolucao.setEnabled(tf);
+        dcDataLocacao.setEnabled(tf);
+        dcDataReserva.setEnabled(tf);
+        btPCliente.setEnabled(tf);
+        btPVeiculo.setEnabled(tf);
+        btPVendedor.setEnabled(tf);
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btEditar;
+    private javax.swing.JButton btFechar;
+    private javax.swing.JButton btNovo;
     private javax.swing.JButton btPCliente;
     private javax.swing.JButton btPVeiculo;
     private javax.swing.JButton btPVendedor;
-    private javax.swing.JButton btReservar;
+    private javax.swing.JButton btSalvar;
     private com.toedter.calendar.JDateChooser dcDataDevolucao;
     private com.toedter.calendar.JDateChooser dcDataLocacao;
     private com.toedter.calendar.JDateChooser dcDataReserva;
-    private javax.swing.JButton jButton2;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -629,12 +676,15 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JToolBar.Separator jSeparator1;
+    private javax.swing.JToolBar jToolBar1;
     private javax.swing.JPanel jpCliente;
     private javax.swing.JPanel jpReserva;
     private javax.swing.JPanel jpVeiculo;

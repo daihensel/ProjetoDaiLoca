@@ -30,12 +30,14 @@ public class IfDevolucao extends javax.swing.JInternalFrame {
     private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
     int codLocacao = 0;
     int codVeiculo = 0;
+
     /**
      * Creates new form IfReservaVeiculos
      */
     public IfDevolucao() {
         initComponents();
-        Utility.permit(null, btOk, null, null, this);
+        Utility.permit(btNovo, btSalvar, btEditar, null, this);
+        habilitaCampos(false);
     }
 
     /**
@@ -73,6 +75,15 @@ public class IfDevolucao extends javax.swing.JInternalFrame {
         jLabel10 = new javax.swing.JLabel();
         btOk = new javax.swing.JButton();
         btFechar = new javax.swing.JButton();
+        jLabel20 = new javax.swing.JLabel();
+        jToolBar1 = new javax.swing.JToolBar();
+        btNovo = new javax.swing.JButton();
+        btSalvar = new javax.swing.JButton();
+        btEditar = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JToolBar.Separator();
+        btFechar1 = new javax.swing.JButton();
+
+        setTitle("Devolução de Veículos");
 
         jLabel1.setText("Km rodados:");
 
@@ -282,6 +293,42 @@ public class IfDevolucao extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel20.setText("* Campos obrigatórios");
+
+        jToolBar1.setRollover(true);
+
+        btNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/novo_32x32.png"))); // NOI18N
+        btNovo.setText("Novo");
+        btNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btNovoActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btNovo);
+
+        btSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/salvar_32x32.png"))); // NOI18N
+        btSalvar.setText("Salvar");
+        btSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSalvarActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btSalvar);
+
+        btEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/bEditar.png"))); // NOI18N
+        btEditar.setText("Editar");
+        btEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btEditarActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btEditar);
+        jToolBar1.add(jSeparator1);
+
+        btFechar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/fechar_32x32.png"))); // NOI18N
+        btFechar1.setText("Fechar");
+        jToolBar1.add(btFechar1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -301,14 +348,23 @@ public class IfDevolucao extends javax.swing.JInternalFrame {
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jpLocacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel20)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel20))
+                .addGap(5, 5, 5)
                 .addComponent(jpDevolucao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jpLocacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jpLocacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btOk, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -337,45 +393,6 @@ public class IfDevolucao extends javax.swing.JInternalFrame {
 
     private void btOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btOkActionPerformed
 
-        Session sessao = null;
-        try {
-            sessao = HibernateUtil.getSessionFactory().openSession();
-            Transaction t = sessao.beginTransaction();
-            Devolucao devolucao = new Devolucao();
-            
-            
-            devolucao.setDtDevolucao(Formatacao.converteDataParaDataAMD(dcDataDevolucao.getDate()));
-            
-            Object[] object;
-            object = (Object[]) Popula.retornaLocacao(codLocacao);
-            List<Locacao> l = (List<Locacao>) object[0];
-            for (Locacao lin : l) {
-                Locacao loc = lin;
-                devolucao.setLocacao(loc);
-            }   
-            
-            //set Veiculo    
-                Object[] objectv;
-                objectv = (Object[]) Popula.retornaVeiculo(codVeiculo);
-                List<Veiculo> lv = (List<Veiculo>) objectv[0];
-                for (Veiculo linv : lv) {
-                    Veiculo v = linv;
-                    v = Popula.alteraStatusVeiculo("Disponível", v);
-                    
-                }
-            
-            devolucao.setKmRodados(Integer.parseInt(tfKmRodados.getText()));
-            
-            sessao.save(devolucao);
-            t.commit();
-            limpaCampos();
-            
-        } catch (HibernateException he) {
-            he.printStackTrace();
-        } finally {
-            sessao.close();
-        }
-
 
     }//GEN-LAST:event_btOkActionPerformed
 
@@ -393,6 +410,59 @@ public class IfDevolucao extends javax.swing.JInternalFrame {
             evt.consume();
         }
     }//GEN-LAST:event_tfKmRodadosKeyTyped
+
+    private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
+        habilitaCampos(true);
+
+        btNovo.setEnabled(false);
+        btSalvar.setEnabled(true);
+        btEditar.setEnabled(false);
+    }//GEN-LAST:event_btNovoActionPerformed
+
+    private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
+        Session sessao = null;
+        try {
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            Transaction t = sessao.beginTransaction();
+            Devolucao devolucao = new Devolucao();
+
+            devolucao.setDtDevolucao(Formatacao.converteDataParaDataAMD(dcDataDevolucao.getDate()));
+
+            Object[] object;
+            object = (Object[]) Popula.retornaLocacao(codLocacao);
+            List<Locacao> l = (List<Locacao>) object[0];
+            for (Locacao lin : l) {
+                Locacao loc = lin;
+                devolucao.setLocacao(loc);
+            }
+
+            //set Veiculo    
+            Object[] objectv;
+            objectv = (Object[]) Popula.retornaVeiculo(codVeiculo);
+            List<Veiculo> lv = (List<Veiculo>) objectv[0];
+            for (Veiculo linv : lv) {
+                Veiculo v = linv;
+                v = Popula.alteraStatusVeiculo("Disponível", v);
+
+            }
+
+            devolucao.setKmRodados(Integer.parseInt(tfKmRodados.getText()));
+
+            sessao.save(devolucao);
+            t.commit();
+            habilitaCampos(false);
+
+        } catch (HibernateException he) {
+            he.printStackTrace();
+        } finally {
+            sessao.close();
+        }
+
+    }//GEN-LAST:event_btSalvarActionPerformed
+
+    private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btEditarActionPerformed
 
     public void defineLocacao(int cod) {
 
@@ -422,21 +492,36 @@ public class IfDevolucao extends javax.swing.JInternalFrame {
         sessao.getTransaction().commit();
 
     }
-    
-    public void limpaCampos(){
-      
-        
+
+    public void limpaCampos() {
+
         limpaCampos lv = new limpaCampos();
         lv.limparCampos(jpLocacao);
         lv.limparCampos(jpDevolucao);
         dcDataDevolucao.setDate(null);
     }
 
+    private void habilitaCampos(boolean tf) {
+        if (tf == false) {
+            limpaCampos();
+            btSalvar.setEnabled(false);
+            btEditar.setEnabled(true);
+            btNovo.setEnabled(true);
+        }
+        dcDataDevolucao.setEnabled(tf);
+        tfKmRodados.setEnabled(tf);
+        btPLocacao.setEnabled(tf);
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btEditar;
     private javax.swing.JButton btFechar;
+    private javax.swing.JButton btFechar1;
+    private javax.swing.JButton btNovo;
     private javax.swing.JButton btOk;
     private javax.swing.JButton btPLocacao;
+    private javax.swing.JButton btSalvar;
     private com.toedter.calendar.JDateChooser dcDataDevolucao;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
@@ -444,11 +529,14 @@ public class IfDevolucao extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JToolBar.Separator jSeparator1;
+    private javax.swing.JToolBar jToolBar1;
     private javax.swing.JPanel jpDevolucao;
     private javax.swing.JPanel jpLocacao;
     private javax.swing.JTextField tfCPF;
