@@ -15,6 +15,7 @@ import entidade.Locacao;
 import entidade.Populartabelalocacao;
 import entidade.Veiculo;
 import java.util.List;
+import javax.swing.JOptionPane;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -73,8 +74,6 @@ public class IfDevolucao extends javax.swing.JInternalFrame {
         jLabel9 = new javax.swing.JLabel();
         tfRG = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        btOk = new javax.swing.JButton();
-        btFechar = new javax.swing.JButton();
         jLabel20 = new javax.swing.JLabel();
         jToolBar1 = new javax.swing.JToolBar();
         btNovo = new javax.swing.JButton();
@@ -85,7 +84,7 @@ public class IfDevolucao extends javax.swing.JInternalFrame {
 
         setTitle("Devolução de Veículos");
 
-        jLabel1.setText("Km rodados:");
+        jLabel1.setText("Km rodados*:");
 
         tfKmRodados.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -93,7 +92,7 @@ public class IfDevolucao extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel2.setText("Data Devolução:");
+        jLabel2.setText("Data Devolução*:");
 
         javax.swing.GroupLayout jpDevolucaoLayout = new javax.swing.GroupLayout(jpDevolucao);
         jpDevolucao.setLayout(jpDevolucaoLayout);
@@ -124,7 +123,7 @@ public class IfDevolucao extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jpLocacao.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados Locação"));
+        jpLocacao.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados Locação*"));
 
         jLabel4.setText("Veículo locação:");
 
@@ -273,26 +272,6 @@ public class IfDevolucao extends javax.swing.JInternalFrame {
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
-        btOk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/ok.png"))); // NOI18N
-        btOk.setText("Devolver");
-        btOk.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btOk.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btOk.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btOkActionPerformed(evt);
-            }
-        });
-
-        btFechar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/!ok.png"))); // NOI18N
-        btFechar.setText("Fechar");
-        btFechar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btFechar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btFechar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btFecharActionPerformed(evt);
-            }
-        });
-
         jLabel20.setText("* Campos obrigatórios");
 
         jToolBar1.setRollover(true);
@@ -327,32 +306,31 @@ public class IfDevolucao extends javax.swing.JInternalFrame {
 
         btFechar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/fechar_32x32.png"))); // NOI18N
         btFechar1.setText("Fechar");
+        btFechar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btFechar1ActionPerformed(evt);
+            }
+        });
         jToolBar1.add(btFechar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btOk)
-                        .addGap(23, 23, 23)
-                        .addComponent(btFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jpDevolucao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jpLocacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel20)
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jpDevolucao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel20)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -362,13 +340,8 @@ public class IfDevolucao extends javax.swing.JInternalFrame {
                     .addComponent(jLabel20))
                 .addGap(5, 5, 5)
                 .addComponent(jpDevolucao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jpLocacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btOk, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addComponent(jpLocacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -383,18 +356,9 @@ public class IfDevolucao extends javax.swing.JInternalFrame {
         tela.setVisible(true);
     }//GEN-LAST:event_btPLocacaoActionPerformed
 
-    private void btFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFecharActionPerformed
-        dispose();
-    }//GEN-LAST:event_btFecharActionPerformed
-
     private void tfValorTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfValorTotalActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfValorTotalActionPerformed
-
-    private void btOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btOkActionPerformed
-
-
-    }//GEN-LAST:event_btOkActionPerformed
 
     private void tfCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfCPFActionPerformed
         // TODO add your handling code here:
@@ -420,49 +384,57 @@ public class IfDevolucao extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btNovoActionPerformed
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
-        Session sessao = null;
-        try {
-            sessao = HibernateUtil.getSessionFactory().openSession();
-            Transaction t = sessao.beginTransaction();
-            Devolucao devolucao = new Devolucao();
+        if (tfKmRodados.getText().trim().length() > 0 && dcDataDevolucao.getDate() != null
+                && tfVeiculoLocacao.getText().trim().length() > 0) {
+            Session sessao = null;
+            try {
+                sessao = HibernateUtil.getSessionFactory().openSession();
+                Transaction t = sessao.beginTransaction();
+                Devolucao devolucao = new Devolucao();
 
-            devolucao.setDtDevolucao(Formatacao.converteDataParaDataAMD(dcDataDevolucao.getDate()));
+                devolucao.setDtDevolucao(Formatacao.converteDataParaDataAMD(dcDataDevolucao.getDate()));
 
-            Object[] object;
-            object = (Object[]) Popula.retornaLocacao(codLocacao);
-            List<Locacao> l = (List<Locacao>) object[0];
-            for (Locacao lin : l) {
-                Locacao loc = lin;
-                devolucao.setLocacao(loc);
+                Object[] object;
+                object = (Object[]) Popula.retornaLocacao(codLocacao);
+                List<Locacao> l = (List<Locacao>) object[0];
+                for (Locacao lin : l) {
+                    Locacao loc = lin;
+                    devolucao.setLocacao(loc);
+                }
+
+                //set Veiculo    
+                Object[] objectv;
+                objectv = (Object[]) Popula.retornaVeiculo(codVeiculo);
+                List<Veiculo> lv = (List<Veiculo>) objectv[0];
+                for (Veiculo linv : lv) {
+                    Veiculo v = linv;
+                    v = Popula.alteraStatusVeiculo("Disponível", v);
+
+                }
+
+                devolucao.setKmRodados(Integer.parseInt(tfKmRodados.getText()));
+
+                sessao.save(devolucao);
+                t.commit();
+                habilitaCampos(false);
+
+            } catch (HibernateException he) {
+                he.printStackTrace();
+            } finally {
+                sessao.close();
             }
-
-            //set Veiculo    
-            Object[] objectv;
-            objectv = (Object[]) Popula.retornaVeiculo(codVeiculo);
-            List<Veiculo> lv = (List<Veiculo>) objectv[0];
-            for (Veiculo linv : lv) {
-                Veiculo v = linv;
-                v = Popula.alteraStatusVeiculo("Disponível", v);
-
-            }
-
-            devolucao.setKmRodados(Integer.parseInt(tfKmRodados.getText()));
-
-            sessao.save(devolucao);
-            t.commit();
-            habilitaCampos(false);
-
-        } catch (HibernateException he) {
-            he.printStackTrace();
-        } finally {
-            sessao.close();
+        } else {
+            JOptionPane.showMessageDialog(null, "Preencha os campos obrigatórios!");
         }
-
     }//GEN-LAST:event_btSalvarActionPerformed
 
     private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btEditarActionPerformed
+
+    private void btFechar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFechar1ActionPerformed
+       dispose();
+    }//GEN-LAST:event_btFechar1ActionPerformed
 
     public void defineLocacao(int cod) {
 
@@ -516,10 +488,8 @@ public class IfDevolucao extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btEditar;
-    private javax.swing.JButton btFechar;
     private javax.swing.JButton btFechar1;
     private javax.swing.JButton btNovo;
-    private javax.swing.JButton btOk;
     private javax.swing.JButton btPLocacao;
     private javax.swing.JButton btSalvar;
     private com.toedter.calendar.JDateChooser dcDataDevolucao;

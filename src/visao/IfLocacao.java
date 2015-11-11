@@ -22,6 +22,7 @@ import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
+import javax.swing.JOptionPane;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -70,7 +71,6 @@ public class IfLocacao extends javax.swing.JInternalFrame {
         tfDataReserva = Formatacao.getData();
         jLabel3 = new javax.swing.JLabel();
         btPReserva = new javax.swing.JButton();
-        btLocar = new javax.swing.JButton();
         jpLocacao = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         tfHoraRetirada = new javax.swing.JTextField();
@@ -193,23 +193,13 @@ public class IfLocacao extends javax.swing.JInternalFrame {
                     .addComponent(jLabel1)))
         );
 
-        btLocar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/ok.png"))); // NOI18N
-        btLocar.setText("Locar");
-        btLocar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btLocar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btLocar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btLocarActionPerformed(evt);
-            }
-        });
-
         jpLocacao.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados Locação"));
 
-        jLabel9.setText("Data Locação:");
+        jLabel9.setText("Data Locação*:");
 
-        jLabel19.setText("Hora retirada:");
+        jLabel19.setText("Hora retirada*:");
 
-        jLabel20.setText("Data Devolução:");
+        jLabel20.setText("Data Devolução*:");
 
         tfParcelas.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -217,7 +207,7 @@ public class IfLocacao extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel22.setText("Parcelas:");
+        jLabel22.setText("Parcelas*:");
 
         tfValorTotal.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -225,7 +215,7 @@ public class IfLocacao extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel24.setText("Valor Total:");
+        jLabel24.setText("Valor Total*:");
 
         tfVendedor.setEditable(false);
         tfVendedor.addActionListener(new java.awt.event.ActionListener() {
@@ -234,7 +224,7 @@ public class IfLocacao extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel16.setText("Vendedor:");
+        jLabel16.setText("Vendedor*:");
 
         btPVendedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/procurar_20x20.png"))); // NOI18N
         btPVendedor.addActionListener(new java.awt.event.ActionListener() {
@@ -285,7 +275,7 @@ public class IfLocacao extends javax.swing.JInternalFrame {
                         .addComponent(jLabel19)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(tfHoraRetirada, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jpLocacaoLayout.setVerticalGroup(
             jpLocacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -314,7 +304,7 @@ public class IfLocacao extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jpCliente.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados Cliente"));
+        jpCliente.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados Cliente*"));
 
         jLabel10.setText("Nome:");
 
@@ -420,7 +410,7 @@ public class IfLocacao extends javax.swing.JInternalFrame {
                     .addComponent(jLabel14)))
         );
 
-        jpVeiculo.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados Veículo"));
+        jpVeiculo.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados Veículo*"));
 
         jLabel4.setText("Descrição:");
 
@@ -561,6 +551,11 @@ public class IfLocacao extends javax.swing.JInternalFrame {
 
         btFechar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/fechar_32x32.png"))); // NOI18N
         btFechar1.setText("Fechar");
+        btFechar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btFechar1ActionPerformed(evt);
+            }
+        });
         jToolBar1.add(btFechar1);
 
         jLabel21.setText("* Campos obrigatórios");
@@ -570,21 +565,19 @@ public class IfLocacao extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btLocar)
-                        .addGap(75, 75, 75))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jpLocacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jpVeiculo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jpReserva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel21)))
-                        .addComponent(jpCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 20, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jpVeiculo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jpReserva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jLabel21)))
+                    .addComponent(jpCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jpLocacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -599,10 +592,7 @@ public class IfLocacao extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jpCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jpVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
-                .addComponent(btLocar, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jpVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -651,11 +641,6 @@ public class IfLocacao extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_tfParcelasKeyTyped
 
-    private void btLocarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLocarActionPerformed
-
-
-    }//GEN-LAST:event_btLocarActionPerformed
-
     private void dcDataLocacaoAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_dcDataLocacaoAncestorAdded
         // TODO add your handling code here:
     }//GEN-LAST:event_dcDataLocacaoAncestorAdded
@@ -669,76 +654,85 @@ public class IfLocacao extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btNovoActionPerformed
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
+        if (tfNomeCliente.getText().trim().length() > 0 && tfDescricaoVeiculo.getText().trim().length() > 0
+                && tfHoraRetirada.getText().trim().length() > 0 && tfParcelas.getText().trim().length() > 0
+                && tfValorTotal.getText().trim().length() > 0 && tfVendedor.getText().trim().length() > 0
+                && dcDataDevolucao.getDate() != null && dcDataLocacao.getDate() != null) {
+            Session sessao = null;
+            try {
+                sessao = HibernateUtil.getSessionFactory().openSession();
+                Transaction t = sessao.beginTransaction();
 
-        Session sessao = null;
-        try {
-            sessao = HibernateUtil.getSessionFactory().openSession();
-            Transaction t = sessao.beginTransaction();
+                Locacao locacao = new Locacao();
 
-            Locacao locacao = new Locacao();
+                locacao.setDtLocacao(Formatacao.converteParaDataAMD(tfDataLocacaoNaReserva.getText()));
+                // locacao.setHoraRetirada(Formatacao.converteParaDataAMD(tfHoraRetirada.getText()));
+                locacao.setHoraRetirada(Formatacao.converteParaDataAMD(tfDataLocacaoNaReserva.getText()));
 
-            locacao.setDtLocacao(Formatacao.converteParaDataAMD(tfDataLocacaoNaReserva.getText()));
-            // locacao.setHoraRetirada(Formatacao.converteParaDataAMD(tfHoraRetirada.getText()));
-            locacao.setHoraRetirada(Formatacao.converteParaDataAMD(tfDataLocacaoNaReserva.getText()));
+                locacao.setDtDevolucao(Formatacao.converteDataParaDataAMD(dcDataDevolucao.getDate()));
 
-            locacao.setDtDevolucao(Formatacao.converteDataParaDataAMD(dcDataDevolucao.getDate()));
+                //set Reserva
+                if (tfDataLocacaoNaReserva.getText().trim().length() > 0) {
+                    Object[] objectr;
+                    objectr = (Object[]) Popula.retornaReserva(codReserva);
+                    List<Reserva> rs = (List<Reserva>) objectr[0];
+                    for (Reserva linr : rs) {
+                        Reserva r = linr;
+                        locacao.setReserva(r);
+                    }
+                    //set Veiculo    
+                    Object[] object;
+                    object = (Object[]) Popula.retornaVeiculo(codveiculo);
+                    List<Veiculo> l = (List<Veiculo>) object[0];
+                    for (Veiculo lin : l) {
+                        Veiculo v = lin;
+                        v = Popula.alteraStatusVeiculo("locado", v);
+                        locacao.setVeiculo(v);
+                    }
+                    BigDecimal bigDecimal = new BigDecimal(tfValorTotal.getText());
+                    locacao.setValorTotal(bigDecimal);
+                    locacao.setParcelas(Integer.parseInt(tfParcelas.getText()));
 
-            //set Reserva
-            if (tfDataLocacaoNaReserva.getText().trim().length() > 0) {
-                Object[] objectr;
-                objectr = (Object[]) Popula.retornaReserva(codReserva);
-                List<Reserva> rs = (List<Reserva>) objectr[0];
-                for (Reserva linr : rs) {
-                    Reserva r = linr;
-                    locacao.setReserva(r);
+                    //set funcionario
+                    Object[] objectf;
+                    objectf = (Object[]) Popula.retornaDadosPessoas(codFunc);
+                    List<Funcionario> lf = (List<Funcionario>) objectf[4];
+                    for (Funcionario linf : lf) {
+                        Funcionario f = linf;
+                        locacao.setFuncionario(f);
+                    }
+
+                    // set Cliente    
                 }
-                //set Veiculo    
-                Object[] object;
-                object = (Object[]) Popula.retornaVeiculo(codveiculo);
-                List<Veiculo> l = (List<Veiculo>) object[0];
-                for (Veiculo lin : l) {
-                    Veiculo v = lin;
-                    v = Popula.alteraStatusVeiculo("locado", v);
-                    locacao.setVeiculo(v);
-                }
-                BigDecimal bigDecimal = new BigDecimal(tfValorTotal.getText());
-                locacao.setValorTotal(bigDecimal);
-                locacao.setParcelas(Integer.parseInt(tfParcelas.getText()));
-
-                //set funcionario
-                Object[] objectf;
-                objectf = (Object[]) Popula.retornaDadosPessoas(codFunc);
-                List<Funcionario> lf = (List<Funcionario>) objectf[4];
-                for (Funcionario linf : lf) {
-                    Funcionario f = linf;
-                    locacao.setFuncionario(f);
+                Object[] objectc;
+                objectc = (Object[]) Popula.retornaDadosPessoas(codCliente);
+                List<Cliente> lc = (List<Cliente>) objectc[3];
+                for (Cliente linc : lc) {
+                    Cliente c = linc;
+                    locacao.setCliente(c);
                 }
 
-                // set Cliente    
+                sessao.save(locacao);
+                sessao.getTransaction().commit();
+                habilitaCampos(false);
+
+            } catch (HibernateException he) {
+                he.printStackTrace();
+            } finally {
+                sessao.close();
             }
-            Object[] objectc;
-            objectc = (Object[]) Popula.retornaDadosPessoas(codCliente);
-            List<Cliente> lc = (List<Cliente>) objectc[3];
-            for (Cliente linc : lc) {
-                Cliente c = linc;
-                locacao.setCliente(c);
-            }
-
-            sessao.save(locacao);
-            sessao.getTransaction().commit();
-            habilitaCampos(false);
-
-        } catch (HibernateException he) {
-            he.printStackTrace();
-        } finally {
-            sessao.close();
+        } else {
+            JOptionPane.showMessageDialog(null, "Preencha os campos obrigatórios!");
         }
-
     }//GEN-LAST:event_btSalvarActionPerformed
 
     private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btEditarActionPerformed
+
+    private void btFechar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFechar1ActionPerformed
+        dispose();
+    }//GEN-LAST:event_btFechar1ActionPerformed
 
     public void defineCodigoCliente(int codcli) {
 
@@ -864,14 +858,13 @@ public class IfLocacao extends javax.swing.JInternalFrame {
         btPReserva.setEnabled(tf);
         btPVeiculo.setEnabled(tf);
         btPVendedor.setEnabled(tf);
-                
+
     }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btEditar;
     private javax.swing.JButton btFechar1;
-    private javax.swing.JButton btLocar;
     private javax.swing.JButton btNovo;
     private javax.swing.JButton btPCliente;
     private javax.swing.JButton btPReserva;

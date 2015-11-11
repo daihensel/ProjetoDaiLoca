@@ -5,13 +5,20 @@
  */
 package visao;
 
+import conf.Formatacao;
 import conf.HibernateUtil;
+import conf.Popula;
 import conf.Utility;
 import conf.limpaCampos;
+import entidade.Manutencao;
+import entidade.Pessoajuridica;
 import entidade.Populartabelafornecedor;
 import entidade.Populartabelaveiculo;
+import entidade.Veiculo;
 import java.util.List;
+import javax.swing.JOptionPane;
 import org.apache.log4j.Logger;
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -22,7 +29,10 @@ import org.hibernate.Transaction;
  */
 public class IfManutencaoVeiculos extends javax.swing.JInternalFrame {
 
-     private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
+    private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
+    int codFornecedor = 0;
+    int codVeiculo = 0;
+
     /**
      * Creates new form IfManutencaoVeiculos
      */
@@ -115,28 +125,35 @@ public class IfManutencaoVeiculos extends javax.swing.JInternalFrame {
         jpManutLayout.setHorizontalGroup(
             jpManutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpManutLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jpManutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpManutLayout.createSequentialGroup()
-                        .addGroup(jpManutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel16))
+                        .addGroup(jpManutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jpManutLayout.createSequentialGroup()
+                                .addGap(49, 49, 49)
+                                .addGroup(jpManutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel16)
+                                    .addComponent(jLabel9)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpManutLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel3)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jpManutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
-                            .addComponent(jScrollPane2)
-                            .addComponent(tfObservacao)))
-                    .addGroup(jpManutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jpManutLayout.createSequentialGroup()
-                            .addComponent(jLabel2)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(dcDataRetorno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jpManutLayout.createSequentialGroup()
-                            .addComponent(jLabel1)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(dcDataManut, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(tfObservacao, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane1)
+                            .addComponent(jScrollPane2)))
+                    .addGroup(jpManutLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(dcDataRetorno, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
+                        .addGap(284, 284, 284)))
                 .addGap(14, 14, 14))
+            .addGroup(jpManutLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(dcDataManut, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jpManutLayout.setVerticalGroup(
             jpManutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -164,7 +181,7 @@ public class IfManutencaoVeiculos extends javax.swing.JInternalFrame {
                     .addGroup(jpManutLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel9)))
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jpFornecedor.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados Fornecedor"));
@@ -355,7 +372,7 @@ public class IfManutencaoVeiculos extends javax.swing.JInternalFrame {
         jpVeiculoLayout.setVerticalGroup(
             jpVeiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpVeiculoLayout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jpVeiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jpVeiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel4)
@@ -378,8 +395,7 @@ public class IfManutencaoVeiculos extends javax.swing.JInternalFrame {
                         .addComponent(tfAnoFabricacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel18)
                         .addComponent(tfValorDiaria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel17)))
-                .addContainerGap(20, Short.MAX_VALUE))
+                        .addComponent(jLabel17))))
         );
 
         jToolBar1.setRollover(true);
@@ -414,6 +430,11 @@ public class IfManutencaoVeiculos extends javax.swing.JInternalFrame {
 
         btFechar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/fechar_32x32.png"))); // NOI18N
         btFechar.setText("Fechar");
+        btFechar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btFecharActionPerformed(evt);
+            }
+        });
         jToolBar1.add(btFechar);
 
         jLabel20.setText("* Campos obrigatórios");
@@ -437,7 +458,7 @@ public class IfManutencaoVeiculos extends javax.swing.JInternalFrame {
                     .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel20))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jpManut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jpManut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jpVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -470,50 +491,63 @@ public class IfManutencaoVeiculos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btNovoActionPerformed
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
-//        Session sessao = null;
-//        try {
-//            sessao = HibernateUtil.getSessionFactory().openSession();
-//            Transaction t = sessao.beginTransaction();
-//
-//            
-//
-//            Object[] objectf;
-//            objectf = (Object[]) Popula.retornaDadosPessoas(codFunc);
-//            List<Funcionario> lf = (List<Funcionario>) objectf[4];
-//            for (Funcionario linf : lf) {
-//                Funcionario f = linf;
-//                reserva.setFuncionario(f);
-//            }
-//
-//           
-//
-//            Object[] object;
-//            object = (Object[]) Popula.retornaVeiculo(codveiculo);
-//            List<Veiculo> l = (List<Veiculo>) object[0];
-//            for (Veiculo lin : l) {
-//                Veiculo v = lin;
-//                v = Popula.alteraStatusVeiculo("reservado", v);
-//                reserva.setVeiculo(v);
-//            }
-//
-//            sessao.save(reserva);
-//
-//            t.commit();
-//            habilitaCampos(false);
-//
-//        } catch (HibernateException he) {
-//            he.printStackTrace();
-//        } finally {
-//            sessao.close();
-//        }
+        if (dcDataManut.getDate() != null && dcDataRetorno.getDate() != null
+                && taDefeito.getText().trim().length() > 0) {
+
+            Session sessao = null;
+            try {
+                sessao = HibernateUtil.getSessionFactory().openSession();
+                Transaction t = sessao.beginTransaction();
+
+                Manutencao manut = new Manutencao();
+
+                manut.setDtManutencao(Formatacao.converteDataParaDataAMD(dcDataManut.getDate()));
+                manut.setDtRetorno(Formatacao.converteDataParaDataAMD(dcDataRetorno.getDate()));
+                manut.setMotivo(taDefeito.getText());
+                manut.setObservacao(tfObservacao.getText());
+                manut.setSolucao(taSolucao.getText());
+                Object[] objectf;
+                objectf = (Object[]) Popula.retornaDadosPessoas(codFornecedor);
+                List<Pessoajuridica> lf = (List<Pessoajuridica>) objectf[0];
+                for (Pessoajuridica linf : lf) {
+                    Pessoajuridica pj = linf;
+                    manut.setPessoajuridica(pj);
+                }
+
+                Object[] object;
+                object = (Object[]) Popula.retornaVeiculo(codVeiculo);
+                List<Veiculo> l = (List<Veiculo>) object[0];
+                for (Veiculo lin : l) {
+                    Veiculo v = lin;
+                    v = Popula.alteraStatusVeiculo("Manutenção", v);
+                    manut.setVeiculo(v);
+                }
+
+                sessao.save(manut);
+
+                t.commit();
+                habilitaCampos(false);
+
+            } catch (HibernateException he) {
+                he.printStackTrace();
+            } finally {
+                sessao.close();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Preencha os campos obrigatórios!");
+        }
     }//GEN-LAST:event_btSalvarActionPerformed
 
     private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btEditarActionPerformed
 
-    public void defineCodigoVeiculo(int cod) {
+    private void btFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFecharActionPerformed
+        dispose();
+    }//GEN-LAST:event_btFecharActionPerformed
 
+    public void defineCodigoVeiculo(int cod) {
+        codVeiculo = cod;
         Session sessao = null;
 
         sessao = HibernateUtil.getSessionFactory().openSession();
@@ -538,7 +572,7 @@ public class IfManutencaoVeiculos extends javax.swing.JInternalFrame {
     }
 
     public void defineCodigoFornecedor(int cod) {
-
+        codFornecedor = cod;
         Session sessao = null;
 
         sessao = HibernateUtil.getSessionFactory().openSession();
@@ -549,18 +583,18 @@ public class IfManutencaoVeiculos extends javax.swing.JInternalFrame {
         List<Populartabelafornecedor> dadosCliente = (List<Populartabelafornecedor>) query.list();
 
         for (Populartabelafornecedor lin : dadosCliente) {
-  tfRazaoSocial.setText(          lin.getNome());
-                tfCNPJ.setText(lin.getCnpj());
-                tfTelefone.setText(lin.getDescricaocontato());
-                tfEndereco.setText(lin.getDescricaoendereco());
-                tfBairro.setText(lin.getBairro());
-               tfCidade.setText(lin.getDescricaocidade());
+            tfRazaoSocial.setText(lin.getNome());
+            tfCNPJ.setText(lin.getCnpj());
+            tfTelefone.setText(lin.getDescricaocontato());
+            tfEndereco.setText(lin.getDescricaoendereco());
+            tfBairro.setText(lin.getBairro());
+            tfCidade.setText(lin.getDescricaocidade());
         }
         sessao.getTransaction().commit();
 
     }
-    
-     public void limpaCampos() {
+
+    public void limpaCampos() {
         limpaCampos lc = new limpaCampos();
         lc.limparCampos(jpFornecedor);
         lc.limparCampos(jpManut);
@@ -568,11 +602,11 @@ public class IfManutencaoVeiculos extends javax.swing.JInternalFrame {
         dcDataManut.setDate(null);
         dcDataRetorno.setDate(null);
     }
-    
-    private void habilitaCampos(boolean tf){
-         if (tf == false) {
+
+    private void habilitaCampos(boolean tf) {
+        if (tf == false) {
             limpaCampos();
-             btSalvar.setEnabled(false);
+            btSalvar.setEnabled(false);
             btEditar.setEnabled(true);
             btNovo.setEnabled(true);
         }
