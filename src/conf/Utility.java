@@ -177,36 +177,6 @@ public class Utility {
     }
 
   
-    public static List consultaPessoa(String criterio) {
-
-        Session sessao = null;
-
-        sessao = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = sessao.beginTransaction();
-        Query query = (Query) sessao.createQuery(" FROM Pessoa WHERE nome LIKE '%" + criterio + "')");
-
-        List<Pessoa> dadosPessoa = (List<Pessoa>) query.list();
-        sessao.getTransaction().commit();
-
-        return dadosPessoa;
-
-    }
-    
-    public static List consultaVeiculo(String criterio){
-        
-        Session sessao = null;
-
-        sessao = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = sessao.beginTransaction();
-        Query query = (Query) sessao.createQuery(" FROM Veiculo WHERE descricao LIKE '%" + criterio + ")");
-        
-        List<Veiculo> dadosVeiculo = (List<Veiculo>) query.list();
-        sessao.getTransaction().commit();
-        
-        return dadosVeiculo;
-    }
-
-    
-    
+  
     
 }

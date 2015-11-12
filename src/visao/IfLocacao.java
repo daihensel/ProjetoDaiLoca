@@ -23,6 +23,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -38,7 +39,7 @@ public class IfLocacao extends javax.swing.JInternalFrame {
     private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
     private int codFunc = 0;
     int codCliente = 0;
-    int codReserva = 0;
+    int idReserva = 0;
     int codveiculo = 0;
 
     /**
@@ -605,7 +606,7 @@ public class IfLocacao extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btPClienteActionPerformed
 
     private void btPReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPReservaActionPerformed
-        DgConsultaReserva tela = new DgConsultaReserva(this, null);
+        DgConsultaReserva tela = new DgConsultaReserva(this, null, null);
         tela.setVisible(true);
     }//GEN-LAST:event_btPReservaActionPerformed
 
@@ -674,7 +675,7 @@ public class IfLocacao extends javax.swing.JInternalFrame {
                 //set Reserva
                 if (tfDataLocacaoNaReserva.getText().trim().length() > 0) {
                     Object[] objectr;
-                    objectr = (Object[]) Popula.retornaReserva(codReserva);
+                    objectr = (Object[]) Popula.retornaReserva(idReserva);
                     List<Reserva> rs = (List<Reserva>) objectr[0];
                     for (Reserva linr : rs) {
                         Reserva r = linr;
@@ -734,19 +735,13 @@ public class IfLocacao extends javax.swing.JInternalFrame {
         dispose();
     }//GEN-LAST:event_btFechar1ActionPerformed
 
-    public void defineCodigoCliente(int codcli) {
+    public void defineCodigoCliente(int cod) {
 
-        Session sessao = null;
+        codCliente = cod;
 
-        sessao = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = sessao.beginTransaction();
-        codCliente = codcli;
-
-        Query query = (Query) sessao.createQuery(" FROM Populartabelacliente p WHERE "
-                + " idcliente = " + codcli + "");
-        List<Populartabelacliente> dadosCliente = (List<Populartabelacliente>) query.list();
-
-        for (Populartabelacliente lin : dadosCliente) {
+        JTable aux = new JTable();
+        List<Populartabelacliente> l = Popula.popularTabelaCliente(cod, String.valueOf(cod), aux);
+        for (Populartabelacliente lin : l) {
             tfNomeCliente.setText(lin.getNome());
             tfRG.setText(lin.getRg());
             tfCPF.setText(lin.getCpf());
@@ -754,59 +749,43 @@ public class IfLocacao extends javax.swing.JInternalFrame {
             tfEndereco.setText(lin.getDescricaoendereco());
             tfBairro.setText(lin.getBairro());
             tfCidade.setText(lin.getDescricaocidade());
-
         }
-        sessao.getTransaction().commit();
-
     }
 
     public void defineCodigoReserva(int cod) {
 
-        Session sessao = null;
+        idReserva = cod;
 
-        sessao = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = sessao.beginTransaction();
-        codReserva = cod;
-
-        Query query = (Query) sessao.createQuery(" FROM Populartabelareserva p WHERE "
-                + " idreserva = " + cod + "");
-        List<Populartabelareserva> dadosCliente = (List<Populartabelareserva>) query.list();
-
-        for (Populartabelareserva lin : dadosCliente) {
-            tfDataLocacaoNaReserva.setText(Formatacao.ajustaDataDMA(String.valueOf(lin.getDtLocacao())));
-            tfDataReserva.setText(Formatacao.ajustaDataDMA(String.valueOf(lin.getDtReserva())));
-            tfDataDevolucaoNaReserva.setText(Formatacao.ajustaDataDMA(String.valueOf(lin.getDtDevolucao())));
-            dcDataLocacao.setDate(lin.getDtLocacao());
-            dcDataDevolucao.setDate(lin.getDtDevolucao());
+        Object[] objectr;
+        objectr = (Object[]) Popula.retornaReserva(idReserva);
+        List<Reserva> rs = (List<Reserva>) objectr[0];
+        for (Reserva linr : rs) {
+            Reserva r = linr;
+            tfDataLocacaoNaReserva.setText(Formatacao.ajustaDataDMA(String.valueOf(r.getDtLocacao())));
+            tfDataReserva.setText(Formatacao.ajustaDataDMA(String.valueOf(r.getDtReserva())));
+            tfDataDevolucaoNaReserva.setText(Formatacao.ajustaDataDMA(String.valueOf(r.getDtDevolucao())));
+            dcDataLocacao.setDate(r.getDtLocacao());
+            dcDataDevolucao.setDate(r.getDtDevolucao());
         }
-        sessao.getTransaction().commit();
         calculaValorTotal();
     }
 
     public void defineCodigoVeiculo(int cod) {
 
-        Session sessao = null;
-
-        sessao = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = sessao.beginTransaction();
         codveiculo = cod;
-
-        Query query = (Query) sessao.createQuery(" FROM Populartabelaveiculo WHERE "
-                + " idveiculo = " + cod + "");
-        List<Populartabelaveiculo> dadosCliente = (List<Populartabelaveiculo>) query.list();
-
-        for (Populartabelaveiculo lin : dadosCliente) {
-            tfDescricaoVeiculo.setText(lin.getDescricaoVeiculo());
-            tfTipoVeiculo.setText(lin.getDescricaoTipo());
-            tfMarca.setText(lin.getMarca());
-            tfAnoModelo.setText(String.valueOf(lin.getAnoModelo()));
-            tfAnoFabricacao.setText(String.valueOf(lin.getAnoFabricacao()));
-            tfValorDiaria.setText(String.valueOf(lin.getValorDiaria()));
-            tfKmAtual.setText(String.valueOf(lin.getKmAtual()));
+        JTable aux = new JTable();
+        List<Populartabelaveiculo> l = Popula.popularTabelaVeiculo(cod, String.valueOf(cod), aux, "");
+        for (Populartabelaveiculo lin : l) {
+            Populartabelaveiculo v = lin;
+            tfDescricaoVeiculo.setText(v.getDescricaoVeiculo());
+            tfTipoVeiculo.setText(v.getDescricaoTipo());
+            tfMarca.setText(v.getMarca());
+            tfAnoModelo.setText(String.valueOf(v.getAnoModelo()));
+            tfAnoFabricacao.setText(String.valueOf(v.getAnoFabricacao()));
+            tfValorDiaria.setText(String.valueOf(v.getValorDiaria()));
+            tfKmAtual.setText(String.valueOf(v.getKmAtual()));
             calculaValorTotal();
         }
-        sessao.getTransaction().commit();
-
     }
 
     public void defineCodigoFuncionario(int cod, String nome) {

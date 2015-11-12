@@ -176,7 +176,7 @@ public class Popula {
 
     }
 
-    public static void popularTabelaFornecedor(int codigo, String criterio, JTable tb) {
+    public static List popularTabelaFornecedor(int codigo, String criterio, JTable tb) {
 
         DefaultTableModel tabelaModelo = (DefaultTableModel) tb.getModel();
         tabelaModelo.setNumRows(0);
@@ -191,9 +191,9 @@ public class Popula {
                 + " OR lower(p.descricaoendereco) LIKE '%" + criterio + "%'"
                 + " OR lower(p.descricaocidade) LIKE '%" + criterio + "%'"
                 + " OR p.idpessoa = " + codigo + ")");
-        List<Populartabelafornecedor> dadosClientes = (List<Populartabelafornecedor>) query.list();
+        List<Populartabelafornecedor> dadosFornecedor = (List<Populartabelafornecedor>) query.list();
 
-        for (Populartabelafornecedor lin : dadosClientes) {
+        for (Populartabelafornecedor lin : dadosFornecedor) {
             tabelaModelo.addRow(new Object[]{
                 lin.getIdpessoa(),
                 lin.getNome(),
@@ -207,7 +207,7 @@ public class Popula {
         }
 
         sessao.getTransaction().commit();
-
+        return dadosFornecedor;
     }
 
     public static Object retornaDadosPessoas(int codpess) {
@@ -323,7 +323,7 @@ public class Popula {
         Query queryRetornaPes = (Query) sessao.createQuery(" FROM Pessoa p WHERE ("
                 + " p.idpessoa = " + codPessoa + ")");
         List<Pessoa> dadosPessoa = (List<Pessoa>) queryRetornaPes.list();
-        
+
         return dadosPessoa;
     }
 
@@ -331,9 +331,6 @@ public class Popula {
 
         DefaultTableModel tabelaModelo = (DefaultTableModel) tb.getModel();
         tabelaModelo.setNumRows(0);
-//        JTable tbAux = new JTable();
-//        DefaultTableModel tabelaModeloAux = (DefaultTableModel) tbAux.getModel();
-//        tabelaModeloAux.setNumRows(0);
 
         Session sessao = null;
 
@@ -355,16 +352,6 @@ public class Popula {
                 + " d.iddocumentos = " + cod + ")");
         List<Documentos> dadosDocumento = (List<Documentos>) query.list();
 
-//        for (Documentos lin : dadosDocumento) {
-//            tabelaModeloAux.addRow(new Object[]{
-//                lin.getIddocumentos(),
-//                lin.getDescricao(),
-//                lin.getVeiculo(),
-//                lin.getDtInclusao(),
-//                lin.getTipo(),
-//                lin.getObservacoes()
-//            });
-//        }
         while (qr.hasNext()) {
             Object[] tuple = (Object[]) qr.next();
             tabelaModelo.addRow(new Object[]{
@@ -381,7 +368,7 @@ public class Popula {
         return dadosDocumento;
     }
 
-    public static void popularTabelaCliente(int codigo, String criterio, JTable tb) {
+    public static List popularTabelaCliente(int codigo, String criterio, JTable tb) {
 
         DefaultTableModel tabelaModelo = (DefaultTableModel) tb.getModel();
         tabelaModelo.setNumRows(0);
@@ -410,7 +397,7 @@ public class Popula {
 
         }
         sessao.getTransaction().commit();
-
+        return dadosClientes;
     }
 
     public static void popularTabelaPermissao(int criterio, JTable tb) {

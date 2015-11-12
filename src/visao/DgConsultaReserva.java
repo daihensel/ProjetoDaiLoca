@@ -25,14 +25,16 @@ public class DgConsultaReserva extends javax.swing.JDialog {
     private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
     IfLocacao telaLocacao;
     IfCancelamento telaCancelamento;
+    IfReservaVeiculos telaReserva;
     int codigoVeiculo;
     int codigoCliente;
     
-    public DgConsultaReserva(IfLocacao janelaLocacao, IfCancelamento janelaCancelamento) {
+    public DgConsultaReserva(IfLocacao janelaLocacao, IfCancelamento janelaCancelamento, IfReservaVeiculos janelaReserva) {
         
         initComponents();
         this.telaLocacao = janelaLocacao;
         this.telaCancelamento = janelaCancelamento;
+        this.telaReserva = janelaReserva;
         codigoVeiculo = 0;
         codigoCliente = 0;
         this.popularTabelaReserva(tfPesquisa.getText(), tbReserva);
@@ -148,6 +150,9 @@ public class DgConsultaReserva extends javax.swing.JDialog {
             telaCancelamento.defineCodigoReserva(codigo);
             telaCancelamento.defineCodigoCliente(codigoCliente);
             telaCancelamento.defineCodigoVeiculo(codigoVeiculo);
+             }
+             if (telaReserva != null) {
+                 telaReserva.defineCodigoReserva(codigo);
              }
             this.dispose();
         }

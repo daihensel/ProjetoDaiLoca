@@ -20,6 +20,7 @@ import entidade.Veiculo;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -676,27 +677,18 @@ public class IfDocumento extends javax.swing.JInternalFrame {
 
     public void defineCodigoVeiculo(int cod) {
 
-        Session sessao = null;
-
-        sessao = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = sessao.beginTransaction();
         codveiculo = cod;
-        Query query = (Query) sessao.createQuery(" FROM Populartabelaveiculo WHERE "
-                + " idveiculo = " + cod + "");
-        List<Populartabelaveiculo> dadosVeiculo = (List<Populartabelaveiculo>) query.list();
-
-        for (Populartabelaveiculo lin : dadosVeiculo) {
-            tfDescricaoVeiculo.setText(lin.getDescricaoVeiculo());
-            tfTipoVeiculo.setText(lin.getDescricaoTipo());
-            tfMarca.setText(lin.getMarca());
-            tfAnoModelo.setText(String.valueOf(lin.getAnoModelo()));
-            tfAnoFabricacao.setText(String.valueOf(lin.getAnoFabricacao()));
-            tfValorDiaria.setText(String.valueOf(lin.getValorDiaria()));
-            tfKmAtual.setText(String.valueOf(lin.getKmAtual()));
-
+        List<Populartabelaveiculo> l = Popula.popularTabelaVeiculo(cod, String.valueOf(cod), tbDocumentos, "");
+        for (Populartabelaveiculo lin : l) {
+            Populartabelaveiculo v = lin;
+            tfDescricaoVeiculo.setText(v.getDescricaoVeiculo());
+            tfTipoVeiculo.setText(v.getDescricaoTipo());
+            tfMarca.setText(v.getMarca());
+            tfAnoModelo.setText(String.valueOf(v.getAnoModelo()));
+            tfAnoFabricacao.setText(String.valueOf(v.getAnoFabricacao()));
+            tfValorDiaria.setText(String.valueOf(v.getValorDiaria()));
+            tfKmAtual.setText(String.valueOf(v.getKmAtual()));
         }
-        sessao.getTransaction().commit();
-
     }
 
 

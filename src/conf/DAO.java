@@ -11,6 +11,7 @@ import entidade.Endereco;
 import entidade.Funcao;
 import entidade.Funcionario;
 import entidade.Pessoa;
+import entidade.Reserva;
 import entidade.Statusveiculo;
 import entidade.Tipocontato;
 import entidade.Tipoveiculo;
@@ -130,6 +131,43 @@ public class DAO {
             } catch (HibernateException he) {
                 he.printStackTrace();
                 System.out.println("Erro atualizar Endereco = " + he);
+
+            }
+
+        }
+        return retorno;
+    }
+    
+    public static String salvarReserva(Reserva reserva) {
+        Session sessao = null;
+        String retorno = "";
+
+        if (reserva.getIdreserva() == 0) { //insert
+
+            try {
+
+                sessao = HibernateUtil.getSessionFactory().openSession();
+                Transaction t = sessao.beginTransaction();
+
+                sessao.save(reserva);
+                t.commit();
+            } catch (HibernateException he) {
+                System.out.println("Erro salvar Reserva: \n" + he);
+            }
+
+        } else { //update
+
+            try {
+                sessao = HibernateUtil.getSessionFactory().openSession();
+                Transaction t = sessao.beginTransaction();
+
+                sessao.update(reserva);
+
+                sessao.getTransaction().commit();
+
+            } catch (HibernateException he) {
+                he.printStackTrace();
+                System.out.println("Erro atualizar Reserva = " + he);
 
             }
 

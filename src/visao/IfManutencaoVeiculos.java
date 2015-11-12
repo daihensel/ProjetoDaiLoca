@@ -17,6 +17,7 @@ import entidade.Populartabelaveiculo;
 import entidade.Veiculo;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -547,42 +548,30 @@ public class IfManutencaoVeiculos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btFecharActionPerformed
 
     public void defineCodigoVeiculo(int cod) {
+
         codVeiculo = cod;
-        Session sessao = null;
-
-        sessao = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = sessao.beginTransaction();
-
-        Query query = (Query) sessao.createQuery(" FROM Populartabelaveiculo WHERE "
-                + " idveiculo = " + cod + "");
-        List<Populartabelaveiculo> dadosCliente = (List<Populartabelaveiculo>) query.list();
-
-        for (Populartabelaveiculo lin : dadosCliente) {
-            tfDescricaoVeiculo.setText(lin.getDescricaoVeiculo());
-            tfTipoVeiculo.setText(lin.getDescricaoTipo());
-            tfMarca.setText(lin.getMarca());
-            tfAnoModelo.setText(String.valueOf(lin.getAnoModelo()));
-            tfAnoFabricacao.setText(String.valueOf(lin.getAnoFabricacao()));
-            tfValorDiaria.setText(String.valueOf(lin.getValorDiaria()));
-            tfKmAtual.setText(String.valueOf(lin.getKmAtual()));
-
+        JTable aux = new JTable();
+        List<Populartabelaveiculo> l = Popula.popularTabelaVeiculo(cod, String.valueOf(cod), aux, "");
+        for (Populartabelaveiculo lin : l) {
+            Populartabelaveiculo v = lin;
+            tfDescricaoVeiculo.setText(v.getDescricaoVeiculo());
+            tfTipoVeiculo.setText(v.getDescricaoTipo());
+            tfMarca.setText(v.getMarca());
+            tfAnoModelo.setText(String.valueOf(v.getAnoModelo()));
+            tfAnoFabricacao.setText(String.valueOf(v.getAnoFabricacao()));
+            tfValorDiaria.setText(String.valueOf(v.getValorDiaria()));
+            tfKmAtual.setText(String.valueOf(v.getKmAtual()));
         }
-        sessao.getTransaction().commit();
-
     }
 
     public void defineCodigoFornecedor(int cod) {
+        
         codFornecedor = cod;
-        Session sessao = null;
+        
+        JTable aux = new JTable();
+        List<Populartabelafornecedor> dadosForn = Popula.popularTabelaFornecedor(cod, String.valueOf(cod), aux);
 
-        sessao = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = sessao.beginTransaction();
-
-        Query query = (Query) sessao.createQuery(" FROM Populartabelafornecedor WHERE "
-                + " idpessoa = " + cod + "");
-        List<Populartabelafornecedor> dadosCliente = (List<Populartabelafornecedor>) query.list();
-
-        for (Populartabelafornecedor lin : dadosCliente) {
+        for (Populartabelafornecedor lin : dadosForn) {
             tfRazaoSocial.setText(lin.getNome());
             tfCNPJ.setText(lin.getCnpj());
             tfTelefone.setText(lin.getDescricaocontato());
@@ -590,7 +579,6 @@ public class IfManutencaoVeiculos extends javax.swing.JInternalFrame {
             tfBairro.setText(lin.getBairro());
             tfCidade.setText(lin.getDescricaocidade());
         }
-        sessao.getTransaction().commit();
 
     }
 

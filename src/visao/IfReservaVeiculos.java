@@ -5,6 +5,7 @@
  */
 package visao;
 
+import conf.DAO;
 import conf.Formatacao;
 import conf.HibernateUtil;
 import conf.JCalendar;
@@ -18,9 +19,11 @@ import entidade.Populartabelacliente;
 import entidade.Populartabelaveiculo;
 import entidade.Reserva;
 import entidade.Veiculo;
+import entidade.Veiculosstatus;
 import static java.util.Collections.list;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -510,62 +513,49 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
                 && dcDataLocacao.getDate() != null && tfVendedor.getText().trim().length() > 0
                 && dcDataDevolucao.getDate() != null && dcDataLocacao.getDate() != null) {
 
-            Session sessao = null;
-            try {
-                sessao = HibernateUtil.getSessionFactory().openSession();
-                Transaction t = sessao.beginTransaction();
+            Reserva reserva = new Reserva();
 
-                Reserva reserva = new Reserva();
-
-                Object[] objectc;
-                objectc = (Object[]) Popula.retornaDadosPessoas(codCliente);
-                List<Cliente> lc = (List<Cliente>) objectc[3];
-                for (Cliente linc : lc) {
-                    Cliente c = linc;
-                    reserva.setCliente(c);
-                }
-
-                Object[] objectf;
-                objectf = (Object[]) Popula.retornaDadosPessoas(codFunc);
-                List<Funcionario> lf = (List<Funcionario>) objectf[4];
-                for (Funcionario linf : lf) {
-                    Funcionario f = linf;
-                    reserva.setFuncionario(f);
-                }
-
-                //reserva.setDtReserva(Formatacao.converteParaDataAMD(((JCalendar) cbDataReserva).getText()));
-                reserva.setDtReserva(Formatacao.converteDataParaDataAMD(dcDataReserva.getDate()));
-
-                //reserva.setDtLocacao(Formatacao.converteParaDataAMD(((JCalendar) cbDataLocacao).getText()));
-                reserva.setDtLocacao(Formatacao.converteDataParaDataAMD(dcDataLocacao.getDate()));
-                reserva.setDtDevolucao(Formatacao.converteDataParaDataAMD(dcDataDevolucao.getDate()));
-
-                Object[] object;
-                object = (Object[]) Popula.retornaVeiculo(codveiculo);
-                List<Veiculo> l = (List<Veiculo>) object[0];
-                for (Veiculo lin : l) {
-                    Veiculo v = lin;
-                    v = Popula.alteraStatusVeiculo("reservado", v);
-                    reserva.setVeiculo(v);
-                }
-
-                sessao.save(reserva);
-
-                t.commit();
-                habilitaCampos(false);
-
-            } catch (HibernateException he) {
-                he.printStackTrace();
-            } finally {
-                sessao.close();
+            Object[] objectc;
+            objectc = (Object[]) Popula.retornaDadosPessoas(codCliente);
+            List<Cliente> lc = (List<Cliente>) objectc[3];
+            for (Cliente linc : lc) {
+                Cliente c = linc;
+                reserva.setCliente(c);
             }
+
+            Object[] objectf;
+            objectf = (Object[]) Popula.retornaDadosPessoas(codFunc);
+            List<Funcionario> lf = (List<Funcionario>) objectf[4];
+            for (Funcionario linf : lf) {
+                Funcionario f = linf;
+                reserva.setFuncionario(f);
+            }
+
+            reserva.setIdreserva(idReserva);
+            reserva.setDtReserva(Formatacao.converteDataParaDataAMD(dcDataReserva.getDate()));
+            reserva.setDtLocacao(Formatacao.converteDataParaDataAMD(dcDataLocacao.getDate()));
+            reserva.setDtDevolucao(Formatacao.converteDataParaDataAMD(dcDataDevolucao.getDate()));
+
+            Object[] object;
+            object = (Object[]) Popula.retornaVeiculo(codveiculo);
+            List<Veiculo> l = (List<Veiculo>) object[0];
+            for (Veiculo lin : l) {
+                Veiculo v = lin;
+                v = Popula.alteraStatusVeiculo("reservado", v);
+                reserva.setVeiculo(v);
+            }
+
+            DAO.salvarReserva(reserva);
+            habilitaCampos(false);
+
         } else {
             JOptionPane.showMessageDialog(null, "Preencha os campos obrigatórios!");
         }
     }//GEN-LAST:event_btSalvarActionPerformed
 
     private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
-        // TODO add your handling code here:
+        DgConsultaReserva janela = new DgConsultaReserva(null, null, this);
+        janela.setVisible(true);
     }//GEN-LAST:event_btEditarActionPerformed
 
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
@@ -574,26 +564,20 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
         btNovo.setEnabled(false);
         btSalvar.setEnabled(true);
         btEditar.setEnabled(false);
+        idReserva = 0;
     }//GEN-LAST:event_btNovoActionPerformed
 
     private void btFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFecharActionPerformed
-       dispose();
+        dispose();
     }//GEN-LAST:event_btFecharActionPerformed
 
-    //  @Override
-    public void defineCodigoCliente(int codcli) {
+    public void defineCodigoCliente(int cod) {
 
-        Session sessao = null;
+        codCliente = cod;
 
-        sessao = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = sessao.beginTransaction();
-        codCliente = codcli;
-
-        Query query = (Query) sessao.createQuery(" FROM Populartabelacliente p WHERE "
-                + " idcliente = " + codcli + "");
-        List<Populartabelacliente> dadosCliente = (List<Populartabelacliente>) query.list();
-
-        for (Populartabelacliente lin : dadosCliente) {
+        JTable aux = new JTable();
+        List<Populartabelacliente> l = Popula.popularTabelaCliente(cod, String.valueOf(cod), aux);
+        for (Populartabelacliente lin : l) {
             tfNomeCliente.setText(lin.getNome());
             tfRG.setText(lin.getRg());
             tfCPF.setText(lin.getCpf());
@@ -601,40 +585,52 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
             tfEndereco.setText(lin.getDescricaoendereco());
             tfBairro.setText(lin.getBairro());
             tfCidade.setText(lin.getDescricaocidade());
-
         }
-        sessao.getTransaction().commit();
-
     }
 
     public void defineCodigoVeiculo(int cod) {
 
-        Session sessao = null;
-
-        sessao = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = sessao.beginTransaction();
         codveiculo = cod;
-        Query query = (Query) sessao.createQuery(" FROM Populartabelaveiculo WHERE "
-                + " idveiculo = " + cod + "");
-        List<Populartabelaveiculo> dadosVeiculo = (List<Populartabelaveiculo>) query.list();
-
-        for (Populartabelaveiculo lin : dadosVeiculo) {
-            tfDescricaoVeiculo.setText(lin.getDescricaoVeiculo());
-            tfTipoVeiculo.setText(lin.getDescricaoTipo());
-            tfMarca.setText(lin.getMarca());
-            tfAnoModelo.setText(String.valueOf(lin.getAnoModelo()));
-            tfAnoFabricacao.setText(String.valueOf(lin.getAnoFabricacao()));
-            tfValorDiaria.setText(String.valueOf(lin.getValorDiaria()));
-            tfKmAtual.setText(String.valueOf(lin.getKmAtual()));
-
+        JTable aux = new JTable();
+        List<Veiculosstatus> l = Popula.popularTabelaVeiculo(cod, String.valueOf(cod), aux, "");
+        for (Veiculosstatus lin : l) {
+            Veiculosstatus v = lin;
+            tfDescricaoVeiculo.setText(v.getDescricaoVeiculo());
+            tfTipoVeiculo.setText(v.getDescricaoTipo());
+            tfMarca.setText(v.getMarca());
+            tfAnoModelo.setText(String.valueOf(v.getAnoModelo()));
+            tfAnoFabricacao.setText(String.valueOf(v.getAnoFabricacao()));
+            tfValorDiaria.setText(String.valueOf(v.getValorDiaria()));
+            tfKmAtual.setText(String.valueOf(v.getKmAtual()));
         }
-        sessao.getTransaction().commit();
-
     }
 
     public void defineCodigoFuncionario(int cod, String nome) {
         tfVendedor.setText(nome);
         codFunc = cod;
+    }
+
+    public void defineCodigoReserva(int cod) {
+
+        idReserva = cod;
+
+        Object[] objectr;
+        objectr = (Object[]) Popula.retornaReserva(idReserva);
+        List<Reserva> rs = (List<Reserva>) objectr[0];
+        for (Reserva linr : rs) {
+            Reserva r = linr;
+            dcDataReserva.setDate(r.getDtReserva());
+            dcDataLocacao.setDate(r.getDtLocacao());
+            dcDataDevolucao.setDate(r.getDtDevolucao());
+            tfVendedor.setText(r.getFuncionario().getPessoa().getNome());
+            defineCodigoFuncionario(r.getFuncionario().getPessoa().getIdpessoa(), r.getFuncionario().getPessoa().getNome());
+            defineCodigoCliente(r.getCliente().getPessoa().getIdpessoa());
+            defineCodigoVeiculo(r.getVeiculo().getIdveiculo());
+        }
+        habilitaCampos(true);
+        btEditar.setEnabled(false);
+        btSalvar.setEnabled(true);
+        btNovo.setEnabled(false);
     }
 
     public void limpaCampos() {
