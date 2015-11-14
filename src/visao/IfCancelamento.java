@@ -5,6 +5,7 @@
  */
 package visao;
 
+import conf.DAO;
 import conf.Formatacao;
 import conf.HibernateUtil;
 import conf.Popula;
@@ -19,10 +20,13 @@ import entidade.Populartabelareserva;
 import entidade.Populartabelaveiculo;
 import entidade.Reserva;
 import entidade.Veiculo;
+import entidade.Veiculosstatus;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
@@ -38,16 +42,18 @@ public class IfCancelamento extends javax.swing.JInternalFrame {
 
     private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
     private int codFunc = 0;
-    int codCliente = 0;
-    int codReserva = 0;
-    int codveiculo = 0;
+    private int codCliente = 0;
+    private int codReserva = 0;
+    private int codVeiculo = 0;
+    private int codCancelamento = 0;
 
     /**
      * Creates new form IfReservaVeiculos
      */
     public IfCancelamento() {
         initComponents();
-        Utility.permit(null, btOk, null, null, this);
+        Utility.permit(btNovo, btSalvar, null, null, this);
+        habilitaCampos(false);
 
     }
 
@@ -70,8 +76,6 @@ public class IfCancelamento extends javax.swing.JInternalFrame {
         tfDataReserva = Formatacao.getData();
         jLabel3 = new javax.swing.JLabel();
         btPReserva = new javax.swing.JButton();
-        btOk = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         jpCancelamento = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         tfVendedor = new javax.swing.JTextField();
@@ -111,6 +115,12 @@ public class IfCancelamento extends javax.swing.JInternalFrame {
         tfValorDiaria = new javax.swing.JTextField();
         jLabel25 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
+        jToolBar1 = new javax.swing.JToolBar();
+        btNovo = new javax.swing.JButton();
+        btSalvar = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JToolBar.Separator();
+        btFechar1 = new javax.swing.JButton();
+        jLabel21 = new javax.swing.JLabel();
 
         jpReserva.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados Reserva"));
 
@@ -138,27 +148,24 @@ public class IfCancelamento extends javax.swing.JInternalFrame {
         jpReservaLayout.setHorizontalGroup(
             jpReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpReservaLayout.createSequentialGroup()
-                .addGroup(jpReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpReservaLayout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(jLabel1)
+                .addGap(25, 25, 25)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tfDataReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jpReservaLayout.createSequentialGroup()
+                .addGroup(jpReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jpReservaLayout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfDataReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jpReservaLayout.createSequentialGroup()
-                        .addGroup(jpReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jpReservaLayout.createSequentialGroup()
-                                .addGap(26, 26, 26)
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tfDataLocacaoNaReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jpReservaLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(dtDevolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(tfDataLocacaoNaReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jpReservaLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btPReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(350, Short.MAX_VALUE))
+                        .addComponent(dtDevolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btPReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jpReservaLayout.setVerticalGroup(
             jpReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -175,32 +182,13 @@ public class IfCancelamento extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jpReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfDataReserva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1)))
+                    .addComponent(jLabel1))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        btOk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/ok.png"))); // NOI18N
-        btOk.setText("Efetuar Cancelamento");
-        btOk.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btOk.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btOk.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btOkActionPerformed(evt);
-            }
-        });
-
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/!ok.png"))); // NOI18N
-        jButton2.setText("Fechar");
-        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
 
         jpCancelamento.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados Cancelamento"));
 
-        jLabel9.setText("Data Cancelamento:");
+        jLabel9.setText("Data:");
 
         tfVendedor.setEditable(false);
         tfVendedor.addActionListener(new java.awt.event.ActionListener() {
@@ -239,7 +227,6 @@ public class IfCancelamento extends javax.swing.JInternalFrame {
         jpCancelamentoLayout.setHorizontalGroup(
             jpCancelamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpCancelamentoLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
                 .addGroup(jpCancelamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel9)
                     .addComponent(jLabel16)
@@ -248,12 +235,10 @@ public class IfCancelamento extends javax.swing.JInternalFrame {
                 .addGroup(jpCancelamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(dcDataCancelamento, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jpCancelamentoLayout.createSequentialGroup()
-                        .addGroup(jpCancelamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfVendedor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 410, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btPVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(tfVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btPVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         jpCancelamentoLayout.setVerticalGroup(
             jpCancelamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -269,8 +254,9 @@ public class IfCancelamento extends javax.swing.JInternalFrame {
                     .addComponent(dcDataCancelamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jpCancelamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel19)))
+                    .addComponent(jLabel19)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jpCliente.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados Cliente"));
@@ -318,7 +304,7 @@ public class IfCancelamento extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jpClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpClienteLayout.createSequentialGroup()
-                        .addComponent(tfRG, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
+                        .addComponent(tfRG)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel17)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -426,7 +412,7 @@ public class IfCancelamento extends javax.swing.JInternalFrame {
                             .addGroup(jpVeiculoLayout.createSequentialGroup()
                                 .addComponent(jLabel8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tfKmAtual, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
+                                .addComponent(tfKmAtual)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel25)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -463,46 +449,72 @@ public class IfCancelamento extends javax.swing.JInternalFrame {
                     .addComponent(jLabel8)))
         );
 
+        jToolBar1.setRollover(true);
+
+        btNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/novo_32x32.png"))); // NOI18N
+        btNovo.setText("Novo");
+        btNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btNovoActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btNovo);
+
+        btSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/salvar_32x32.png"))); // NOI18N
+        btSalvar.setText("Salvar");
+        btSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSalvarActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btSalvar);
+        jToolBar1.add(jSeparator1);
+
+        btFechar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/fechar_32x32.png"))); // NOI18N
+        btFechar1.setText("Fechar");
+        btFechar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btFechar1ActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btFechar1);
+
+        jLabel21.setText("* Campos obrigatórios");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btOk)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jpVeiculo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jpCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jpCancelamento, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jpReserva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 442, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35)
+                .addComponent(jLabel21))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addComponent(jpVeiculo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jpCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createSequentialGroup()
+                    .addComponent(jpReserva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jpCancelamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jpReserva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jpCancelamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jpCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jpVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel21))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btOk, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                    .addComponent(jpCancelamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jpReserva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jpCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jpVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void btPReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPReservaActionPerformed
         DgConsultaReserva tela = new DgConsultaReserva(null, this, null);
@@ -522,69 +534,64 @@ public class IfCancelamento extends javax.swing.JInternalFrame {
         tela.setVisible(true);
     }//GEN-LAST:event_btPVendedorActionPerformed
 
-    private void btOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btOkActionPerformed
-
-        Session sessao = null;
-        try {
-            sessao = HibernateUtil.getSessionFactory().openSession();
-            Transaction t = sessao.beginTransaction();
-
-            Cancelamento cancel = new Cancelamento();
-
-            cancel.setDtcancelamento(Formatacao.converteDataParaDataAMD(dcDataCancelamento.getDate()));
-            
-            cancel.setMotivocancelamento(taMotivo.getText());
-
-            //set Reserva
-            if (tfDataLocacaoNaReserva.getText().trim().length() > 0) {
-                Object[] objectr;
-                objectr = (Object[]) Popula.retornaReserva(codReserva);
-                List<Reserva> rs = (List<Reserva>) objectr[0];
-                for (Reserva linr : rs) {
-                    Reserva r = linr;
-                    cancel.setReserva(r);
-                }
-                //set Veiculo    
-                Object[] object;
-                object = (Object[]) Popula.retornaVeiculo(codveiculo);
-                List<Veiculo> l = (List<Veiculo>) object[0];
-                for (Veiculo lin : l) {
-                    Veiculo v = lin;
-                    v = Popula.alteraStatusVeiculo("Disponível", v);
-                   
-                }
-                
-
-                //set funcionario
-                Object[] objectf;
-                objectf = (Object[]) Popula.retornaDadosPessoas(codFunc);
-                List<Funcionario> lf = (List<Funcionario>) objectf[4];
-                for (Funcionario linf : lf) {
-                    Funcionario f = linf;
-                    cancel.setFuncionario(f);
-                }
-
-                // set Cliente    
-            }
-           
-
-            sessao.save(cancel);
-            sessao.getTransaction().commit();
-            limpaCampos();
-        } catch (HibernateException he) {
-            he.printStackTrace();
-        } finally {
-            sessao.close();
-        }
-
-
-    }//GEN-LAST:event_btOkActionPerformed
-
     private void dcDataCancelamentoAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_dcDataCancelamentoAncestorAdded
         // TODO add your handling code here:
     }//GEN-LAST:event_dcDataCancelamentoAncestorAdded
 
-     public void defineCodigoCliente(int cod) {
+    private void btFechar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFechar1ActionPerformed
+        dispose();
+    }//GEN-LAST:event_btFechar1ActionPerformed
+
+    private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
+        if (tfDataLocacaoNaReserva.getText().trim().length() > 0) {
+            Cancelamento cancel = new Cancelamento();
+            cancel.setIdcancelamento(codCancelamento);
+            cancel.setDtcancelamento(Formatacao.converteDataParaDataAMD(dcDataCancelamento.getDate()));
+            cancel.setMotivocancelamento(taMotivo.getText());
+
+            //set Reserva
+            Object[] objectr;
+            objectr = (Object[]) Popula.retornaReserva(codReserva);
+            List<Reserva> rs = (List<Reserva>) objectr[0];
+            for (Reserva linr : rs) {
+                Reserva r = linr;
+                cancel.setReserva(r);
+            }
+            //set Veiculo    
+            Object[] object;
+            object = (Object[]) Popula.retornaVeiculo(codVeiculo);
+            List<Veiculo> l = (List<Veiculo>) object[0];
+            for (Veiculo lin : l) {
+                Veiculo v = lin;
+                v = Popula.alteraStatusVeiculo("Disponível", v);
+
+            }
+
+            //set funcionario
+            Object[] objectf;
+            objectf = (Object[]) Popula.retornaDadosPessoas(codFunc);
+            List<Funcionario> lf = (List<Funcionario>) objectf[4];
+            for (Funcionario linf : lf) {
+                Funcionario f = linf;
+                cancel.setFuncionario(f);
+            }
+
+            DAO.salvarCancelamento(cancel);
+            habilitaCampos(false);
+        } else {
+            JOptionPane.showMessageDialog(null, "Preencha os campos obrigatórios!");
+        }
+    }//GEN-LAST:event_btSalvarActionPerformed
+
+    private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
+        habilitaCampos(true);
+
+        btNovo.setEnabled(false);
+        btSalvar.setEnabled(true);
+        dcDataCancelamento.setDate(Formatacao.converteParaDataAMD(Formatacao.getDataAtual()));
+    }//GEN-LAST:event_btNovoActionPerformed
+
+    public void defineCodigoCliente(int cod) {
 
         codCliente = cod;
 
@@ -613,20 +620,18 @@ public class IfCancelamento extends javax.swing.JInternalFrame {
             tfDataLocacaoNaReserva.setText(Formatacao.ajustaDataDMA(String.valueOf(r.getDtLocacao())));
             tfDataReserva.setText(Formatacao.ajustaDataDMA(String.valueOf(r.getDtReserva())));
             dtDevolucao.setText(Formatacao.ajustaDataDMA(String.valueOf(r.getDtDevolucao())));
-           
+            this.defineCodigoVeiculo(r.getVeiculo().getIdveiculo());
+            this.defineCodigoCliente(r.getCliente().getPessoaIdpessoa());
         }
     }
-            
-            
-    
 
-     public void defineCodigoVeiculo(int cod) {
+    public void defineCodigoVeiculo(int cod) {
 
-        codveiculo = cod;
+        codVeiculo = cod;
         JTable aux = new JTable();
-        List<Populartabelaveiculo> l = Popula.popularTabelaVeiculo(cod, String.valueOf(cod), aux, "");
-        for (Populartabelaveiculo lin : l) {
-            Populartabelaveiculo v = lin;
+        List<Veiculosstatus> l = Popula.popularTabelaVeiculo(cod, String.valueOf(cod), aux, "");
+        for (Veiculosstatus lin : l) {
+            Veiculosstatus v = lin;
             tfDescricaoVeiculo.setText(v.getDescricaoVeiculo());
             tfTipoVeiculo.setText(v.getDescricaoTipo());
             tfMarca.setText(v.getMarca());
@@ -642,8 +647,6 @@ public class IfCancelamento extends javax.swing.JInternalFrame {
         codFunc = cod;
     }
 
-   
-
     public void limpaCampos() {
         limpaCampos lc = new limpaCampos();
         lc.limparCampos(jpReserva);
@@ -654,13 +657,29 @@ public class IfCancelamento extends javax.swing.JInternalFrame {
         taMotivo.setText("");
     }
 
+    private void habilitaCampos(boolean tf) {
+        if (tf == false) {
+            limpaCampos();
+            btSalvar.setEnabled(false);
+            btNovo.setEnabled(true);
+        }
+
+        dcDataCancelamento.setEnabled(tf);
+        taMotivo.setEnabled(tf);
+        btPReserva.setEnabled(tf);
+        btPVendedor.setEnabled(tf);
+
+    }
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btOk;
+    private javax.swing.JButton btFechar1;
+    private javax.swing.JButton btNovo;
     private javax.swing.JButton btPReserva;
     private javax.swing.JButton btPVendedor;
+    private javax.swing.JButton btSalvar;
     private com.toedter.calendar.JDateChooser dcDataCancelamento;
     private javax.swing.JTextField dtDevolucao;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -673,6 +692,7 @@ public class IfCancelamento extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -682,6 +702,8 @@ public class IfCancelamento extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JToolBar.Separator jSeparator1;
+    private javax.swing.JToolBar jToolBar1;
     private javax.swing.JPanel jpCancelamento;
     private javax.swing.JPanel jpCliente;
     private javax.swing.JPanel jpReserva;

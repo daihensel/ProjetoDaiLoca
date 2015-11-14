@@ -23,11 +23,11 @@ public class DgConsultaFuncionario extends javax.swing.JDialog {
     /**
      * Creates new form DgConsultaVeic
      */
-    public DgConsultaFuncionario(IfLocacao telaLocacao, IfReservaVeiculos telaReserva, IfCancelamento telaCancelamento) {
+    public DgConsultaFuncionario(IfLocacao tLocacao, IfReservaVeiculos tReserva, IfCancelamento tCancelamento) {
         initComponents();
-        this.telaLocacao = telaLocacao;
-        this.telaReserva = telaReserva;
-        this.telaCancelamento = telaCancelamento;
+        this.telaLocacao = tLocacao;
+        this.telaReserva = tReserva;
+        this.telaCancelamento = tCancelamento;
         pesquisa();
     }
 

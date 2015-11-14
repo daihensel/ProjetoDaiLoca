@@ -190,6 +190,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         btAbrirChat = new javax.swing.JButton();
         btNovaDevolucao = new javax.swing.JButton();
         btNovoPagamento = new javax.swing.JButton();
+        btNovoCancelamento = new javax.swing.JButton();
         pnChat = new javax.swing.JPanel();
         pnConectar = new javax.swing.JPanel();
         tfNome = new javax.swing.JTextField();
@@ -399,6 +400,13 @@ public class FormPrincipal extends javax.swing.JFrame {
             }
         });
 
+        btNovoCancelamento.setText("Novo Cancelamento");
+        btNovoCancelamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btNovoCancelamentoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnMenusLayout = new javax.swing.GroupLayout(pnMenus);
         pnMenus.setLayout(pnMenusLayout);
         pnMenusLayout.setHorizontalGroup(
@@ -414,7 +422,8 @@ public class FormPrincipal extends javax.swing.JFrame {
                     .addComponent(btNovaManut, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pnTotais, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pnLogados, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btNovoPagamento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btNovoPagamento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btNovoCancelamento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         pnMenusLayout.setVerticalGroup(
@@ -435,11 +444,13 @@ public class FormPrincipal extends javax.swing.JFrame {
                 .addComponent(btNovaDevolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(4, 4, 4)
                 .addComponent(btNovoPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btNovoCancelamento, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(pnLogados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnTotais, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pnConectar.setBorder(javax.swing.BorderFactory.createTitledBorder("Conectado no chat como:"));
@@ -605,14 +616,14 @@ public class FormPrincipal extends javax.swing.JFrame {
         );
         pnGeralLayout.setVerticalGroup(
             pnGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnGeralLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(pnChat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(45, 369, Short.MAX_VALUE))
             .addGroup(pnGeralLayout.createSequentialGroup()
                 .addGroup(pnGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pnMenus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 640, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnGeralLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(pnChat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(45, 45, 45)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 680, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -1015,28 +1026,39 @@ public class FormPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void tbVeiculosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbVeiculosMouseEntered
-       atualizaDadosVeiculos();
+        atualizaDadosVeiculos();
     }//GEN-LAST:event_tbVeiculosMouseEntered
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-       DgFiltroRelatorioLocacaoEntreDatas janela = new DgFiltroRelatorioLocacaoEntreDatas();
-       janela.setVisible(true);
+        DgFiltroRelatorioLocacaoEntreDatas janela = new DgFiltroRelatorioLocacaoEntreDatas();
+        janela.setVisible(true);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-       DgFiltroRelatorioLocacaoEntreDatasVeiculo janela = new DgFiltroRelatorioLocacaoEntreDatasVeiculo();
-       janela.setVisible(true);
+        DgFiltroRelatorioLocacaoEntreDatasVeiculo janela = new DgFiltroRelatorioLocacaoEntreDatasVeiculo();
+        janela.setVisible(true);
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
-       DgFiltroRelatorioLocacaoId janela = new DgFiltroRelatorioLocacaoId("veiculo");
-       janela.setVisible(true);
+        DgFiltroRelatorioLocacaoId janela = new DgFiltroRelatorioLocacaoId("veiculo");
+        janela.setVisible(true);
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
-       DgFiltroRelatorioLocacaoId janela = new DgFiltroRelatorioLocacaoId("cliente");
-       janela.setVisible(true);
+        DgFiltroRelatorioLocacaoId janela = new DgFiltroRelatorioLocacaoId("cliente");
+        janela.setVisible(true);
     }//GEN-LAST:event_jMenuItem9ActionPerformed
+
+    private void btNovoCancelamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoCancelamentoActionPerformed
+        IfCancelamento janela = new IfCancelamento();
+        dp.add(janela);
+        if (Utility.permitLer(janela) == true) {
+            janela.setVisible(true);
+
+        } else {
+            logger.error("usuário sem permissão");
+        }
+    }//GEN-LAST:event_btNovoCancelamentoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1048,6 +1070,7 @@ public class FormPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btNovaLocacao;
     private javax.swing.JButton btNovaManut;
     private javax.swing.JButton btNovaReserva;
+    private javax.swing.JButton btNovoCancelamento;
     private javax.swing.JButton btNovoCliente;
     private javax.swing.JButton btNovoFornecedor;
     private javax.swing.JButton btNovoPagamento;

@@ -22,10 +22,10 @@ public class DgConsultaCliente extends javax.swing.JDialog {
     /**
      * Creates new form DgConsultaVeic
      */
-    public DgConsultaCliente(IfReservaVeiculos telaReserva, IfLocacao telaLocacao) {
+    public DgConsultaCliente(IfReservaVeiculos tReserva, IfLocacao tLocacao) {
         initComponents();
-        this.telaReserva = telaReserva;
-        this.telaLocacao = telaLocacao;
+        this.telaReserva = tReserva;
+        this.telaLocacao = tLocacao;
         pesquisa();
     }
 

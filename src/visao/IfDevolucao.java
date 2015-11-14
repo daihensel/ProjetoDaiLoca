@@ -5,6 +5,7 @@
  */
 package visao;
 
+import conf.DAO;
 import conf.Formatacao;
 import conf.HibernateUtil;
 import conf.Popula;
@@ -16,6 +17,7 @@ import entidade.Populartabelalocacao;
 import entidade.Veiculo;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -29,15 +31,16 @@ import org.hibernate.Transaction;
 public class IfDevolucao extends javax.swing.JInternalFrame {
 
     private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
-    int codLocacao = 0;
-    int codVeiculo = 0;
+    private int codLocacao = 0;
+    private int codVeiculo = 0;
+    private int codDevolucao = 0;
 
     /**
      * Creates new form IfReservaVeiculos
      */
     public IfDevolucao() {
         initComponents();
-        Utility.permit(btNovo, btSalvar, btEditar, null, this);
+        Utility.permit(btNovo, btSalvar, btConsulta, null, this);
         habilitaCampos(false);
     }
 
@@ -78,7 +81,7 @@ public class IfDevolucao extends javax.swing.JInternalFrame {
         jToolBar1 = new javax.swing.JToolBar();
         btNovo = new javax.swing.JButton();
         btSalvar = new javax.swing.JButton();
-        btEditar = new javax.swing.JButton();
+        btConsulta = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JToolBar.Separator();
         btFechar1 = new javax.swing.JButton();
 
@@ -294,14 +297,14 @@ public class IfDevolucao extends javax.swing.JInternalFrame {
         });
         jToolBar1.add(btSalvar);
 
-        btEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/bEditar.png"))); // NOI18N
-        btEditar.setText("Editar");
-        btEditar.addActionListener(new java.awt.event.ActionListener() {
+        btConsulta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/procurar_32x32.png"))); // NOI18N
+        btConsulta.setText("Consulta");
+        btConsulta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btEditarActionPerformed(evt);
+                btConsultaActionPerformed(evt);
             }
         });
-        jToolBar1.add(btEditar);
+        jToolBar1.add(btConsulta);
         jToolBar1.add(jSeparator1);
 
         btFechar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/fechar_32x32.png"))); // NOI18N
@@ -352,7 +355,7 @@ public class IfDevolucao extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tfVeiculoLocacaoActionPerformed
 
     private void btPLocacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPLocacaoActionPerformed
-        DgConsultaLocacao tela = new DgConsultaLocacao(this);
+        DgConsultaLocacao tela = new DgConsultaLocacao(this, null);
         tela.setVisible(true);
     }//GEN-LAST:event_btPLocacaoActionPerformed
 
@@ -380,90 +383,94 @@ public class IfDevolucao extends javax.swing.JInternalFrame {
 
         btNovo.setEnabled(false);
         btSalvar.setEnabled(true);
-        btEditar.setEnabled(false);
+        btConsulta.setEnabled(false);
+        codDevolucao = 0;
     }//GEN-LAST:event_btNovoActionPerformed
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
         if (tfKmRodados.getText().trim().length() > 0 && dcDataDevolucao.getDate() != null
                 && tfVeiculoLocacao.getText().trim().length() > 0) {
-            Session sessao = null;
-            try {
-                sessao = HibernateUtil.getSessionFactory().openSession();
-                Transaction t = sessao.beginTransaction();
-                Devolucao devolucao = new Devolucao();
 
-                devolucao.setDtDevolucao(Formatacao.converteDataParaDataAMD(dcDataDevolucao.getDate()));
+            Devolucao devolucao = new Devolucao();
 
-                Object[] object;
-                object = (Object[]) Popula.retornaLocacao(codLocacao);
-                List<Locacao> l = (List<Locacao>) object[0];
-                for (Locacao lin : l) {
-                    Locacao loc = lin;
-                    devolucao.setLocacao(loc);
-                }
+            devolucao.setIddevolucao(codDevolucao);
+            devolucao.setDtDevolucao(Formatacao.converteDataParaDataAMD(dcDataDevolucao.getDate()));
 
-                //set Veiculo    
-                Object[] objectv;
-                objectv = (Object[]) Popula.retornaVeiculo(codVeiculo);
-                List<Veiculo> lv = (List<Veiculo>) objectv[0];
-                for (Veiculo linv : lv) {
-                    Veiculo v = linv;
-                    v = Popula.alteraStatusVeiculo("Disponível", v);
-
-                }
-
-                devolucao.setKmRodados(Integer.parseInt(tfKmRodados.getText()));
-
-                sessao.save(devolucao);
-                t.commit();
-                habilitaCampos(false);
-
-            } catch (HibernateException he) {
-                he.printStackTrace();
-            } finally {
-                sessao.close();
+            Object[] object;
+            object = (Object[]) Popula.retornaLocacao(codLocacao);
+            List<Locacao> l = (List<Locacao>) object[0];
+            for (Locacao lin : l) {
+                Locacao loc = lin;
+                devolucao.setLocacao(loc);
             }
+
+            //set Veiculo    
+            Object[] objectv;
+            objectv = (Object[]) Popula.retornaVeiculo(codVeiculo);
+            List<Veiculo> lv = (List<Veiculo>) objectv[0];
+            for (Veiculo linv : lv) {
+                Veiculo v = linv;
+                v = Popula.alteraStatusVeiculo("Disponível", v);
+
+            }
+
+            devolucao.setKmRodados(Integer.parseInt(tfKmRodados.getText()));
+
+            DAO.salvarDevolucao(devolucao);
+
+            habilitaCampos(false);
+
         } else {
             JOptionPane.showMessageDialog(null, "Preencha os campos obrigatórios!");
         }
     }//GEN-LAST:event_btSalvarActionPerformed
 
-    private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btEditarActionPerformed
+    private void btConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConsultaActionPerformed
+        DgConsultaDevolucao janela = new DgConsultaDevolucao(this);
+        janela.setVisible(true);
+    }//GEN-LAST:event_btConsultaActionPerformed
 
     private void btFechar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFechar1ActionPerformed
-       dispose();
+        dispose();
     }//GEN-LAST:event_btFechar1ActionPerformed
 
-    public void defineLocacao(int cod) {
+    public void defineCodigoLocacao(int cod) {
 
-        Session sessao = null;
-
-        sessao = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = sessao.beginTransaction();
         codLocacao = cod;
 
-        Query query = (Query) sessao.createQuery(" FROM Populartabelalocacao p WHERE "
-                + " idlocacao = " + cod + "");
-        List<Populartabelalocacao> dadosLocacao = (List<Populartabelalocacao>) query.list();
-
-        for (Populartabelalocacao lin : dadosLocacao) {
-            codVeiculo = lin.getIdveiculo();
-            tfVeiculoLocacao.setText(lin.getDescricaoVeiculo());
-            tfNomeCliente.setText(lin.getNomecliente());
-            tfValorTotal.setText(String.valueOf(lin.getValorTotal()));
-            tfCPF.setText(lin.getCpf());
-            tfDataLocacao.setText(Formatacao.ajustaDataDMA(String.valueOf(lin.getDtLocacao())));
-            tfDataDevolucao.setText(Formatacao.ajustaDataDMA(String.valueOf(lin.getDtDevolucao())));
-            dcDataDevolucao.setDate(lin.getDtDevolucao());
-            tfTelefone.setText(lin.getTelefone());
-            tfRG.setText(lin.getRg());
-
+        JTable aux = new JTable();
+        List<Populartabelalocacao> rs = Popula.popularTabelaLocacao(cod, String.valueOf(cod), aux);
+        for (Populartabelalocacao linr : rs) {
+            Populartabelalocacao loc = linr;
+            codVeiculo = loc.getIdveiculo();
+            tfVeiculoLocacao.setText(loc.getDescricaoVeiculo());
+            tfNomeCliente.setText(loc.getNomecliente());
+            tfValorTotal.setText(String.valueOf(loc.getValorTotal()));
+            tfCPF.setText(loc.getCpf());
+            tfDataLocacao.setText(Formatacao.ajustaDataDMA(String.valueOf(loc.getDtLocacao())));
+            tfDataDevolucao.setText(Formatacao.ajustaDataDMA(String.valueOf(loc.getDtDevolucao())));
+            dcDataDevolucao.setDate(loc.getDtDevolucao());
+            tfTelefone.setText(loc.getTelefone());
+            tfRG.setText(loc.getRg());
         }
-        sessao.getTransaction().commit();
-
     }
+
+//    public void defineCodigoDevolucao(int cod) {
+//
+//        codDevolucao = cod;
+//        JTable aux = new JTable();
+//        List<Devolucao> l = Popula.popularTabelaDevolucao(cod, String.valueOf(cod), aux);
+//        for (Devolucao lin : l) {
+//            Devolucao d = lin;
+//            dcDataDevolucao.setDate(d.getDtDevolucao());
+//            tfKmRodados.setText(String.valueOf(d.getKmRodados()));
+//            this.defineCodigoLocacao(d.getLocacao().getIdlocacao());
+//        }
+//        habilitaCampos(true);
+//        btEditar.setEnabled(false);
+//        btSalvar.setEnabled(true);
+//        btNovo.setEnabled(false);
+//    }
 
     public void limpaCampos() {
 
@@ -477,7 +484,7 @@ public class IfDevolucao extends javax.swing.JInternalFrame {
         if (tf == false) {
             limpaCampos();
             btSalvar.setEnabled(false);
-            btEditar.setEnabled(true);
+            btConsulta.setEnabled(true);
             btNovo.setEnabled(true);
         }
         dcDataDevolucao.setEnabled(tf);
@@ -487,7 +494,7 @@ public class IfDevolucao extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btEditar;
+    private javax.swing.JButton btConsulta;
     private javax.swing.JButton btFechar1;
     private javax.swing.JButton btNovo;
     private javax.swing.JButton btPLocacao;

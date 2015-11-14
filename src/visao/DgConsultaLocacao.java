@@ -6,7 +6,6 @@
 package visao;
 
 import conf.Popula;
-import conf.limpaCampos;
 import org.apache.log4j.Logger;
 
 /**
@@ -17,10 +16,12 @@ public class DgConsultaLocacao extends javax.swing.JDialog {
 
     private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
     IfDevolucao telaDevolucao;
+    IfLocacao telaLocacao;
 
-    public DgConsultaLocacao(IfDevolucao janela) {
+    public DgConsultaLocacao(IfDevolucao tDevolucao, IfLocacao tLocacao) {
         initComponents();
-        telaDevolucao = janela;
+        this.telaDevolucao = tDevolucao;
+        this.telaLocacao = tLocacao;
         pesquisa();
     }
 
@@ -125,7 +126,12 @@ public class DgConsultaLocacao extends javax.swing.JDialog {
         if (evt.getClickCount() > 1) {
             String cod = String.valueOf(tbLocacoes.getValueAt(tbLocacoes.getSelectedRow(), 0));
             int codigo = Integer.parseInt(cod);
-            telaDevolucao.defineLocacao(codigo);
+            if (telaDevolucao != null) {
+                telaDevolucao.defineCodigoLocacao(codigo);
+            }
+            if (telaLocacao != null) {
+                telaLocacao.defineCodigoLocacao(codigo);
+            }
             this.dispose();
         }
     }//GEN-LAST:event_tbLocacoesMouseClicked

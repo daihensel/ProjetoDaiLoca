@@ -37,9 +37,9 @@ import org.hibernate.Transaction;
 public class IfReservaVeiculos extends javax.swing.JInternalFrame {
 
     private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
-    int idReserva = 0;
-    int codveiculo = 0;
-    int codCliente = 0;
+    private int codReserva = 0;
+    private int codveiculo = 0;
+    private int codCliente = 0;
     private int codFunc = 0;
 
     /**
@@ -531,7 +531,7 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
                 reserva.setFuncionario(f);
             }
 
-            reserva.setIdreserva(idReserva);
+            reserva.setIdreserva(codReserva);
             reserva.setDtReserva(Formatacao.converteDataParaDataAMD(dcDataReserva.getDate()));
             reserva.setDtLocacao(Formatacao.converteDataParaDataAMD(dcDataLocacao.getDate()));
             reserva.setDtDevolucao(Formatacao.converteDataParaDataAMD(dcDataDevolucao.getDate()));
@@ -564,7 +564,7 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
         btNovo.setEnabled(false);
         btSalvar.setEnabled(true);
         btEditar.setEnabled(false);
-        idReserva = 0;
+        codReserva = 0;
     }//GEN-LAST:event_btNovoActionPerformed
 
     private void btFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFecharActionPerformed
@@ -612,10 +612,10 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
 
     public void defineCodigoReserva(int cod) {
 
-        idReserva = cod;
+        codReserva = cod;
 
         Object[] objectr;
-        objectr = (Object[]) Popula.retornaReserva(idReserva);
+        objectr = (Object[]) Popula.retornaReserva(codReserva);
         List<Reserva> rs = (List<Reserva>) objectr[0];
         for (Reserva linr : rs) {
             Reserva r = linr;

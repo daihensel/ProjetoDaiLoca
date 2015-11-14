@@ -17,6 +17,7 @@ import entidade.Documentos;
 import entidade.Estado;
 import entidade.Populartabelaveiculo;
 import entidade.Veiculo;
+import entidade.Veiculosstatus;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -678,9 +679,9 @@ public class IfDocumento extends javax.swing.JInternalFrame {
     public void defineCodigoVeiculo(int cod) {
 
         codveiculo = cod;
-        List<Populartabelaveiculo> l = Popula.popularTabelaVeiculo(cod, String.valueOf(cod), tbDocumentos, "");
-        for (Populartabelaveiculo lin : l) {
-            Populartabelaveiculo v = lin;
+        List<Veiculosstatus> l = Popula.popularTabelaVeiculo(cod, String.valueOf(cod), tbDocumentos, "");
+        for (Veiculosstatus lin : l) {
+            Veiculosstatus v = lin;
             tfDescricaoVeiculo.setText(v.getDescricaoVeiculo());
             tfTipoVeiculo.setText(v.getDescricaoTipo());
             tfMarca.setText(v.getMarca());

@@ -5,11 +5,15 @@
  */
 package conf;
 
+import entidade.Cancelamento;
 import entidade.Cidade;
+import entidade.Devolucao;
 import entidade.Documentos;
 import entidade.Endereco;
 import entidade.Funcao;
 import entidade.Funcionario;
+import entidade.Locacao;
+import entidade.Manutencao;
 import entidade.Pessoa;
 import entidade.Reserva;
 import entidade.Statusveiculo;
@@ -57,6 +61,117 @@ public class DAO {
             } catch (HibernateException he) {
                 he.printStackTrace();
                 System.out.println("Erro atualizar Veiculo = " + he);
+
+            }
+
+        }
+        return retorno;
+    }
+    
+     public static String salvarCancelamento(Cancelamento cancel) {
+        Session sessao = null;
+        String retorno = "";
+
+        if (cancel.getIdcancelamento()== 0) { //insert
+
+            try {
+
+                sessao = HibernateUtil.getSessionFactory().openSession();
+                Transaction t = sessao.beginTransaction();
+
+                sessao.save(cancel);
+                t.commit();
+            } catch (HibernateException he) {
+                System.out.println("Erro salvar Cancelamento: \n" + he);
+            }
+
+        } else { //update
+
+            try {
+                sessao = HibernateUtil.getSessionFactory().openSession();
+                Transaction t = sessao.beginTransaction();
+
+                sessao.update(cancel);
+
+                sessao.getTransaction().commit();
+
+            } catch (HibernateException he) {
+                he.printStackTrace();
+                System.out.println("Erro atualizar Cancelamento = " + he);
+
+            }
+
+        }
+        return retorno;
+    }
+
+    public static String salvarDevolucao(Devolucao devolucao) {
+        Session sessao = null;
+        String retorno = "";
+
+        if (devolucao.getIddevolucao() == 0) { //insert
+
+            try {
+
+                sessao = HibernateUtil.getSessionFactory().openSession();
+                Transaction t = sessao.beginTransaction();
+
+                sessao.save(devolucao);
+                t.commit();
+            } catch (HibernateException he) {
+                System.out.println("Erro salvar Devolução: \n" + he);
+            }
+
+        } else { //update
+
+            try {
+                sessao = HibernateUtil.getSessionFactory().openSession();
+                Transaction t = sessao.beginTransaction();
+
+                sessao.update(devolucao);
+
+                sessao.getTransaction().commit();
+
+            } catch (HibernateException he) {
+                he.printStackTrace();
+                System.out.println("Erro atualizar Devolução = " + he);
+
+            }
+
+        }
+        return retorno;
+    }
+
+    public static String salvarManutencao(Manutencao manut) {
+        Session sessao = null;
+        String retorno = "";
+
+        if (manut.getIdmanutencao() == 0) { //insert
+
+            try {
+
+                sessao = HibernateUtil.getSessionFactory().openSession();
+                Transaction t = sessao.beginTransaction();
+
+                sessao.save(manut);
+                t.commit();
+            } catch (HibernateException he) {
+                System.out.println("Erro salvar Manutenção: \n" + he);
+            }
+
+        } else { //update
+
+            try {
+                sessao = HibernateUtil.getSessionFactory().openSession();
+                Transaction t = sessao.beginTransaction();
+
+                sessao.update(manut);
+
+                sessao.getTransaction().commit();
+
+            } catch (HibernateException he) {
+                he.printStackTrace();
+                System.out.println("Erro atualizar Manutenção = " + he);
 
             }
 
@@ -137,7 +252,7 @@ public class DAO {
         }
         return retorno;
     }
-    
+
     public static String salvarReserva(Reserva reserva) {
         Session sessao = null;
         String retorno = "";
@@ -168,6 +283,43 @@ public class DAO {
             } catch (HibernateException he) {
                 he.printStackTrace();
                 System.out.println("Erro atualizar Reserva = " + he);
+
+            }
+
+        }
+        return retorno;
+    }
+
+    public static String salvarLocacao(Locacao locacao) {
+        Session sessao = null;
+        String retorno = "";
+
+        if (locacao.getIdlocacao() == 0) { //insert
+
+            try {
+
+                sessao = HibernateUtil.getSessionFactory().openSession();
+                Transaction t = sessao.beginTransaction();
+
+                sessao.save(locacao);
+                t.commit();
+            } catch (HibernateException he) {
+                System.out.println("Erro salvar Locação: \n" + he);
+            }
+
+        } else { //update
+
+            try {
+                sessao = HibernateUtil.getSessionFactory().openSession();
+                Transaction t = sessao.beginTransaction();
+
+                sessao.update(locacao);
+
+                sessao.getTransaction().commit();
+
+            } catch (HibernateException he) {
+                he.printStackTrace();
+                System.out.println("Erro atualizar Locação = " + he);
 
             }
 

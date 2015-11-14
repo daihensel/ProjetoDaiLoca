@@ -12,18 +12,18 @@ import org.apache.log4j.Logger;
  *
  * @author Diego
  */
-public class DgConsultaFornecedor extends javax.swing.JDialog {
+public class DgConsultaDevolucao extends javax.swing.JDialog {
 
     private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
-    private IfManutencaoVeiculos telaManutencao;
+    private IfDevolucao telaDevolucao;
 
     // public static IfReservaVeiculos telaReserva;
     /**
      * Creates new form DgConsultaVeic
      */
-    public DgConsultaFornecedor(IfManutencaoVeiculos tManut) {
+    public DgConsultaDevolucao(IfDevolucao tDevolucao) {
         initComponents();
-        telaManutencao = tManut;
+        this.telaDevolucao = tDevolucao;
         pesquisa();
     }
 
@@ -37,38 +37,39 @@ public class DgConsultaFornecedor extends javax.swing.JDialog {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbFornecedor = new javax.swing.JTable();
+        tbDevolucao = new javax.swing.JTable();
         tfPesquisa = new javax.swing.JTextField();
         btPesquisar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        tbFornecedor.setModel(new javax.swing.table.DefaultTableModel(
+        tbDevolucao.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Id", "Nome", "CNPJ", "Telefone", "Endereço", "Bairro", "Cidade"
+                "Id", "Data Devolução", "Km Rodados", "Veículo", "Cliente"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        tbFornecedor.addMouseListener(new java.awt.event.MouseAdapter() {
+        tbDevolucao.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tbFornecedorMouseClicked(evt);
+                tbDevolucaoMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tbFornecedor);
+        jScrollPane1.setViewportView(tbDevolucao);
 
         tfPesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -83,34 +84,45 @@ public class DgConsultaFornecedor extends javax.swing.JDialog {
             }
         });
 
-        jLabel1.setText("*Pesquisa por Id, nome, CNPJ, endereço ou cidade");
+        jLabel1.setText("*Pesquisa por Id, motivo, veículo ou fornecedor");
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/!ok.png"))); // NOI18N
+        jButton1.setText("Fechar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 716, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(0, 460, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(tfPesquisa)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(tfPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1)))
+                .addContainerGap())
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btPesquisar))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(tfPesquisa)
+                        .addComponent(btPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(3, 3, 3)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -124,30 +136,37 @@ public class DgConsultaFornecedor extends javax.swing.JDialog {
         pesquisa();
     }//GEN-LAST:event_tfPesquisaKeyReleased
 
-    private void tbFornecedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbFornecedorMouseClicked
-        if (evt.getClickCount() > 1) {
-            String cod = String.valueOf(tbFornecedor.getValueAt(tbFornecedor.getSelectedRow(), 0));
-            int codigo = Integer.parseInt(cod);
+    private void tbDevolucaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbDevolucaoMouseClicked
+//        if (evt.getClickCount() > 1) {
+//            String cod = String.valueOf(tbDevolucao.getValueAt(tbDevolucao.getSelectedRow(), 0));
+//            int codigo = Integer.parseInt(cod);
+//            if (telaDevolucao != null) {
+//         //       telaDevolucao.defineCodigoDevolucao(codigo);
+//            }
+//          
+//            this.dispose();
+//        }
+    }//GEN-LAST:event_tbDevolucaoMouseClicked
 
-            telaManutencao.defineCodigoFornecedor(codigo);
-            this.dispose();
-        }
-    }//GEN-LAST:event_tbFornecedorMouseClicked
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     public void pesquisa() {
         int cod = 0;
         if (tfPesquisa.getText().length() > 0 && tfPesquisa.getText().matches("[0-9]")) {
             cod = Integer.parseInt(tfPesquisa.getText());
         }
-        Popula.popularTabelaFornecedor(cod, tfPesquisa.getText(), tbFornecedor);
+        Popula.popularTabelaDevolucao(cod, tfPesquisa.getText(), tbDevolucao);
     }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btPesquisar;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tbFornecedor;
+    private javax.swing.JTable tbDevolucao;
     private javax.swing.JTextField tfPesquisa;
     // End of variables declaration//GEN-END:variables
 }

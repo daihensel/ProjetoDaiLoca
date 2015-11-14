@@ -5,6 +5,8 @@
  */
 package visao;
 
+import com.sun.org.apache.xerces.internal.impl.dtd.DTDGrammar;
+import conf.DAO;
 import conf.Formatacao;
 import conf.HibernateUtil;
 import conf.Popula;
@@ -15,6 +17,7 @@ import entidade.Pessoajuridica;
 import entidade.Populartabelafornecedor;
 import entidade.Populartabelaveiculo;
 import entidade.Veiculo;
+import entidade.Veiculosstatus;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -33,6 +36,7 @@ public class IfManutencaoVeiculos extends javax.swing.JInternalFrame {
     private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
     int codFornecedor = 0;
     int codVeiculo = 0;
+    int codManutencao = 0;
 
     /**
      * Creates new form IfManutencaoVeiculos
@@ -489,58 +493,49 @@ public class IfManutencaoVeiculos extends javax.swing.JInternalFrame {
         btNovo.setEnabled(false);
         btSalvar.setEnabled(true);
         btEditar.setEnabled(false);
+        codManutencao = 0;
     }//GEN-LAST:event_btNovoActionPerformed
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
         if (dcDataManut.getDate() != null && dcDataRetorno.getDate() != null
                 && taDefeito.getText().trim().length() > 0) {
 
-            Session sessao = null;
-            try {
-                sessao = HibernateUtil.getSessionFactory().openSession();
-                Transaction t = sessao.beginTransaction();
+            Manutencao manut = new Manutencao();
 
-                Manutencao manut = new Manutencao();
-
-                manut.setDtManutencao(Formatacao.converteDataParaDataAMD(dcDataManut.getDate()));
-                manut.setDtRetorno(Formatacao.converteDataParaDataAMD(dcDataRetorno.getDate()));
-                manut.setMotivo(taDefeito.getText());
-                manut.setObservacao(tfObservacao.getText());
-                manut.setSolucao(taSolucao.getText());
-                Object[] objectf;
-                objectf = (Object[]) Popula.retornaDadosPessoas(codFornecedor);
-                List<Pessoajuridica> lf = (List<Pessoajuridica>) objectf[0];
-                for (Pessoajuridica linf : lf) {
-                    Pessoajuridica pj = linf;
-                    manut.setPessoajuridica(pj);
-                }
-
-                Object[] object;
-                object = (Object[]) Popula.retornaVeiculo(codVeiculo);
-                List<Veiculo> l = (List<Veiculo>) object[0];
-                for (Veiculo lin : l) {
-                    Veiculo v = lin;
-                    v = Popula.alteraStatusVeiculo("Manutenção", v);
-                    manut.setVeiculo(v);
-                }
-
-                sessao.save(manut);
-
-                t.commit();
-                habilitaCampos(false);
-
-            } catch (HibernateException he) {
-                he.printStackTrace();
-            } finally {
-                sessao.close();
+            manut.setIdmanutencao(codManutencao);
+            manut.setDtManutencao(Formatacao.converteDataParaDataAMD(dcDataManut.getDate()));
+            manut.setDtRetorno(Formatacao.converteDataParaDataAMD(dcDataRetorno.getDate()));
+            manut.setMotivo(taDefeito.getText());
+            manut.setObservacao(tfObservacao.getText());
+            manut.setSolucao(taSolucao.getText());
+            Object[] objectf;
+            objectf = (Object[]) Popula.retornaDadosPessoas(codFornecedor);
+            List<Pessoajuridica> lf = (List<Pessoajuridica>) objectf[0];
+            for (Pessoajuridica linf : lf) {
+                Pessoajuridica pj = linf;
+                manut.setPessoajuridica(pj);
             }
+
+            Object[] object;
+            object = (Object[]) Popula.retornaVeiculo(codVeiculo);
+            List<Veiculo> l = (List<Veiculo>) object[0];
+            for (Veiculo lin : l) {
+                Veiculo v = lin;
+                v = Popula.alteraStatusVeiculo("Manutenção", v);
+                manut.setVeiculo(v);
+            }
+
+            DAO.salvarManutencao(manut);
+            habilitaCampos(false);
+
         } else {
             JOptionPane.showMessageDialog(null, "Preencha os campos obrigatórios!");
         }
     }//GEN-LAST:event_btSalvarActionPerformed
 
     private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
-        // TODO add your handling code here:
+        DgConsultaManutencao janela = new DgConsultaManutencao(this);
+        janela.setVisible(true);
     }//GEN-LAST:event_btEditarActionPerformed
 
     private void btFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFecharActionPerformed
@@ -551,9 +546,9 @@ public class IfManutencaoVeiculos extends javax.swing.JInternalFrame {
 
         codVeiculo = cod;
         JTable aux = new JTable();
-        List<Populartabelaveiculo> l = Popula.popularTabelaVeiculo(cod, String.valueOf(cod), aux, "");
-        for (Populartabelaveiculo lin : l) {
-            Populartabelaveiculo v = lin;
+        List<Veiculosstatus> l = Popula.popularTabelaVeiculo(cod, String.valueOf(cod), aux, "");
+        for (Veiculosstatus lin : l) {
+            Veiculosstatus v = lin;
             tfDescricaoVeiculo.setText(v.getDescricaoVeiculo());
             tfTipoVeiculo.setText(v.getDescricaoTipo());
             tfMarca.setText(v.getMarca());
@@ -564,10 +559,31 @@ public class IfManutencaoVeiculos extends javax.swing.JInternalFrame {
         }
     }
 
+    public void defineCodigoManutencao(int cod) {
+
+        codManutencao = cod;
+        JTable aux = new JTable();
+        List<Manutencao> l = Popula.popularTabelaManutencao(cod, String.valueOf(cod), aux);
+        for (Manutencao lin : l) {
+            Manutencao m = lin;
+            dcDataManut.setDate(m.getDtManutencao());
+            dcDataRetorno.setDate(m.getDtRetorno());
+            taDefeito.setText(m.getMotivo());
+            taSolucao.setText(m.getSolucao());
+            tfObservacao.setText(m.getObservacao());
+            this.defineCodigoFornecedor(m.getPessoajuridica().getPessoaIdpessoa());
+            this.defineCodigoVeiculo(m.getVeiculo().getIdveiculo());
+        }
+        habilitaCampos(true);
+        btEditar.setEnabled(false);
+        btSalvar.setEnabled(true);
+        btNovo.setEnabled(false);
+    }
+
     public void defineCodigoFornecedor(int cod) {
-        
+
         codFornecedor = cod;
-        
+
         JTable aux = new JTable();
         List<Populartabelafornecedor> dadosForn = Popula.popularTabelaFornecedor(cod, String.valueOf(cod), aux);
 

@@ -5,10 +5,7 @@
  */
 package conf;
 
-import entidade.Pessoa;
-import entidade.Veiculo;
 import java.util.Iterator;
-import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
@@ -23,20 +20,20 @@ import visao.FormPrincipal;
  * @author Daiane
  */
 public class Utility {
-
+    
     public static String pegaSenhaLogin(String login) {
         Session sessao = null;
         try {
             String s = "";
-
+            
             sessao = HibernateUtil.getSessionFactory().openSession();
             Transaction t = sessao.beginTransaction();
-
+            
             Query query = (Query) sessao.createQuery("SELECT senha FROM Funcionario WHERE login LIKE '%" + login + "%'");
             System.out.println("login: " + login);
-
+            
             s = query.list().get(0).toString();
-
+            
             System.out.println("senha user: " + s);
             sessao.getTransaction().commit();
             return s;
@@ -48,7 +45,7 @@ public class Utility {
             sessao.close();
         }
     }
-
+    
     public static boolean alteraSenha(String login, String senhaatual, String senhanova, String senhanovaconfirma) {
         boolean ok = false;
         String senha = pegaSenhaLogin(login);
@@ -64,21 +61,21 @@ public class Utility {
                 try {
                     sessao = HibernateUtil.getSessionFactory().openSession();
                     Transaction t = sessao.beginTransaction();
-
+                    
                     String hqlUpdate = ("UPDATE Funcionario SET"
                             + " senha = '" + senhanova + "' "
                             + " WHERE login = '" + login + "'");
                     int updatedEntities = sessao.createQuery(hqlUpdate).executeUpdate();
-
+                    
                     sessao.getTransaction().commit();
-
+                    
                 } catch (HibernateException he) {
                     he.printStackTrace();
                     System.out.println("Erro atualizar Senha = " + he);
                     return (ok = false);
                 } finally {
                     sessao.close();
-
+                    
                 }
                 //  JOptionPane.showMessageDialog(null, "Senha trocada com sucesso");
                 return (ok = true);
@@ -89,14 +86,14 @@ public class Utility {
         }
         return ok;
     }
-
+    
     public static void permit(JButton novo, JButton salvar, JButton editar, JButton excluir, JInternalFrame jif) {
-
+        
         Session sessao = null;
-
+        
         sessao = HibernateUtil.getSessionFactory().openSession();
         Transaction t = sessao.beginTransaction();
-
+        
         Iterator qr = sessao.createQuery("select pe.ler, pe.inserir, pe.editar, "
                 + "pe.inativar from Permissao pe, Pessoa p, Funcionario f, Tela t\n"
                 + "WHERE p.idpessoa=pe.idpessoa\n"
@@ -104,7 +101,7 @@ public class Utility {
                 + "AND pe.idtela=t.idtela\n"
                 + "AND f.login LIKE '" + FormPrincipal.login + "'\n"
                 + "AND t.descricao LIKE '" + jif.getClass().getSimpleName() + "' ").list().iterator();
-
+        
         while (qr.hasNext()) {
             Object[] tuple = (Object[]) qr.next();
 //            Boolean ler = (boolean) tuple[0];
@@ -127,19 +124,19 @@ public class Utility {
             if (excluir != null) {
                 excluir.setVisible(exc);
             }
-
+            
             sessao.getTransaction().commit();
-
+            
         }
     }
-
+    
     public static Boolean permitLer(JInternalFrame jif) {
-
+        
         Session sessao = null;
-
+        
         sessao = HibernateUtil.getSessionFactory().openSession();
         Transaction t = sessao.beginTransaction();
-
+        
         Iterator qr = sessao.createQuery("select pe.ler,pe.inserir, pe.editar,"
                 + "pe.inativar from Permissao pe, Pessoa p, Funcionario f, Tela t\n"
                 + "WHERE p.idpessoa=pe.idpessoa\n"
@@ -147,36 +144,49 @@ public class Utility {
                 + "AND pe.idtela=t.idtela\n"
                 + "AND f.login LIKE '" + FormPrincipal.login + "'\n"
                 + "AND t.descricao LIKE '" + jif.getClass().getSimpleName() + "' ").list().iterator();
-
+        
         while (qr.hasNext()) {
             Object[] tuple = (Object[]) qr.next();
             Boolean l = (boolean) tuple[0];
             return l;
-
+            
         }
-
+        
         sessao.getTransaction().commit();
         return false;
     }
-
+    
     public static String somaVeiculos(int idstatusveiculo) {
         String soma = "";
         Session sessao = null;
-
+        
         sessao = HibernateUtil.getSessionFactory().openSession();
         Transaction t = sessao.beginTransaction();
-
+        
         Query qr = (Query) sessao.createQuery("select count(idveiculo) FROM Veiculo v, Statusveiculo sv"
                 + " WHERE sv.idstatusveiculo=v.statusveiculo.id"
                 + " AND sv.idstatusveiculo= ? ").setInteger(0, idstatusveiculo);
-
+        
         soma = qr.list().get(0).toString();
-
+        
         sessao.getTransaction().commit();
         return soma;
     }
-
-  
-  
+    
+    public static int pegaMaiorIdReserva() {
+        int soma = 0;
+        Session sessao = null;
+        
+        sessao = HibernateUtil.getSessionFactory().openSession();
+        Transaction t = sessao.beginTransaction();
+        
+        Query qr = (Query) sessao.createQuery("SELECT max(idreserva) FROM Reserva");
+        
+        String maior = qr.list().get(0).toString();
+        soma = Integer.getInteger(maior);
+               
+        sessao.getTransaction().commit();
+        return soma;
+    }
     
 }

@@ -23,11 +23,11 @@ public class DgConsultaCidade extends javax.swing.JDialog {
     /**
      * Creates new form DgConsultaVeic
      */
-    public DgConsultaCidade(IfCliente jCli, IfFornecedor jForn, IfFuncionario jfunc) {
+    public DgConsultaCidade(IfCliente tCli, IfFornecedor tForn, IfFuncionario jFunc) {
         initComponents();
-        this.telaCliente = jCli;
-        this.telaFornecedor = jForn;
-        this.telaFuncionario = jfunc;
+        this.telaCliente = tCli;
+        this.telaFornecedor = tForn;
+        this.telaFuncionario = jFunc;
         pesquisa();
     }
 

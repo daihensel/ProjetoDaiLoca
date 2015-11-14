@@ -7,6 +7,7 @@ package visao;
 
 import conf.Formatacao;
 import conf.HibernateUtil;
+import conf.Popula;
 import entidade.Populartabelareserva;
 import java.util.List;
 import javax.swing.JTable;
@@ -21,23 +22,18 @@ import org.hibernate.Transaction;
  * @author Diego
  */
 public class DgConsultaReserva extends javax.swing.JDialog {
-    
+
     private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
     IfLocacao telaLocacao;
     IfCancelamento telaCancelamento;
     IfReservaVeiculos telaReserva;
-    int codigoVeiculo;
-    int codigoCliente;
-    
-    public DgConsultaReserva(IfLocacao janelaLocacao, IfCancelamento janelaCancelamento, IfReservaVeiculos janelaReserva) {
-        
+
+    public DgConsultaReserva(IfLocacao tLocacao, IfCancelamento tCancelamento, IfReservaVeiculos tReserva) {
         initComponents();
-        this.telaLocacao = janelaLocacao;
-        this.telaCancelamento = janelaCancelamento;
-        this.telaReserva = janelaReserva;
-        codigoVeiculo = 0;
-        codigoCliente = 0;
-        this.popularTabelaReserva(tfPesquisa.getText(), tbReserva);
+        this.telaLocacao = tLocacao;
+        this.telaCancelamento = tCancelamento;
+        this.telaReserva = tReserva;
+        pesquisa();
     }
 
     /**
@@ -65,7 +61,7 @@ public class DgConsultaReserva extends javax.swing.JDialog {
                 {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Id", "Data Reserva", "Data Locação", "Dias Pretendidos", "Nome Cliente", "Veículo", "Tipo Veículo"
+                "Id", "Data Reserva", "Data Locação", "Data Devolução", "Nome Cliente", "Veículo", "Tipo Veículo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -96,7 +92,7 @@ public class DgConsultaReserva extends javax.swing.JDialog {
             }
         });
 
-        jLabel1.setText("*Pesquisa por veículo, nome cliente ou tipo veículo");
+        jLabel1.setText("*Pesquisa por Id, veículo, nome cliente ou tipo veículo");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -108,7 +104,7 @@ public class DgConsultaReserva extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(0, 313, Short.MAX_VALUE))
+                        .addGap(0, 296, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(tfPesquisa)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -130,11 +126,11 @@ public class DgConsultaReserva extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarActionPerformed
-        this.popularTabelaReserva(tfPesquisa.getText(), tbReserva);
+        pesquisa();
     }//GEN-LAST:event_btPesquisarActionPerformed
 
     private void tfPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfPesquisaKeyReleased
-        this.popularTabelaReserva(tfPesquisa.getText(), tbReserva);
+        pesquisa();
     }//GEN-LAST:event_tfPesquisaKeyReleased
 
     private void tbReservaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbReservaMouseClicked
@@ -143,54 +139,25 @@ public class DgConsultaReserva extends javax.swing.JDialog {
             int codigo = Integer.parseInt(cod);
             if (telaLocacao != null) {
                 telaLocacao.defineCodigoReserva(codigo);
-            telaLocacao.defineCodigoCliente(codigoCliente);
-            telaLocacao.defineCodigoVeiculo(codigoVeiculo);
             }
-             if (telaCancelamento != null) {
-            telaCancelamento.defineCodigoReserva(codigo);
-            telaCancelamento.defineCodigoCliente(codigoCliente);
-            telaCancelamento.defineCodigoVeiculo(codigoVeiculo);
-             }
-             if (telaReserva != null) {
-                 telaReserva.defineCodigoReserva(codigo);
-             }
+            if (telaCancelamento != null) {
+                telaCancelamento.defineCodigoReserva(codigo);
+            }
+            if (telaReserva != null) {
+                telaReserva.defineCodigoReserva(codigo);
+            }
             this.dispose();
         }
     }//GEN-LAST:event_tbReservaMouseClicked
-    public void popularTabelaReserva(String criterio, JTable tb) {
-        
-        DefaultTableModel tabelaModelo = (DefaultTableModel) tb.getModel();
-        tabelaModelo.setNumRows(0);
-        
-        Session sessao = null;
-        
-        sessao = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = sessao.beginTransaction();
-        criterio = criterio.toLowerCase();
-        Query query = (Query) sessao.createQuery(" FROM Populartabelareserva p WHERE (lower(p.descricaoveiculo) LIKE '%" + criterio + "%'"
-                + " OR lower(p.nomecliente) LIKE '%" + criterio + "%'"
-                + " OR lower(p.descricaotipo) LIKE '%" + criterio + "%')");
-        List<Populartabelareserva> dadosLocacao = (List<Populartabelareserva>) query.list();
-        
-        for (Populartabelareserva lin : dadosLocacao) {
-            tabelaModelo.addRow(new Object[]{
-                lin.getIdreserva(),
-                Formatacao.ajustaDataDMA(String.valueOf(lin.getDtReserva())),
-                Formatacao.ajustaDataDMA(String.valueOf(lin.getDtLocacao())),
-                lin.getDtDevolucao(),
-                lin.getNomecliente(),
-                lin.getDescricaoVeiculo(),
-                lin.getDescricaoTipo(),
-            codigoCliente = lin.getIdcliente(),
-            codigoVeiculo = lin.getIdVeiculo(),
-            });
-            
+
+    public void pesquisa() {
+        int cod = 0;
+        if (tfPesquisa.getText().length() > 0 && tfPesquisa.getText().matches("[0-9]")) {
+            cod = Integer.parseInt(tfPesquisa.getText());
         }
-        sessao.getTransaction().commit();
-        
+        Popula.popularTabelaReserva(cod, tfPesquisa.getText(), tbReserva);
     }
 
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btPesquisar;

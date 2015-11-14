@@ -5,6 +5,7 @@
  */
 package visao;
 
+import conf.DAO;
 import conf.Formatacao;
 import conf.HibernateUtil;
 import conf.Popula;
@@ -18,6 +19,7 @@ import entidade.Populartabelareserva;
 import entidade.Populartabelaveiculo;
 import entidade.Reserva;
 import entidade.Veiculo;
+import entidade.Veiculosstatus;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -38,9 +40,10 @@ public class IfLocacao extends javax.swing.JInternalFrame {
 
     private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
     private int codFunc = 0;
-    int codCliente = 0;
-    int idReserva = 0;
-    int codveiculo = 0;
+    private int codCliente = 0;
+    private int codReserva = 0;
+    private int codVeiculo = 0;
+    private int codLocacao = 0;
 
     /**
      * Creates new form IfReservaVeiculos
@@ -154,27 +157,26 @@ public class IfLocacao extends javax.swing.JInternalFrame {
         jpReservaLayout.setHorizontalGroup(
             jpReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpReservaLayout.createSequentialGroup()
-                .addGroup(jpReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jpReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jpReservaLayout.createSequentialGroup()
                         .addGap(25, 25, 25)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfDataReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(tfDataReserva))
                     .addGroup(jpReservaLayout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(jpReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jpReservaLayout.createSequentialGroup()
-                                .addGap(26, 26, 26)
+                            .addGroup(jpReservaLayout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tfDataLocacaoNaReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jpReservaLayout.createSequentialGroup()
-                                .addContainerGap()
+                                .addComponent(tfDataLocacaoNaReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jpReservaLayout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(tfDataDevolucaoNaReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btPReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(321, Short.MAX_VALUE))
+                                .addComponent(tfDataDevolucaoNaReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btPReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jpReservaLayout.setVerticalGroup(
             jpReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -191,7 +193,8 @@ public class IfLocacao extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jpReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfDataReserva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1)))
+                    .addComponent(jLabel1))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jpLocacao.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados Locação"));
@@ -250,32 +253,38 @@ public class IfLocacao extends javax.swing.JInternalFrame {
             jpLocacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpLocacaoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jpLocacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel20)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel16))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jpLocacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jpLocacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpLocacaoLayout.createSequentialGroup()
-                        .addComponent(dcDataDevolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel24)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tfValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel22)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tfParcelas))
-                    .addGroup(jpLocacaoLayout.createSequentialGroup()
-                        .addComponent(tfVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btPVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jpLocacaoLayout.createSequentialGroup()
-                        .addComponent(dcDataLocacao, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(10, 10, 10)
                         .addComponent(jLabel19)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tfHoraRetirada, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfHoraRetirada, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jpLocacaoLayout.createSequentialGroup()
+                        .addGroup(jpLocacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel20)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel16))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jpLocacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jpLocacaoLayout.createSequentialGroup()
+                                .addComponent(tfVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btPVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jpLocacaoLayout.createSequentialGroup()
+                                .addGroup(jpLocacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(dcDataLocacao, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
+                                    .addComponent(dcDataDevolucao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jpLocacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jpLocacaoLayout.createSequentialGroup()
+                                        .addGap(10, 10, 10)
+                                        .addComponent(jLabel22)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(tfParcelas, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jpLocacaoLayout.createSequentialGroup()
+                                        .addComponent(jLabel24)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(tfValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jpLocacaoLayout.setVerticalGroup(
@@ -288,20 +297,22 @@ public class IfLocacao extends javax.swing.JInternalFrame {
                     .addComponent(btPVendedor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jpLocacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpLocacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel9)
-                        .addComponent(jLabel19)
-                        .addComponent(tfHoraRetirada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(dcDataLocacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jpLocacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel9)
+                    .addComponent(dcDataLocacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jpLocacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(tfValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel24)
-                        .addComponent(tfParcelas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel22))
+                        .addComponent(jLabel24)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jpLocacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel20)
-                    .addComponent(dcDataDevolucao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dcDataDevolucao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jpLocacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(tfParcelas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel22)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jpLocacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel19)
+                    .addComponent(tfHoraRetirada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -362,7 +373,7 @@ public class IfLocacao extends javax.swing.JInternalFrame {
                         .addComponent(btPCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(6, 6, 6))
                     .addGroup(jpClienteLayout.createSequentialGroup()
-                        .addComponent(tfRG, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
+                        .addComponent(tfRG)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel17)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -482,7 +493,7 @@ public class IfLocacao extends javax.swing.JInternalFrame {
                             .addGroup(jpVeiculoLayout.createSequentialGroup()
                                 .addComponent(jLabel8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tfKmAtual, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
+                                .addComponent(tfKmAtual)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel25)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -566,19 +577,19 @@ public class IfLocacao extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jpVeiculo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jpReserva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jLabel21)))
-                    .addComponent(jpCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel21)
+                .addGap(43, 43, 43))
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jpLocacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jpVeiculo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jpCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(jpReserva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jpLocacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -586,11 +597,11 @@ public class IfLocacao extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel21))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jpReserva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jpLocacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jpLocacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jpReserva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(1, 1, 1)
                 .addComponent(jpCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jpVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -608,6 +619,10 @@ public class IfLocacao extends javax.swing.JInternalFrame {
     private void btPReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPReservaActionPerformed
         DgConsultaReserva tela = new DgConsultaReserva(this, null, null);
         tela.setVisible(true);
+        if (tfDataDevolucaoNaReserva.getText().trim().length() > 0) {
+            btPCliente.setEnabled(false);
+            btPVeiculo.setEnabled(false);
+        }
     }//GEN-LAST:event_btPReservaActionPerformed
 
     private void tfDescricaoVeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfDescricaoVeiculoActionPerformed
@@ -652,6 +667,7 @@ public class IfLocacao extends javax.swing.JInternalFrame {
         btNovo.setEnabled(false);
         btSalvar.setEnabled(true);
         btEditar.setEnabled(false);
+        codLocacao = 0;
     }//GEN-LAST:event_btNovoActionPerformed
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
@@ -659,52 +675,48 @@ public class IfLocacao extends javax.swing.JInternalFrame {
                 && tfHoraRetirada.getText().trim().length() > 0 && tfParcelas.getText().trim().length() > 0
                 && tfValorTotal.getText().trim().length() > 0 && tfVendedor.getText().trim().length() > 0
                 && dcDataDevolucao.getDate() != null && dcDataLocacao.getDate() != null) {
-            Session sessao = null;
-            try {
-                sessao = HibernateUtil.getSessionFactory().openSession();
-                Transaction t = sessao.beginTransaction();
 
-                Locacao locacao = new Locacao();
+            Locacao locacao = new Locacao();
 
-                locacao.setDtLocacao(Formatacao.converteParaDataAMD(tfDataLocacaoNaReserva.getText()));
-                // locacao.setHoraRetirada(Formatacao.converteParaDataAMD(tfHoraRetirada.getText()));
-                locacao.setHoraRetirada(Formatacao.converteParaDataAMD(tfDataLocacaoNaReserva.getText()));
+            locacao.setIdlocacao(codLocacao);
+            locacao.setDtLocacao(Formatacao.converteParaDataAMD(tfDataLocacaoNaReserva.getText()));
+            // locacao.setHoraRetirada(Formatacao.converteParaDataAMD(tfHoraRetirada.getText()));
+            locacao.setHoraRetirada(Formatacao.converteParaDataAMD(tfDataLocacaoNaReserva.getText()));
 
-                locacao.setDtDevolucao(Formatacao.converteDataParaDataAMD(dcDataDevolucao.getDate()));
+            locacao.setDtDevolucao(Formatacao.converteDataParaDataAMD(dcDataDevolucao.getDate()));
 
-                //set Reserva
-                if (tfDataLocacaoNaReserva.getText().trim().length() > 0) {
-                    Object[] objectr;
-                    objectr = (Object[]) Popula.retornaReserva(idReserva);
-                    List<Reserva> rs = (List<Reserva>) objectr[0];
-                    for (Reserva linr : rs) {
-                        Reserva r = linr;
-                        locacao.setReserva(r);
-                    }
-                    //set Veiculo    
-                    Object[] object;
-                    object = (Object[]) Popula.retornaVeiculo(codveiculo);
-                    List<Veiculo> l = (List<Veiculo>) object[0];
-                    for (Veiculo lin : l) {
-                        Veiculo v = lin;
-                        v = Popula.alteraStatusVeiculo("locado", v);
-                        locacao.setVeiculo(v);
-                    }
-                    BigDecimal bigDecimal = new BigDecimal(tfValorTotal.getText());
-                    locacao.setValorTotal(bigDecimal);
-                    locacao.setParcelas(Integer.parseInt(tfParcelas.getText()));
-
-                    //set funcionario
-                    Object[] objectf;
-                    objectf = (Object[]) Popula.retornaDadosPessoas(codFunc);
-                    List<Funcionario> lf = (List<Funcionario>) objectf[4];
-                    for (Funcionario linf : lf) {
-                        Funcionario f = linf;
-                        locacao.setFuncionario(f);
-                    }
-
-                    // set Cliente    
+            //set Reserva
+            if (tfDataLocacaoNaReserva.getText().trim().length() > 0) {
+                Object[] objectr;
+                objectr = (Object[]) Popula.retornaReserva(codReserva);
+                List<Reserva> rs = (List<Reserva>) objectr[0];
+                for (Reserva linr : rs) {
+                    Reserva r = linr;
+                    locacao.setReserva(r);
                 }
+                //set Veiculo    
+                Object[] object;
+                object = (Object[]) Popula.retornaVeiculo(codVeiculo);
+                List<Veiculo> l = (List<Veiculo>) object[0];
+                for (Veiculo lin : l) {
+                    Veiculo v = lin;
+                    v = Popula.alteraStatusVeiculo("locado", v);
+                    locacao.setVeiculo(v);
+                }
+                BigDecimal bigDecimal = new BigDecimal(tfValorTotal.getText());
+                locacao.setValorTotal(bigDecimal);
+                locacao.setParcelas(Integer.parseInt(tfParcelas.getText()));
+
+                //set funcionario
+                Object[] objectf;
+                objectf = (Object[]) Popula.retornaDadosPessoas(codFunc);
+                List<Funcionario> lf = (List<Funcionario>) objectf[4];
+                for (Funcionario linf : lf) {
+                    Funcionario f = linf;
+                    locacao.setFuncionario(f);
+                }
+
+                // set Cliente    
                 Object[] objectc;
                 objectc = (Object[]) Popula.retornaDadosPessoas(codCliente);
                 List<Cliente> lc = (List<Cliente>) objectc[3];
@@ -712,23 +724,19 @@ public class IfLocacao extends javax.swing.JInternalFrame {
                     Cliente c = linc;
                     locacao.setCliente(c);
                 }
-
-                sessao.save(locacao);
-                sessao.getTransaction().commit();
-                habilitaCampos(false);
-
-            } catch (HibernateException he) {
-                he.printStackTrace();
-            } finally {
-                sessao.close();
             }
+            DAO.salvarLocacao(locacao);
+
+            habilitaCampos(false);
+
         } else {
             JOptionPane.showMessageDialog(null, "Preencha os campos obrigatórios!");
         }
     }//GEN-LAST:event_btSalvarActionPerformed
 
     private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
-        // TODO add your handling code here:
+        DgConsultaLocacao janela = new DgConsultaLocacao(null, this);
+        janela.setVisible(true);
     }//GEN-LAST:event_btEditarActionPerformed
 
     private void btFechar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFechar1ActionPerformed
@@ -754,10 +762,10 @@ public class IfLocacao extends javax.swing.JInternalFrame {
 
     public void defineCodigoReserva(int cod) {
 
-        idReserva = cod;
+        codReserva = cod;
 
         Object[] objectr;
-        objectr = (Object[]) Popula.retornaReserva(idReserva);
+        objectr = (Object[]) Popula.retornaReserva(codReserva);
         List<Reserva> rs = (List<Reserva>) objectr[0];
         for (Reserva linr : rs) {
             Reserva r = linr;
@@ -766,17 +774,19 @@ public class IfLocacao extends javax.swing.JInternalFrame {
             tfDataDevolucaoNaReserva.setText(Formatacao.ajustaDataDMA(String.valueOf(r.getDtDevolucao())));
             dcDataLocacao.setDate(r.getDtLocacao());
             dcDataDevolucao.setDate(r.getDtDevolucao());
+            this.defineCodigoVeiculo(r.getVeiculo().getIdveiculo());
+            this.defineCodigoCliente(r.getCliente().getPessoaIdpessoa());
         }
         calculaValorTotal();
     }
 
     public void defineCodigoVeiculo(int cod) {
 
-        codveiculo = cod;
+        codVeiculo = cod;
         JTable aux = new JTable();
-        List<Populartabelaveiculo> l = Popula.popularTabelaVeiculo(cod, String.valueOf(cod), aux, "");
-        for (Populartabelaveiculo lin : l) {
-            Populartabelaveiculo v = lin;
+        List<Veiculosstatus> l = Popula.popularTabelaVeiculo(cod, String.valueOf(cod), aux, "");
+        for (Veiculosstatus lin : l) {
+            Veiculosstatus v = lin;
             tfDescricaoVeiculo.setText(v.getDescricaoVeiculo());
             tfTipoVeiculo.setText(v.getDescricaoTipo());
             tfMarca.setText(v.getMarca());
@@ -791,6 +801,32 @@ public class IfLocacao extends javax.swing.JInternalFrame {
     public void defineCodigoFuncionario(int cod, String nome) {
         tfVendedor.setText(nome);
         codFunc = cod;
+    }
+
+    public void defineCodigoLocacao(int cod) {
+
+        codLocacao = cod;
+
+        Object[] objectr;
+        objectr = (Object[]) Popula.retornaLocacao(cod);
+        List<Locacao> list = (List<Locacao>) objectr[0];
+        for (Locacao linl : list) {
+            Locacao l = linl;
+            dcDataLocacao.setDate(l.getDtLocacao());
+            dcDataDevolucao.setDate(l.getDtDevolucao());
+            //  tfHoraRetirada.setText(Formatacao.ajustaDataDMA(String.valueOf(l.getHoraRetirada())));
+            tfValorTotal.setText(String.valueOf(l.getValorTotal()));
+            tfParcelas.setText(String.valueOf(l.getParcelas()));
+            tfVendedor.setText(l.getFuncionario().getPessoa().getNome());
+            defineCodigoReserva(l.getReserva().getIdreserva());
+            defineCodigoFuncionario(l.getFuncionario().getPessoa().getIdpessoa(), l.getFuncionario().getPessoa().getNome());
+            defineCodigoCliente(l.getCliente().getPessoa().getIdpessoa());
+            defineCodigoVeiculo(l.getVeiculo().getIdveiculo());
+        }
+        habilitaCampos(true);
+        btEditar.setEnabled(false);
+        btSalvar.setEnabled(true);
+        btNovo.setEnabled(false);
     }
 
     public void calculaValorTotal() {

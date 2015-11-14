@@ -12,6 +12,7 @@ import entidade.Documentos;
 import entidade.Funcao;
 import entidade.Funcionario;
 import entidade.Locacao;
+import entidade.Manutencao;
 import entidade.Permissao;
 import entidade.Pessoa;
 import entidade.Pessoafisica;
@@ -20,6 +21,7 @@ import entidade.Populartabelacliente;
 import entidade.Populartabelafornecedor;
 import entidade.Populartabelafuncionario;
 import entidade.Populartabelalocacao;
+import entidade.Populartabelareserva;
 import entidade.Reserva;
 import entidade.Statusveiculo;
 import entidade.Tipocontato;
@@ -141,6 +143,117 @@ public class Popula {
         };
         sessao.getTransaction().commit();
         return dadosLocacao;
+    }
+
+    public static List popularTabelaManutencao(int cod, String criterio, JTable tb) {
+
+        DefaultTableModel tabelaModelo = (DefaultTableModel) tb.getModel();
+        tabelaModelo.setNumRows(0);
+
+        Session sessao = null;
+
+        sessao = HibernateUtil.getSessionFactory().openSession();
+        Transaction t = sessao.beginTransaction();
+        criterio = criterio.toLowerCase();
+        Iterator qr = sessao.createQuery("SELECT m.idmanutencao, m.motivo, m.dtManutencao,"
+                + " m.dtRetorno, v.descricao, p.nome  FROM Manutencao m, Veiculo v, Pessoa p WHERE ("
+                + " m.pessoajuridica.id = p.idpessoa"
+                + " AND m.veiculo.id=v.idveiculo)"
+                + " AND (lower(m.motivo) LIKE '%" + criterio + "%'"
+                + " OR lower(p.nome) LIKE '%" + criterio + "%'"
+                + " OR m.idmanutencao = " + cod + ")"
+                + " ORDER BY m.idmanutencao").list().iterator();
+
+        Query query = (Query) sessao.createQuery(" FROM Manutencao m WHERE ("
+                + " m.idmanutencao = " + cod + ")");
+        List<Manutencao> dadosManut = (List<Manutencao>) query.list();
+
+        while (qr.hasNext()) {
+            Object[] tuple = (Object[]) qr.next();
+            tabelaModelo.addRow(new Object[]{
+                tuple[0],
+                tuple[1],
+                Formatacao.ajustaDataDMA(String.valueOf(tuple[2])),
+                Formatacao.ajustaDataDMA(String.valueOf(tuple[3])),
+                tuple[4],
+                tuple[5]
+            });
+
+        }
+        sessao.getTransaction().commit();
+        return dadosManut;
+    }
+    
+     public static List popularTabelaDevolucao(int cod, String criterio, JTable tb) {
+
+        DefaultTableModel tabelaModelo = (DefaultTableModel) tb.getModel();
+        tabelaModelo.setNumRows(0);
+
+        Session sessao = null;
+
+        sessao = HibernateUtil.getSessionFactory().openSession();
+        Transaction t = sessao.beginTransaction();
+        criterio = criterio.toLowerCase();
+        Iterator qr = sessao.createQuery("SELECT DISTINCT d.iddevolucao, d.dtDevolucao, "
+                + " d.kmRodados, v.descricao, p.nome  FROM Devolucao d, Locacao l, Veiculo v, Pessoa p WHERE ("
+                + " d.locacao.id = l.idlocacao"
+                + " AND l.cliente.id = p.idpessoa"
+                + " AND l.veiculo.id = v.idveiculo)"
+                + " AND (d.kmRodados = " + cod + " "
+                + " OR lower(p.nome) LIKE '%" + criterio + "%'"
+                + " OR d.iddevolucao = " + cod + ")"
+                + " ORDER BY d.iddevolucao").list().iterator();
+
+        Query query = (Query) sessao.createQuery(" FROM Devolucao d WHERE ("
+                + " d.iddevolucao = " + cod + ")");
+        List<Manutencao> dadosManut = (List<Manutencao>) query.list();
+
+        while (qr.hasNext()) {
+            Object[] tuple = (Object[]) qr.next();
+            tabelaModelo.addRow(new Object[]{
+                tuple[0],
+                Formatacao.ajustaDataDMA(String.valueOf(tuple[1])),
+                tuple[2],
+                tuple[3],
+                tuple[4]
+            });
+
+        }
+        sessao.getTransaction().commit();
+        return dadosManut;
+    }
+
+    public static void popularTabelaReserva(int cod, String criterio, JTable tb) {
+
+        DefaultTableModel tabelaModelo = (DefaultTableModel) tb.getModel();
+        tabelaModelo.setNumRows(0);
+
+        Session sessao = null;
+
+        sessao = HibernateUtil.getSessionFactory().openSession();
+        Transaction t = sessao.beginTransaction();
+        criterio = criterio.toLowerCase();
+        Query query = (Query) sessao.createQuery(" FROM Populartabelareserva p WHERE (lower(p.descricaoveiculo) LIKE '%" + criterio + "%'"
+                + " OR lower(p.nomecliente) LIKE '%" + criterio + "%'"
+                + " OR lower(p.descricaotipo) LIKE '%" + criterio + "%'"
+                + " OR p.idreserva = " + cod + ")"
+                + " ORDER BY p.idreserva");
+        List<Populartabelareserva> dadosReserva = (List<Populartabelareserva>) query.list();
+
+        for (Populartabelareserva lin : dadosReserva) {
+            tabelaModelo.addRow(new Object[]{
+                lin.getIdreserva(),
+                Formatacao.ajustaDataDMA(String.valueOf(lin.getDtReserva())),
+                Formatacao.ajustaDataDMA(String.valueOf(lin.getDtLocacao())),
+                Formatacao.ajustaDataDMA(String.valueOf(lin.getDtDevolucao())),
+                lin.getNomecliente(),
+                lin.getDescricaoVeiculo(),
+                lin.getDescricaoTipo()
+            });
+
+        }
+        sessao.getTransaction().commit();
+
     }
 
     public static void popularTabelaFuncionario(int codigo, String criterio, JTable tb) {
