@@ -19,9 +19,13 @@ import entidade.Populartabelacliente;
 import entidade.Populartabelafornecedor;
 import entidade.Populartabelafuncionario;
 import entidade.Tipocontato;
+import java.text.ParseException;
 import java.util.List;
+import java.util.logging.Level;
+import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.text.MaskFormatter;
 import org.apache.log4j.Logger;
 
 /**
@@ -459,7 +463,7 @@ public class IfContatos extends javax.swing.JInternalFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jpFornecedor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jpFornecedor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 542, Short.MAX_VALUE)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 542, Short.MAX_VALUE))
                 .addGap(0, 1, Short.MAX_VALUE))
         );
@@ -551,27 +555,25 @@ public class IfContatos extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jpFuncionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpFuncionarioLayout.createSequentialGroup()
-                        .addComponent(tfNomeFunc)
+                        .addComponent(tfFuncaoFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel28)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btPFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(6, 6, 6))
+                        .addComponent(tfLoginFunc))
                     .addGroup(jpFuncionarioLayout.createSequentialGroup()
-                        .addComponent(tfRGFunc, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(tfRGFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(jLabel30)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tfCPFFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(jLabel27)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfTelefoneFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jpFuncionarioLayout.createSequentialGroup()
-                        .addGap(106, 106, 106)
-                        .addComponent(tfFuncaoFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
-                        .addComponent(jLabel28)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tfLoginFunc))))
+                        .addComponent(tfTelefoneFunc))
+                    .addComponent(tfNomeFunc, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btPFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6))
         );
         jpFuncionarioLayout.setVerticalGroup(
             jpFuncionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -583,19 +585,18 @@ public class IfContatos extends javax.swing.JInternalFrame {
                         .addComponent(jLabel16)
                         .addComponent(tfNomeFunc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jpFuncionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpFuncionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(tfRGFunc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel27)
-                        .addComponent(tfTelefoneFunc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(tfCPFFunc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel30))
+                .addGroup(jpFuncionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfRGFunc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel27)
+                    .addComponent(tfTelefoneFunc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfCPFFunc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel30)
                     .addComponent(jLabel18))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jpFuncionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jpFuncionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel26)
+                    .addComponent(tfFuncaoFunc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jpFuncionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(tfFuncaoFunc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel28)
                         .addComponent(tfLoginFunc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(106, 106, 106))
@@ -612,6 +613,18 @@ public class IfContatos extends javax.swing.JInternalFrame {
         cbTipoFunc.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cbTipoFuncItemStateChanged(evt);
+            }
+        });
+        cbTipoFunc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbTipoFuncActionPerformed(evt);
+            }
+        });
+        cbTipoFunc.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+                cbTipoFuncCaretPositionChanged(evt);
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
 
@@ -796,39 +809,47 @@ public class IfContatos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btSalvarActionPerformed
 
     private void btAdicionarFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAdicionarFuncActionPerformed
+        if (tfNomeFunc.getText().trim().length() > 0 && cbTipoFunc.getSelectedIndex() > 0
+                && tfDescricaoContatoFunc.getText().trim().length() > 0) {
+            Object[] object;
+            Pessoa pessoa = new Pessoa();
+            object = (Object[]) Popula.retornaDadosPessoas(codFuncionario);
+            List<Funcionario> lf = (List<Funcionario>) object[4];
+            for (Funcionario linf : lf) {
+                pessoa = linf.getPessoa();
+            }
+            Contato contato = new Contato();
+            contato.setIdcontato(0);
+            contato.setDescricao(tfDescricaoContatoFunc.getText());
+            contato.setPessoa(pessoa);
 
-        Object[] object;
-        Pessoa pessoa = new Pessoa();
-        object = (Object[]) Popula.retornaDadosPessoas(codFuncionario);
-        List<Funcionario> lf = (List<Funcionario>) object[4];
-        for (Funcionario linf : lf) {
-            pessoa = linf.getPessoa();
+            ComboItens cbit = (ComboItens) cbTipoFunc.getSelectedItem();
+
+            int idTipoContato = cbit.getCodigo();
+
+            Object[] objectt;
+            objectt = (Object[]) Popula.retornaTipoContato(idTipoContato);
+            List<Tipocontato> list = (List<Tipocontato>) objectt[0];
+            for (Tipocontato lin : list) {
+                Tipocontato tc = lin;
+                contato.setTipocontato(tc);
+                DAO.salvarContato(contato, "salvar");
+            }
+            cbTipoFunc.setSelectedIndex(0);
+            tfDescricaoContatoFunc.setText("");
+            Popula.popularTabelaContatos(codFuncionario, "", tbFuncionario);
+        } else {
+            JOptionPane.showMessageDialog(null, "Preencha os campos obrigatórios!");
         }
-        Contato contato = new Contato();
-        contato.setIdcontato(0);
-        contato.setDescricao(tfDescricaoContatoFunc.getText());
-        contato.setPessoa(pessoa);
-
-        ComboItens cbit = (ComboItens) cbTipoFunc.getSelectedItem();
-
-        int idTipoContato = cbit.getCodigo();
-
-        Object[] objectt;
-        objectt = (Object[]) Popula.retornaTipoContato(idTipoContato);
-        List<Tipocontato> list = (List<Tipocontato>) objectt[0];
-        for (Tipocontato lin : list) {
-            Tipocontato tc = lin;
-            contato.setTipocontato(tc);
-            DAO.salvarContato(contato, "salvar");
-        }
-        habilitaCamposFuncionario(false);
     }//GEN-LAST:event_btAdicionarFuncActionPerformed
 
     private void btExcluirFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirFuncActionPerformed
-        if (tbFuncionario.getRowCount() > 1) {
+        String descricao = String.valueOf(tbFuncionario.getValueAt(tbFuncionario.getSelectedRow(), 1));
+
+        if (tbFuncionario.getRowCount() > 1 && descricao.substring(0, 1).equals("(")) {
             if (tbFuncionario.getSelectedRow() >= 0) {
                 Object[] options = {" Sim ", " Não "};
-                String descricao = String.valueOf(tbFuncionario.getValueAt(tbFuncionario.getSelectedRow(), 1));
+                //  String descricao = String.valueOf(tbFuncionario.getValueAt(tbFuncionario.getSelectedRow(), 1));
                 int opcaoExcluir = JOptionPane.showOptionDialog(this.getContentPane(), "Deseja excluir o Contato "
                         + descricao + "?",
                         "Informação", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[1]);
@@ -852,12 +873,38 @@ public class IfContatos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btExcluirFuncActionPerformed
 
     private void cbTipoFuncItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbTipoFuncItemStateChanged
-       if(cbTipoFunc.getSelectedItem() == "Telefone"){
-           Formatacao.reformatarTelefone(tfDescricaoContatoFunc);
-       }else{
-           tfDescricaoContatoFunc.setText("");
-       }
+
     }//GEN-LAST:event_cbTipoFuncItemStateChanged
+
+    private void cbTipoFuncCaretPositionChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_cbTipoFuncCaretPositionChanged
+
+    }//GEN-LAST:event_cbTipoFuncCaretPositionChanged
+
+    private void cbTipoFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTipoFuncActionPerformed
+        if (cbTipoFunc.getItemCount() > 0 && cbTipoFunc.getSelectedIndex() >= 0) {
+            ComboItens cbit = (ComboItens) cbTipoFunc.getSelectedItem();
+            MaskFormatter mascaraTelefone = null;
+            MaskFormatter mascaraTudo = null;
+            try {
+                 mascaraTelefone = new MaskFormatter("(##)####-####");
+                 mascaraTudo = new MaskFormatter("*");
+            } catch (ParseException ex) {
+                java.util.logging.Logger.getLogger(IfContatos.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            int codTipoFunc = cbit.getCodigo();
+            if (codTipoFunc == 2 || codTipoFunc == 3 || codTipoFunc == 4) {
+                  tfDescricaoContatoFunc = new JFormattedTextField(mascaraTelefone);
+                  tfDescricaoContatoFunc.setEnabled(true);
+                //   tfDescricaoContatoFunc = Formatacao.getTelefone();
+//                Formatacao.reformatarTelefone(tfDescricaoContatoFunc);
+            } else {
+                tfDescricaoContatoFunc  = new JFormattedTextField(mascaraTudo);
+               // tfDescricaoContatoFunc.setText("");
+               // tfDescricaoContatoFunc.setText(Formatacao.removerFormatacao(tfDescricaoContatoFunc.getText()));
+            }
+        }
+    }//GEN-LAST:event_cbTipoFuncActionPerformed
 
     public void defineCodigoFuncionario(int cod) {
         codFuncionario = cod;
@@ -918,9 +965,6 @@ public class IfContatos extends javax.swing.JInternalFrame {
         lv.limparCampos(jpContatoFunc);
         populaCombos();
         cbTipoFunc.setSelectedIndex(0);
-        tbCliente.removeAll();
-        tbFornecedor.removeAll();
-        tbFuncionario.removeAll();
     }
 
     private void habilitaCamposCliente(boolean tf) {
