@@ -79,6 +79,53 @@ public class Popula {
 
     }
 
+    public static List popularTabelaContatos(int cod, String criterio, JTable tb) {
+
+        DefaultTableModel tabelaModelo = (DefaultTableModel) tb.getModel();
+        tabelaModelo.setNumRows(0);
+
+        Session sessao = null;
+
+        sessao = HibernateUtil.getSessionFactory().openSession();
+        Transaction t = sessao.beginTransaction();
+        criterio = criterio.toLowerCase();
+        Query query = (Query) sessao.createQuery(" FROM Contatopessoas c WHERE"
+                //+ " (lower(c.nomepessoa) LIKE '%" + criterio + "%'"
+                //+ " OR lower(c.descricaotipocontato) LIKE '%" + criterio + "%'"
+                //+ " OR lower(c.descricaocontato) LIKE '%" + criterio + "%')"
+                //+ " AND "
+                + " c.idpessoa = " + cod + "");
+        List<Contatopessoas> dadosContatos = (List<Contatopessoas>) query.list();
+
+//        Iterator qr = sessao.createQuery("SELECT c.idcontato, c.descricao, t.descricao,"
+//                + "  p.nome  FROM Contato c, Tipocontato t, Pessoa p WHERE ("
+//                + " c.pessoa_idpessoa.id = p.idpessoa"
+//                + " AND t.idtipoContato=c.tipocontato.id)"
+//                + " AND c.pessoa_idpessoa.id = " + cod + "").list().iterator();
+//
+//        while (qr.hasNext()) {
+//            Object[] tuple = (Object[]) qr.next();
+//            tabelaModelo.addRow(new Object[]{
+//                tuple[0],
+//                tuple[1],
+//                tuple[2],
+//                tuple[3]
+//            });
+//        }
+
+        for (Contatopessoas lin : dadosContatos) {
+            tabelaModelo.addRow(new Object[]{
+                lin.getIdcontato(),
+                lin.getDescricaocontato(),
+                lin.getDescricaotipocontato(),
+                lin.getNomepessoa()
+            });
+        }
+        sessao.getTransaction().commit();
+        return dadosContatos;
+
+    }
+
     public static Veiculo alteraStatusVeiculo(String descricao, Veiculo v) {
         Session sessao = null;
 
@@ -183,8 +230,8 @@ public class Popula {
         sessao.getTransaction().commit();
         return dadosManut;
     }
-    
-     public static List popularTabelaDevolucao(int cod, String criterio, JTable tb) {
+
+    public static List popularTabelaDevolucao(int cod, String criterio, JTable tb) {
 
         DefaultTableModel tabelaModelo = (DefaultTableModel) tb.getModel();
         tabelaModelo.setNumRows(0);
@@ -199,8 +246,9 @@ public class Popula {
                 + " d.locacao.id = l.idlocacao"
                 + " AND l.cliente.id = p.idpessoa"
                 + " AND l.veiculo.id = v.idveiculo)"
-                + " AND (d.kmRodados = " + cod + " "
+                + " AND (d.kmRodados = '" + cod + "' "
                 + " OR lower(p.nome) LIKE '%" + criterio + "%'"
+                + " OR lower(v.descricao) LIKE '%" + criterio + "%'"
                 + " OR d.iddevolucao = " + cod + ")"
                 + " ORDER BY d.iddevolucao").list().iterator();
 
@@ -256,7 +304,7 @@ public class Popula {
 
     }
 
-    public static void popularTabelaFuncionario(int codigo, String criterio, JTable tb) {
+    public static List popularTabelaFuncionario(int codigo, String criterio, JTable tb) {
 
         DefaultTableModel tabelaModelo = (DefaultTableModel) tb.getModel();
         tabelaModelo.setNumRows(0);
@@ -271,9 +319,9 @@ public class Popula {
                 + " OR lower(p.login) LIKE '%" + criterio + "%'"
                 + " OR lower(p.descricaofuncao) LIKE '%" + criterio + "%'"
                 + " OR p.idpessoa = " + codigo + ")");
-        List<Populartabelafuncionario> dadosClientes = (List<Populartabelafuncionario>) query.list();
+        List<Populartabelafuncionario> dadosFunc = (List<Populartabelafuncionario>) query.list();
 
-        for (Populartabelafuncionario lin : dadosClientes) {
+        for (Populartabelafuncionario lin : dadosFunc) {
             tabelaModelo.addRow(new Object[]{
                 lin.getIdpessoa(),
                 lin.getNome(),
@@ -286,7 +334,7 @@ public class Popula {
 
         }
         sessao.getTransaction().commit();
-
+        return dadosFunc;
     }
 
     public static List popularTabelaFornecedor(int codigo, String criterio, JTable tb) {
@@ -339,8 +387,8 @@ public class Popula {
                 + " p.pessoaIdpessoa = " + codpess + ")");
         Query queryRetornaFunc = (Query) sessao.createQuery(" FROM Funcionario p WHERE ("
                 + " p.pessoaIdpessoa = " + codpess + ")");
-        Query queryRetornaContatos = (Query) sessao.createQuery(" FROM Contatopessoas p WHERE ("
-                + " p.idpessoa = " + codpess + ")");
+        Query queryRetornaContatos = (Query) sessao.createQuery(" FROM Contato p WHERE ("
+                + " p.pessoa_idpessoa.id = " + codpess + ")");
 
         List<Pessoajuridica> dadosPesJur = (List<Pessoajuridica>) queryRetornaPesJur.list();
         List<Pessoa> dadosPes = (List<Pessoa>) queryRetornaPes.list();
@@ -372,6 +420,23 @@ public class Popula {
 
         sessao.getTransaction().commit();
         object[0] = dadosVeiculo;
+
+        return object;
+    }
+
+    public static Object retornaTipoContato(int codcontato) {
+        Session sessao = null;
+        Object[] object;
+        object = new Object[2];
+        sessao = HibernateUtil.getSessionFactory().openSession();
+        Transaction t = sessao.beginTransaction();
+        Query queryRetornaVeiculo = (Query) sessao.createQuery(" FROM Tipocontato t WHERE ("
+                + " t.idtipoContato = " + codcontato + ")");
+
+        List<Veiculo> dadosContato = (List<Veiculo>) queryRetornaVeiculo.list();
+
+        sessao.getTransaction().commit();
+        object[0] = dadosContato;
 
         return object;
     }
@@ -693,9 +758,6 @@ public class Popula {
 
         DefaultTableModel tabelaModelo = (DefaultTableModel) tb.getModel();
         tabelaModelo.setNumRows(0);
-        JTable tbAux = new JTable();
-        DefaultTableModel tabelaModeloAux = (DefaultTableModel) tbAux.getModel();
-        tabelaModeloAux.setNumRows(0);
 
         Session sessao = null;
 
@@ -708,18 +770,9 @@ public class Popula {
                 + " AND e.idestado=c.estado.id").list().iterator();
 
         Query query = (Query) sessao.createQuery(" FROM Cidade c WHERE (lower(c.descricao) LIKE '%" + criterio + "%'"
-                //   + " OR lower(e.uf) LIKE '%" + criterio + "%'"
                 + " OR c.idcidade = " + codigo + ")"
-        //  + " AND e.idestado=c.estado.id"
         );
         List<Cidade> dadosCidade = (List<Cidade>) query.list();
-
-        for (Cidade lin : dadosCidade) {
-            tabelaModeloAux.addRow(new Object[]{
-                lin.getIdcidade(),
-                lin.getDescricao(),
-                lin.getEstado()});
-        }
 
         while (qr.hasNext()) {
             Object[] tuple = (Object[]) qr.next();

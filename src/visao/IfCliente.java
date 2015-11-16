@@ -7,6 +7,7 @@ package visao;
 
 import conf.ComboItens;
 import conf.CombosDAO;
+import conf.DAO;
 import conf.Formatacao;
 import conf.HibernateUtil;
 import conf.Popula;
@@ -14,11 +15,13 @@ import conf.Utility;
 import entidade.Cidade;
 import entidade.Cliente;
 import entidade.Contato;
+import entidade.Contatopessoas;
 import entidade.Endereco;
 import entidade.Estado;
 import entidade.Pessoa;
 import entidade.Pessoafisica;
 import entidade.Pessoajuridica;
+import entidade.Tipocontato;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -41,7 +44,11 @@ import org.hibernate.Transaction;
 public class IfCliente extends javax.swing.JInternalFrame {
 
     private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
-    int idPessoa = 0;
+    private int codPessoa = 0;
+    private int codEndereco = 0;
+    private int codCidade = 0;
+    private int codContato = 0;
+    private String fazer = "";
 
     /**
      * Creates new form IfCliente
@@ -83,10 +90,6 @@ public class IfCliente extends javax.swing.JInternalFrame {
         tfBairro = new javax.swing.JFormattedTextField();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        tfEmail = new javax.swing.JTextField();
-        jLabel13 = new javax.swing.JLabel();
-        tfTelefone2 = new javax.swing.JFormattedTextField();
         jLabel15 = new javax.swing.JLabel();
         tfCEP = new javax.swing.JFormattedTextField();
         tfCEP = Formatacao.getCEP();
@@ -97,12 +100,14 @@ public class IfCliente extends javax.swing.JInternalFrame {
         tfComplemento = new javax.swing.JFormattedTextField();
         jLabel11 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        tfCnpj = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        tfIe = new javax.swing.JTextField();
         tfUF = new javax.swing.JTextField();
         tfRG = new javax.swing.JFormattedTextField();
         tfRG = Formatacao.getRG();
+        tfCNPJ = new javax.swing.JFormattedTextField();
+        tfCNPJ = Formatacao.getCNPJ();
+        tfIE = new javax.swing.JFormattedTextField();
+        tfCNPJ = Formatacao.getCNPJ();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         tfPesquisa = new javax.swing.JTextField();
@@ -170,17 +175,6 @@ public class IfCliente extends javax.swing.JInternalFrame {
 
         jLabel10.setText("Estado*:");
 
-        jLabel12.setText("Email:");
-
-        jLabel13.setText("Telefone 2:");
-
-        try {
-            tfTelefone2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        tfTelefone2 = Formatacao.getTelefone();
-
         jLabel15.setText("CEP*:");
 
         tfCidade.setEditable(false);
@@ -195,7 +189,7 @@ public class IfCliente extends javax.swing.JInternalFrame {
         });
 
         buttonGroup2.add(rbPessoaJuridica);
-        rbPessoaJuridica.setText("Pessoa Jurícica");
+        rbPessoaJuridica.setText("Pessoa Jurídica");
         rbPessoaJuridica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbPessoaJuridicaActionPerformed(evt);
@@ -230,76 +224,110 @@ public class IfCliente extends javax.swing.JInternalFrame {
             }
         });
 
+        tfCNPJ.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat(""))));
+        tfCNPJ.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfCNPJFocusLost(evt);
+            }
+        });
+        tfCNPJ.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfCNPJKeyTyped(evt);
+            }
+        });
+
+        tfIE.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat(""))));
+        tfIE.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfIEFocusLost(evt);
+            }
+        });
+        tfIE.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfIEKeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout jpCadastroClienteLayout = new javax.swing.GroupLayout(jpCadastroCliente);
         jpCadastroCliente.setLayout(jpCadastroClienteLayout);
         jpCadastroClienteLayout.setHorizontalGroup(
             jpCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpCadastroClienteLayout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addGroup(jpCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jpCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpCadastroClienteLayout.createSequentialGroup()
-                        .addComponent(jLabel10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tfUF, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tfCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btPCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jpCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jpCadastroClienteLayout.createSequentialGroup()
-                            .addComponent(jLabel11)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(tfComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jpCadastroClienteLayout.createSequentialGroup()
-                            .addGroup(jpCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel8)
-                                .addComponent(jLabel4)
-                                .addComponent(lbNome)
+                        .addGap(6, 6, 6)
+                        .addGroup(jpCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jpCadastroClienteLayout.createSequentialGroup()
                                 .addComponent(jLabel1)
-                                .addComponent(lbCPFouCNPJ)
-                                .addComponent(jLabel7)
-                                .addComponent(jLabel2))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(jpCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(jpCadastroClienteLayout.createSequentialGroup()
-                                    .addComponent(tfDataCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(rbPessoaFisica)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(rbPessoaJuridica))
-                                .addGroup(jpCadastroClienteLayout.createSequentialGroup()
-                                    .addComponent(tfTelefone1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jLabel13)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(tfTelefone2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jLabel12)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(tfNome)
-                                .addComponent(tfEndereco)
-                                .addGroup(jpCadastroClienteLayout.createSequentialGroup()
-                                    .addComponent(tfBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jLabel15)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(tfCEP))
-                                .addGroup(jpCadastroClienteLayout.createSequentialGroup()
-                                    .addGroup(jpCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(tfCPF, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
-                                        .addComponent(tfCnpj))
-                                    .addGap(18, 18, 18)
-                                    .addGroup(jpCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(lbRGouIE)
-                                        .addComponent(jLabel5))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addGroup(jpCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(tfIe)
-                                        .addComponent(tfRG)))))))
-                .addContainerGap(36, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(tfDataCadastro)
+                                .addGap(27, 27, 27)
+                                .addComponent(rbPessoaFisica)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(rbPessoaJuridica)
+                                .addGap(146, 146, 146))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jpCadastroClienteLayout.createSequentialGroup()
+                                .addGroup(jpCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jpCadastroClienteLayout.createSequentialGroup()
+                                        .addGap(69, 69, 69)
+                                        .addGroup(jpCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(tfCNPJ)
+                                            .addComponent(tfCPF, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE))
+                                        .addGap(20, 20, 20)
+                                        .addGroup(jpCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jpCadastroClienteLayout.createSequentialGroup()
+                                                .addComponent(lbRGouIE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(tfRG, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(jpCadastroClienteLayout.createSequentialGroup()
+                                                .addGap(10, 10, 10)
+                                                .addComponent(jLabel5)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(tfIE, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addGroup(jpCadastroClienteLayout.createSequentialGroup()
+                                        .addComponent(jLabel11)
+                                        .addGap(1, 1, 1)
+                                        .addComponent(tfComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 8, Short.MAX_VALUE))
+                            .addGroup(jpCadastroClienteLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(jpCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jpCadastroClienteLayout.createSequentialGroup()
+                                        .addComponent(jLabel10)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(tfUF, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel9)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(tfCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btPCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jpCadastroClienteLayout.createSequentialGroup()
+                                        .addComponent(lbNome)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 508, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jpCadastroClienteLayout.createSequentialGroup()
+                                        .addGroup(jpCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel7)
+                                            .addComponent(jLabel8))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(jpCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jpCadastroClienteLayout.createSequentialGroup()
+                                                .addComponent(tfBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(jLabel15)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(tfCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(tfEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 506, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                    .addGroup(jpCadastroClienteLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jpCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lbCPFouCNPJ)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfTelefone1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jpCadastroClienteLayout.setVerticalGroup(
             jpCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -315,49 +343,48 @@ public class IfCliente extends javax.swing.JInternalFrame {
                     .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbNome))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jpCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfTelefone1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel13)
+                .addGroup(jpCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel4)
-                    .addComponent(tfTelefone2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel12)
-                    .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jpCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbCPFouCNPJ)
-                    .addComponent(tfCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbRGouIE)
-                    .addComponent(tfRG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(tfTelefone1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jpCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpCadastroClienteLayout.createSequentialGroup()
+                        .addGap(7, 7, 7)
+                        .addComponent(lbCPFouCNPJ))
+                    .addGroup(jpCadastroClienteLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jpCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tfCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbRGouIE)
+                            .addComponent(tfRG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(9, 9, 9)
                 .addGroup(jpCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(tfCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfCNPJ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
-                    .addComponent(tfIe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(tfIE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
                 .addGroup(jpCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jpCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(tfBairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel15)
-                        .addComponent(tfCEP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel8))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jpCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(tfBairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel15)
+                    .addComponent(tfCEP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jpCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btPCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(tfCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfUF, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jpCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel10)
-                        .addComponent(jLabel9)))
+                        .addComponent(tfCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tfUF, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel9)
+                        .addComponent(jLabel10)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jpCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11))
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Cadastro Clientes", jpCadastroCliente);
@@ -417,7 +444,7 @@ public class IfCliente extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tfPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 560, Short.MAX_VALUE)
+                .addComponent(tfPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -433,7 +460,7 @@ public class IfCliente extends javax.swing.JInternalFrame {
                         .addComponent(jLabel3)
                         .addComponent(tfPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Consulta Clientes", jPanel2);
@@ -484,16 +511,14 @@ public class IfCliente extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 527, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 527, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 595, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTabbedPane1)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel16)
-                        .addGap(12, 12, 12)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel16)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -502,7 +527,7 @@ public class IfCliente extends javax.swing.JInternalFrame {
                 .addGap(2, 2, 2)
                 .addComponent(jLabel16)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -510,57 +535,80 @@ public class IfCliente extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
-
-        Session sessao = null;
-        try {
-            sessao = HibernateUtil.getSessionFactory().openSession();
-            Transaction t = sessao.beginTransaction();
-
-            Cliente cliente = new Cliente();
-            cliente.setDtCadastro(String.valueOf(Formatacao.converteParaDataAMD(tfDataCadastro.getText())));
-            Pessoa pessoa = new Pessoa();
-
-            pessoa.setIdpessoa(0);
-            pessoa.setNome(tfNome.getText());
+        if (tfNome.getText().trim().length() > 0) {
 
             Endereco endereco = new Endereco();
+            endereco.setIdendereco(codEndereco);
             endereco.setDescricao(tfEndereco.getText());
             endereco.setBairro(tfBairro.getText());
             endereco.setCep(tfCEP.getText());
             endereco.setComplemento(tfComplemento.getText());
-            Object o = Popula.popularTabelaCidade(0, tfPesquisa.getText(), tbClientes);
-            List<Cidade> l = (List<Cidade>) o;
+            Object[] oCidade;
+            oCidade = (Object[]) Popula.retornaCidade(codCidade);
+            List<Cidade> l = (List<Cidade>) oCidade[0];
             for (Cidade lin : l) {
                 Cidade c = lin;
                 endereco.setCidade(c);
             }
 
+            Pessoa pessoa = new Pessoa();
+            pessoa.setIdpessoa(codPessoa);
+            pessoa.setNome(tfNome.getText());
             pessoa.setEndereco(endereco);
 
-            cliente.setPessoa(pessoa);
+            Cliente cliente = new Cliente();
+            cliente.setDtCadastro(Formatacao.converteParaDataAMD(tfDataCadastro.getText()));
 
             Pessoafisica pFisica = new Pessoafisica();
-            pFisica.setPessoaIdpessoa(pessoa.getIdpessoa());
-            pFisica.setCpf(tfCPF.getText());
-            pFisica.setRg(tfRG.getText());
+            Pessoajuridica pJuridica = new Pessoajuridica();
+            if (rbPessoaFisica.isSelected()) {
+                pFisica.setCpf(tfCPF.getText());
+                pFisica.setRg(tfRG.getText());
+            }
+            if (rbPessoaJuridica.isSelected()) {
+                pJuridica.setCnpj(tfCNPJ.getText());
+                pJuridica.setInscricaoest(tfIE.getText());
+            }
 
-            sessao.save(endereco);
-            sessao.save(pessoa);
+            DAO.salvarEndereco(endereco);
+            DAO.salvarPessoa(pessoa);
 
-            sessao.save(cliente);
-            sessao.save(pFisica);
+            int idpes = pessoa.getIdpessoa();
+            Contato contato = new Contato();
+            contato.setIdcontato(codContato);
+            contato.setDescricao(tfTelefone1.getText());
+            contato.setPessoa(pessoa);
 
-            t.commit();
+            Object[] objectt;
+            objectt = (Object[]) Popula.retornaTipoContato(1);//para telefone
+            List<Tipocontato> list = (List<Tipocontato>) objectt[0];
+            for (Tipocontato lin : list) {
+                Tipocontato tc = lin;
+                contato.setTipocontato(tc);
+                DAO.salvarContato(contato, fazer);
+            }
+
+            cliente.setPessoaIdpessoa(idpes);
+            cliente.setPessoa(pessoa);
+            DAO.salvarCliente(cliente, fazer);
+
+            if (rbPessoaFisica.isSelected()) {
+                pFisica.setPessoaIdpessoa(idpes);
+                pFisica.setPessoa(pessoa);
+                DAO.salvarPessoaFisica(pFisica, fazer);
+            }
+            if (rbPessoaJuridica.isSelected()) {
+                pJuridica.setPessoaIdpessoa(idpes);
+                pJuridica.setPessoa(pessoa);
+                DAO.salvarPessoaJuridica(pJuridica, fazer);
+            }
             pesquisa();
             habilitaCamposPfisica(false);
             habilitaCamposPjuridica(false);
-        } catch (HibernateException he) {
-            he.printStackTrace();
-            logger.error("Erro");
-        } finally {
-            sessao.close();
-        }
 
+        } else {
+            JOptionPane.showMessageDialog(null, "Preencha os campos obrigatórios!");
+        }
 
     }//GEN-LAST:event_btSalvarActionPerformed
 
@@ -589,7 +637,10 @@ public class IfCliente extends javax.swing.JInternalFrame {
         btNovo.setEnabled(false);
         btSalvar.setEnabled(true);
         tfDataCadastro.setText(Formatacao.getDataAtual());
-        idPessoa = 0;
+        codPessoa = 0;
+        codEndereco = 0;
+        codContato = 0;
+        fazer = "salvar";
     }//GEN-LAST:event_btNovoActionPerformed
 
     private void jTabbedPane1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTabbedPane1FocusGained
@@ -616,47 +667,31 @@ public class IfCliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTabbedPane1StateChanged
 
     private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
+
         if (jTabbedPane1.getSelectedIndex() == 1) {
             if (tbClientes.getSelectedRow() >= 0) {
                 String cod = String.valueOf(tbClientes.getValueAt(tbClientes.getSelectedRow(), 0));
                 int codigo = Integer.parseInt(cod);
                 Object[] object;
+                Object[] oContatos;
                 object = (Object[]) Popula.retornaDadosPessoas(codigo);
                 List<Cliente> lc = (List<Cliente>) object[3];
                 for (Cliente linc : lc) {
 
-                    tfDataCadastro.setText(Formatacao.ajustaDataDMA(linc.getDtCadastro()));
+                    tfDataCadastro.setText(Formatacao.ajustaDataDMA(String.valueOf(linc.getDtCadastro())));
                     Pessoa p = linc.getPessoa();
+                    codPessoa = p.getIdpessoa();
                     tfNome.setText(p.getNome());
-//                    String tel1 = "";
-//                    String tel2 = "";
-//                    String email = "";
-//                    Set<Contato> contato;
-//                    contato = new HashSet<Contato>();
-//                    contato = p.getContatos();
-//                    Iterator<Contato> contatoIterator = contato.iterator();
-//                    while (contatoIterator.hasNext()) {
-//                        Contato c = contatoIterator.next();
-//                        tel1 = c.getDescricao();
-//                        tfTelefone1.setText(tel1);
-//                        if (contatoIterator.hasNext()) {
-//                            c = contatoIterator.next();
-//                            tel2 = c.getDescricao();
-//                            String primeiroTel2 = String.valueOf(tel2.charAt(0));
-//                            if (primeiroTel2.equals("(")) {
-//                                tfTelefone2.setText(tel2);
-//                            } else {
-//                                tfEmail.setText(tel2);
-//                            }
-//                        }
-//                        if (contatoIterator.hasNext()) {
-//                            c = contatoIterator.next();
-//                            email = c.getDescricao();
-//                        }
-//                    }
-//                    System.out.println("tel1:" + tel1);
-//                    System.out.println("tel1:" + tel2);
-//                    System.out.println("email:" + email);
+
+                    oContatos = (Object[]) Popula.retornaDadosPessoas(codigo);
+                    List<Contato> lcontatos = (List<Contato>) oContatos[5];
+                    for (Contato lincont : lcontatos) {
+                        String tel1 = "";
+                        tel1 = lincont.getDescricao();
+                        tfTelefone1.setText(tel1);
+                        System.out.println("tel1:" + tel1);
+                        codContato = lincont.getIdcontato();
+                    }
                     Pessoafisica pf = linc.getPessoa().getPessoafisica();
                     if (pf != null) {
                         tfCPF.setText(pf.getCpf());
@@ -666,8 +701,8 @@ public class IfCliente extends javax.swing.JInternalFrame {
                     }
                     Pessoajuridica pj = linc.getPessoa().getPessoajuridica();
                     if (pj != null) {
-                        tfCnpj.setText(pj.getCnpj());
-                        tfIe.setText(pj.getInscricaoest());
+                        tfCNPJ.setText(pj.getCnpj());
+                        tfIE.setText(pj.getInscricaoest());
                         rbPessoaJuridica.setSelected(true);
                         habilitaCamposPjuridica(true);
                     }
@@ -677,15 +712,16 @@ public class IfCliente extends javax.swing.JInternalFrame {
                     tfCEP.setText(e.getCep());
                     tfUF.setText(e.getCidade().getEstado().getUf());
                     tfCidade.setText(e.getCidade().getDescricao());
+                    codCidade = e.getCidade().getIdcidade();
                     tfComplemento.setText(e.getComplemento());
+                    codEndereco = e.getIdendereco();
                 }
-
                 jTabbedPane1.setSelectedIndex(0);
-
                 pesquisa();
                 btNovo.setEnabled(false);
                 btSalvar.setEnabled(true);
                 tfNome.requestFocus();
+                fazer = "atualizar";
             } else {
                 JOptionPane.showMessageDialog(null, "Selecione algum registro!");
             }
@@ -732,6 +768,22 @@ public class IfCliente extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_tfRGKeyTyped
 
+    private void tfCNPJFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfCNPJFocusLost
+
+    }//GEN-LAST:event_tfCNPJFocusLost
+
+    private void tfCNPJKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfCNPJKeyTyped
+
+    }//GEN-LAST:event_tfCNPJKeyTyped
+
+    private void tfIEFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfIEFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfIEFocusLost
+
+    private void tfIEKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfIEKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfIEKeyTyped
+
     public void habilitaCamposPfisica(Boolean tf) {
         if (tf == false) {
             limpaCampos();
@@ -741,12 +793,10 @@ public class IfCliente extends javax.swing.JInternalFrame {
 
         tfNome.setEnabled(tf);
         tfTelefone1.setEnabled(tf);
-        tfTelefone2.setEnabled(tf);
-        tfEmail.setEnabled(tf);
         tfCPF.setEnabled(tf);
         tfRG.setEnabled(tf);
-        tfCnpj.setEnabled(false);
-        tfIe.setEnabled(false);
+        tfCNPJ.setEnabled(false);
+        tfIE.setEnabled(false);
         tfEndereco.setEnabled(tf);
         tfBairro.setEnabled(tf);
         tfCEP.setEnabled(tf);
@@ -764,12 +814,10 @@ public class IfCliente extends javax.swing.JInternalFrame {
         }
         tfNome.setEnabled(tf);
         tfTelefone1.setEnabled(tf);
-        tfTelefone2.setEnabled(tf);
-        tfEmail.setEnabled(tf);
         tfCPF.setEnabled(false);
         tfRG.setEnabled(false);
-        tfCnpj.setEnabled(tf);
-        tfIe.setEnabled(tf);
+        tfCNPJ.setEnabled(tf);
+        tfIE.setEnabled(tf);
         tfEndereco.setEnabled(tf);
         tfBairro.setEnabled(tf);
         tfCEP.setEnabled(tf);
@@ -783,12 +831,10 @@ public class IfCliente extends javax.swing.JInternalFrame {
         tfDataCadastro.setText(Formatacao.getDataAtual());
         tfNome.setText("");
         tfTelefone1.setText("");
-        tfTelefone2.setText("");
-        tfEmail.setText("");
         tfCPF.setText("");
         tfRG.setText("");
-        tfCnpj.setText("");
-        tfIe.setText("");
+        tfCNPJ.setText("");
+        tfIE.setText("");
         tfEndereco.setText("");
         tfBairro.setText("");
         tfCEP.setText("");
@@ -798,6 +844,12 @@ public class IfCliente extends javax.swing.JInternalFrame {
         tfUF.setText("");
         rbPessoaJuridica.setSelected(false);
         rbPessoaFisica.setSelected(false);
+        Formatacao.reformatarCnpj(tfCNPJ);
+        Formatacao.reformatarIe(tfIE);
+        Formatacao.reformatarCEP(tfCEP);
+        Formatacao.reformatarTelefone(tfTelefone1);
+        Formatacao.reformatarRG(tfRG);
+        Formatacao.reformatarCpf(tfCPF);
     }
 
     public void pesquisa() {
@@ -809,7 +861,7 @@ public class IfCliente extends javax.swing.JInternalFrame {
     }
 
     public void defineCodigoCidade(int cod, String nome, String uf) {
-
+        codCidade = cod;
         tfCidade.setText(nome);
         tfUF.setText(uf);
     }
@@ -827,8 +879,6 @@ public class IfCliente extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
@@ -852,19 +902,17 @@ public class IfCliente extends javax.swing.JInternalFrame {
     private javax.swing.JTable tbClientes;
     private javax.swing.JFormattedTextField tfBairro;
     private javax.swing.JFormattedTextField tfCEP;
+    private javax.swing.JFormattedTextField tfCNPJ;
     private javax.swing.JFormattedTextField tfCPF;
     private javax.swing.JTextField tfCidade;
-    private javax.swing.JTextField tfCnpj;
     private javax.swing.JFormattedTextField tfComplemento;
     private javax.swing.JFormattedTextField tfDataCadastro;
-    private javax.swing.JTextField tfEmail;
     private javax.swing.JFormattedTextField tfEndereco;
-    private javax.swing.JTextField tfIe;
+    private javax.swing.JFormattedTextField tfIE;
     private javax.swing.JTextField tfNome;
     private javax.swing.JTextField tfPesquisa;
     private javax.swing.JFormattedTextField tfRG;
     private javax.swing.JFormattedTextField tfTelefone1;
-    private javax.swing.JFormattedTextField tfTelefone2;
     private javax.swing.JTextField tfUF;
     // End of variables declaration//GEN-END:variables
 }

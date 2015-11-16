@@ -14,21 +14,14 @@ import conf.Utility;
 import conf.limpaCampos;
 import entidade.Cliente;
 import entidade.Funcionario;
-import entidade.Pessoa;
 import entidade.Populartabelacliente;
-import entidade.Populartabelaveiculo;
 import entidade.Reserva;
 import entidade.Veiculo;
 import entidade.Veiculosstatus;
-import static java.util.Collections.list;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import org.apache.log4j.Logger;
-import org.hibernate.HibernateException;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 /**
  *
@@ -485,7 +478,7 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btPClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPClienteActionPerformed
-        DgConsultaCliente tela = new DgConsultaCliente(this, null);
+        DgConsultaCliente tela = new DgConsultaCliente(this, null, null);
         tela.setVisible(true);
     }//GEN-LAST:event_btPClienteActionPerformed
 
@@ -504,7 +497,7 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tfVendedorActionPerformed
 
     private void btPVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPVendedorActionPerformed
-        DgConsultaFuncionario tela = new DgConsultaFuncionario(null, this, null);
+        DgConsultaFuncionario tela = new DgConsultaFuncionario(null, this, null, null);
         tela.setVisible(true);
     }//GEN-LAST:event_btPVendedorActionPerformed
 

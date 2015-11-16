@@ -4,10 +4,13 @@
 <!-- Generated 05/09/2015 16:25:39 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="Contatopessoas" table="Contatopessoas" schema="public" optimistic-lock="version">
-        <id name="idpessoa" type="int">
-            <column name="idpessoa" />
+        <id name="idcontato" type="int">
+            <column name="idcontato" />
             <generator class="increment" />
         </id>
+        <property name="idpessoa" type="int">
+            <column name="idpessoa" not-null="true" />
+        </property>
          <property name="nomepessoa" type="string">
             <column name="nomepessoa" length="45" not-null="true" />
         </property>

@@ -29,10 +29,10 @@ import org.hibernate.annotations.Parameter;
 public class Funcionario implements java.io.Serializable {
 
     @Id
-    @GenericGenerator(name = "generator", strategy = "foreign", parameters =
-    @Parameter(name = "property", value = "pessoa"))
+//    @GenericGenerator(name = "generator", strategy = "foreign", parameters =
+//    @Parameter(name = "property", value = "pessoa"))
     @Column(name = "pessoa_idpessoa")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int pessoaIdpessoa;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "funcao_idfuncao", nullable = false)

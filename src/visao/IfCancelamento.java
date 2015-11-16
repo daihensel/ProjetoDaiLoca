@@ -530,7 +530,7 @@ public class IfCancelamento extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tfVendedorActionPerformed
 
     private void btPVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPVendedorActionPerformed
-        DgConsultaFuncionario tela = new DgConsultaFuncionario(null, null, this);
+        DgConsultaFuncionario tela = new DgConsultaFuncionario(null, null, this, null);
         tela.setVisible(true);
     }//GEN-LAST:event_btPVendedorActionPerformed
 

@@ -611,7 +611,7 @@ public class IfLocacao extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btPClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPClienteActionPerformed
-        DgConsultaCliente tela = new DgConsultaCliente(null, this);
+        DgConsultaCliente tela = new DgConsultaCliente(null, this, null);
         tela.setVisible(true);
 
     }//GEN-LAST:event_btPClienteActionPerformed
@@ -639,7 +639,7 @@ public class IfLocacao extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tfVendedorActionPerformed
 
     private void btPVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPVendedorActionPerformed
-        DgConsultaFuncionario tela = new DgConsultaFuncionario(this, null, null);
+        DgConsultaFuncionario tela = new DgConsultaFuncionario(this, null, null, null);
         tela.setVisible(true);
     }//GEN-LAST:event_btPVendedorActionPerformed
 

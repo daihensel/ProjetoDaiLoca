@@ -11,8 +11,8 @@
             </generator>
         </id>
         <one-to-one name="pessoa" class="entidade.Pessoa" constrained="true"></one-to-one>
-        <property name="dtCadastro" type="string">
-            <column name="dt_cadastro" length="45" />
+        <property name="dtCadastro" type="date">
+            <column name="dt_cadastro" length="13" not-null="false" />
         </property>
         <set name="locacaos" table="locacao" inverse="true" lazy="true" fetch="select">
             <key>

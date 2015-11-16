@@ -7,6 +7,8 @@ package conf;
 
 import entidade.Cancelamento;
 import entidade.Cidade;
+import entidade.Cliente;
+import entidade.Contato;
 import entidade.Devolucao;
 import entidade.Documentos;
 import entidade.Endereco;
@@ -15,6 +17,8 @@ import entidade.Funcionario;
 import entidade.Locacao;
 import entidade.Manutencao;
 import entidade.Pessoa;
+import entidade.Pessoafisica;
+import entidade.Pessoajuridica;
 import entidade.Reserva;
 import entidade.Statusveiculo;
 import entidade.Tipocontato;
@@ -67,12 +71,50 @@ public class DAO {
         }
         return retorno;
     }
-    
-     public static String salvarCancelamento(Cancelamento cancel) {
+
+    public static String salvarContato(Contato contato, String fazer) {
         Session sessao = null;
         String retorno = "";
 
-        if (cancel.getIdcancelamento()== 0) { //insert
+        if (fazer.equals("salvar")) { //insert
+
+            try {
+
+                sessao = HibernateUtil.getSessionFactory().openSession();
+                Transaction t = sessao.beginTransaction();
+
+                sessao.save(contato);
+                t.commit();
+            } catch (HibernateException he) {
+                System.out.println("Erro salvar Contato: \n" + he);
+            }
+
+        } else { //update
+
+            try {
+                sessao = HibernateUtil.getSessionFactory().openSession();
+                Transaction t = sessao.beginTransaction();
+
+                sessao.update(contato);
+
+                sessao.getTransaction().commit();
+
+            } catch (HibernateException he) {
+                he.printStackTrace();
+                System.out.println("Erro atualizar Contato = " + he);
+
+            }
+
+        }
+        return retorno;
+    }
+
+    
+    public static String salvarCancelamento(Cancelamento cancel) {
+        Session sessao = null;
+        String retorno = "";
+
+        if (cancel.getIdcancelamento() == 0) { //insert
 
             try {
 
@@ -327,11 +369,11 @@ public class DAO {
         return retorno;
     }
 
-    public static String salvarFuncionario(Funcionario funcionario) {
+    public static String salvarFuncionario(Funcionario funcionario, String fazer) {
         Session sessao = null;
         String retorno = "";
 
-        if (funcionario.getPessoaIdpessoa() == 0) { //insert
+        if (fazer.equals("salvar")) { //insert
 
             try {
 
@@ -396,6 +438,120 @@ public class DAO {
             } catch (HibernateException he) {
                 he.printStackTrace();
                 System.out.println("Erro atualizar Pessoa = " + he);
+
+            }
+
+        }
+        return retorno;
+    }
+
+    public static String salvarCliente(Cliente cliente, String fazer) {
+        Session sessao = null;
+        String retorno = "";
+
+        if (fazer.equals("salvar")) { //insert
+
+            try {
+
+                sessao = HibernateUtil.getSessionFactory().openSession();
+                Transaction t = sessao.beginTransaction();
+
+                sessao.save(cliente);
+                t.commit();
+            } catch (HibernateException he) {
+                System.out.println("Erro salvar Cliente: \n" + he);
+
+            }
+
+        } else { //update
+
+            try {
+                sessao = HibernateUtil.getSessionFactory().openSession();
+                Transaction t = sessao.beginTransaction();
+
+                sessao.update(cliente);
+
+                sessao.getTransaction().commit();
+
+            } catch (HibernateException he) {
+                he.printStackTrace();
+                System.out.println("Erro atualizar Cliente = " + he);
+
+            }
+
+        }
+        return retorno;
+    }
+
+    public static String salvarPessoaFisica(Pessoafisica pf, String fazer) {
+        Session sessao = null;
+        String retorno = "";
+
+        if (fazer.equals("salvar")) { //insert
+
+            try {
+
+                sessao = HibernateUtil.getSessionFactory().openSession();
+                Transaction t = sessao.beginTransaction();
+
+                sessao.save(pf);
+                t.commit();
+            } catch (HibernateException he) {
+                System.out.println("Erro salvar Pessoa física: \n" + he);
+
+            }
+
+        } else { //update
+
+            try {
+                sessao = HibernateUtil.getSessionFactory().openSession();
+                Transaction t = sessao.beginTransaction();
+
+                sessao.update(pf);
+
+                sessao.getTransaction().commit();
+
+            } catch (HibernateException he) {
+                he.printStackTrace();
+                System.out.println("Erro atualizar Pessoa física = " + he);
+
+            }
+
+        }
+        return retorno;
+    }
+
+    public static String salvarPessoaJuridica(Pessoajuridica pj, String fazer) {
+        Session sessao = null;
+        String retorno = "";
+
+        if (fazer.equals("salvar")) { //insert
+
+            try {
+
+                sessao = HibernateUtil.getSessionFactory().openSession();
+                Transaction t = sessao.beginTransaction();
+
+                sessao.save(pj);
+                t.commit();
+            } catch (HibernateException he) {
+                System.out.println("Erro salvar Pessoa jurídica: \n" + he);
+
+            }
+
+        } else { //update
+
+            try {
+                sessao = HibernateUtil.getSessionFactory().openSession();
+                Transaction t = sessao.beginTransaction();
+
+                sessao.update(pj);
+
+                sessao.getTransaction().commit();
+
+            } catch (HibernateException he) {
+                he.printStackTrace();
+                System.out.println("Erro atualizar Pessoa jurídica = " + he);
 
             }
 
@@ -620,6 +776,29 @@ public class DAO {
             Transaction t = sessao.beginTransaction();
 
             String hqlDelete = ("DELETE Cidade WHERE idcidade = " + id + "");
+
+            int deleteEntities = sessao.createQuery(hqlDelete).executeUpdate();
+
+            sessao.getTransaction().commit();
+            retorno = true;
+        } catch (HibernateException he) {
+            he.printStackTrace();
+            System.out.println("Erro ao excluir = " + he);
+            retorno = false;
+
+        }
+        return retorno;
+    }
+    
+    public static Boolean deletarContato(int id) {
+        Boolean retorno = false;
+
+        Session sessao = null;
+        try {
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            Transaction t = sessao.beginTransaction();
+
+            String hqlDelete = ("DELETE Contato WHERE idcontato = " + id + "");
 
             int deleteEntities = sessao.createQuery(hqlDelete).executeUpdate();
 

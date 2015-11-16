@@ -474,7 +474,7 @@ public class IfManutencaoVeiculos extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btPFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPFornecedorActionPerformed
-        DgConsultaFornecedor tela = new DgConsultaFornecedor(this);
+        DgConsultaFornecedor tela = new DgConsultaFornecedor(this, null);
         tela.setVisible(true);
     }//GEN-LAST:event_btPFornecedorActionPerformed
 
@@ -519,10 +519,19 @@ public class IfManutencaoVeiculos extends javax.swing.JInternalFrame {
             Object[] object;
             object = (Object[]) Popula.retornaVeiculo(codVeiculo);
             List<Veiculo> l = (List<Veiculo>) object[0];
-            for (Veiculo lin : l) {
-                Veiculo v = lin;
-                v = Popula.alteraStatusVeiculo("Manutenção", v);
-                manut.setVeiculo(v);
+
+            if (taSolucao.getText().trim().length() > 0) {
+                for (Veiculo lin : l) {
+                    Veiculo v = lin;
+                    v = Popula.alteraStatusVeiculo("Disponível", v);
+                    manut.setVeiculo(v);
+                }
+            } else {
+                for (Veiculo lin : l) {
+                    Veiculo v = lin;
+                    v = Popula.alteraStatusVeiculo("Manutenção", v);
+                    manut.setVeiculo(v);
+                }
             }
 
             DAO.salvarManutencao(manut);

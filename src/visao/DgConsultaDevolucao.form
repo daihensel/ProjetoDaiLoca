@@ -45,10 +45,8 @@
           <Group type="102" alignment="1" attributes="0">
               <Group type="103" groupAlignment="1" max="-2" attributes="0">
                   <Component id="jButton1" max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                      <Component id="tfPesquisa" alignment="1" max="32767" attributes="0"/>
-                      <Component id="btPesquisar" alignment="1" max="32767" attributes="0"/>
-                  </Group>
+                  <Component id="tfPesquisa" alignment="1" max="32767" attributes="0"/>
+                  <Component id="btPesquisar" alignment="1" max="32767" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
@@ -133,7 +131,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="*Pesquisa por Id, motivo, ve&#xed;culo ou fornecedor"/>
+        <Property name="text" type="java.lang.String" value="*Pesquisa por Id, ve&#xed;culo ou cliente"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="jButton1">

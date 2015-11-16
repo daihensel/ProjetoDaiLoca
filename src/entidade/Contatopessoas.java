@@ -16,17 +16,27 @@ import javax.persistence.Table;
 public class Contatopessoas implements java.io.Serializable {
 
     @Id
-    @Column(name = "idpessoa")
+    @Column(name = "idcontato")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idpessoa;
+    private int idcontato;
     @Column(name = "nomepessoa", nullable = false, length = 45)
     private String nomepessoa;
     @Column(name = "descricaotipocontato", nullable = false, length = 60)
     private String descricaotipocontato;
     @Column(name = "descricaocontato", nullable = false, length = 60)
     private String descricaocontato;
+    @Column(name = "idpessoa", nullable = false)
+    private int idpessoa;
 
     public Contatopessoas() {
+    }
+
+    public int getIdcontato() {
+        return this.idcontato;
+    }
+
+    public void setIdcontato(int idcontato) {
+        this.idcontato = idcontato;
     }
 
     public int getIdpessoa() {

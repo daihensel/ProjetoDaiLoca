@@ -16,14 +16,16 @@ public class DgConsultaFornecedor extends javax.swing.JDialog {
 
     private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
     private IfManutencaoVeiculos telaManutencao;
+    private IfContatos telaContatos;
 
     // public static IfReservaVeiculos telaReserva;
     /**
      * Creates new form DgConsultaVeic
      */
-    public DgConsultaFornecedor(IfManutencaoVeiculos tManut) {
+    public DgConsultaFornecedor(IfManutencaoVeiculos tManut, IfContatos tContatos) {
         initComponents();
-        telaManutencao = tManut;
+        this.telaManutencao = tManut;
+        this.telaContatos = tContatos;
         pesquisa();
     }
 
@@ -128,8 +130,12 @@ public class DgConsultaFornecedor extends javax.swing.JDialog {
         if (evt.getClickCount() > 1) {
             String cod = String.valueOf(tbFornecedor.getValueAt(tbFornecedor.getSelectedRow(), 0));
             int codigo = Integer.parseInt(cod);
-
-            telaManutencao.defineCodigoFornecedor(codigo);
+            if (telaContatos != null) {
+                telaContatos.defineCodigoFornecedor(codigo);
+            }
+            if (telaManutencao != null) {
+                telaManutencao.defineCodigoFornecedor(codigo);
+            }
             this.dispose();
         }
     }//GEN-LAST:event_tbFornecedorMouseClicked

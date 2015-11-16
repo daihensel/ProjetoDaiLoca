@@ -31,5 +31,6 @@
             </key>
             <one-to-many class="entidade.Auditoria" />
         </set>
+        
     </class>
 </hibernate-mapping>

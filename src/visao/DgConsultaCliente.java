@@ -15,17 +15,19 @@ import org.apache.log4j.Logger;
 public class DgConsultaCliente extends javax.swing.JDialog {
 
     private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
-    public static IfReservaVeiculos telaReserva;
-    public static IfLocacao telaLocacao;
+    private IfReservaVeiculos telaReserva;
+    private IfLocacao telaLocacao;
+    private IfContatos telaContatos;
 
     // public static IfReservaVeiculos telaReserva;
     /**
      * Creates new form DgConsultaVeic
      */
-    public DgConsultaCliente(IfReservaVeiculos tReserva, IfLocacao tLocacao) {
+    public DgConsultaCliente(IfReservaVeiculos tReserva, IfLocacao tLocacao, IfContatos tContatos) {
         initComponents();
         this.telaReserva = tReserva;
         this.telaLocacao = tLocacao;
+        this.telaContatos = tContatos;
         pesquisa();
     }
 
@@ -136,6 +138,10 @@ public class DgConsultaCliente extends javax.swing.JDialog {
             }
             if (telaLocacao != null) {
                 telaLocacao.defineCodigoCliente(codigo);
+
+            }
+            if (telaContatos != null) {
+                telaContatos.defineCodigoCliente(codigo);
 
             }
             this.dispose();

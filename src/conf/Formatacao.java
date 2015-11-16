@@ -61,6 +61,9 @@ public class Formatacao {
     public static JFormattedTextField getCEP() {
         return getFormatado("#####-###");
     }
+    public static JFormattedTextField getIE() {
+        return getFormatado("###/#######");
+    }
 
     public void formatoDecimal(JTextField campo) {
         campo.setText(df.format(Double.parseDouble(campo.getText())));
@@ -105,6 +108,19 @@ public class Formatacao {
         }
     }
 
+    public static void reformatarIe(JFormattedTextField campo) {
+        try {
+            MaskFormatter m = new MaskFormatter();
+            m.setPlaceholderCharacter(' ');
+            m.setMask("###/#######");
+            campo.setFormatterFactory(null);
+            campo.setFormatterFactory(new DefaultFormatterFactory(m));
+            campo.setValue(null);
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+    }
+    
     public static void reformatarCnpj(JFormattedTextField campo) {
         try {
             MaskFormatter m = new MaskFormatter();

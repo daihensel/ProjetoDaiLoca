@@ -17,6 +17,7 @@ import entidade.Contato;
 import entidade.Endereco;
 import entidade.Pessoa;
 import entidade.Pessoajuridica;
+import entidade.Tipocontato;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -35,7 +36,11 @@ import org.hibernate.Transaction;
 public class IfFornecedor extends javax.swing.JInternalFrame {
 
     private org.apache.log4j.Logger logger = Logger.getLogger(DgLogin.class.getName());
-    int idPessoa = 0;
+    private int codPessoa = 0;
+    private int codEndereco = 0;
+    private int codCidade = 0;
+    private int codContato = 0;
+    private String fazer = "";
 
     /**
      * Creates new form IfmVeiculo
@@ -86,10 +91,6 @@ public class IfFornecedor extends javax.swing.JInternalFrame {
         tfUF = new javax.swing.JTextField();
         tfTelefone1 = new javax.swing.JFormattedTextField();
         jLabel4 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        tfTelefone2 = new javax.swing.JFormattedTextField();
-        jLabel16 = new javax.swing.JLabel();
-        tfEmail = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         tfPesquisa = new javax.swing.JTextField();
@@ -194,17 +195,6 @@ public class IfFornecedor extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Telefone 1:*");
 
-        jLabel14.setText("Telefone 2:");
-
-        try {
-            tfTelefone2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        tfTelefone2 = Formatacao.getTelefone();
-
-        jLabel16.setText("Email:");
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -223,14 +213,7 @@ public class IfFornecedor extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(tfTelefone1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel14)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfTelefone2, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel16)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(376, 376, 376))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addComponent(tfCNPJ, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -279,11 +262,7 @@ public class IfFornecedor extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfTelefone1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel14)
-                    .addComponent(jLabel4)
-                    .addComponent(tfTelefone2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel16)
-                    .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel4))
                 .addGap(5, 5, 5)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -310,7 +289,7 @@ public class IfFornecedor extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel13))
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Cadastro fornecedores", jPanel1);
@@ -479,50 +458,56 @@ public class IfFornecedor extends javax.swing.JInternalFrame {
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
 
-        Session sessao = null;
         if (tfNome.getText().trim().length() > 0 && tfCNPJ.getText().trim().length() > 0) {
-            try {
-                sessao = HibernateUtil.getSessionFactory().openSession();
-                Transaction t = sessao.beginTransaction();
 
-                Pessoajuridica pj = new Pessoajuridica();
-                pj.setCnpj(tfCNPJ.getText());
-                pj.setInscricaoest(tfIE.getText());
+            Endereco e = new Endereco();
+            e.setIdendereco(codEndereco);
+            e.setDescricao(tfEndereco.getText());
+            e.setBairro(tfBairro.getText());
+            e.setCep(tfCEP.getText());
+            e.setComplemento(tfComplemento.getText());
 
-                Endereco e = new Endereco();
-                e.setDescricao(tfEndereco.getText());
-                e.setBairro(tfBairro.getText());
-                e.setCep(tfCEP.getText());
-                e.setComplemento(tfComplemento.getText());
-
-                //Cidade c = Popula.popularTabelaCidade(0, tfPesquisa.getText(), tbFornecedor);
-                //Query query = (Query) sessao.createQuery(" FROM Cidade c WHERE (lower(c.descricao) LIKE lower('%" + tfCidade.getText() + "%')");
-                Object o = Popula.popularTabelaCidade(0, tfPesquisa.getText(), tbFornecedor);
-                List<Cidade> l = (List<Cidade>) o;
-                for (Cidade lin : l) {
-                    Cidade c = lin;
-                    e.setCidade(c);
-                }
-
-                Pessoa p = new Pessoa();
-                p.setNome(tfNome.getText());
-                p.setEndereco(e);
-
-                sessao.save(pj);
-                sessao.save(e);
-                sessao.save(p);
-                t.commit();
-                pesquisa();
-                habilitaCampos(false);
-                btNovo.setEnabled(true);
-                btSalvar.setEnabled(false);
-                tfNome.requestFocus();
-            } catch (HibernateException he) {
-                he.printStackTrace();
-
-            } finally {
-                sessao.close();
+            Object[] oCidade;
+            oCidade = (Object[]) Popula.retornaCidade(codCidade);
+            List<Cidade> l = (List<Cidade>) oCidade[0];
+            for (Cidade lin : l) {
+                Cidade c = lin;
+                e.setCidade(c);
             }
+            DAO.salvarEndereco(e);
+
+            Pessoa p = new Pessoa();
+            p.setIdpessoa(codPessoa);
+            p.setNome(tfNome.getText());
+            p.setEndereco(e);
+            DAO.salvarPessoa(p);
+
+            int idpess = p.getIdpessoa();
+            Pessoajuridica pj = new Pessoajuridica();
+            pj.setPessoaIdpessoa(idpess);
+            pj.setCnpj(tfCNPJ.getText());
+            pj.setInscricaoest(tfIE.getText());
+            pj.setPessoa(p);
+
+            // int idpes = pessoa.getIdpessoa();
+            Contato contato = new Contato();
+            contato.setIdcontato(codContato);
+            contato.setDescricao(tfTelefone1.getText());
+            contato.setPessoa(p);
+
+            Object[] objectt;
+            objectt = (Object[]) Popula.retornaTipoContato(1);//para telefone
+            List<Tipocontato> list = (List<Tipocontato>) objectt[0];
+            for (Tipocontato lin : list) {
+                Tipocontato tc = lin;
+                contato.setTipocontato(tc);
+                DAO.salvarContato(contato, fazer);
+            }
+
+            DAO.salvarPessoaJuridica(pj, fazer);
+            pesquisa();
+            habilitaCampos(false);
+
         } else {
             JOptionPane.showMessageDialog(null, "Preencha os campos obrigatórios!");
         }
@@ -538,7 +523,10 @@ public class IfFornecedor extends javax.swing.JInternalFrame {
         jTabbedPane1.setSelectedIndex(0);
         btNovo.setEnabled(false);
         btSalvar.setEnabled(true);
-        idPessoa = 0;
+        codPessoa = 0;
+        codEndereco = 0;
+        codContato = 0;
+        fazer = "salvar";
     }//GEN-LAST:event_btNovoActionPerformed
 
     private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
@@ -547,10 +535,11 @@ public class IfFornecedor extends javax.swing.JInternalFrame {
                 String cod = String.valueOf(tbFornecedor.getValueAt(tbFornecedor.getSelectedRow(), 0));
                 int codigo = Integer.parseInt(cod);
                 Object[] object;
+                Object[] oContatos;
                 object = (Object[]) Popula.retornaDadosPessoas(codigo);
                 List<Pessoajuridica> l = (List<Pessoajuridica>) object[0];
                 for (Pessoajuridica lin : l) {
-                    idPessoa = lin.getPessoaIdpessoa();
+                    codPessoa = lin.getPessoaIdpessoa();
                     tfCNPJ.setText(lin.getCnpj());
                     tfIE.setText(lin.getInscricaoest());
                     tfNome.setText(lin.getPessoa().getNome());
@@ -558,35 +547,15 @@ public class IfFornecedor extends javax.swing.JInternalFrame {
                 }
                 List<Pessoa> lp = (List<Pessoa>) object[1];
                 for (Pessoa linp : lp) {
-//                    String tel1 = "";
-//                    String tel2 = "";
-//                    String email = "";
-//                    Set<Contato> contato;
-//                    contato = new HashSet<Contato>();
-//                    contato = linp.getContatos();
-//                    Iterator<Contato> contatoIterator = contato.iterator();
-//                    while (contatoIterator.hasNext()) {
-//                        Contato c = contatoIterator.next();
-//                        tel1 = c.getDescricao();
-//                        tfTelefone1.setText(tel1);
-//                        if (contatoIterator.hasNext()) {
-//                            c = contatoIterator.next();
-//                            tel2 = c.getDescricao();
-//                            String primeiroTel2 = String.valueOf(tel2.charAt(0));
-//                            if (primeiroTel2.equals("(")) {
-//                                tfTelefone2.setText(tel2);
-//                            } else {
-//                                tfEmail.setText(tel2);
-//                            }
-//                        }
-//                        if (contatoIterator.hasNext()) {
-//                            c = contatoIterator.next();
-//                            email = c.getDescricao();
-//                        }
-//                    }
-//                    System.out.println("tel1:" + tel1);
-//                    System.out.println("tel1:" + tel2);
-//                    System.out.println("email:" + email);
+
+                    oContatos = (Object[]) Popula.retornaDadosPessoas(codigo);
+                    List<Contato> lcontatos = (List<Contato>) oContatos[5];
+                    for (Contato lincont : lcontatos) {
+                        String tel1 = "";
+                        tel1 = lincont.getDescricao();
+                        tfTelefone1.setText(tel1);
+                        codContato = lincont.getIdcontato();
+                    }
 
                     Endereco e = linp.getEndereco();
                     tfEndereco.setText(e.getDescricao());
@@ -594,7 +563,9 @@ public class IfFornecedor extends javax.swing.JInternalFrame {
                     tfCEP.setText(e.getCep());
                     tfUF.setText(e.getCidade().getEstado().getUf());
                     tfCidade.setText(e.getCidade().getDescricao());
+                    codCidade = e.getCidade().getIdcidade();
                     tfComplemento.setText(e.getComplemento());
+                    codEndereco = e.getIdendereco();
                 }
                 jTabbedPane1.setSelectedIndex(0);
                 habilitaCampos(true);
@@ -602,6 +573,7 @@ public class IfFornecedor extends javax.swing.JInternalFrame {
                 btNovo.setEnabled(false);
                 btSalvar.setEnabled(true);
                 tfNome.requestFocus();
+                fazer = "atualizar";
             } else {
                 JOptionPane.showMessageDialog(null, "Selecione algum registro!");
             }
@@ -708,6 +680,8 @@ public class IfFornecedor extends javax.swing.JInternalFrame {
     public void habilitaCampos(Boolean tf) {
         if (tf == false) {
             limpaCampos();
+            btNovo.setEnabled(true);
+            btSalvar.setEnabled(false);
         }
         tfNome.setEnabled(tf);
         tfCNPJ.setEnabled(tf);
@@ -719,6 +693,7 @@ public class IfFornecedor extends javax.swing.JInternalFrame {
         tfCidade.setEnabled(false);
         tfComplemento.setEnabled(tf);
         btPCidade.setEnabled(tf);
+        tfTelefone1.setEnabled(tf);
     }
 
     public void limpaCampos() {
@@ -732,6 +707,11 @@ public class IfFornecedor extends javax.swing.JInternalFrame {
         tfComplemento.setText("");
         btPCidade.setText("");
         tfUF.setText("");
+        tfTelefone1.setText("");
+        Formatacao.reformatarCnpj(tfCNPJ);
+        Formatacao.reformatarIe(tfIE);
+        Formatacao.reformatarCEP(tfCEP);
+        Formatacao.reformatarTelefone(tfTelefone1);
     }
 
     public void pesquisa() {
@@ -743,7 +723,7 @@ public class IfFornecedor extends javax.swing.JInternalFrame {
     }
 
     public void defineCodigoCidade(int cod, String nome, String uf) {
-
+        codCidade = cod;
         tfCidade.setText(nome);
         tfUF.setText(uf);
     }
@@ -761,9 +741,7 @@ public class IfFornecedor extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -785,13 +763,11 @@ public class IfFornecedor extends javax.swing.JInternalFrame {
     private javax.swing.JFormattedTextField tfCNPJ;
     private javax.swing.JTextField tfCidade;
     private javax.swing.JFormattedTextField tfComplemento;
-    private javax.swing.JTextField tfEmail;
     private javax.swing.JFormattedTextField tfEndereco;
     private javax.swing.JFormattedTextField tfIE;
     private javax.swing.JTextField tfNome;
     private javax.swing.JTextField tfPesquisa;
     private javax.swing.JFormattedTextField tfTelefone1;
-    private javax.swing.JFormattedTextField tfTelefone2;
     private javax.swing.JTextField tfUF;
     // End of variables declaration//GEN-END:variables
 }

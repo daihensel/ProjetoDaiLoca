@@ -9,9 +9,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -22,6 +22,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "pessoa", schema = "public")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Pessoa implements java.io.Serializable {
 
     @Id
@@ -145,7 +146,6 @@ public class Pessoa implements java.io.Serializable {
         this.auditorias = auditorias;
     }
 
-    
 //	
 //	 public Set getPermissaos() {
 //        return this.permissaos;
