@@ -722,6 +722,8 @@ public class IfCliente extends javax.swing.JInternalFrame {
                 btSalvar.setEnabled(true);
                 tfNome.requestFocus();
                 fazer = "atualizar";
+                rbPessoaFisica.setEnabled(false);
+                rbPessoaJuridica.setEnabled(false);
             } else {
                 JOptionPane.showMessageDialog(null, "Selecione algum registro!");
             }

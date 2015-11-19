@@ -12,9 +12,11 @@ import conf.Formatacao;
 import conf.Popula;
 import conf.Utility;
 import conf.limpaCampos;
+import entidade.Cliente;
 import entidade.Contato;
 import entidade.Funcionario;
 import entidade.Pessoa;
+import entidade.Pessoajuridica;
 import entidade.Populartabelacliente;
 import entidade.Populartabelafornecedor;
 import entidade.Populartabelafuncionario;
@@ -25,6 +27,7 @@ import java.util.logging.Level;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
 import org.apache.log4j.Logger;
 
@@ -38,6 +41,8 @@ public class IfContatos extends javax.swing.JInternalFrame {
     private int codCliente = 0;
     private int codFuncionario = 0;
     private int codFornecedor = 0;
+    MaskFormatter mascaraTelefone = null;
+    MaskFormatter mascaraTudo = null;
 
     /**
      * Creates new form IfReservaVeiculos
@@ -48,6 +53,12 @@ public class IfContatos extends javax.swing.JInternalFrame {
         habilitaCamposCliente(false);
         habilitaCamposFornecedor(false);
         habilitaCamposFuncionario(false);
+        try {
+            mascaraTelefone = new MaskFormatter("(##)####-####");
+            mascaraTudo = new MaskFormatter("***************************************************************************************");
+        } catch (ParseException ex) {
+            java.util.logging.Logger.getLogger(IfContatos.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -86,6 +97,13 @@ public class IfContatos extends javax.swing.JInternalFrame {
         tfCPFCli = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbCliente = new javax.swing.JTable();
+        jpContatoCliente = new javax.swing.JPanel();
+        btAdicionarCliente = new javax.swing.JButton();
+        cbTipoCliente = new javax.swing.JComboBox();
+        jLabel5 = new javax.swing.JLabel();
+        btExcluirCliente = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        tfDescrCliente = new javax.swing.JFormattedTextField();
         jPanel3 = new javax.swing.JPanel();
         jpFornecedor = new javax.swing.JPanel();
         jLabel19 = new javax.swing.JLabel();
@@ -103,6 +121,13 @@ public class IfContatos extends javax.swing.JInternalFrame {
         btPFornecedor = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         tbFornecedor = new javax.swing.JTable();
+        jpContatoForn = new javax.swing.JPanel();
+        btAdicionarForn = new javax.swing.JButton();
+        cbTipoForn = new javax.swing.JComboBox();
+        jLabel3 = new javax.swing.JLabel();
+        btExcluirForn = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        tfDescrForn = new javax.swing.JFormattedTextField();
         jPanelFuncTotal = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbFuncionario = new javax.swing.JTable();
@@ -125,8 +150,8 @@ public class IfContatos extends javax.swing.JInternalFrame {
         cbTipoFunc = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
         btExcluirFunc = new javax.swing.JButton();
-        tfDescricaoContatoFunc = new javax.swing.JFormattedTextField();
         jLabel2 = new javax.swing.JLabel();
+        tfDescrFunc = new javax.swing.JFormattedTextField();
 
         setTitle("Contatos");
 
@@ -311,18 +336,100 @@ public class IfContatos extends javax.swing.JInternalFrame {
         });
         jScrollPane2.setViewportView(tbCliente);
 
+        btAdicionarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/ok.png"))); // NOI18N
+        btAdicionarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAdicionarClienteActionPerformed(evt);
+            }
+        });
+
+        cbTipoCliente.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbTipoCliente.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbTipoClienteItemStateChanged(evt);
+            }
+        });
+        cbTipoCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbTipoClienteActionPerformed(evt);
+            }
+        });
+        cbTipoCliente.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+                cbTipoClienteCaretPositionChanged(evt);
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+            }
+        });
+
+        jLabel5.setText("Tipo Contato*:");
+
+        btExcluirCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/bExcluir.png"))); // NOI18N
+        btExcluirCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btExcluirClienteActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setText("Descrição*:");
+
+        javax.swing.GroupLayout jpContatoClienteLayout = new javax.swing.GroupLayout(jpContatoCliente);
+        jpContatoCliente.setLayout(jpContatoClienteLayout);
+        jpContatoClienteLayout.setHorizontalGroup(
+            jpContatoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpContatoClienteLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jpContatoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jpContatoClienteLayout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbTipoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jpContatoClienteLayout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfDescrCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
+                .addComponent(btAdicionarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btExcluirCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6))
+        );
+        jpContatoClienteLayout.setVerticalGroup(
+            jpContatoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpContatoClienteLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jpContatoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btExcluirCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jpContatoClienteLayout.createSequentialGroup()
+                        .addGroup(jpContatoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cbTipoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jpContatoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btAdicionarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jpContatoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel6)
+                                .addComponent(tfDescrCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanelClienteTotalLayout = new javax.swing.GroupLayout(jPanelClienteTotal);
         jPanelClienteTotal.setLayout(jPanelClienteTotalLayout);
         jPanelClienteTotalLayout.setHorizontalGroup(
             jPanelClienteTotalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jpCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jScrollPane2)
+            .addGroup(jPanelClienteTotalLayout.createSequentialGroup()
+                .addComponent(jpContatoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanelClienteTotalLayout.setVerticalGroup(
             jPanelClienteTotalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelClienteTotalLayout.createSequentialGroup()
                 .addComponent(jpCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jpContatoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -457,21 +564,104 @@ public class IfContatos extends javax.swing.JInternalFrame {
         });
         jScrollPane3.setViewportView(tbFornecedor);
 
+        btAdicionarForn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/ok.png"))); // NOI18N
+        btAdicionarForn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAdicionarFornActionPerformed(evt);
+            }
+        });
+
+        cbTipoForn.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbTipoForn.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbTipoFornItemStateChanged(evt);
+            }
+        });
+        cbTipoForn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbTipoFornActionPerformed(evt);
+            }
+        });
+        cbTipoForn.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+                cbTipoFornCaretPositionChanged(evt);
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+            }
+        });
+
+        jLabel3.setText("Tipo Contato*:");
+
+        btExcluirForn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/bExcluir.png"))); // NOI18N
+        btExcluirForn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btExcluirFornActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("Descrição*:");
+
+        javax.swing.GroupLayout jpContatoFornLayout = new javax.swing.GroupLayout(jpContatoForn);
+        jpContatoForn.setLayout(jpContatoFornLayout);
+        jpContatoFornLayout.setHorizontalGroup(
+            jpContatoFornLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpContatoFornLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jpContatoFornLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jpContatoFornLayout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbTipoForn, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jpContatoFornLayout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfDescrForn, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
+                .addComponent(btAdicionarForn, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btExcluirForn, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6))
+        );
+        jpContatoFornLayout.setVerticalGroup(
+            jpContatoFornLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpContatoFornLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jpContatoFornLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btExcluirForn, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jpContatoFornLayout.createSequentialGroup()
+                        .addGroup(jpContatoFornLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cbTipoForn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jpContatoFornLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btAdicionarForn, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jpContatoFornLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel4)
+                                .addComponent(tfDescrForn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jpFornecedor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 542, Short.MAX_VALUE)
+                    .addComponent(jpFornecedor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 542, Short.MAX_VALUE)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 542, Short.MAX_VALUE))
                 .addGap(0, 1, Short.MAX_VALUE))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jpContatoForn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jpFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jpContatoForn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -593,12 +783,13 @@ public class IfContatos extends javax.swing.JInternalFrame {
                     .addComponent(jLabel30)
                     .addComponent(jLabel18))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jpFuncionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel26)
-                    .addComponent(tfFuncaoFunc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jpFuncionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpFuncionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel28)
-                        .addComponent(tfLoginFunc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(tfLoginFunc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jpFuncionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel26)
+                        .addComponent(tfFuncaoFunc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(106, 106, 106))
         );
 
@@ -645,13 +836,15 @@ public class IfContatos extends javax.swing.JInternalFrame {
             jpContatoFuncLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpContatoFuncLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jpContatoFuncLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jpContatoFuncLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(tfDescricaoContatoFunc)
-                    .addComponent(cbTipoFunc, 0, 161, Short.MAX_VALUE))
+                .addGroup(jpContatoFuncLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jpContatoFuncLayout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbTipoFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jpContatoFuncLayout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfDescrFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
                 .addComponent(btAdicionarFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -672,8 +865,8 @@ public class IfContatos extends javax.swing.JInternalFrame {
                         .addGroup(jpContatoFuncLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btAdicionarFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jpContatoFuncLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(tfDescricaoContatoFunc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel2)))))
+                                .addComponent(jLabel2)
+                                .addComponent(tfDescrFunc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -801,16 +994,14 @@ public class IfContatos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btNovoActionPerformed
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
-        if (tfBairroCli.getText().trim().length() > 0) {
-
-        } else {
-            JOptionPane.showMessageDialog(null, "Preencha os campos obrigatórios!");
-        }
+        habilitaCamposCliente(false);
+        habilitaCamposFuncionario(false);
+        habilitaCamposFornecedor(false);
     }//GEN-LAST:event_btSalvarActionPerformed
 
     private void btAdicionarFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAdicionarFuncActionPerformed
         if (tfNomeFunc.getText().trim().length() > 0 && cbTipoFunc.getSelectedIndex() > 0
-                && tfDescricaoContatoFunc.getText().trim().length() > 0) {
+                && tfDescrFunc.getText().trim().length() > 3) {
             Object[] object;
             Pessoa pessoa = new Pessoa();
             object = (Object[]) Popula.retornaDadosPessoas(codFuncionario);
@@ -820,7 +1011,7 @@ public class IfContatos extends javax.swing.JInternalFrame {
             }
             Contato contato = new Contato();
             contato.setIdcontato(0);
-            contato.setDescricao(tfDescricaoContatoFunc.getText());
+            contato.setDescricao(tfDescrFunc.getText());
             contato.setPessoa(pessoa);
 
             ComboItens cbit = (ComboItens) cbTipoFunc.getSelectedItem();
@@ -836,7 +1027,7 @@ public class IfContatos extends javax.swing.JInternalFrame {
                 DAO.salvarContato(contato, "salvar");
             }
             cbTipoFunc.setSelectedIndex(0);
-            tfDescricaoContatoFunc.setText("");
+            tfDescrFunc.setText("");
             Popula.popularTabelaContatos(codFuncionario, "", tbFuncionario);
         } else {
             JOptionPane.showMessageDialog(null, "Preencha os campos obrigatórios!");
@@ -846,11 +1037,10 @@ public class IfContatos extends javax.swing.JInternalFrame {
     private void btExcluirFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirFuncActionPerformed
         String descricao = String.valueOf(tbFuncionario.getValueAt(tbFuncionario.getSelectedRow(), 1));
 
-        if (tbFuncionario.getRowCount() > 1 && descricao.substring(0, 1).equals("(")) {
+        if (tbFuncionario.getRowCount() > 1 && !descricao.substring(0, 1).equals("(")) {
             if (tbFuncionario.getSelectedRow() >= 0) {
                 Object[] options = {" Sim ", " Não "};
-                //  String descricao = String.valueOf(tbFuncionario.getValueAt(tbFuncionario.getSelectedRow(), 1));
-                int opcaoExcluir = JOptionPane.showOptionDialog(this.getContentPane(), "Deseja excluir o Contato "
+                 int opcaoExcluir = JOptionPane.showOptionDialog(this.getContentPane(), "Deseja excluir o Contato "
                         + descricao + "?",
                         "Informação", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[1]);
 
@@ -868,7 +1058,7 @@ public class IfContatos extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null, "Selecione algum registro!");
             }
         } else {
-            JOptionPane.showMessageDialog(null, "É obrigatório ter um contato cadastrado!");
+            JOptionPane.showMessageDialog(null, "É obrigatório ter um telefone de contato cadastrado!");
         }
     }//GEN-LAST:event_btExcluirFuncActionPerformed
 
@@ -880,31 +1070,197 @@ public class IfContatos extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_cbTipoFuncCaretPositionChanged
 
+
     private void cbTipoFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTipoFuncActionPerformed
+
         if (cbTipoFunc.getItemCount() > 0 && cbTipoFunc.getSelectedIndex() >= 0) {
             ComboItens cbit = (ComboItens) cbTipoFunc.getSelectedItem();
-            MaskFormatter mascaraTelefone = null;
-            MaskFormatter mascaraTudo = null;
-            try {
-                 mascaraTelefone = new MaskFormatter("(##)####-####");
-                 mascaraTudo = new MaskFormatter("*");
-            } catch (ParseException ex) {
-                java.util.logging.Logger.getLogger(IfContatos.class.getName()).log(Level.SEVERE, null, ex);
-            }
+
+            tfDescrFunc.setFocusLostBehavior(JFormattedTextField.COMMIT);
+            tfDescrFunc.setValue(null);
 
             int codTipoFunc = cbit.getCodigo();
-            if (codTipoFunc == 2 || codTipoFunc == 3 || codTipoFunc == 4) {
-                  tfDescricaoContatoFunc = new JFormattedTextField(mascaraTelefone);
-                  tfDescricaoContatoFunc.setEnabled(true);
-                //   tfDescricaoContatoFunc = Formatacao.getTelefone();
-//                Formatacao.reformatarTelefone(tfDescricaoContatoFunc);
+            if (codTipoFunc == 1 || codTipoFunc == 3 || codTipoFunc == 4) {
+                tfDescrFunc.setFormatterFactory(new DefaultFormatterFactory(mascaraTelefone));
             } else {
-                tfDescricaoContatoFunc  = new JFormattedTextField(mascaraTudo);
-               // tfDescricaoContatoFunc.setText("");
-               // tfDescricaoContatoFunc.setText(Formatacao.removerFormatacao(tfDescricaoContatoFunc.getText()));
+                tfDescrFunc.setFormatterFactory(new DefaultFormatterFactory(mascaraTudo));
             }
         }
     }//GEN-LAST:event_cbTipoFuncActionPerformed
+
+    private void btAdicionarFornActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAdicionarFornActionPerformed
+         if (tfRazaoSocial.getText().trim().length() > 0 && cbTipoForn.getSelectedIndex() > 0
+                && tfDescrForn.getText().trim().length() > 3) {
+            Object[] object;
+            Pessoa pessoa = new Pessoa();
+            object = (Object[]) Popula.retornaDadosPessoas(codFornecedor);
+            List<Pessoajuridica> lf = (List<Pessoajuridica>) object[0];
+            for (Pessoajuridica linf : lf) {
+                pessoa = linf.getPessoa();
+            }
+            Contato contato = new Contato();
+            contato.setIdcontato(0);
+            contato.setDescricao(tfDescrForn.getText());
+            contato.setPessoa(pessoa);
+
+            ComboItens cbit = (ComboItens) cbTipoForn.getSelectedItem();
+
+            int idTipoContato = cbit.getCodigo();
+
+            Object[] objectt;
+            objectt = (Object[]) Popula.retornaTipoContato(idTipoContato);
+            List<Tipocontato> list = (List<Tipocontato>) objectt[0];
+            for (Tipocontato lin : list) {
+                Tipocontato tc = lin;
+                contato.setTipocontato(tc);
+                DAO.salvarContato(contato, "salvar");
+            }
+            cbTipoForn.setSelectedIndex(0);
+            tfDescrForn.setText("");
+            Popula.popularTabelaContatos(codFornecedor, "", tbFornecedor);
+        } else {
+            JOptionPane.showMessageDialog(null, "Preencha os campos obrigatórios!");
+        }
+    }//GEN-LAST:event_btAdicionarFornActionPerformed
+
+    private void cbTipoFornItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbTipoFornItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbTipoFornItemStateChanged
+
+    private void cbTipoFornActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTipoFornActionPerformed
+        if (cbTipoForn.getItemCount() > 0 && cbTipoForn.getSelectedIndex() >= 0) {
+            ComboItens cbit = (ComboItens) cbTipoForn.getSelectedItem();
+
+            tfDescrForn.setFocusLostBehavior(JFormattedTextField.COMMIT);
+            tfDescrForn.setValue(null);
+
+            int codTipoForn = cbit.getCodigo();
+            if (codTipoForn == 1 || codTipoForn == 3 || codTipoForn == 4) {
+                tfDescrForn.setFormatterFactory(new DefaultFormatterFactory(mascaraTelefone));
+            } else {
+                tfDescrForn.setFormatterFactory(new DefaultFormatterFactory(mascaraTudo));
+            }
+        }
+    }//GEN-LAST:event_cbTipoFornActionPerformed
+
+    private void cbTipoFornCaretPositionChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_cbTipoFornCaretPositionChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbTipoFornCaretPositionChanged
+
+    private void btExcluirFornActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirFornActionPerformed
+         String descricao = String.valueOf(tbFornecedor.getValueAt(tbFornecedor.getSelectedRow(), 1));
+
+        if (tbFornecedor.getRowCount() > 1 && !descricao.substring(0, 1).equals("(")) {
+            if (tbFornecedor.getSelectedRow() >= 0) {
+                Object[] options = {" Sim ", " Não "};
+                int opcaoExcluir = JOptionPane.showOptionDialog(this.getContentPane(), "Deseja excluir o Contato "
+                        + descricao + "?",
+                        "Informação", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[1]);
+
+                if (opcaoExcluir == 0) {
+                    int id = (int) tbFornecedor.getValueAt(tbFornecedor.getSelectedRow(), 0);
+                    System.out.println("id a ser excluido:" + id);
+                    if (DAO.deletarContato(id)) {
+                        JOptionPane.showMessageDialog(null, "Contato excluído!");
+                        Popula.popularTabelaContatos(codFornecedor, "", tbFornecedor);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Problemas ao excluir");
+                    }
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Selecione algum registro!");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "É obrigatório ter um telefone de contato cadastrado!");
+        }
+    }//GEN-LAST:event_btExcluirFornActionPerformed
+
+    private void btAdicionarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAdicionarClienteActionPerformed
+     if (tfNomeCliente.getText().trim().length() > 0 && cbTipoCliente.getSelectedIndex() > 0
+                && tfDescrCliente.getText().trim().length() > 3) {
+            Object[] object;
+            Pessoa pessoa = new Pessoa();
+            object = (Object[]) Popula.retornaDadosPessoas(codCliente);
+            List<Cliente> lf = (List<Cliente>) object[3];
+            for (Cliente linf : lf) {
+                pessoa = linf.getPessoa();
+            }
+            Contato contato = new Contato();
+            contato.setIdcontato(0);
+            contato.setDescricao(tfDescrCliente.getText());
+            contato.setPessoa(pessoa);
+
+            ComboItens cbit = (ComboItens) cbTipoCliente.getSelectedItem();
+
+            int idTipoContato = cbit.getCodigo();
+
+            Object[] objectt;
+            objectt = (Object[]) Popula.retornaTipoContato(idTipoContato);
+            List<Tipocontato> list = (List<Tipocontato>) objectt[0];
+            for (Tipocontato lin : list) {
+                Tipocontato tc = lin;
+                contato.setTipocontato(tc);
+                DAO.salvarContato(contato, "salvar");
+            }
+            cbTipoCliente.setSelectedIndex(0);
+            tfDescrCliente.setText("");
+            Popula.popularTabelaContatos(codCliente, "", tbCliente);
+        } else {
+            JOptionPane.showMessageDialog(null, "Preencha os campos obrigatórios!");
+        }
+    }//GEN-LAST:event_btAdicionarClienteActionPerformed
+
+    private void cbTipoClienteItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbTipoClienteItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbTipoClienteItemStateChanged
+
+    private void cbTipoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTipoClienteActionPerformed
+       if (cbTipoCliente.getItemCount() > 0 && cbTipoCliente.getSelectedIndex() >= 0) {
+            ComboItens cbit = (ComboItens) cbTipoCliente.getSelectedItem();
+
+            tfDescrCliente.setFocusLostBehavior(JFormattedTextField.COMMIT);
+            tfDescrCliente.setValue(null);
+
+            int codTipoCliente = cbit.getCodigo();
+            if (codTipoCliente == 1 || codTipoCliente == 3 || codTipoCliente == 4) {
+                tfDescrCliente.setFormatterFactory(new DefaultFormatterFactory(mascaraTelefone));
+            } else {
+                tfDescrCliente.setFormatterFactory(new DefaultFormatterFactory(mascaraTudo));
+            }
+        }
+    }//GEN-LAST:event_cbTipoClienteActionPerformed
+
+    private void cbTipoClienteCaretPositionChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_cbTipoClienteCaretPositionChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbTipoClienteCaretPositionChanged
+
+    private void btExcluirClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirClienteActionPerformed
+        String descricao = String.valueOf(tbCliente.getValueAt(tbCliente.getSelectedRow(), 1));
+
+        if (tbCliente.getRowCount() > 1 && !descricao.substring(0, 1).equals("(")) {
+            if (tbCliente.getSelectedRow() >= 0) {
+                Object[] options = {" Sim ", " Não "};
+                 int opcaoExcluir = JOptionPane.showOptionDialog(this.getContentPane(), "Deseja excluir o Contato "
+                        + descricao + "?",
+                        "Informação", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[1]);
+
+                if (opcaoExcluir == 0) {
+                    int id = (int) tbCliente.getValueAt(tbCliente.getSelectedRow(), 0);
+                    System.out.println("id a ser excluido:" + id);
+                    if (DAO.deletarContato(id)) {
+                        JOptionPane.showMessageDialog(null, "Contato excluído!");
+                        Popula.popularTabelaContatos(codCliente, "", tbCliente);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Problemas ao excluir");
+                    }
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Selecione algum registro!");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "É obrigatório ter um telefone de contato cadastrado!");
+        }
+    }//GEN-LAST:event_btExcluirClienteActionPerformed
 
     public void defineCodigoFuncionario(int cod) {
         codFuncionario = cod;
@@ -957,14 +1313,20 @@ public class IfContatos extends javax.swing.JInternalFrame {
     }
 
     public void limpaCampos() {
-
         limpaCampos lv = new limpaCampos();
         lv.limparCampos(jpCliente);
         lv.limparCampos(jpFornecedor);
         lv.limparCampos(jpFuncionario);
         lv.limparCampos(jpContatoFunc);
+        lv.limparCampos(jpContatoForn);
+        lv.limparCampos(jpContatoCliente);
         populaCombos();
         cbTipoFunc.setSelectedIndex(0);
+        cbTipoForn.setSelectedIndex(0);
+        cbTipoCliente.setSelectedIndex(0);
+        tbCliente.removeAll();
+        tbFornecedor.removeAll();
+        tbFuncionario.removeAll();
     }
 
     private void habilitaCamposCliente(boolean tf) {
@@ -973,8 +1335,11 @@ public class IfContatos extends javax.swing.JInternalFrame {
             btSalvar.setEnabled(false);
             btNovo.setEnabled(true);
         }
-        Popula.popularTabelaContatos(codCliente, "", tbCliente);
+        Popula.popularTabelaContatos(0, "", tbCliente);
         btPCliente.setEnabled(tf);
+        btAdicionarCliente.setEnabled(tf);
+        btExcluirCliente.setEnabled(tf);
+        cbTipoCliente.setEnabled(tf);
 
     }
 
@@ -984,8 +1349,11 @@ public class IfContatos extends javax.swing.JInternalFrame {
             btSalvar.setEnabled(false);
             btNovo.setEnabled(true);
         }
-        Popula.popularTabelaContatos(codFornecedor, "", tbFornecedor);
+        Popula.popularTabelaContatos(0, "", tbFornecedor);
         btPFornecedor.setEnabled(tf);
+        btAdicionarForn.setEnabled(tf);
+        btExcluirForn.setEnabled(tf);
+        cbTipoForn.setEnabled(tf);
     }
 
     private void habilitaCamposFuncionario(boolean tf) {
@@ -998,17 +1366,24 @@ public class IfContatos extends javax.swing.JInternalFrame {
         btPFuncionario.setEnabled(tf);
         btAdicionarFunc.setEnabled(tf);
         btExcluirFunc.setEnabled(tf);
-        tfDescricaoContatoFunc.setEnabled(tf);
         cbTipoFunc.setEnabled(tf);
     }
 
     public void populaCombos() {
         cbTipoFunc.removeAllItems();
         new CombosDAO().popularCombo("Tipocontato", "idtipoContato", "descricao", cbTipoFunc, "");
+        cbTipoCliente.removeAllItems();
+        new CombosDAO().popularCombo("Tipocontato", "idtipoContato", "descricao", cbTipoCliente, "");
+        cbTipoForn.removeAllItems();
+        new CombosDAO().popularCombo("Tipocontato", "idtipoContato", "descricao", cbTipoForn, "");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btAdicionarCliente;
+    private javax.swing.JButton btAdicionarForn;
     private javax.swing.JButton btAdicionarFunc;
+    private javax.swing.JButton btExcluirCliente;
+    private javax.swing.JButton btExcluirForn;
     private javax.swing.JButton btExcluirFunc;
     private javax.swing.JButton btFechar1;
     private javax.swing.JButton btNovo;
@@ -1016,6 +1391,8 @@ public class IfContatos extends javax.swing.JInternalFrame {
     private javax.swing.JButton btPFornecedor;
     private javax.swing.JButton btPFuncionario;
     private javax.swing.JButton btSalvar;
+    private javax.swing.JComboBox cbTipoCliente;
+    private javax.swing.JComboBox cbTipoForn;
     private javax.swing.JComboBox cbTipoFunc;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
@@ -1039,7 +1416,11 @@ public class IfContatos extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanelClienteTotal;
     private javax.swing.JPanel jPanelFuncTotal;
@@ -1050,6 +1431,8 @@ public class IfContatos extends javax.swing.JInternalFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JPanel jpCliente;
+    private javax.swing.JPanel jpContatoCliente;
+    private javax.swing.JPanel jpContatoForn;
     private javax.swing.JPanel jpContatoFunc;
     private javax.swing.JPanel jpFornecedor;
     private javax.swing.JPanel jpFuncionario;
@@ -1063,7 +1446,9 @@ public class IfContatos extends javax.swing.JInternalFrame {
     private javax.swing.JTextField tfCPFFunc;
     private javax.swing.JTextField tfCidadeCli;
     private javax.swing.JTextField tfCidadeForn;
-    private javax.swing.JFormattedTextField tfDescricaoContatoFunc;
+    private javax.swing.JFormattedTextField tfDescrCliente;
+    private javax.swing.JFormattedTextField tfDescrForn;
+    private javax.swing.JFormattedTextField tfDescrFunc;
     private javax.swing.JTextField tfEnderecoCli;
     private javax.swing.JTextField tfEnderecoForn;
     private javax.swing.JTextField tfFuncaoFunc;
