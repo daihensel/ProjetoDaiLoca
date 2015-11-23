@@ -40,6 +40,7 @@
         <mapping class="entidade.Veiculosstatus"/>
         <mapping class="entidade.Populartabelareserva"/>
         <mapping class="entidade.Populartabelalocacao"/>
+        <mapping class="entidade.Veiculostipoestatusreserva"/>
         <mapping class="entidade.Cancelamento"/>
     </session-factory>
 </hibernate-configuration>

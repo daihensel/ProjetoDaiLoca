@@ -29,6 +29,7 @@ import entidade.Tipoveiculo;
 import entidade.Veiculo;
 import entidade.Veiculosstatus;
 import entidade.Veiculostipoestatus;
+import entidade.Veiculostipoestatusreserva;
 import java.util.Iterator;
 import java.util.List;
 import javax.swing.JTable;
@@ -112,7 +113,6 @@ public class Popula {
 //                tuple[3]
 //            });
 //        }
-
         for (Contatopessoas lin : dadosContatos) {
             tabelaModelo.addRow(new Object[]{
                 lin.getIdcontato(),
@@ -686,6 +686,40 @@ public class Popula {
                     v.getDescricaoVeiculo(),
                     v.getDescricaoTipo(),
                     v.getDescricaoStatus(),});
+            }
+
+            sessao.getTransaction().commit();
+        } catch (HibernateException he) {
+            he.printStackTrace();
+            System.out.println("Erro popular = " + he);
+
+        } finally {
+            sessao.close();
+
+        }
+
+    }
+
+    public static void popularTabelaVeiculosTipoeStatusReserva(JTable tb) {
+        Session sessao = null;
+        try {
+            DefaultTableModel tabelaModelo = (DefaultTableModel) tb.getModel();
+            tabelaModelo.setNumRows(0);
+
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            Transaction t = sessao.beginTransaction();
+
+            Query query = (Query) sessao.createQuery(" FROM Veiculostipoestatusreserva");
+            List<Veiculostipoestatusreserva> dadosVTS = (List<Veiculostipoestatusreserva>) query.list();
+
+            for (Veiculostipoestatusreserva v : dadosVTS) {
+                tabelaModelo.addRow(new Object[]{
+                    Formatacao.ajustaDataDMA(String.valueOf(v.getDtReserva())),
+                    v.getDescricaoVeiculo(),
+                    v.getDescricaoTipo(),
+                    Formatacao.ajustaDataDMA(String.valueOf(v.getDtLocacao())),
+                    Formatacao.ajustaDataDMA(String.valueOf(v.getDtDevolucao())),
+                    v.getNomecliente(),});
             }
 
             sessao.getTransaction().commit();

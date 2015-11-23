@@ -50,6 +50,7 @@ public class FormPrincipal extends javax.swing.JFrame {
 
     private void atualizaDadosVeiculos() {
         Popula.popularTabelaVeiculosTipoEStatus(tbVeiculos);
+        Popula.popularTabelaVeiculosTipoeStatusReserva(tbReservasFuturas);
         lbDisponiveis.setText(Utility.somaVeiculos(1));
         lbReservados.setText(Utility.somaVeiculos(2));
         lbLocados.setText(Utility.somaVeiculos(3));
@@ -165,6 +166,8 @@ public class FormPrincipal extends javax.swing.JFrame {
 
         dp = new javax.swing.JDesktopPane();
         pnGeral = new javax.swing.JPanel();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        pn1 = new javax.swing.JPanel();
         pnMenus = new javax.swing.JPanel();
         btNovoFornecedor = new javax.swing.JButton();
         btNovaLocacao = new javax.swing.JButton();
@@ -205,6 +208,9 @@ public class FormPrincipal extends javax.swing.JFrame {
         btEnviar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbVeiculos = new javax.swing.JTable();
+        pn2 = new javax.swing.JPanel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        tbReservasFuturas = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -564,11 +570,8 @@ public class FormPrincipal extends javax.swing.JFrame {
         pnChat.setLayout(pnChatLayout);
         pnChatLayout.setHorizontalGroup(
             pnChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnChatLayout.createSequentialGroup()
-                .addGroup(pnChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(pnConversa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnConectar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 21, Short.MAX_VALUE))
+            .addComponent(pnConversa, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnConectar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         pnChatLayout.setVerticalGroup(
             pnChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -603,33 +606,92 @@ public class FormPrincipal extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tbVeiculos);
 
-        javax.swing.GroupLayout pnGeralLayout = new javax.swing.GroupLayout(pnGeral);
-        pnGeral.setLayout(pnGeralLayout);
-        pnGeralLayout.setHorizontalGroup(
-            pnGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnGeralLayout.createSequentialGroup()
+        javax.swing.GroupLayout pn1Layout = new javax.swing.GroupLayout(pn1);
+        pn1.setLayout(pn1Layout);
+        pn1Layout.setHorizontalGroup(
+            pn1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pn1Layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 653, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnMenus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pnChat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(314, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
-        pnGeralLayout.setVerticalGroup(
-            pnGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnGeralLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(pnChat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 369, Short.MAX_VALUE))
-            .addGroup(pnGeralLayout.createSequentialGroup()
-                .addGroup(pnGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnMenus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 680, javax.swing.GroupLayout.PREFERRED_SIZE))
+        pn1Layout.setVerticalGroup(
+            pn1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pn1Layout.createSequentialGroup()
+                .addGroup(pn1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pn1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jScrollPane1)
+                        .addComponent(pnMenus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(pn1Layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(pnChat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Visão geral dos veículos", pn1);
+
+        tbReservasFuturas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Data Reserva", "Veículo", "Tipo", "Data Locação", "Data Devolução", "Nome Cliente"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, true, true, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tbReservasFuturas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                tbReservasFuturasMouseEntered(evt);
+            }
+        });
+        jScrollPane5.setViewportView(tbReservasFuturas);
+
+        javax.swing.GroupLayout pn2Layout = new javax.swing.GroupLayout(pn2);
+        pn2.setLayout(pn2Layout);
+        pn2Layout.setHorizontalGroup(
+            pn2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pn2Layout.createSequentialGroup()
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 946, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 204, Short.MAX_VALUE))
+        );
+        pn2Layout.setVerticalGroup(
+            pn2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pn2Layout.createSequentialGroup()
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
+        jTabbedPane1.addTab("Reservas Futuras", pn2);
+
+        javax.swing.GroupLayout pnGeralLayout = new javax.swing.GroupLayout(pnGeral);
+        pnGeral.setLayout(pnGeralLayout);
+        pnGeralLayout.setHorizontalGroup(
+            pnGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1210, Short.MAX_VALUE)
+            .addGroup(pnGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnGeralLayout.createSequentialGroup()
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 55, Short.MAX_VALUE)))
+        );
+        pnGeralLayout.setVerticalGroup(
+            pnGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 730, Short.MAX_VALUE)
+            .addGroup(pnGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 730, Short.MAX_VALUE))
+        );
+
         dp.add(pnGeral);
-        pnGeral.setBounds(0, 0, 1470, 750);
+        pnGeral.setBounds(0, 0, 1210, 730);
 
         jMenu1.setText("Arquivo");
 
@@ -775,7 +837,9 @@ public class FormPrincipal extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(dp, javax.swing.GroupLayout.PREFERRED_SIZE, 720, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(dp, javax.swing.GroupLayout.PREFERRED_SIZE, 720, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         pack();
@@ -1080,6 +1144,10 @@ public class FormPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItem10ActionPerformed
 
+    private void tbReservasFuturasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbReservasFuturasMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tbReservasFuturasMouseEntered
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAbrirChat;
@@ -1123,6 +1191,8 @@ public class FormPrincipal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel lbDisponiveis;
     private javax.swing.JLabel lbLocados;
     private javax.swing.JLabel lbManutencao;
@@ -1134,6 +1204,8 @@ public class FormPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem miTipoContato;
     private javax.swing.JMenuItem miTipoVeiculo;
     private javax.swing.JMenuItem miUsuarios;
+    private javax.swing.JPanel pn1;
+    private javax.swing.JPanel pn2;
     private javax.swing.JPanel pnChat;
     private javax.swing.JPanel pnConectar;
     private javax.swing.JPanel pnConversa;
@@ -1143,6 +1215,7 @@ public class FormPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel pnTotais;
     private javax.swing.JTextArea taEnvia;
     private javax.swing.JTextArea taRecebe;
+    private javax.swing.JTable tbReservasFuturas;
     private javax.swing.JTable tbVeiculos;
     private javax.swing.JTextField tfNome;
     // End of variables declaration//GEN-END:variables
