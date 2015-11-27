@@ -502,45 +502,49 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btPVendedorActionPerformed
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
+
         if (tfNomeCliente.getText().trim().length() > 0 && tfDescricaoVeiculo.getText().trim().length() > 0
                 && dcDataLocacao.getDate() != null && tfVendedor.getText().trim().length() > 0
                 && dcDataDevolucao.getDate() != null && dcDataLocacao.getDate() != null) {
+            if (Utility.confereDataLocacao(dcDataLocacao.getDate(), dcDataDevolucao.getDate(), codveiculo)) {
 
-            Reserva reserva = new Reserva();
+                Reserva reserva = new Reserva();
 
-            Object[] objectc;
-            objectc = (Object[]) Popula.retornaDadosPessoas(codCliente);
-            List<Cliente> lc = (List<Cliente>) objectc[3];
-            for (Cliente linc : lc) {
-                Cliente c = linc;
-                reserva.setCliente(c);
+                Object[] objectc;
+                objectc = (Object[]) Popula.retornaDadosPessoas(codCliente);
+                List<Cliente> lc = (List<Cliente>) objectc[3];
+                for (Cliente linc : lc) {
+                    Cliente c = linc;
+                    reserva.setCliente(c);
+                }
+
+                Object[] objectf;
+                objectf = (Object[]) Popula.retornaDadosPessoas(codFunc);
+                List<Funcionario> lf = (List<Funcionario>) objectf[4];
+                for (Funcionario linf : lf) {
+                    Funcionario f = linf;
+                    reserva.setFuncionario(f);
+                }
+
+                reserva.setIdreserva(codReserva);
+                reserva.setDtReserva(Formatacao.converteDataParaDataAMD(dcDataReserva.getDate()));
+                reserva.setDtLocacao(Formatacao.converteDataParaDataAMD(dcDataLocacao.getDate()));
+                reserva.setDtDevolucao(Formatacao.converteDataParaDataAMD(dcDataDevolucao.getDate()));
+
+                Object[] object;
+                object = (Object[]) Popula.retornaVeiculo(codveiculo);
+                List<Veiculo> l = (List<Veiculo>) object[0];
+                for (Veiculo lin : l) {
+                    Veiculo v = lin;
+                    v = Popula.alteraStatusVeiculo("reservado", v);
+                    reserva.setVeiculo(v);
+                }
+
+                DAO.salvarReserva(reserva);
+                habilitaCampos(false);
+            } else {
+                JOptionPane.showMessageDialog(null, "Carro já reservado para ser locado nesta data!");
             }
-
-            Object[] objectf;
-            objectf = (Object[]) Popula.retornaDadosPessoas(codFunc);
-            List<Funcionario> lf = (List<Funcionario>) objectf[4];
-            for (Funcionario linf : lf) {
-                Funcionario f = linf;
-                reserva.setFuncionario(f);
-            }
-
-            reserva.setIdreserva(codReserva);
-            reserva.setDtReserva(Formatacao.converteDataParaDataAMD(dcDataReserva.getDate()));
-            reserva.setDtLocacao(Formatacao.converteDataParaDataAMD(dcDataLocacao.getDate()));
-            reserva.setDtDevolucao(Formatacao.converteDataParaDataAMD(dcDataDevolucao.getDate()));
-
-            Object[] object;
-            object = (Object[]) Popula.retornaVeiculo(codveiculo);
-            List<Veiculo> l = (List<Veiculo>) object[0];
-            for (Veiculo lin : l) {
-                Veiculo v = lin;
-                v = Popula.alteraStatusVeiculo("reservado", v);
-                reserva.setVeiculo(v);
-            }
-
-            DAO.salvarReserva(reserva);
-            habilitaCampos(false);
-
         } else {
             JOptionPane.showMessageDialog(null, "Preencha os campos obrigatórios!");
         }

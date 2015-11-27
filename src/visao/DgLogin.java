@@ -49,7 +49,7 @@ public class DgLogin extends javax.swing.JDialog {
             }
         }
 
-        sessao.getTransaction().commit();
+        t.commit();
         return ok;
     }
 

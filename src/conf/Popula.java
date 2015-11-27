@@ -30,6 +30,7 @@ import entidade.Veiculo;
 import entidade.Veiculosstatus;
 import entidade.Veiculostipoestatus;
 import entidade.Veiculostipoestatusreserva;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import javax.swing.JTable;
@@ -75,7 +76,7 @@ public class Popula {
             });
 
         }
-        sessao.getTransaction().commit();
+        t.commit();
         return dadosVeiculos;
 
     }
@@ -86,17 +87,18 @@ public class Popula {
         tabelaModelo.setNumRows(0);
 
         Session sessao = null;
-
-        sessao = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = sessao.beginTransaction();
-        criterio = criterio.toLowerCase();
-        Query query = (Query) sessao.createQuery(" FROM Contatopessoas c WHERE"
-                //+ " (lower(c.nomepessoa) LIKE '%" + criterio + "%'"
-                //+ " OR lower(c.descricaotipocontato) LIKE '%" + criterio + "%'"
-                //+ " OR lower(c.descricaocontato) LIKE '%" + criterio + "%')"
-                //+ " AND "
-                + " c.idpessoa = " + cod + "");
-        List<Contatopessoas> dadosContatos = (List<Contatopessoas>) query.list();
+        List<Contatopessoas> dadosContatos = new ArrayList<Contatopessoas>();
+        try {
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            Transaction t = sessao.beginTransaction();
+            criterio = criterio.toLowerCase();
+            Query query = (Query) sessao.createQuery(" FROM Contatopessoas c WHERE"
+                    //+ " (lower(c.nomepessoa) LIKE '%" + criterio + "%'"
+                    //+ " OR lower(c.descricaotipocontato) LIKE '%" + criterio + "%'"
+                    //+ " OR lower(c.descricaocontato) LIKE '%" + criterio + "%')"
+                    //+ " AND "
+                    + " c.idpessoa = " + cod + "");
+            dadosContatos = (List<Contatopessoas>) query.list();
 
 //        Iterator qr = sessao.createQuery("SELECT c.idcontato, c.descricao, t.descricao,"
 //                + "  p.nome  FROM Contato c, Tipocontato t, Pessoa p WHERE ("
@@ -113,17 +115,20 @@ public class Popula {
 //                tuple[3]
 //            });
 //        }
-        for (Contatopessoas lin : dadosContatos) {
-            tabelaModelo.addRow(new Object[]{
-                lin.getIdcontato(),
-                lin.getDescricaocontato(),
-                lin.getDescricaotipocontato(),
-                lin.getNomepessoa()
-            });
+            for (Contatopessoas lin : dadosContatos) {
+                tabelaModelo.addRow(new Object[]{
+                    lin.getIdcontato(),
+                    lin.getDescricaocontato(),
+                    lin.getDescricaotipocontato(),
+                    lin.getNomepessoa()
+                });
+            }
+            t.commit();
+            return dadosContatos;
+        } catch (HibernateException he) {
+            System.out.println("Erro popularTabelaContatos: \n" + he);
         }
-        sessao.getTransaction().commit();
         return dadosContatos;
-
     }
 
     public static Veiculo alteraStatusVeiculo(String descricao, Veiculo v) {
@@ -138,7 +143,7 @@ public class Popula {
                     + " lower(s.descricao) LIKE '%" + descricao + "%')"
             );
             List<Statusveiculo> dadosStatus = (List<Statusveiculo>) queryRetornaStatus.list();
-            sessao.getTransaction().commit();
+            t.commit();
 
             t = sessao.beginTransaction();
             int idStatusVeiculo = 0;
@@ -153,7 +158,7 @@ public class Popula {
                     + " WHERE descricao = '" + descVeiculo + "'");
             int updatedEntities = sessao.createQuery(hqlUpdate).executeUpdate();
 
-            sessao.getTransaction().commit();
+            t.commit();
             sessao.close();
         } catch (HibernateException he) {
             he.printStackTrace();
@@ -188,7 +193,7 @@ public class Popula {
                 lin.getDescricaoTipoVeiculo()});
 
         };
-        sessao.getTransaction().commit();
+        t.commit();
         return dadosLocacao;
     }
 
@@ -227,7 +232,7 @@ public class Popula {
             });
 
         }
-        sessao.getTransaction().commit();
+        t.commit();
         return dadosManut;
     }
 
@@ -267,7 +272,7 @@ public class Popula {
             });
 
         }
-        sessao.getTransaction().commit();
+        t.commit();
         return dadosManut;
     }
 
@@ -300,7 +305,7 @@ public class Popula {
             });
 
         }
-        sessao.getTransaction().commit();
+        t.commit();
 
     }
 
@@ -333,7 +338,7 @@ public class Popula {
             });
 
         }
-        sessao.getTransaction().commit();
+        t.commit();
         return dadosFunc;
     }
 
@@ -367,7 +372,7 @@ public class Popula {
 
         }
 
-        sessao.getTransaction().commit();
+        t.commit();
         return dadosFornecedor;
     }
 
@@ -396,7 +401,7 @@ public class Popula {
         List<Cliente> dadosCliente = (List<Cliente>) queryRetornaCliente.list();
         List<Funcionario> dadosFunc = (List<Funcionario>) queryRetornaFunc.list();
         List<Contatopessoas> dadosContatos = (List<Contatopessoas>) queryRetornaContatos.list();
-        sessao.getTransaction().commit();
+        t.commit();
         object[0] = dadosPesJur;
         object[1] = dadosPes;
         object[2] = dadosPesFis;
@@ -418,7 +423,7 @@ public class Popula {
 
         List<Veiculo> dadosVeiculo = (List<Veiculo>) queryRetornaVeiculo.list();
 
-        sessao.getTransaction().commit();
+        t.commit();
         object[0] = dadosVeiculo;
 
         return object;
@@ -435,7 +440,7 @@ public class Popula {
 
         List<Veiculo> dadosContato = (List<Veiculo>) queryRetornaVeiculo.list();
 
-        sessao.getTransaction().commit();
+        t.commit();
         object[0] = dadosContato;
 
         return object;
@@ -452,7 +457,7 @@ public class Popula {
 
         List<Reserva> dadosReserva = (List<Reserva>) queryRetornaReserva.list();
 
-        sessao.getTransaction().commit();
+        t.commit();
         object[0] = dadosReserva;
 
         return object;
@@ -469,7 +474,7 @@ public class Popula {
 
         List<Locacao> dadosLocacao = (List<Locacao>) queryRetornaLocacao.list();
 
-        sessao.getTransaction().commit();
+        t.commit();
         object[0] = dadosLocacao;
 
         return object;
@@ -486,7 +491,7 @@ public class Popula {
 
         List<Cidade> dadosCidade = (List<Cidade>) queryRetornaCidade.list();
 
-        sessao.getTransaction().commit();
+        t.commit();
         object[0] = dadosCidade;
 
         return object;
@@ -542,7 +547,7 @@ public class Popula {
             });
 
         }
-        sessao.getTransaction().commit();
+        t.commit();
         return dadosDocumento;
     }
 
@@ -574,7 +579,7 @@ public class Popula {
                 lin.getDescricaocidade()});
 
         }
-        sessao.getTransaction().commit();
+        t.commit();
         return dadosClientes;
     }
 
@@ -605,7 +610,7 @@ public class Popula {
                 lin.getIdfuncao()});
 
         }
-        sessao.getTransaction().commit();
+        t.commit();
 
     }
 
@@ -632,7 +637,7 @@ public class Popula {
             });
 
         }
-        sessao.getTransaction().commit();
+        t.commit();
         return dadosTipoContato;
     }
 
@@ -664,7 +669,7 @@ public class Popula {
             });
 
         }
-        sessao.getTransaction().commit();
+        t.commit();
         return dadosTipoVeiculo;
     }
 
@@ -688,7 +693,7 @@ public class Popula {
                     v.getDescricaoStatus(),});
             }
 
-            sessao.getTransaction().commit();
+            t.commit();
         } catch (HibernateException he) {
             he.printStackTrace();
             System.out.println("Erro popular = " + he);
@@ -722,7 +727,7 @@ public class Popula {
                     v.getNomecliente(),});
             }
 
-            sessao.getTransaction().commit();
+            t.commit();
         } catch (HibernateException he) {
             he.printStackTrace();
             System.out.println("Erro popular = " + he);
@@ -757,7 +762,7 @@ public class Popula {
             });
 
         }
-        sessao.getTransaction().commit();
+        t.commit();
         return dadosStatusVeiculo;
     }
 
@@ -784,7 +789,7 @@ public class Popula {
             });
 
         }
-        sessao.getTransaction().commit();
+        t.commit();
         return dadosFuncao;
     }
 
@@ -817,7 +822,7 @@ public class Popula {
             });
 
         }
-        sessao.getTransaction().commit();
+        t.commit();
         return dadosCidade;
     }
 }

@@ -60,7 +60,7 @@ public class DAO {
 
                 sessao.update(veiculo);
 
-                sessao.getTransaction().commit();
+                t.commit();
 
             } catch (HibernateException he) {
                 he.printStackTrace();
@@ -86,6 +86,7 @@ public class DAO {
                 sessao.save(contato);
                 t.commit();
             } catch (HibernateException he) {
+                he.printStackTrace();
                 System.out.println("Erro salvar Contato: \n" + he);
             }
 
@@ -97,7 +98,7 @@ public class DAO {
 
                 sessao.update(contato);
 
-                sessao.getTransaction().commit();
+                t.commit();
 
             } catch (HibernateException he) {
                 he.printStackTrace();
@@ -135,7 +136,7 @@ public class DAO {
 
                 sessao.update(cancel);
 
-                sessao.getTransaction().commit();
+                t.commit();
 
             } catch (HibernateException he) {
                 he.printStackTrace();
@@ -172,7 +173,7 @@ public class DAO {
 
                 sessao.update(devolucao);
 
-                sessao.getTransaction().commit();
+                t.commit();
 
             } catch (HibernateException he) {
                 he.printStackTrace();
@@ -209,7 +210,7 @@ public class DAO {
 
                 sessao.update(manut);
 
-                sessao.getTransaction().commit();
+                t.commit();
 
             } catch (HibernateException he) {
                 he.printStackTrace();
@@ -246,7 +247,7 @@ public class DAO {
 
                 sessao.update(cidade);
 
-                sessao.getTransaction().commit();
+                t.commit();
 
             } catch (HibernateException he) {
                 he.printStackTrace();
@@ -283,7 +284,7 @@ public class DAO {
 
                 sessao.update(endereco);
 
-                sessao.getTransaction().commit();
+                t.commit();
 
             } catch (HibernateException he) {
                 he.printStackTrace();
@@ -320,7 +321,7 @@ public class DAO {
 
                 sessao.update(reserva);
 
-                sessao.getTransaction().commit();
+                t.commit();
 
             } catch (HibernateException he) {
                 he.printStackTrace();
@@ -357,7 +358,7 @@ public class DAO {
 
                 sessao.update(locacao);
 
-                sessao.getTransaction().commit();
+                t.commit();
 
             } catch (HibernateException he) {
                 he.printStackTrace();
@@ -395,7 +396,7 @@ public class DAO {
 
                 sessao.update(funcionario);
 
-                sessao.getTransaction().commit();
+                t.commit();
 
             } catch (HibernateException he) {
                 he.printStackTrace();
@@ -433,7 +434,7 @@ public class DAO {
 
                 sessao.update(pessoa);
 
-                sessao.getTransaction().commit();
+                t.commit();
 
             } catch (HibernateException he) {
                 he.printStackTrace();
@@ -471,7 +472,7 @@ public class DAO {
 
                 sessao.update(cliente);
 
-                sessao.getTransaction().commit();
+                t.commit();
 
             } catch (HibernateException he) {
                 he.printStackTrace();
@@ -509,7 +510,7 @@ public class DAO {
 
                 sessao.update(pf);
 
-                sessao.getTransaction().commit();
+                t.commit();
 
             } catch (HibernateException he) {
                 he.printStackTrace();
@@ -547,7 +548,7 @@ public class DAO {
 
                 sessao.update(pj);
 
-                sessao.getTransaction().commit();
+                t.commit();
 
             } catch (HibernateException he) {
                 he.printStackTrace();
@@ -584,7 +585,7 @@ public class DAO {
 
                 sessao.update(tipoVeiculo);
 
-                sessao.getTransaction().commit();
+                t.commit();
 
             } catch (HibernateException he) {
                 he.printStackTrace();
@@ -621,7 +622,7 @@ public class DAO {
 
                 sessao.update(tipoContato);
 
-                sessao.getTransaction().commit();
+                t.commit();
 
             } catch (HibernateException he) {
                 he.printStackTrace();
@@ -658,7 +659,7 @@ public class DAO {
 
                 sessao.update(statusVeiculo);
 
-                sessao.getTransaction().commit();
+                t.commit();
 
             } catch (HibernateException he) {
                 he.printStackTrace();
@@ -696,7 +697,7 @@ public class DAO {
 
                 sessao.update(documentos);
 
-                sessao.getTransaction().commit();
+                t.commit();
 
             } catch (HibernateException he) {
                 he.printStackTrace();
@@ -733,7 +734,7 @@ public class DAO {
 
                 sessao.update(funcao);
 
-                sessao.getTransaction().commit();
+                t.commit();
 
             } catch (HibernateException he) {
                 he.printStackTrace();
@@ -757,7 +758,7 @@ public class DAO {
 
             int deleteEntities = sessao.createQuery(hqlDelete).executeUpdate();
 
-            sessao.getTransaction().commit();
+            t.commit();
             retorno = true;
         } catch (HibernateException he) {
             he.printStackTrace();
@@ -779,7 +780,7 @@ public class DAO {
 
             int deleteEntities = sessao.createQuery(hqlDelete).executeUpdate();
 
-            sessao.getTransaction().commit();
+            t.commit();
             retorno = true;
         } catch (HibernateException he) {
             he.printStackTrace();
@@ -802,7 +803,7 @@ public class DAO {
 
             int deleteEntities = sessao.createQuery(hqlDelete).executeUpdate();
 
-            sessao.getTransaction().commit();
+            t.commit();
             retorno = true;
         } catch (HibernateException he) {
             he.printStackTrace();
@@ -825,7 +826,7 @@ public class DAO {
 
             int deleteEntities = sessao.createQuery(hqlDelete).executeUpdate();
 
-            sessao.getTransaction().commit();
+            t.commit();
             retorno = true;
         } catch (HibernateException he) {
             he.printStackTrace();
@@ -848,7 +849,7 @@ public class DAO {
 
             int deleteEntities = sessao.createQuery(hqlDelete).executeUpdate();
 
-            sessao.getTransaction().commit();
+            t.commit();
             retorno = true;
         } catch (HibernateException he) {
             he.printStackTrace();
@@ -871,7 +872,7 @@ public class DAO {
 
             int deleteEntities = sessao.createQuery(hqlDelete).executeUpdate();
 
-            sessao.getTransaction().commit();
+            t.commit();
             retorno = true;
         } catch (HibernateException he) {
             he.printStackTrace();
@@ -894,7 +895,7 @@ public class DAO {
 
             int deleteEntities = sessao.createQuery(hqlDelete).executeUpdate();
 
-            sessao.getTransaction().commit();
+            t.commit();
             retorno = true;
         } catch (HibernateException he) {
             he.printStackTrace();
@@ -917,7 +918,7 @@ public class DAO {
 
             int deleteEntities = sessao.createQuery(hqlDelete).executeUpdate();
 
-            sessao.getTransaction().commit();
+            t.commit();
             retorno = true;
         } catch (HibernateException he) {
             he.printStackTrace();
@@ -950,7 +951,7 @@ public class DAO {
             deleteEntities = sessao.createQuery(hqlDeleteE).executeUpdate();
             // deleteEntities = sessao.createQuery(hqlDeleteC).executeUpdate();
 
-            sessao.getTransaction().commit();
+            t.commit();
             retorno = true;
         } catch (HibernateException he) {
             he.printStackTrace();
