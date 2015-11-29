@@ -227,9 +227,15 @@ public class Utility {
 
             int retornadoDaProcedure = 0;
             int retornadoDaProcedure2 = 0;
-//            retornadoDaProcedure = (int) resultados.get(0);
-  //          retornadoDaProcedure2 = (int) resultados2.get(0);
-            if (retornadoDaProcedure > 0 || retornadoDaProcedure2 > 0) {
+            if (resultados.toString().equals("[null]") == false) {
+                retornadoDaProcedure = (int) resultados.get(0);
+            }
+            
+            if (resultados2.toString().equals("[null]") == false) {
+                retornadoDaProcedure2 = (int) resultados2.get(0);        
+            }
+
+            if (retornadoDaProcedure > 0 || retornadoDaProcedure2 > 0) { //existe retorno na query
                 return ok = false;
             } else {
                 return ok = true;
@@ -242,7 +248,6 @@ public class Utility {
             sessao.close();
 
         }
-
     }
 
 }

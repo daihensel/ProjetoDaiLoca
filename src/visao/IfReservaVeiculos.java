@@ -536,7 +536,7 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
                 List<Veiculo> l = (List<Veiculo>) object[0];
                 for (Veiculo lin : l) {
                     Veiculo v = lin;
-                    v = Popula.alteraStatusVeiculo("reservado", v);
+                    v = Popula.alteraStatusVeiculo("disponível", v);
                     reserva.setVeiculo(v);
                 }
 
