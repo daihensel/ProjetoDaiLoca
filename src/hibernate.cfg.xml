@@ -2,6 +2,7 @@
 <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
+        
         <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
         <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/ProjetoDaiLoca</property>
@@ -42,5 +43,16 @@
         <mapping class="entidade.Populartabelalocacao"/>
         <mapping class="entidade.Veiculostipoestatusreserva"/>
         <mapping class="entidade.Cancelamento"/>
+        
+        
+        <!--  Configuração Hibernate Envers  -->
+		<listener class="org.hibernate.envers.event.AuditEventListener" type="post-insert"/>   
+		<listener class="org.hibernate.envers.event.AuditEventListener" type="post-update"/>   
+		<listener class="org.hibernate.envers.event.AuditEventListener" type="post-delete"/>   
+		<listener class="org.hibernate.envers.event.AuditEventListener" type="pre-collection-update"/>   
+		<listener class="org.hibernate.envers.event.AuditEventListener" type="pre-collection-remove"/>   
+		<listener class="org.hibernate.envers.event.AuditEventListener" type="post-collection-recreate"/>
+        
+        
     </session-factory>
 </hibernate-configuration>
