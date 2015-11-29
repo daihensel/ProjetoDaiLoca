@@ -21,7 +21,7 @@ import javax.persistence.Table;
 
 
 @Entity
-
+//@Audited
 @Table(name = "cidade", schema = "public")
 public class Cidade implements java.io.Serializable {
     
