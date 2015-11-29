@@ -24,6 +24,7 @@ import entidade.Statusveiculo;
 import entidade.Tipocontato;
 import entidade.Tipoveiculo;
 import entidade.Veiculo;
+import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -34,6 +35,8 @@ import org.hibernate.Transaction;
  * @author Daiane
  */
 public class DAO {
+    
+    private static org.apache.log4j.Logger logger = Logger.getLogger(DAO.class.getName());
 
     public static String salvarVeiculo(Veiculo veiculo) {
         Session sessao = null;
@@ -50,6 +53,7 @@ public class DAO {
                 t.commit();
             } catch (HibernateException he) {
                 System.out.println("Erro salvar Veículo: \n" + he);
+                logger.error("erro ao salvar veiculo" + he);
             }
 
         } else { //update
@@ -88,6 +92,7 @@ public class DAO {
             } catch (HibernateException he) {
                 he.printStackTrace();
                 System.out.println("Erro salvar Contato: \n" + he);
+                logger.error("Erro salvar Contato: \n" + he);
             }
 
         } else { //update
@@ -103,6 +108,7 @@ public class DAO {
             } catch (HibernateException he) {
                 he.printStackTrace();
                 System.out.println("Erro atualizar Contato = " + he);
+                logger.error("Erro atualizar Contato = " + he);
 
             }
 
@@ -126,6 +132,7 @@ public class DAO {
                 t.commit();
             } catch (HibernateException he) {
                 System.out.println("Erro salvar Cancelamento: \n" + he);
+                logger.error("Erro salvar Cancelamento: \n" + he);
             }
 
         } else { //update
@@ -141,6 +148,7 @@ public class DAO {
             } catch (HibernateException he) {
                 he.printStackTrace();
                 System.out.println("Erro atualizar Cancelamento = " + he);
+                logger.error("Erro atualizar Cancelamento = " + he);
 
             }
 
@@ -163,6 +171,7 @@ public class DAO {
                 t.commit();
             } catch (HibernateException he) {
                 System.out.println("Erro salvar Devolução: \n" + he);
+                logger.error("Erro ao salvar devolução");
             }
 
         } else { //update
@@ -200,6 +209,7 @@ public class DAO {
                 t.commit();
             } catch (HibernateException he) {
                 System.out.println("Erro salvar Manutenção: \n" + he);
+                logger.error("Erro ao salvar manutenção");
             }
 
         } else { //update
@@ -215,6 +225,7 @@ public class DAO {
             } catch (HibernateException he) {
                 he.printStackTrace();
                 System.out.println("Erro atualizar Manutenção = " + he);
+                logger.error("erro ao atualizar manutenção");
 
             }
 
@@ -237,6 +248,7 @@ public class DAO {
                 t.commit();
             } catch (HibernateException he) {
                 System.out.println("Erro salvar Cidade: \n" + he);
+                logger.error("Erro salvar Cidade: \n" + he);
             }
 
         } else { //update
@@ -252,6 +264,7 @@ public class DAO {
             } catch (HibernateException he) {
                 he.printStackTrace();
                 System.out.println("Erro atualizar Cidade = " + he);
+                logger.error("Erro atualizar Cidade = " + he);
 
             }
 
@@ -274,6 +287,7 @@ public class DAO {
                 t.commit();
             } catch (HibernateException he) {
                 System.out.println("Erro salvar Endereco: \n" + he);
+                logger.error("Erro salvar Endereco: \n" + he);
             }
 
         } else { //update
@@ -289,7 +303,7 @@ public class DAO {
             } catch (HibernateException he) {
                 he.printStackTrace();
                 System.out.println("Erro atualizar Endereco = " + he);
-
+                logger.error("Erro atualizar Endereco = " + he);
             }
 
         }
@@ -311,6 +325,7 @@ public class DAO {
                 t.commit();
             } catch (HibernateException he) {
                 System.out.println("Erro salvar Reserva: \n" + he);
+                logger.error("Erro salvar Reserva" + he);
             }
 
         } else { //update
@@ -326,6 +341,7 @@ public class DAO {
             } catch (HibernateException he) {
                 he.printStackTrace();
                 System.out.println("Erro atualizar Reserva = " + he);
+                logger.error("Erro atualizar Reserva = " + he);
 
             }
 
@@ -348,6 +364,7 @@ public class DAO {
                 t.commit();
             } catch (HibernateException he) {
                 System.out.println("Erro salvar Locação: \n" + he);
+                logger.error("Erro salvar Locação: \n" + he);
             }
 
         } else { //update
@@ -363,6 +380,7 @@ public class DAO {
             } catch (HibernateException he) {
                 he.printStackTrace();
                 System.out.println("Erro atualizar Locação = " + he);
+                logger.error("Erro atualizar Locação = " + he);
 
             }
 
@@ -385,6 +403,8 @@ public class DAO {
                 t.commit();
             } catch (HibernateException he) {
                 System.out.println("Erro salvar Funcionario: \n" + he);
+                logger.error("Erro salvar Funcionario: \n" + he);
+                
 
             }
 
@@ -401,6 +421,7 @@ public class DAO {
             } catch (HibernateException he) {
                 he.printStackTrace();
                 System.out.println("Erro atualizar Funcionario = " + he);
+                logger.error("Erro atualizar Funcionario = " + he);
 
             }
 
@@ -423,6 +444,7 @@ public class DAO {
                 t.commit();
             } catch (HibernateException he) {
                 System.out.println("Erro salvar Pessoa: \n" + he);
+                logger.error("Erro salvar Pessoa: \n" + he);
 
             }
 
@@ -439,6 +461,7 @@ public class DAO {
             } catch (HibernateException he) {
                 he.printStackTrace();
                 System.out.println("Erro atualizar Pessoa = " + he);
+                logger.error("Erro atualizar Pessoa = " + he);
 
             }
 
@@ -461,6 +484,7 @@ public class DAO {
                 t.commit();
             } catch (HibernateException he) {
                 System.out.println("Erro salvar Cliente: \n" + he);
+                logger.error("Erro salvar Cliente: \n" + he);
 
             }
 
@@ -477,6 +501,7 @@ public class DAO {
             } catch (HibernateException he) {
                 he.printStackTrace();
                 System.out.println("Erro atualizar Cliente = " + he);
+                logger.error("Erro atualizar Cliente = " + he);
 
             }
 
@@ -499,6 +524,7 @@ public class DAO {
                 t.commit();
             } catch (HibernateException he) {
                 System.out.println("Erro salvar Pessoa física: \n" + he);
+                logger.error("Erro salvar Pessoa física: \n" + he);
 
             }
 
@@ -515,6 +541,7 @@ public class DAO {
             } catch (HibernateException he) {
                 he.printStackTrace();
                 System.out.println("Erro atualizar Pessoa física = " + he);
+                logger.error("Erro atualizar Pessoa física = " + he);
 
             }
 
@@ -537,6 +564,7 @@ public class DAO {
                 t.commit();
             } catch (HibernateException he) {
                 System.out.println("Erro salvar Pessoa jurídica: \n" + he);
+                logger.error("Erro salvar Pessoa jurídica: \n" + he);
 
             }
 
@@ -553,7 +581,7 @@ public class DAO {
             } catch (HibernateException he) {
                 he.printStackTrace();
                 System.out.println("Erro atualizar Pessoa jurídica = " + he);
-
+                logger.error("Erro atualizar Pessoa jurídica = " + he);
             }
 
         }
@@ -575,6 +603,7 @@ public class DAO {
                 t.commit();
             } catch (HibernateException he) {
                 System.out.println("Erro salvar Tipoveículo: \n" + he);
+                logger.error("Erro salvar Tipoveículo: \n" + he);
             }
 
         } else { //update
@@ -590,6 +619,7 @@ public class DAO {
             } catch (HibernateException he) {
                 he.printStackTrace();
                 System.out.println("Erro atualizar TipoVeiculo = " + he);
+                logger.error("Erro atualizar TipoVeiculo = " + he);
 
             }
 
@@ -612,6 +642,7 @@ public class DAO {
                 t.commit();
             } catch (HibernateException he) {
                 System.out.println("Erro salvar Tipocontato: \n" + he);
+                logger.error("Erro salvar Tipocontato: \n" + he);
             }
 
         } else { //update
@@ -627,6 +658,7 @@ public class DAO {
             } catch (HibernateException he) {
                 he.printStackTrace();
                 System.out.println("Erro atualizar Tipocontato = " + he);
+                logger.error("Erro atualizar Tipocontato = " + he);
 
             }
 
@@ -649,6 +681,7 @@ public class DAO {
                 t.commit();
             } catch (HibernateException he) {
                 System.out.println("Erro salvar Status: \n" + he);
+                logger.error("Erro salvar Status: \n" + he);
             }
 
         } else { //update
@@ -664,6 +697,8 @@ public class DAO {
             } catch (HibernateException he) {
                 he.printStackTrace();
                 System.out.println("Erro atualizar Status Veiculo = " + he);
+                logger.error("Erro atualizar Status Veiculo = " + he);
+                
 
             }
 
@@ -687,6 +722,7 @@ public class DAO {
             } catch (HibernateException he) {
                 he.printStackTrace();
                 System.out.println("Erro ao salvar Documentos: \n" + he);
+                logger.error("Erro ao salvar Documentos: \n" + he);
             }
 
         } else { //update
@@ -702,6 +738,7 @@ public class DAO {
             } catch (HibernateException he) {
                 he.printStackTrace();
                 System.out.println("Erro atualizar Documento = " + he);
+                logger.error("Erro atualizar Documento = " + he);
 
             }
 
@@ -724,6 +761,7 @@ public class DAO {
                 t.commit();
             } catch (HibernateException he) {
                 System.out.println("Erro salvar Funcao: \n" + he);
+                logger.error("Erro salvar Funcao: \n" + he);
             }
 
         } else { //update
@@ -763,6 +801,7 @@ public class DAO {
         } catch (HibernateException he) {
             he.printStackTrace();
             System.out.println("Erro ao excluir = " + he);
+            logger.error("Erro ao excluir = " + he);
             retorno = false;
         }
         return retorno;
@@ -785,6 +824,7 @@ public class DAO {
         } catch (HibernateException he) {
             he.printStackTrace();
             System.out.println("Erro ao excluir = " + he);
+            logger.error("Erro ao excluir = " + he);
             retorno = false;
 
         }
@@ -808,6 +848,7 @@ public class DAO {
         } catch (HibernateException he) {
             he.printStackTrace();
             System.out.println("Erro ao excluir = " + he);
+            logger.error("Erro ao excluir = " + he);
             retorno = false;
 
         }
@@ -831,6 +872,7 @@ public class DAO {
         } catch (HibernateException he) {
             he.printStackTrace();
             System.out.println("Erro ao excluir = " + he);
+            logger.error("Erro ao excluir documento = " + he);
             retorno = false;
 
         }
@@ -853,7 +895,8 @@ public class DAO {
             retorno = true;
         } catch (HibernateException he) {
             he.printStackTrace();
-            System.out.println("Erro ao excluir = " + he);
+            System.out.println("Erro ao excluir permissão = " + he);
+            logger.error("Erro ao excluir permissão = " + he);
             retorno = false;
 
         }
@@ -877,6 +920,7 @@ public class DAO {
         } catch (HibernateException he) {
             he.printStackTrace();
             System.out.println("Erro ao excluir = " + he);
+            logger.error("Erro ao excluir funcao= " + he);
             retorno = false;
 
         }
@@ -900,6 +944,7 @@ public class DAO {
         } catch (HibernateException he) {
             he.printStackTrace();
             System.out.println("Erro ao excluir = " + he);
+            logger.error("Erro ao excluir Status= " + he);
             retorno = false;
 
         }
@@ -923,6 +968,7 @@ public class DAO {
         } catch (HibernateException he) {
             he.printStackTrace();
             System.out.println("Erro ao excluir = " + he);
+            logger.error("Erro ao excluir = " + he);
             retorno = false;
 
         }
@@ -956,6 +1002,7 @@ public class DAO {
         } catch (HibernateException he) {
             he.printStackTrace();
             System.out.println("Erro ao excluir = " + he);
+            logger.error("Erro ao excluir fornecedor= " + he);
             retorno = false;
 
         }
