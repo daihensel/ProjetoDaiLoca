@@ -1,10 +1,13 @@
 package conf;
 
+import java.sql.Time;
 import java.text.*;
 import java.util.Date;
 import java.util.Locale;
+import java.util.logging.Level;
 import javax.swing.*;
 import javax.swing.text.*;
+import visao.IfLocacao;
 
 /**
  *
@@ -39,7 +42,7 @@ public class Formatacao {
     }
 
     public static JFormattedTextField getHora() {
-        return getFormatado("##:##");
+        return getFormatado("##:##:##");
     }
 
     public static JFormattedTextField getCNPJ() {
@@ -61,6 +64,7 @@ public class Formatacao {
     public static JFormattedTextField getCEP() {
         return getFormatado("#####-###");
     }
+
     public static JFormattedTextField getIE() {
         return getFormatado("###/#######");
     }
@@ -120,7 +124,7 @@ public class Formatacao {
             System.err.println(e);
         }
     }
-    
+
     public static void reformatarCnpj(JFormattedTextField campo) {
         try {
             MaskFormatter m = new MaskFormatter();
@@ -197,6 +201,19 @@ public class Formatacao {
         return dataFormatada;
     }
 
+    public static Time converteParaTime(String str) throws ParseException {
+        Time time = null;
+        try {
+            SimpleDateFormat formatador = new SimpleDateFormat("HH:mm");
+            Date data = formatador.parse(str);
+            time = new Time(data.getTime());
+        } catch (ParseException ex) {
+            java.util.logging.Logger.getLogger(Formatacao.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+        return time;
+    }
+
     public static String removerFormatacao(String dado) {
         String retorno = "";
         for (int i = 0; i < dado.length(); i++) {
@@ -230,7 +247,7 @@ public class Formatacao {
 
         return dataHoje;
     }
-    
+
     public static Date converteDataParaDataAMD(Date mydata) {
 
         Date dataFormatada = null;
@@ -244,7 +261,5 @@ public class Formatacao {
 
         return dataFormatada;
     }
-    
-    
 
 }

@@ -506,7 +506,7 @@ public class IfReservaVeiculos extends javax.swing.JInternalFrame {
         if (tfNomeCliente.getText().trim().length() > 0 && tfDescricaoVeiculo.getText().trim().length() > 0
                 && dcDataLocacao.getDate() != null && tfVendedor.getText().trim().length() > 0
                 && dcDataDevolucao.getDate() != null && dcDataLocacao.getDate() != null) {
-            if (Utility.confereDataLocacao(dcDataLocacao.getDate(), dcDataDevolucao.getDate(), codveiculo)) {
+            if (Utility.confereDataReserva(dcDataLocacao.getDate(), dcDataDevolucao.getDate(), codveiculo)) {
 
                 Reserva reserva = new Reserva();
 

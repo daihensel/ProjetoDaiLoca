@@ -21,7 +21,7 @@
             <column name="veiculo_idveiculo" not-null="true" />
         </many-to-one>
         <property name="dtlocacao" type="date">
-            <column name="dtlocacao" length="13" not-null="true" />
+            <column name="dt_locacao" length="13" not-null="true" />
         </property>
         <property name="horaRetirada" type="time">
             <column name="hora_retirada" length="15" not-null="true" />

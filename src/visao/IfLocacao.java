@@ -21,9 +21,11 @@ import entidade.Reserva;
 import entidade.Veiculo;
 import entidade.Veiculosstatus;
 import java.math.BigDecimal;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
+import java.util.logging.Level;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import org.apache.log4j.Logger;
@@ -78,6 +80,7 @@ public class IfLocacao extends javax.swing.JInternalFrame {
         jpLocacao = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         tfHoraRetirada = new javax.swing.JTextField();
+        tfHoraRetirada = Formatacao.getHora();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         tfParcelas = new javax.swing.JTextField();
@@ -680,10 +683,13 @@ public class IfLocacao extends javax.swing.JInternalFrame {
                 Locacao locacao = new Locacao();
 
                 locacao.setIdlocacao(codLocacao);
-                locacao.setDtLocacao(Formatacao.converteParaDataAMD(tfDataLocacaoNaReserva.getText()));
-                // locacao.setHoraRetirada(Formatacao.converteParaDataAMD(tfHoraRetirada.getText()));
-                locacao.setHoraRetirada(Formatacao.converteParaDataAMD(tfDataLocacaoNaReserva.getText()));
-
+                locacao.setDtLocacao(Formatacao.converteDataParaDataAMD(dcDataLocacao.getDate()));
+                try {
+                    locacao.setHoraRetirada(Formatacao.converteParaTime(tfHoraRetirada.getText()));
+                } catch (ParseException ex) {
+                    java.util.logging.Logger.getLogger(IfLocacao.class.getName()).log(Level.SEVERE, null, ex);
+                }
+               
                 locacao.setDtDevolucao(Formatacao.converteDataParaDataAMD(dcDataDevolucao.getDate()));
 
                 //set Reserva
@@ -817,7 +823,7 @@ public class IfLocacao extends javax.swing.JInternalFrame {
             Locacao l = linl;
             dcDataLocacao.setDate(l.getDtLocacao());
             dcDataDevolucao.setDate(l.getDtDevolucao());
-            //  tfHoraRetirada.setText(Formatacao.ajustaDataDMA(String.valueOf(l.getHoraRetirada())));
+            tfHoraRetirada.setText(String.valueOf(l.getHoraRetirada()));
             tfValorTotal.setText(String.valueOf(l.getValorTotal()));
             tfParcelas.setText(String.valueOf(l.getParcelas()));
             tfVendedor.setText(l.getFuncionario().getPessoa().getNome());

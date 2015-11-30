@@ -192,7 +192,7 @@ public class Utility {
         return soma;
     }
 
-    public static boolean confereDataLocacao(Date dtlocacao, Date dtdevolucao, int idveiculo) {
+    public static boolean confereDataReserva(Date dtlocacao, Date dtdevolucao, int idveiculo) {
 
         boolean ok = false;
         Session sessao = null;
@@ -242,7 +242,7 @@ public class Utility {
             }
         } catch (HibernateException he) {
             he.printStackTrace();
-            System.out.println("Erro confereLocacao= " + he);
+            System.out.println("Erro confereLocacao e Reserva= " + he);
             return (ok = false);
         } finally {
             sessao.close();
@@ -250,4 +250,49 @@ public class Utility {
         }
     }
 
+     public static boolean confereDataLocacao(Date dtlocacao, Date dtdevolucao, int idveiculo) {
+
+        boolean ok = false;
+        Session sessao = null;
+        try {
+            List resultados = new ArrayList();
+            
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            Transaction t = sessao.beginTransaction();
+            String sql = "SELECT confereDataLocacao(:dtlocacao,:dtdevolucao,:idveiculo)";
+
+            try {
+                Query exQuery = sessao.createSQLQuery(sql);
+                exQuery.setParameter("dtlocacao", dtlocacao);
+                exQuery.setParameter("dtdevolucao", dtdevolucao);
+                exQuery.setParameter("idveiculo", idveiculo);
+                resultados = exQuery.list();
+
+            } catch (Exception e) {
+                System.err.println("" + e);
+            }
+           
+
+            int retornadoDaProcedure = 0;
+            if (resultados.toString().equals("[null]") == false) {
+                retornadoDaProcedure = (int) resultados.get(0);
+            }
+            
+
+            if (retornadoDaProcedure > 0) { //existe retorno na query
+                return ok = false;
+            } else {
+                return ok = true;
+            }
+        } catch (HibernateException he) {
+            he.printStackTrace();
+            System.out.println("Erro confereLocação= " + he);
+            return (ok = false);
+        } finally {
+            sessao.close();
+
+        }
+    }
+    
+    
 }
