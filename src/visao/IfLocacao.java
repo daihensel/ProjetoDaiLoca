@@ -675,60 +675,63 @@ public class IfLocacao extends javax.swing.JInternalFrame {
                 && tfHoraRetirada.getText().trim().length() > 0 && tfParcelas.getText().trim().length() > 0
                 && tfValorTotal.getText().trim().length() > 0 && tfVendedor.getText().trim().length() > 0
                 && dcDataDevolucao.getDate() != null && dcDataLocacao.getDate() != null) {
+            if (Utility.confereDataLocacao(dcDataLocacao.getDate(), dcDataDevolucao.getDate(), codVeiculo)) {
 
-            Locacao locacao = new Locacao();
+                Locacao locacao = new Locacao();
 
-            locacao.setIdlocacao(codLocacao);
-            locacao.setDtLocacao(Formatacao.converteParaDataAMD(tfDataLocacaoNaReserva.getText()));
-            // locacao.setHoraRetirada(Formatacao.converteParaDataAMD(tfHoraRetirada.getText()));
-            locacao.setHoraRetirada(Formatacao.converteParaDataAMD(tfDataLocacaoNaReserva.getText()));
+                locacao.setIdlocacao(codLocacao);
+                locacao.setDtLocacao(Formatacao.converteParaDataAMD(tfDataLocacaoNaReserva.getText()));
+                // locacao.setHoraRetirada(Formatacao.converteParaDataAMD(tfHoraRetirada.getText()));
+                locacao.setHoraRetirada(Formatacao.converteParaDataAMD(tfDataLocacaoNaReserva.getText()));
 
-            locacao.setDtDevolucao(Formatacao.converteDataParaDataAMD(dcDataDevolucao.getDate()));
+                locacao.setDtDevolucao(Formatacao.converteDataParaDataAMD(dcDataDevolucao.getDate()));
 
-            //set Reserva
-            if (tfDataLocacaoNaReserva.getText().trim().length() > 0) {
-                Object[] objectr;
-                objectr = (Object[]) Popula.retornaReserva(codReserva);
-                List<Reserva> rs = (List<Reserva>) objectr[0];
-                for (Reserva linr : rs) {
-                    Reserva r = linr;
-                    locacao.setReserva(r);
+                //set Reserva
+                if (tfDataLocacaoNaReserva.getText().trim().length() > 0) {
+                    Object[] objectr;
+                    objectr = (Object[]) Popula.retornaReserva(codReserva);
+                    List<Reserva> rs = (List<Reserva>) objectr[0];
+                    for (Reserva linr : rs) {
+                        Reserva r = linr;
+                        locacao.setReserva(r);
+                    }
+                    //set Veiculo    
+                    Object[] object;
+                    object = (Object[]) Popula.retornaVeiculo(codVeiculo);
+                    List<Veiculo> l = (List<Veiculo>) object[0];
+                    for (Veiculo lin : l) {
+                        Veiculo v = lin;
+                        v = Popula.alteraStatusVeiculo("locado", v);
+                        locacao.setVeiculo(v);
+                    }
+                    BigDecimal bigDecimal = new BigDecimal(tfValorTotal.getText());
+                    locacao.setValorTotal(bigDecimal);
+                    locacao.setParcelas(Integer.parseInt(tfParcelas.getText()));
+
+                    //set funcionario
+                    Object[] objectf;
+                    objectf = (Object[]) Popula.retornaDadosPessoas(codFunc);
+                    List<Funcionario> lf = (List<Funcionario>) objectf[4];
+                    for (Funcionario linf : lf) {
+                        Funcionario f = linf;
+                        locacao.setFuncionario(f);
+                    }
+
+                    // set Cliente    
+                    Object[] objectc;
+                    objectc = (Object[]) Popula.retornaDadosPessoas(codCliente);
+                    List<Cliente> lc = (List<Cliente>) objectc[3];
+                    for (Cliente linc : lc) {
+                        Cliente c = linc;
+                        locacao.setCliente(c);
+                    }
                 }
-                //set Veiculo    
-                Object[] object;
-                object = (Object[]) Popula.retornaVeiculo(codVeiculo);
-                List<Veiculo> l = (List<Veiculo>) object[0];
-                for (Veiculo lin : l) {
-                    Veiculo v = lin;
-                    v = Popula.alteraStatusVeiculo("locado", v);
-                    locacao.setVeiculo(v);
-                }
-                BigDecimal bigDecimal = new BigDecimal(tfValorTotal.getText());
-                locacao.setValorTotal(bigDecimal);
-                locacao.setParcelas(Integer.parseInt(tfParcelas.getText()));
+                DAO.salvarLocacao(locacao);
 
-                //set funcionario
-                Object[] objectf;
-                objectf = (Object[]) Popula.retornaDadosPessoas(codFunc);
-                List<Funcionario> lf = (List<Funcionario>) objectf[4];
-                for (Funcionario linf : lf) {
-                    Funcionario f = linf;
-                    locacao.setFuncionario(f);
-                }
-
-                // set Cliente    
-                Object[] objectc;
-                objectc = (Object[]) Popula.retornaDadosPessoas(codCliente);
-                List<Cliente> lc = (List<Cliente>) objectc[3];
-                for (Cliente linc : lc) {
-                    Cliente c = linc;
-                    locacao.setCliente(c);
-                }
+                habilitaCampos(false);
+            } else {
+                JOptionPane.showMessageDialog(null, "Carro já reservado para ser locado nesta data!");
             }
-            DAO.salvarLocacao(locacao);
-
-            habilitaCampos(false);
-
         } else {
             JOptionPane.showMessageDialog(null, "Preencha os campos obrigatórios!");
         }
