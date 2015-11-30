@@ -5,9 +5,6 @@ package conf;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import org.apache.log4j.BasicConfigurator;
 import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.SessionFactory;
@@ -39,4 +36,5 @@ public class HibernateUtil {
     public static SessionFactory getSessionFactory() {
         return sessionFactory;
     }
+    
 }
