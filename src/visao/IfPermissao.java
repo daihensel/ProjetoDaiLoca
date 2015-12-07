@@ -256,17 +256,17 @@ public class IfPermissao extends javax.swing.JInternalFrame {
 
         tbPermissao.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Id", "Ler", "Inserir", "Editar", "Excluir", "Tela", "Pessoa", "Função"
+                "Id", "Ler", "Inserir", "Editar", "Excluir", "Id Tela", "Nome Tela", "Id Pessoa", "Nome Pessoa"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, true, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -318,7 +318,7 @@ public class IfPermissao extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addContainerGap())
-            .addComponent(jTabbedPane1)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 625, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -506,11 +506,11 @@ public class IfPermissao extends javax.swing.JInternalFrame {
     }
 
     public void pesquisa() {
-        int cod = 1;
+        int cod = 0;
         if (tfPesquisa.getText().length() > 0 && tfPesquisa.getText().matches("[0-9]")) {
             cod = Integer.parseInt(tfPesquisa.getText());
         }
-        Popula.popularTabelaPermissao(cod, tbPermissao);
+        Popula.popularTabelaPermissao(cod, tfPesquisa.getText(), tbPermissao);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

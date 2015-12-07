@@ -583,7 +583,7 @@ public class Popula {
         return dadosClientes;
     }
 
-    public static void popularTabelaPermissao(int criterio, JTable tb) {
+    public static void popularTabelaPermissao(int cod, String criterio, JTable tb) {
 
         DefaultTableModel tabelaModelo = (DefaultTableModel) tb.getModel();
         tabelaModelo.setNumRows(0);
@@ -592,24 +592,34 @@ public class Popula {
 
         sessao = HibernateUtil.getSessionFactory().openSession();
         Transaction t = sessao.beginTransaction();
+        criterio = criterio.toLowerCase();
+        Iterator qr = sessao.createQuery("SELECT per.idpermissao, per.ler, per.inserir, per.editar, "
+                + " per.inativar, per.idtela, t.descricao, per.idpessoa, p.nome  "
+                + " FROM Permissao per, Funcionario f, Funcao fu, Pessoa p, Tela t "
+                + " WHERE (per.idpermissao = " + cod + ""
+                + " OR lower(t.descricao) LIKE '%" + criterio + "%'"
+                + " OR lower(p.nome) LIKE '%" + criterio + "%')"
+                + " AND (per.idpessoa=f.pessoaIdpessoa"
+                + " AND f.funcao.id=fu.idfuncao"
+                + " AND p.idpessoa=per.idpessoa"
+                + " AND t.idtela=per.idtela)").list().iterator();
 
-        Query query = (Query) sessao.createQuery(" FROM Permissao p WHERE (p.idpermissao = " + criterio + ""
-                + " OR p.idpessoa = " + criterio + ""
-                + " OR p.idtela = " + criterio + ")");
-        List<Permissao> dadosPerm = (List<Permissao>) query.list();
-
-        for (Permissao lin : dadosPerm) {
+        while (qr.hasNext()) {
+            Object[] tuple = (Object[]) qr.next();
             tabelaModelo.addRow(new Object[]{
-                lin.getIdpermissao(),
-                lin.isLer(),
-                lin.isInserir(),
-                lin.isEditar(),
-                lin.isInativar(),
-                lin.getIdtela(),
-                lin.getIdpessoa(),
-                lin.getIdfuncao()});
+                tuple[0],
+                tuple[1],
+                tuple[2],
+                tuple[3],
+                tuple[4],
+                tuple[5],
+                tuple[6],
+                tuple[7],
+                tuple[8]
+            });
 
         }
+
         t.commit();
 
     }
