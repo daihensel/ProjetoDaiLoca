@@ -217,7 +217,7 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="734" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="845" max="32767" attributes="0"/>
                   <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jTabbedPane1" min="-2" max="-2" attributes="0"/>
@@ -247,10 +247,13 @@
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="jScrollPane1" min="-2" pref="653" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="pnMenus" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="pnMenus" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btNovoVeiculo" min="-2" pref="165" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Component id="pnChat" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="70" max="32767" attributes="0"/>
+                              <EmptySpace pref="74" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -260,7 +263,12 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
                                       <Component id="jScrollPane1" max="32767" attributes="0"/>
-                                      <Component id="pnMenus" alignment="1" max="32767" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                                          <Component id="btNovoVeiculo" min="-2" pref="28" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="pnMenus" max="32767" attributes="0"/>
+                                      </Group>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
@@ -285,7 +293,6 @@
                                       <Component id="btNovoCliente" alignment="1" max="32767" attributes="0"/>
                                       <Component id="btNovoFornecedor" alignment="1" max="32767" attributes="0"/>
                                       <Component id="btNovaDevolucao" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="btNovoVeiculo" alignment="1" pref="167" max="32767" attributes="0"/>
                                       <Component id="btNovaManut" alignment="1" max="32767" attributes="0"/>
                                       <Component id="pnTotais" alignment="0" max="32767" attributes="0"/>
                                       <Component id="pnLogados" alignment="1" max="32767" attributes="0"/>
@@ -301,22 +308,20 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="btNovaReserva" min="-2" pref="30" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="btNovoCancelamento" min="-2" pref="30" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="btNovaLocacao" min="-2" pref="30" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="btNovoVeiculo" min="-2" pref="55" max="-2" attributes="0"/>
+                                  <Component id="btNovaDevolucao" min="-2" pref="30" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="btNovaManut" min="-2" pref="27" max="-2" attributes="0"/>
+                                  <Component id="btNovoPagamento" min="-2" pref="30" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="btNovaManut" min="-2" pref="32" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="btNovoCliente" min="-2" pref="30" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="btNovoFornecedor" min="-2" pref="30" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="btNovaDevolucao" min="-2" pref="30" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-                                  <Component id="btNovoPagamento" min="-2" pref="30" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="btNovoCancelamento" min="-2" pref="30" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <EmptySpace pref="139" max="32767" attributes="0"/>
                                   <Component id="pnLogados" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="pnTotais" min="-2" pref="149" max="-2" attributes="0"/>
@@ -340,17 +345,6 @@
                           </Properties>
                           <Events>
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btNovaLocacaoActionPerformed"/>
-                          </Events>
-                        </Component>
-                        <Component class="javax.swing.JButton" name="btNovoVeiculo">
-                          <Properties>
-                            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                              <Image iconType="3" name="/icones/Carro.png"/>
-                            </Property>
-                            <Property name="text" type="java.lang.String" value="Novo Ve&#xed;culo"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btNovoVeiculoActionPerformed"/>
                           </Events>
                         </Component>
                         <Component class="javax.swing.JButton" name="btNovaManut">
@@ -595,7 +589,7 @@
                         </Component>
                         <Component class="javax.swing.JButton" name="btNovoCancelamento">
                           <Properties>
-                            <Property name="text" type="java.lang.String" value="Novo Cancelamento"/>
+                            <Property name="text" type="java.lang.String" value="Cancelar Reserva"/>
                           </Properties>
                           <Events>
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btNovoCancelamentoActionPerformed"/>
@@ -841,6 +835,14 @@
                         </Component>
                       </SubComponents>
                     </Container>
+                    <Component class="javax.swing.JButton" name="btNovoVeiculo">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Novo Ve&#xed;culo"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btNovoVeiculoActionPerformed"/>
+                      </Events>
+                    </Component>
                   </SubComponents>
                 </Container>
                 <Container class="javax.swing.JPanel" name="pn2">
