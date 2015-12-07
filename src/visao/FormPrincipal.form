@@ -187,7 +187,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <Component id="dp" min="-2" pref="720" max="-2" attributes="0"/>
-              <EmptySpace pref="14" max="32767" attributes="0"/>
+              <EmptySpace pref="28" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -209,7 +209,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="1210" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="1224" max="32767" attributes="0"/>
                   <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                       <Component id="jTabbedPane1" alignment="0" max="32767" attributes="0"/>
                   </Group>
@@ -256,11 +256,11 @@
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="pnMenus" min="-2" max="-2" attributes="0"/>
                                   <Component id="jScrollPane1" min="-2" pref="834" max="-2" attributes="0"/>
-                                  <Component id="pnMenus" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="pnChat" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
@@ -281,15 +281,12 @@
                                       <Component id="btNovoCliente" alignment="1" max="32767" attributes="0"/>
                                       <Component id="btNovoFornecedor" alignment="1" max="32767" attributes="0"/>
                                       <Component id="btNovaDevolucao" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="btNovaManut" alignment="1" max="32767" attributes="0"/>
+                                      <Component id="btNovaManut" alignment="1" pref="181" max="32767" attributes="0"/>
                                       <Component id="pnTotais" alignment="0" max="32767" attributes="0"/>
                                       <Component id="pnLogados" alignment="1" max="32767" attributes="0"/>
                                       <Component id="btNovoPagamento" alignment="0" max="32767" attributes="0"/>
                                       <Component id="btNovoCancelamento" alignment="0" max="32767" attributes="0"/>
-                                      <Group type="102" attributes="0">
-                                          <Component id="btNovoVeiculo" min="-2" pref="165" max="-2" attributes="0"/>
-                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                      </Group>
+                                      <Component id="btNovoVeiculo" alignment="0" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
@@ -298,7 +295,7 @@
                         <DimensionLayout dim="1">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace pref="56" max="32767" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
                                   <Component id="btNovoVeiculo" min="-2" pref="33" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="btNovaReserva" min="-2" pref="32" max="-2" attributes="0"/>
@@ -316,11 +313,11 @@
                                   <Component id="btNovoCliente" min="-2" pref="32" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="btNovoFornecedor" min="-2" pref="32" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="77" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="pnLogados" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="pnTotais" min="-2" pref="149" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="pnTotais" min="-2" pref="142" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="96" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -413,7 +410,7 @@
                                               <Component id="lbReservados" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
-                                      <EmptySpace pref="60" max="32767" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -531,7 +528,8 @@
                                   <Group type="102" attributes="0">
                                       <Component id="jScrollPane4" min="-2" pref="77" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="btAbrirChat" pref="62" max="32767" attributes="0"/>
+                                      <Component id="btAbrirChat" min="-2" pref="32" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -555,9 +553,6 @@
                             </Container>
                             <Component class="javax.swing.JButton" name="btAbrirChat">
                               <Properties>
-                                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                                  <Image iconType="3" name="/icones/Chat.png"/>
-                                </Property>
                                 <Property name="text" type="java.lang.String" value="Abrir chat"/>
                               </Properties>
                               <Events>
@@ -854,7 +849,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jScrollPane5" min="-2" pref="946" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="259" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="273" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
