@@ -122,6 +122,8 @@ public class IfCancelamento extends javax.swing.JInternalFrame {
         btFechar1 = new javax.swing.JButton();
         jLabel21 = new javax.swing.JLabel();
 
+        setTitle("Cancelar Reserva");
+
         jpReserva.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados Reserva"));
 
         jLabel1.setText("Data Reserva:");

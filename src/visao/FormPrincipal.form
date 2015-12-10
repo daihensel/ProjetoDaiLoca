@@ -282,8 +282,8 @@
                       <Layout>
                         <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Group type="103" groupAlignment="1" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="pnTotais" alignment="0" max="32767" attributes="0"/>
                                       <Component id="btNovaReserva" alignment="1" max="32767" attributes="0"/>
                                       <Component id="btNovaLocacao" alignment="1" max="32767" attributes="0"/>
@@ -294,6 +294,7 @@
                                       <Component id="btNovoPagamento" alignment="0" max="32767" attributes="0"/>
                                       <Component id="btNovoCancelamento" alignment="0" max="32767" attributes="0"/>
                                       <Component id="btNovoVeiculo" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="jButton1" alignment="1" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
@@ -315,14 +316,16 @@
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="btNovoPagamento" min="-2" pref="32" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="btNovaManut" min="-2" pref="32" max="-2" attributes="0"/>
+                                  <Component id="btNovaManut" min="-2" pref="31" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jButton1" min="-2" pref="28" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="btNovoCliente" min="-2" pref="32" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="btNovoFornecedor" min="-2" pref="32" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="btNovoFornecedor" min="-2" pref="32" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="pnTotais" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="247" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="226" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -543,6 +546,11 @@
                           <Events>
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btNovoVeiculoActionPerformed"/>
                           </Events>
+                        </Component>
+                        <Component class="javax.swing.JButton" name="jButton1">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="Retorno Manuten&#xe7;&#xe3;o"/>
+                          </Properties>
                         </Component>
                       </SubComponents>
                     </Container>

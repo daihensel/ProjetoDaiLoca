@@ -107,6 +107,8 @@ public class IfManutencaoVeiculos extends javax.swing.JInternalFrame {
         btFechar = new javax.swing.JButton();
         jLabel20 = new javax.swing.JLabel();
 
+        setTitle("Manutenção de Veiculos");
+
         jLabel1.setText("Data Manutenção:*");
 
         jLabel2.setText("Previsão Retorno:*");
