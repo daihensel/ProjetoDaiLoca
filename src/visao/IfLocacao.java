@@ -216,6 +216,7 @@ public class IfLocacao extends javax.swing.JInternalFrame {
 
         jLabel22.setText("Parcelas*:");
 
+        tfValorTotal.setEditable(false);
         tfValorTotal.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 tfValorTotalKeyTyped(evt);
