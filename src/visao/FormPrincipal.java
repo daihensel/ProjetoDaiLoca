@@ -7,11 +7,15 @@ package visao;
 import static java.awt.Frame.MAXIMIZED_BOTH;
 import bean.ChatMessage;
 import bean.ChatMessage.Action;
+import conf.Formatacao;
 import conf.Popula;
 import conf.Utility;
+import entidade.Veiculo;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
+import java.util.Date;
+import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -59,6 +63,40 @@ public class FormPrincipal extends javax.swing.JFrame {
                 + Integer.parseInt(lbReservados.getText())
                 + Integer.parseInt(lbLocados.getText())
                 + Integer.parseInt(lbManutencao.getText())));
+        atualizaStatusVeiculos();
+    }
+
+    private void atualizaStatusVeiculos() {
+        for (int i = 0; i < Utility.pegaMaiorIdVeiculo(); i++) {
+
+            Object[] object;
+            object = (Object[]) Popula.retornaVeiculo(i);
+            List<Veiculo> l = (List<Veiculo>) object[0];
+            Date hoje = Formatacao.converteParaDataAMD(Formatacao.getDataAtual());
+
+            if (Utility.confereDataDentroLocacao(hoje, i) == false && Utility.confereDataDentroReserva(hoje, i) == false) {
+                for (Veiculo lin : l) {
+                    Veiculo v = lin;
+                    v = Popula.alteraStatusVeiculo("Disponível", v);
+
+                }
+            }
+            if (Utility.confereDataDentroLocacao(hoje, i)) {
+                for (Veiculo lin : l) {
+                    Veiculo v = lin;
+                    v = Popula.alteraStatusVeiculo("Locado", v);
+
+                }
+            }
+            if (Utility.confereDataDentroReserva(hoje, i)) {
+                for (Veiculo lin : l) {
+                    Veiculo v = lin;
+                    v = Popula.alteraStatusVeiculo("Reservado", v);
+
+                }
+            }
+        }
+
     }
 
     private class ListenerSocket implements Runnable {
@@ -104,7 +142,7 @@ public class FormPrincipal extends javax.swing.JFrame {
     private void connected(ChatMessage message) {
         if (message.getTexto().equals("NO")) {
             this.tfNome.setText("");
-            JOptionPane.showMessageDialog(this, "Tente com novo nome");
+            JOptionPane.showMessageDialog(this, "Este usuário já está logado!");
             return;
         }
         this.message = message;

@@ -192,6 +192,22 @@ public class Utility {
         return soma;
     }
 
+    public static int pegaMaiorIdVeiculo() {
+        int soma = 0;
+        Session sessao = null;
+
+        sessao = HibernateUtil.getSessionFactory().openSession();
+        Transaction t = sessao.beginTransaction();
+
+        Query qr = (Query) sessao.createQuery("SELECT max(idveiculo) FROM Veiculo");
+
+        String maior = qr.list().get(0).toString();
+        soma = Integer.parseInt(maior);
+
+        t.commit();
+        return soma;
+    }
+
     public static boolean confereDataReserva(Date dtlocacao, Date dtdevolucao, int idveiculo) {
 
         boolean ok = false;
@@ -230,9 +246,9 @@ public class Utility {
             if (resultados.toString().equals("[null]") == false) {
                 retornadoDaProcedure = (int) resultados.get(0);
             }
-            
+
             if (resultados2.toString().equals("[null]") == false) {
-                retornadoDaProcedure2 = (int) resultados2.get(0);        
+                retornadoDaProcedure2 = (int) resultados2.get(0);
             }
 
             if (retornadoDaProcedure > 0 || retornadoDaProcedure2 > 0) { //existe retorno na query
@@ -250,13 +266,13 @@ public class Utility {
         }
     }
 
-     public static boolean confereDataLocacao(Date dtlocacao, Date dtdevolucao, int idveiculo) {
+    public static boolean confereDataLocacao(Date dtlocacao, Date dtdevolucao, int idveiculo) {
 
         boolean ok = false;
         Session sessao = null;
         try {
             List resultados = new ArrayList();
-            
+
             sessao = HibernateUtil.getSessionFactory().openSession();
             Transaction t = sessao.beginTransaction();
             String sql = "SELECT confereDataLocacao(:dtlocacao,:dtdevolucao,:idveiculo)";
@@ -271,13 +287,11 @@ public class Utility {
             } catch (Exception e) {
                 System.err.println("" + e);
             }
-           
 
             int retornadoDaProcedure = 0;
             if (resultados.toString().equals("[null]") == false) {
                 retornadoDaProcedure = (int) resultados.get(0);
             }
-            
 
             if (retornadoDaProcedure > 0) { //existe retorno na query
                 return ok = false;
@@ -293,6 +307,87 @@ public class Utility {
 
         }
     }
-    
-    
+
+    public static boolean confereDataDentroReserva(Date dt, int idveiculo) {
+
+        boolean ok = false;
+        Session sessao = null;
+        try {
+            List resultados = new ArrayList();
+
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            Transaction t = sessao.beginTransaction();
+            String sql = "SELECT confereDataDentroReserva(:dt,:idveiculo)";
+
+            try {
+                Query exQuery = sessao.createSQLQuery(sql);
+                exQuery.setParameter("dt", dt);
+                exQuery.setParameter("idveiculo", idveiculo);
+                resultados = exQuery.list();
+
+            } catch (Exception e) {
+                System.err.println("" + e);
+            }
+
+            int retornadoDaProcedure = 0;
+            if (resultados.toString().equals("[null]") == false) {
+                retornadoDaProcedure = (int) resultados.get(0);
+            }
+
+            if (retornadoDaProcedure > 0) { //existe retorno na query
+                return ok = false;
+            } else {
+                return ok = true;
+            }
+        } catch (HibernateException he) {
+            he.printStackTrace();
+            System.out.println("Erro confereDataDentroReserva= " + he);
+            return (ok = false);
+        } finally {
+            sessao.close();
+
+        }
+    }
+
+    public static boolean confereDataDentroLocacao(Date dt, int idveiculo) {
+
+        boolean ok = false;
+        Session sessao = null;
+        try {
+            List resultados = new ArrayList();
+
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            Transaction t = sessao.beginTransaction();
+            String sql = "SELECT confereDataDentroLocacao(:dt,:idveiculo)";
+
+            try {
+                Query exQuery = sessao.createSQLQuery(sql);
+                exQuery.setParameter("dt", dt);
+                exQuery.setParameter("idveiculo", idveiculo);
+                resultados = exQuery.list();
+
+            } catch (Exception e) {
+                System.err.println("" + e);
+            }
+
+            int retornadoDaProcedure = 0;
+            if (resultados.toString().equals("[null]") == false) {
+                retornadoDaProcedure = (int) resultados.get(0);
+            }
+
+            if (retornadoDaProcedure > 0) { //existe retorno na query
+                return ok = false;
+            } else {
+                return ok = true;
+            }
+        } catch (HibernateException he) {
+            he.printStackTrace();
+            System.out.println("Erro confereDataDentroLocação= " + he);
+            return (ok = false);
+        } finally {
+            sessao.close();
+
+        }
+    }
+
 }
