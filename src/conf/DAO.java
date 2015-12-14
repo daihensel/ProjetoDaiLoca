@@ -16,6 +16,7 @@ import entidade.Funcao;
 import entidade.Funcionario;
 import entidade.Locacao;
 import entidade.Manutencao;
+import entidade.Parcelaspagamento;
 import entidade.Pessoa;
 import entidade.Pessoafisica;
 import entidade.Pessoajuridica;
@@ -387,6 +388,32 @@ public class DAO {
         }
         return retorno;
     }
+    
+    public static String salvarParcela(Parcelaspagamento parcela) {
+        Session sessao = null;
+        String retorno = "";
+
+        try {
+                sessao = HibernateUtil.getSessionFactory().openSession();
+                Transaction t = sessao.beginTransaction();
+
+                sessao.update(parcela);
+
+                t.commit();
+
+            } catch (HibernateException he) {
+                he.printStackTrace();
+                System.out.println("Erro atualizar Parcela = " + he);
+                logger.error("Erro atualizar Parcela = " + he);
+
+            }
+
+        
+        return retorno;
+    }
+    
+    
+ 
 
     public static String salvarFuncionario(Funcionario funcionario, String fazer) {
         Session sessao = null;

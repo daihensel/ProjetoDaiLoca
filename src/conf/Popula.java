@@ -196,6 +196,41 @@ public class Popula {
         t.commit();
         return dadosLocacao;
     }
+    
+    public static List popularTabelaPagamentos(int codigo, String criterio, JTable tb) {
+
+        DefaultTableModel tabelaModelo = (DefaultTableModel) tb.getModel();
+        tabelaModelo.setNumRows(0);
+
+        Session sessao = null;
+
+        sessao = HibernateUtil.getSessionFactory().openSession();
+        Transaction t = sessao.beginTransaction();
+        criterio = criterio.toLowerCase();
+        Query query = (Query) sessao.createQuery(" FROM Populartabelalocacao p WHERE (lower(p.descricaoveiculo) LIKE '%" + criterio + "%'"
+                + " OR lower(p.nomecliente) LIKE '%" + criterio + "%'"
+                + " OR lower(p.descricaotipoveiculo) LIKE '%" + criterio + "%'"
+                + " OR p.idlocacao = " + codigo + ")");
+        List<Populartabelalocacao> dadosLocacao = (List<Populartabelalocacao>) query.list();
+
+        for (Populartabelalocacao lin : dadosLocacao) {
+            tabelaModelo.addRow(new Object[]{
+                lin.getIdlocacao(),
+                Formatacao.ajustaDataDMA(String.valueOf(lin.getDtLocacao())),
+                lin.getNomecliente(),
+                lin.getDescricaoVeiculo(),
+                lin.getDescricaoTipoVeiculo()});
+
+        };
+        t.commit();
+        return dadosLocacao;
+    }
+    
+    
+    
+    
+    
+    
 
     public static List popularTabelaManutencao(int cod, String criterio, JTable tb) {
 

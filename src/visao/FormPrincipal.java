@@ -250,8 +250,6 @@ public class FormPrincipal extends javax.swing.JFrame {
         jScrollPane5 = new javax.swing.JScrollPane();
         tbReservasFuturas = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         miUsuarios = new javax.swing.JMenuItem();
         miTipoVeiculo = new javax.swing.JMenuItem();
@@ -731,13 +729,6 @@ public class FormPrincipal extends javax.swing.JFrame {
         dp.add(pnGeral);
         pnGeral.setBounds(0, 0, 1210, 730);
 
-        jMenu1.setText("Arquivo");
-
-        jMenuItem1.setText("jMenuItem1");
-        jMenu1.add(jMenuItem1);
-
-        jMenuBar1.add(jMenu1);
-
         jMenu2.setText("Cadastros");
 
         miUsuarios.setText("Status Veículo");
@@ -1209,13 +1200,11 @@ public class FormPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
