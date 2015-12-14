@@ -6067,4 +6067,337 @@ org.hibernate.hql.internal.ast.HqlParser 2015-12-07 21:30:33,421 -- WARN -- HHH0
  org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-13 20:10:21,937 -- ERROR -- FATAL: desculpe, muitos clientes conectados 
  org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-13 20:10:21,984 -- WARN -- SQL Error: 0, SQLState: 53300 
  org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-13 20:10:21,984 -- ERROR -- FATAL: desculpe, muitos clientes conectados 
+ org.hibernate.annotations.common.Version 2015-12-14 08:24:19,583 -- INFO -- HCANN000001: Hibernate Commons Annotations {4.0.4.Final} 
+ org.hibernate.Version 2015-12-14 08:24:19,593 -- INFO -- HHH000412: Hibernate Core {4.3.1.Final} 
+ org.hibernate.cfg.Environment 2015-12-14 08:24:19,593 -- INFO -- HHH000206: hibernate.properties not found 
+ org.hibernate.cfg.Environment 2015-12-14 08:24:19,603 -- INFO -- HHH000021: Bytecode provider name : javassist 
+ org.hibernate.cfg.Configuration 2015-12-14 08:24:19,613 -- INFO -- HHH000043: Configuring from resource: /hibernate.cfg.xml 
+ org.hibernate.cfg.Configuration 2015-12-14 08:24:19,613 -- INFO -- HHH000040: Configuration resource: /hibernate.cfg.xml 
+ org.hibernate.internal.util.xml.DTDEntityResolver 2015-12-14 08:24:19,673 -- WARN -- HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide! 
+ org.hibernate.cfg.Configuration 2015-12-14 08:24:19,713 -- INFO -- HHH000041: Configured SessionFactory: null 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 08:24:19,763 -- WARN -- HHH000402: Using Hibernate built-in connection pool (not for production use!) 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 08:24:19,773 -- INFO -- HHH000401: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5432/ProjetoDaiLoca] 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 08:24:19,773 -- INFO -- HHH000046: Connection properties: {user=postgres, password=****} 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 08:24:19,773 -- INFO -- HHH000006: Autocommit mode: false 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 08:24:19,783 -- INFO -- HHH000115: Hibernate connection pool size: 20 (min=1) 
+ org.hibernate.dialect.Dialect 2015-12-14 08:24:20,773 -- INFO -- HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect 
+ org.hibernate.engine.jdbc.internal.LobCreatorBuilder 2015-12-14 08:24:20,783 -- INFO -- HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException 
+ org.hibernate.engine.transaction.internal.TransactionFactoryInitiator 2015-12-14 08:24:20,964 -- INFO -- HHH000399: Using default transaction strategy (direct JDBC transactions) 
+ org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory 2015-12-14 08:24:20,964 -- INFO -- HHH000397: Using ASTQueryTranslatorFactory 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-12-14 08:24:21,417 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 54.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-12-14 08:24:22,207 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 144.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ visao.FormPrincipal 2015-12-14 08:24:28,185 -- INFO -- Logado 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:25:57,871 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:25:57,871 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:25:58,735 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:25:58,735 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:25:58,937 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:25:58,937 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:25:59,119 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:25:59,119 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:25:59,301 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:25:59,301 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:25:59,473 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:25:59,473 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:25:59,673 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:25:59,673 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:25:59,875 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:25:59,875 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:26:00,059 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:26:00,059 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:26:06,062 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:26:06,062 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:26:06,222 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:26:06,222 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:26:06,372 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:26:06,372 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:26:06,515 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:26:06,516 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.annotations.common.Version 2015-12-14 08:27:04,931 -- INFO -- HCANN000001: Hibernate Commons Annotations {4.0.4.Final} 
+ org.hibernate.Version 2015-12-14 08:27:04,941 -- INFO -- HHH000412: Hibernate Core {4.3.1.Final} 
+ org.hibernate.cfg.Environment 2015-12-14 08:27:04,941 -- INFO -- HHH000206: hibernate.properties not found 
+ org.hibernate.cfg.Environment 2015-12-14 08:27:04,951 -- INFO -- HHH000021: Bytecode provider name : javassist 
+ org.hibernate.cfg.Configuration 2015-12-14 08:27:04,961 -- INFO -- HHH000043: Configuring from resource: /hibernate.cfg.xml 
+ org.hibernate.cfg.Configuration 2015-12-14 08:27:04,961 -- INFO -- HHH000040: Configuration resource: /hibernate.cfg.xml 
+ org.hibernate.internal.util.xml.DTDEntityResolver 2015-12-14 08:27:04,991 -- WARN -- HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide! 
+ org.hibernate.cfg.Configuration 2015-12-14 08:27:05,031 -- INFO -- HHH000041: Configured SessionFactory: null 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 08:27:05,081 -- WARN -- HHH000402: Using Hibernate built-in connection pool (not for production use!) 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 08:27:05,091 -- INFO -- HHH000401: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5432/ProjetoDaiLoca] 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 08:27:05,091 -- INFO -- HHH000046: Connection properties: {user=postgres, password=****} 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 08:27:05,091 -- INFO -- HHH000006: Autocommit mode: false 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 08:27:05,091 -- INFO -- HHH000115: Hibernate connection pool size: 20 (min=1) 
+ org.hibernate.dialect.Dialect 2015-12-14 08:27:05,451 -- INFO -- HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect 
+ org.hibernate.engine.jdbc.internal.LobCreatorBuilder 2015-12-14 08:27:05,451 -- INFO -- HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException 
+ org.hibernate.engine.transaction.internal.TransactionFactoryInitiator 2015-12-14 08:27:05,631 -- INFO -- HHH000399: Using default transaction strategy (direct JDBC transactions) 
+ org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory 2015-12-14 08:27:05,631 -- INFO -- HHH000397: Using ASTQueryTranslatorFactory 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-12-14 08:27:06,021 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 54.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-12-14 08:27:06,451 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 144.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ visao.FormPrincipal 2015-12-14 08:27:11,645 -- INFO -- Logado 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:27:38,601 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:27:38,601 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:27:38,771 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:27:38,771 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:27:39,057 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:27:39,057 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:27:39,245 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:27:39,245 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:27:39,415 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:27:39,415 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:27:39,575 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:27:39,575 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:27:39,747 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:27:39,747 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.annotations.common.Version 2015-12-14 08:31:07,525 -- INFO -- HCANN000001: Hibernate Commons Annotations {4.0.4.Final} 
+ org.hibernate.Version 2015-12-14 08:31:07,535 -- INFO -- HHH000412: Hibernate Core {4.3.1.Final} 
+ org.hibernate.cfg.Environment 2015-12-14 08:31:07,535 -- INFO -- HHH000206: hibernate.properties not found 
+ org.hibernate.cfg.Environment 2015-12-14 08:31:07,535 -- INFO -- HHH000021: Bytecode provider name : javassist 
+ org.hibernate.cfg.Configuration 2015-12-14 08:31:07,555 -- INFO -- HHH000043: Configuring from resource: /hibernate.cfg.xml 
+ org.hibernate.cfg.Configuration 2015-12-14 08:31:07,555 -- INFO -- HHH000040: Configuration resource: /hibernate.cfg.xml 
+ org.hibernate.internal.util.xml.DTDEntityResolver 2015-12-14 08:31:07,585 -- WARN -- HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide! 
+ org.hibernate.cfg.Configuration 2015-12-14 08:31:07,635 -- INFO -- HHH000041: Configured SessionFactory: null 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 08:31:07,695 -- WARN -- HHH000402: Using Hibernate built-in connection pool (not for production use!) 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 08:31:07,695 -- INFO -- HHH000401: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5432/ProjetoDaiLoca] 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 08:31:07,695 -- INFO -- HHH000046: Connection properties: {user=postgres, password=****} 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 08:31:07,695 -- INFO -- HHH000006: Autocommit mode: false 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 08:31:07,695 -- INFO -- HHH000115: Hibernate connection pool size: 20 (min=1) 
+ org.hibernate.dialect.Dialect 2015-12-14 08:31:08,065 -- INFO -- HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect 
+ org.hibernate.engine.jdbc.internal.LobCreatorBuilder 2015-12-14 08:31:08,075 -- INFO -- HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException 
+ org.hibernate.engine.transaction.internal.TransactionFactoryInitiator 2015-12-14 08:31:08,275 -- INFO -- HHH000399: Using default transaction strategy (direct JDBC transactions) 
+ org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory 2015-12-14 08:31:08,275 -- INFO -- HHH000397: Using ASTQueryTranslatorFactory 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-12-14 08:31:08,757 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 54.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-12-14 08:31:09,249 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 144.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ visao.FormPrincipal 2015-12-14 08:31:14,783 -- INFO -- Logado 
+ visao.FormPrincipal 2015-12-14 08:31:34,940 -- ERROR -- usuário sem permissão 
+ visao.FormPrincipal 2015-12-14 08:32:14,425 -- ERROR -- usuário sem permissão 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:32:48,614 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:32:48,614 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:32:49,246 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:32:49,246 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:32:49,406 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:32:49,406 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:32:49,576 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:32:49,576 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:32:49,778 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:32:49,778 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:32:49,960 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:32:49,960 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:32:50,202 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:32:50,202 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:32:50,384 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:32:50,384 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:32:50,546 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:32:50,546 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:32:50,708 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:32:50,708 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:32:50,858 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:32:50,858 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:33:25,527 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:33:25,527 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:33:25,687 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:33:25,687 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:33:25,847 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:33:25,847 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:33:25,997 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:33:25,997 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:33:31,969 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:33:31,969 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:33:32,772 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:33:32,773 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.annotations.common.Version 2015-12-14 08:37:37,194 -- INFO -- HCANN000001: Hibernate Commons Annotations {4.0.4.Final} 
+ org.hibernate.Version 2015-12-14 08:37:37,202 -- INFO -- HHH000412: Hibernate Core {4.3.1.Final} 
+ org.hibernate.cfg.Environment 2015-12-14 08:37:37,204 -- INFO -- HHH000206: hibernate.properties not found 
+ org.hibernate.cfg.Environment 2015-12-14 08:37:37,206 -- INFO -- HHH000021: Bytecode provider name : javassist 
+ org.hibernate.cfg.Configuration 2015-12-14 08:37:37,229 -- INFO -- HHH000043: Configuring from resource: /hibernate.cfg.xml 
+ org.hibernate.cfg.Configuration 2015-12-14 08:37:37,229 -- INFO -- HHH000040: Configuration resource: /hibernate.cfg.xml 
+ org.hibernate.internal.util.xml.DTDEntityResolver 2015-12-14 08:37:37,269 -- WARN -- HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide! 
+ org.hibernate.cfg.Configuration 2015-12-14 08:37:37,300 -- INFO -- HHH000041: Configured SessionFactory: null 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 08:37:37,358 -- WARN -- HHH000402: Using Hibernate built-in connection pool (not for production use!) 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 08:37:37,364 -- INFO -- HHH000401: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5432/ProjetoDaiLoca] 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 08:37:37,365 -- INFO -- HHH000046: Connection properties: {user=postgres, password=****} 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 08:37:37,366 -- INFO -- HHH000006: Autocommit mode: false 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 08:37:37,367 -- INFO -- HHH000115: Hibernate connection pool size: 20 (min=1) 
+ org.hibernate.dialect.Dialect 2015-12-14 08:37:37,742 -- INFO -- HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect 
+ org.hibernate.engine.jdbc.internal.LobCreatorBuilder 2015-12-14 08:37:37,743 -- INFO -- HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException 
+ org.hibernate.engine.transaction.internal.TransactionFactoryInitiator 2015-12-14 08:37:37,930 -- INFO -- HHH000399: Using default transaction strategy (direct JDBC transactions) 
+ org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory 2015-12-14 08:37:37,933 -- INFO -- HHH000397: Using ASTQueryTranslatorFactory 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-12-14 08:37:38,333 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 54.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-12-14 08:37:38,792 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 144.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ visao.FormPrincipal 2015-12-14 08:37:44,163 -- INFO -- Logado 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:38:19,272 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 08:38:19,273 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.annotations.common.Version 2015-12-14 08:45:11,164 -- INFO -- HCANN000001: Hibernate Commons Annotations {4.0.4.Final} 
+ org.hibernate.Version 2015-12-14 08:45:11,165 -- INFO -- HHH000412: Hibernate Core {4.3.1.Final} 
+ org.hibernate.cfg.Environment 2015-12-14 08:45:11,165 -- INFO -- HHH000206: hibernate.properties not found 
+ org.hibernate.cfg.Environment 2015-12-14 08:45:11,165 -- INFO -- HHH000021: Bytecode provider name : javassist 
+ org.hibernate.cfg.Configuration 2015-12-14 08:45:11,192 -- INFO -- HHH000043: Configuring from resource: /hibernate.cfg.xml 
+ org.hibernate.cfg.Configuration 2015-12-14 08:45:11,192 -- INFO -- HHH000040: Configuration resource: /hibernate.cfg.xml 
+ org.hibernate.internal.util.xml.DTDEntityResolver 2015-12-14 08:45:11,222 -- WARN -- HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide! 
+ org.hibernate.cfg.Configuration 2015-12-14 08:45:11,254 -- INFO -- HHH000041: Configured SessionFactory: null 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 08:45:11,321 -- WARN -- HHH000402: Using Hibernate built-in connection pool (not for production use!) 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 08:45:11,321 -- INFO -- HHH000401: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5432/ProjetoDaiLoca] 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 08:45:11,321 -- INFO -- HHH000046: Connection properties: {user=postgres, password=****} 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 08:45:11,322 -- INFO -- HHH000006: Autocommit mode: false 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 08:45:11,322 -- INFO -- HHH000115: Hibernate connection pool size: 20 (min=1) 
+ org.hibernate.dialect.Dialect 2015-12-14 08:45:11,700 -- INFO -- HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect 
+ org.hibernate.engine.jdbc.internal.LobCreatorBuilder 2015-12-14 08:45:11,711 -- INFO -- HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException 
+ org.hibernate.engine.transaction.internal.TransactionFactoryInitiator 2015-12-14 08:45:11,901 -- INFO -- HHH000399: Using default transaction strategy (direct JDBC transactions) 
+ org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory 2015-12-14 08:45:11,906 -- INFO -- HHH000397: Using ASTQueryTranslatorFactory 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-12-14 08:45:12,301 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 54.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-12-14 08:45:12,769 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 144.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ visao.FormPrincipal 2015-12-14 08:45:17,951 -- INFO -- Logado 
+ org.hibernate.annotations.common.Version 2015-12-14 09:13:42,543 -- INFO -- HCANN000001: Hibernate Commons Annotations {4.0.4.Final} 
+ org.hibernate.Version 2015-12-14 09:13:42,553 -- INFO -- HHH000412: Hibernate Core {4.3.1.Final} 
+ org.hibernate.cfg.Environment 2015-12-14 09:13:42,553 -- INFO -- HHH000206: hibernate.properties not found 
+ org.hibernate.cfg.Environment 2015-12-14 09:13:42,553 -- INFO -- HHH000021: Bytecode provider name : javassist 
+ org.hibernate.cfg.Configuration 2015-12-14 09:13:42,557 -- INFO -- HHH000043: Configuring from resource: /hibernate.cfg.xml 
+ org.hibernate.cfg.Configuration 2015-12-14 09:13:42,557 -- INFO -- HHH000040: Configuration resource: /hibernate.cfg.xml 
+ org.hibernate.internal.util.xml.DTDEntityResolver 2015-12-14 09:13:42,610 -- WARN -- HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide! 
+ org.hibernate.cfg.Configuration 2015-12-14 09:13:42,667 -- INFO -- HHH000041: Configured SessionFactory: null 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 09:13:42,710 -- WARN -- HHH000402: Using Hibernate built-in connection pool (not for production use!) 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 09:13:42,717 -- INFO -- HHH000401: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5432/ProjetoDaiLoca] 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 09:13:42,717 -- INFO -- HHH000046: Connection properties: {user=postgres, password=****} 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 09:13:42,718 -- INFO -- HHH000006: Autocommit mode: false 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 09:13:42,719 -- INFO -- HHH000115: Hibernate connection pool size: 20 (min=1) 
+ org.hibernate.dialect.Dialect 2015-12-14 09:13:43,221 -- INFO -- HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect 
+ org.hibernate.engine.jdbc.internal.LobCreatorBuilder 2015-12-14 09:13:43,230 -- INFO -- HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException 
+ org.hibernate.engine.transaction.internal.TransactionFactoryInitiator 2015-12-14 09:13:43,420 -- INFO -- HHH000399: Using default transaction strategy (direct JDBC transactions) 
+ org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory 2015-12-14 09:13:43,424 -- INFO -- HHH000397: Using ASTQueryTranslatorFactory 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-12-14 09:13:43,913 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 54.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-12-14 09:13:44,963 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 144.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ visao.FormPrincipal 2015-12-14 09:13:50,523 -- INFO -- Logado 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 09:15:42,847 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 09:15:42,847 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 09:15:43,610 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 09:15:43,611 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 09:15:43,820 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 09:15:43,820 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 09:15:43,998 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 09:15:43,998 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 09:15:44,313 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 09:15:44,313 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 09:15:44,490 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 09:15:44,491 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 09:15:47,594 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 09:15:47,594 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 09:15:47,738 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 09:15:47,739 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 09:15:47,931 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 09:15:47,932 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.annotations.common.Version 2015-12-14 09:21:28,564 -- INFO -- HCANN000001: Hibernate Commons Annotations {4.0.4.Final} 
+ org.hibernate.Version 2015-12-14 09:21:28,571 -- INFO -- HHH000412: Hibernate Core {4.3.1.Final} 
+ org.hibernate.cfg.Environment 2015-12-14 09:21:28,573 -- INFO -- HHH000206: hibernate.properties not found 
+ org.hibernate.cfg.Environment 2015-12-14 09:21:28,575 -- INFO -- HHH000021: Bytecode provider name : javassist 
+ org.hibernate.cfg.Configuration 2015-12-14 09:21:28,588 -- INFO -- HHH000043: Configuring from resource: /hibernate.cfg.xml 
+ org.hibernate.cfg.Configuration 2015-12-14 09:21:28,588 -- INFO -- HHH000040: Configuration resource: /hibernate.cfg.xml 
+ org.hibernate.internal.util.xml.DTDEntityResolver 2015-12-14 09:21:28,622 -- WARN -- HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide! 
+ org.hibernate.cfg.Configuration 2015-12-14 09:21:28,665 -- INFO -- HHH000041: Configured SessionFactory: null 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 09:21:28,716 -- WARN -- HHH000402: Using Hibernate built-in connection pool (not for production use!) 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 09:21:28,722 -- INFO -- HHH000401: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5432/ProjetoDaiLoca] 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 09:21:28,723 -- INFO -- HHH000046: Connection properties: {user=postgres, password=****} 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 09:21:28,723 -- INFO -- HHH000006: Autocommit mode: false 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 09:21:28,724 -- INFO -- HHH000115: Hibernate connection pool size: 20 (min=1) 
+ org.hibernate.dialect.Dialect 2015-12-14 09:21:29,082 -- INFO -- HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect 
+ org.hibernate.engine.jdbc.internal.LobCreatorBuilder 2015-12-14 09:21:29,091 -- INFO -- HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException 
+ org.hibernate.engine.transaction.internal.TransactionFactoryInitiator 2015-12-14 09:21:29,288 -- INFO -- HHH000399: Using default transaction strategy (direct JDBC transactions) 
+ org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory 2015-12-14 09:21:29,293 -- INFO -- HHH000397: Using ASTQueryTranslatorFactory 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-12-14 09:21:29,706 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 54.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-12-14 09:21:30,129 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 144.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ visao.FormPrincipal 2015-12-14 09:21:35,412 -- INFO -- Logado 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 09:21:54,770 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 09:21:54,771 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 09:21:54,937 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 09:21:54,938 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 09:21:55,107 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 09:21:55,108 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 09:21:55,261 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 09:21:55,262 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 09:21:55,447 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 09:21:55,448 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 09:21:55,639 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 09:21:55,640 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 09:21:55,836 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 09:21:55,838 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.annotations.common.Version 2015-12-14 09:41:57,225 -- INFO -- HCANN000001: Hibernate Commons Annotations {4.0.4.Final} 
+ org.hibernate.Version 2015-12-14 09:41:57,235 -- INFO -- HHH000412: Hibernate Core {4.3.1.Final} 
+ org.hibernate.cfg.Environment 2015-12-14 09:41:57,235 -- INFO -- HHH000206: hibernate.properties not found 
+ org.hibernate.cfg.Environment 2015-12-14 09:41:57,235 -- INFO -- HHH000021: Bytecode provider name : javassist 
+ org.hibernate.cfg.Configuration 2015-12-14 09:41:57,245 -- INFO -- HHH000043: Configuring from resource: /hibernate.cfg.xml 
+ org.hibernate.cfg.Configuration 2015-12-14 09:41:57,245 -- INFO -- HHH000040: Configuration resource: /hibernate.cfg.xml 
+ org.hibernate.internal.util.xml.DTDEntityResolver 2015-12-14 09:41:57,285 -- WARN -- HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide! 
+ org.hibernate.cfg.Configuration 2015-12-14 09:41:57,325 -- INFO -- HHH000041: Configured SessionFactory: null 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 09:41:57,375 -- WARN -- HHH000402: Using Hibernate built-in connection pool (not for production use!) 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 09:41:57,375 -- INFO -- HHH000401: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5432/ProjetoDaiLoca] 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 09:41:57,385 -- INFO -- HHH000046: Connection properties: {user=postgres, password=****} 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 09:41:57,385 -- INFO -- HHH000006: Autocommit mode: false 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 09:41:57,385 -- INFO -- HHH000115: Hibernate connection pool size: 20 (min=1) 
+ org.hibernate.dialect.Dialect 2015-12-14 09:41:57,715 -- INFO -- HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect 
+ org.hibernate.engine.jdbc.internal.LobCreatorBuilder 2015-12-14 09:41:57,725 -- INFO -- HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException 
+ org.hibernate.engine.transaction.internal.TransactionFactoryInitiator 2015-12-14 09:41:57,905 -- INFO -- HHH000399: Using default transaction strategy (direct JDBC transactions) 
+ org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory 2015-12-14 09:41:57,905 -- INFO -- HHH000397: Using ASTQueryTranslatorFactory 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-12-14 09:41:58,307 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 54.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-12-14 09:41:58,737 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 144.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ visao.FormPrincipal 2015-12-14 09:42:03,950 -- INFO -- Logado 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 09:42:23,923 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 09:42:23,923 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 09:42:24,547 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 09:42:24,547 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 09:42:24,709 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 09:42:24,709 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 09:42:24,869 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 09:42:24,869 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 09:42:25,036 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 09:42:25,037 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 09:42:25,267 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 09:42:25,268 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 09:42:29,921 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 09:42:29,921 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 09:42:44,004 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 09:42:44,004 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 09:42:44,176 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 09:42:44,176 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 09:42:44,358 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 09:42:44,358 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 09:43:16,077 -- WARN -- SQL Error: 0, SQLState: 53300 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 09:43:16,077 -- ERROR -- FATAL: sorry, too many clients already 
+ org.hibernate.annotations.common.Version 2015-12-14 09:52:16,680 -- INFO -- HCANN000001: Hibernate Commons Annotations {4.0.4.Final} 
+ org.hibernate.Version 2015-12-14 09:52:16,690 -- INFO -- HHH000412: Hibernate Core {4.3.1.Final} 
+ org.hibernate.cfg.Environment 2015-12-14 09:52:16,690 -- INFO -- HHH000206: hibernate.properties not found 
+ org.hibernate.cfg.Environment 2015-12-14 09:52:16,690 -- INFO -- HHH000021: Bytecode provider name : javassist 
+ org.hibernate.cfg.Configuration 2015-12-14 09:52:16,710 -- INFO -- HHH000043: Configuring from resource: /hibernate.cfg.xml 
+ org.hibernate.cfg.Configuration 2015-12-14 09:52:16,710 -- INFO -- HHH000040: Configuration resource: /hibernate.cfg.xml 
+ org.hibernate.internal.util.xml.DTDEntityResolver 2015-12-14 09:52:16,740 -- WARN -- HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide! 
+ org.hibernate.cfg.Configuration 2015-12-14 09:52:16,780 -- INFO -- HHH000041: Configured SessionFactory: null 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 09:52:16,830 -- WARN -- HHH000402: Using Hibernate built-in connection pool (not for production use!) 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 09:52:16,840 -- INFO -- HHH000401: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5432/ProjetoDaiLoca] 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 09:52:16,840 -- INFO -- HHH000046: Connection properties: {user=postgres, password=****} 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 09:52:16,840 -- INFO -- HHH000006: Autocommit mode: false 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 09:52:16,840 -- INFO -- HHH000115: Hibernate connection pool size: 20 (min=1) 
+ org.hibernate.dialect.Dialect 2015-12-14 09:52:17,170 -- INFO -- HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect 
+ org.hibernate.engine.jdbc.internal.LobCreatorBuilder 2015-12-14 09:52:17,180 -- INFO -- HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException 
+ org.hibernate.engine.transaction.internal.TransactionFactoryInitiator 2015-12-14 09:52:17,350 -- INFO -- HHH000399: Using default transaction strategy (direct JDBC transactions) 
+ org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory 2015-12-14 09:52:17,360 -- INFO -- HHH000397: Using ASTQueryTranslatorFactory 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-12-14 09:52:17,740 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 54.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-12-14 09:52:18,180 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 144.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ visao.FormPrincipal 2015-12-14 09:52:23,244 -- INFO -- Logado 
+ visao.FormPrincipal 2015-12-14 09:52:26,205 -- ERROR -- usuário sem permissão 
+ org.hibernate.annotations.common.Version 2015-12-14 10:00:38,861 -- INFO -- HCANN000001: Hibernate Commons Annotations {4.0.4.Final} 
+ org.hibernate.Version 2015-12-14 10:00:38,861 -- INFO -- HHH000412: Hibernate Core {4.3.1.Final} 
+ org.hibernate.cfg.Environment 2015-12-14 10:00:38,871 -- INFO -- HHH000206: hibernate.properties not found 
+ org.hibernate.cfg.Environment 2015-12-14 10:00:38,871 -- INFO -- HHH000021: Bytecode provider name : javassist 
+ org.hibernate.cfg.Configuration 2015-12-14 10:00:38,881 -- INFO -- HHH000043: Configuring from resource: /hibernate.cfg.xml 
+ org.hibernate.cfg.Configuration 2015-12-14 10:00:38,881 -- INFO -- HHH000040: Configuration resource: /hibernate.cfg.xml 
+ org.hibernate.internal.util.xml.DTDEntityResolver 2015-12-14 10:00:38,911 -- WARN -- HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide! 
+ org.hibernate.cfg.Configuration 2015-12-14 10:00:38,961 -- INFO -- HHH000041: Configured SessionFactory: null 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 10:00:39,011 -- WARN -- HHH000402: Using Hibernate built-in connection pool (not for production use!) 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 10:00:39,011 -- INFO -- HHH000401: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5432/ProjetoDaiLoca] 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 10:00:39,021 -- INFO -- HHH000046: Connection properties: {user=postgres, password=****} 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 10:00:39,021 -- INFO -- HHH000006: Autocommit mode: false 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 10:00:39,021 -- INFO -- HHH000115: Hibernate connection pool size: 20 (min=1) 
+ org.hibernate.dialect.Dialect 2015-12-14 10:00:39,351 -- INFO -- HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect 
+ org.hibernate.engine.jdbc.internal.LobCreatorBuilder 2015-12-14 10:00:39,361 -- INFO -- HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException 
+ org.hibernate.engine.transaction.internal.TransactionFactoryInitiator 2015-12-14 10:00:39,541 -- INFO -- HHH000399: Using default transaction strategy (direct JDBC transactions) 
+ org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory 2015-12-14 10:00:39,541 -- INFO -- HHH000397: Using ASTQueryTranslatorFactory 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-12-14 10:00:39,921 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 54.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-12-14 10:00:40,361 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 144.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ visao.FormPrincipal 2015-12-14 10:00:45,607 -- INFO -- Logado 
  

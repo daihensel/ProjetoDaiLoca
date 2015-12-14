@@ -426,6 +426,11 @@ public class FormPrincipal extends javax.swing.JFrame {
         });
 
         jButton1.setText("Retorno Manutenção");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnMenusLayout = new javax.swing.GroupLayout(pnMenus);
         pnMenus.setLayout(pnMenusLayout);
@@ -1191,6 +1196,22 @@ public class FormPrincipal extends javax.swing.JFrame {
     private void tbReservasFuturasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbReservasFuturasMouseEntered
         // TODO add your handling code here:
     }//GEN-LAST:event_tbReservasFuturasMouseEntered
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+        
+        IfRetornoManutencao janela = new IfRetornoManutencao();
+        dp.add(janela);
+        if (Utility.permitLer(janela) == true) {
+            janela.setVisible(true);
+
+        } else {
+            logger.error("usuário sem permissão");
+        }
+        
+        
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
