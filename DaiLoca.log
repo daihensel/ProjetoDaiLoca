@@ -6543,4 +6543,94 @@ org.hibernate.hql.internal.ast.HqlParser 2015-12-07 21:30:33,421 -- WARN -- HHH0
  org.hibernate.hql.internal.ast.HqlSqlWalker 2015-12-14 17:10:46,102 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 144.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
  visao.FormPrincipal 2015-12-14 17:10:48,782 -- INFO -- Logado 
  conf.DAO 2015-12-14 17:11:40,368 -- ERROR -- Erro atualizar Parcela = org.hibernate.PropertyValueException: not-null property references a null or transient value : entidade.Parcelaspagamento.locacao 
+ org.hibernate.annotations.common.Version 2015-12-14 17:17:39,002 -- INFO -- HCANN000001: Hibernate Commons Annotations {4.0.4.Final} 
+ org.hibernate.Version 2015-12-14 17:17:39,015 -- INFO -- HHH000412: Hibernate Core {4.3.1.Final} 
+ org.hibernate.cfg.Environment 2015-12-14 17:17:39,018 -- INFO -- HHH000206: hibernate.properties not found 
+ org.hibernate.cfg.Environment 2015-12-14 17:17:39,021 -- INFO -- HHH000021: Bytecode provider name : javassist 
+ org.hibernate.cfg.Configuration 2015-12-14 17:17:39,048 -- INFO -- HHH000043: Configuring from resource: /hibernate.cfg.xml 
+ org.hibernate.cfg.Configuration 2015-12-14 17:17:39,049 -- INFO -- HHH000040: Configuration resource: /hibernate.cfg.xml 
+ org.hibernate.internal.util.xml.DTDEntityResolver 2015-12-14 17:17:39,113 -- WARN -- HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide! 
+ org.hibernate.cfg.Configuration 2015-12-14 17:17:39,186 -- INFO -- HHH000041: Configured SessionFactory: null 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 17:17:39,317 -- WARN -- HHH000402: Using Hibernate built-in connection pool (not for production use!) 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 17:17:39,325 -- INFO -- HHH000401: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5432/ProjetoDaiLoca] 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 17:17:39,326 -- INFO -- HHH000046: Connection properties: {user=diego, password=****} 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 17:17:39,328 -- INFO -- HHH000006: Autocommit mode: false 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 17:17:39,330 -- INFO -- HHH000115: Hibernate connection pool size: 20 (min=1) 
+ org.hibernate.dialect.Dialect 2015-12-14 17:17:39,789 -- INFO -- HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect 
+ org.hibernate.engine.jdbc.internal.LobCreatorBuilder 2015-12-14 17:17:39,806 -- INFO -- HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException 
+ org.hibernate.engine.transaction.internal.TransactionFactoryInitiator 2015-12-14 17:17:40,124 -- INFO -- HHH000399: Using default transaction strategy (direct JDBC transactions) 
+ org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory 2015-12-14 17:17:40,131 -- INFO -- HHH000397: Using ASTQueryTranslatorFactory 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-12-14 17:17:41,175 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 54.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-12-14 17:17:41,631 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 144.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ visao.FormPrincipal 2015-12-14 17:17:44,385 -- INFO -- Logado 
+ org.hibernate.annotations.common.Version 2015-12-14 19:20:33,768 -- INFO -- HCANN000001: Hibernate Commons Annotations {4.0.4.Final} 
+ org.hibernate.Version 2015-12-14 19:20:33,768 -- INFO -- HHH000412: Hibernate Core {4.3.1.Final} 
+ org.hibernate.cfg.Environment 2015-12-14 19:20:33,784 -- INFO -- HHH000206: hibernate.properties not found 
+ org.hibernate.cfg.Environment 2015-12-14 19:20:33,784 -- INFO -- HHH000021: Bytecode provider name : javassist 
+ org.hibernate.cfg.Configuration 2015-12-14 19:20:33,815 -- INFO -- HHH000043: Configuring from resource: /hibernate.cfg.xml 
+ org.hibernate.cfg.Configuration 2015-12-14 19:20:33,815 -- INFO -- HHH000040: Configuration resource: /hibernate.cfg.xml 
+ org.hibernate.internal.util.xml.DTDEntityResolver 2015-12-14 19:20:33,862 -- WARN -- HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide! 
+ org.hibernate.cfg.Configuration 2015-12-14 19:20:33,924 -- INFO -- HHH000041: Configured SessionFactory: null 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 19:20:34,049 -- WARN -- HHH000402: Using Hibernate built-in connection pool (not for production use!) 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 19:20:34,049 -- INFO -- HHH000401: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5432/ProjetoDaiLoca] 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 19:20:34,049 -- INFO -- HHH000046: Connection properties: {user=diego, password=****} 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 19:20:34,049 -- INFO -- HHH000006: Autocommit mode: false 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 19:20:34,049 -- INFO -- HHH000115: Hibernate connection pool size: 20 (min=1) 
+ org.hibernate.dialect.Dialect 2015-12-14 19:20:34,532 -- INFO -- HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect 
+ org.hibernate.engine.jdbc.internal.LobCreatorBuilder 2015-12-14 19:20:34,548 -- INFO -- HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException 
+ org.hibernate.engine.transaction.internal.TransactionFactoryInitiator 2015-12-14 19:20:34,876 -- INFO -- HHH000399: Using default transaction strategy (direct JDBC transactions) 
+ org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory 2015-12-14 19:20:34,876 -- INFO -- HHH000397: Using ASTQueryTranslatorFactory 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-12-14 19:20:35,938 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 54.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-12-14 19:20:36,344 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 144.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ visao.FormPrincipal 2015-12-14 19:20:39,214 -- INFO -- Logado 
+ conf.DAO 2015-12-14 19:21:31,293 -- ERROR -- Erro salvar Endereco: 
+org.hibernate.PropertyValueException: not-null property references a null or transient value : entidade.Endereco.cidade 
+ org.hibernate.action.internal.UnresolvedEntityInsertActions 2015-12-14 19:21:31,433 -- WARN -- HHH000437: Attempting to save one or more entities that have a non-nullable association with an unsaved transient entity. The unsaved transient entity must be saved in an operation prior to saving these dependent entities.
+	Unsaved transient entity: ([entidade.Endereco#0])
+	Dependent entities: ([[entidade.Pessoa#<null>]])
+	Non-nullable association(s): ([entidade.Pessoa.endereco]) 
+ conf.DAO 2015-12-14 19:21:31,449 -- ERROR -- Erro salvar Pessoa: 
+org.hibernate.TransientPropertyValueException: Not-null property references a transient value - transient instance must be saved before current operation : entidade.Pessoa.endereco -> entidade.Endereco 
+ org.hibernate.action.internal.UnresolvedEntityInsertActions 2015-12-14 19:21:31,652 -- WARN -- HHH000437: Attempting to save one or more entities that have a non-nullable association with an unsaved transient entity. The unsaved transient entity must be saved in an operation prior to saving these dependent entities.
+	Unsaved transient entity: ([entidade.Pessoa#0])
+	Dependent entities: ([[entidade.Contato#<null>]])
+	Non-nullable association(s): ([entidade.Contato.pessoa_idpessoa]) 
+ conf.DAO 2015-12-14 19:21:31,652 -- ERROR -- Erro salvar Contato: 
+org.hibernate.TransientPropertyValueException: Not-null property references a transient value - transient instance must be saved before current operation : entidade.Contato.pessoa_idpessoa -> entidade.Pessoa 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 19:21:31,792 -- WARN -- SQL Error: 0, SQLState: 23503 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 19:21:31,792 -- ERROR -- ERRO: inserção ou atualização em tabela "cliente" viola restrição de chave estrangeira "fk_cliente_pessoa1"
+  Detalhe: Chave (pessoa_idpessoa)=(0) não está presente na tabela "pessoa". 
+ org.hibernate.engine.jdbc.batch.internal.AbstractBatchImpl 2015-12-14 19:21:31,792 -- INFO -- HHH000010: On release of batch it still contained JDBC statements 
+ conf.DAO 2015-12-14 19:21:31,808 -- ERROR -- Erro salvar Cliente: 
+org.hibernate.exception.ConstraintViolationException: could not execute statement 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 19:21:31,917 -- WARN -- SQL Error: 0, SQLState: 23503 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 19:21:31,917 -- ERROR -- ERRO: inserção ou atualização em tabela "pessoafisica" viola restrição de chave estrangeira "fk_pessoa_fisica_pessoa1"
+  Detalhe: Chave (pessoa_idpessoa)=(0) não está presente na tabela "pessoa". 
+ org.hibernate.engine.jdbc.batch.internal.AbstractBatchImpl 2015-12-14 19:21:31,917 -- INFO -- HHH000010: On release of batch it still contained JDBC statements 
+ conf.DAO 2015-12-14 19:21:31,917 -- ERROR -- Erro salvar Pessoa física: 
+org.hibernate.exception.ConstraintViolationException: could not execute statement 
+ org.hibernate.annotations.common.Version 2015-12-14 19:37:34,627 -- INFO -- HCANN000001: Hibernate Commons Annotations {4.0.4.Final} 
+ org.hibernate.Version 2015-12-14 19:37:34,643 -- INFO -- HHH000412: Hibernate Core {4.3.1.Final} 
+ org.hibernate.cfg.Environment 2015-12-14 19:37:34,643 -- INFO -- HHH000206: hibernate.properties not found 
+ org.hibernate.cfg.Environment 2015-12-14 19:37:34,658 -- INFO -- HHH000021: Bytecode provider name : javassist 
+ org.hibernate.cfg.Configuration 2015-12-14 19:37:34,674 -- INFO -- HHH000043: Configuring from resource: /hibernate.cfg.xml 
+ org.hibernate.cfg.Configuration 2015-12-14 19:37:34,674 -- INFO -- HHH000040: Configuration resource: /hibernate.cfg.xml 
+ org.hibernate.internal.util.xml.DTDEntityResolver 2015-12-14 19:37:34,736 -- WARN -- HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide! 
+ org.hibernate.cfg.Configuration 2015-12-14 19:37:34,799 -- INFO -- HHH000041: Configured SessionFactory: null 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 19:37:34,908 -- WARN -- HHH000402: Using Hibernate built-in connection pool (not for production use!) 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 19:37:34,924 -- INFO -- HHH000401: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5432/ProjetoDaiLoca] 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 19:37:34,924 -- INFO -- HHH000046: Connection properties: {user=diego, password=****} 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 19:37:34,924 -- INFO -- HHH000006: Autocommit mode: false 
+ org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 2015-12-14 19:37:34,924 -- INFO -- HHH000115: Hibernate connection pool size: 20 (min=1) 
+ org.hibernate.dialect.Dialect 2015-12-14 19:37:35,376 -- INFO -- HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect 
+ org.hibernate.engine.jdbc.internal.LobCreatorBuilder 2015-12-14 19:37:35,392 -- INFO -- HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException 
+ org.hibernate.engine.transaction.internal.TransactionFactoryInitiator 2015-12-14 19:37:35,704 -- INFO -- HHH000399: Using default transaction strategy (direct JDBC transactions) 
+ org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory 2015-12-14 19:37:35,704 -- INFO -- HHH000397: Using ASTQueryTranslatorFactory 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-12-14 19:37:36,796 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 54.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ org.hibernate.hql.internal.ast.HqlSqlWalker 2015-12-14 19:37:37,206 -- WARN -- [DEPRECATION] Encountered positional parameter near line 1, column 144.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead. 
+ visao.FormPrincipal 2015-12-14 19:37:40,045 -- INFO -- Logado 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 19:38:59,888 -- WARN -- SQL Error: 0, SQLState: 23503 
+ org.hibernate.engine.jdbc.spi.SqlExceptionHelper 2015-12-14 19:38:59,888 -- ERROR -- ERRO: atualização ou exclusão em tabela "cidade" viola restrição de chave estrangeira "fk_endereco_cidade1" em "endereco"
+  Detalhe: Chave (idcidade)=(1) ainda é referenciada pela tabela "endereco". 
+ conf.DAO 2015-12-14 19:38:59,919 -- ERROR -- Erro ao excluir = org.hibernate.exception.ConstraintViolationException: could not execute statement 
  

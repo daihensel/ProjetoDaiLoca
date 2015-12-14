@@ -389,5 +389,100 @@ public class Utility {
 
         }
     }
+    
+    
+    public static void desabilitaTriggers() {
+
+        Session sessao = null;
+        try {
+
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            Transaction t = sessao.beginTransaction();
+            String sql = ("ALTER TABLE Cancelamento DISABLE TRIGGER audit;\n"
+                    + "ALTER TABLE Cidade DISABLE TRIGGER audit;\n"
+                    + "ALTER TABLE Cliente DISABLE TRIGGER audit;\n"
+                    + "ALTER TABLE Contato DISABLE TRIGGER audit;\n"
+                    + "ALTER TABLE Devolucao DISABLE TRIGGER audit;\n"
+                    + "ALTER TABLE Documentos DISABLE TRIGGER audit;\n"
+                    + "ALTER TABLE Endereco DISABLE TRIGGER audit;\n"
+                    + "ALTER TABLE Estado DISABLE TRIGGER audit;\n"
+                    + "ALTER TABLE Funcao DISABLE TRIGGER audit;\n"
+                    + "ALTER TABLE Funcionario DISABLE TRIGGER audit;\n"
+                    + "ALTER TABLE Locacao DISABLE TRIGGER audit;\n"
+                    + "ALTER TABLE Manutencao DISABLE TRIGGER audit;\n"
+                    + "ALTER TABLE Parcelaspagamento DISABLE TRIGGER audit;\n"
+                    + "ALTER TABLE Permissao DISABLE TRIGGER audit;\n"
+                    + "ALTER TABLE Pessoa DISABLE TRIGGER audit;\n"
+                    + "ALTER TABLE Pessoafisica DISABLE TRIGGER audit;\n"
+                    + "ALTER TABLE Pessoajuridica DISABLE TRIGGER audit;\n"
+                    + "ALTER TABLE Reserva DISABLE TRIGGER audit;\n"
+                    + "ALTER TABLE Statusveiculo DISABLE TRIGGER audit;\n"
+                    + "ALTER TABLE Tela DISABLE TRIGGER audit;\n"
+                    + "ALTER TABLE Tipocontato DISABLE TRIGGER audit;\n"
+                    + "ALTER TABLE Tipoveiculo DISABLE TRIGGER audit;");
+
+            //int updatedEntities = sessao.createQuery(sql).executeUpdate();
+            int up = sessao.createSQLQuery(sql).executeUpdate();
+
+            t.commit();
+
+        } catch (HibernateException he) {
+            he.printStackTrace();
+            System.out.println("Erro desabilitaTriggers= " + he);
+
+        } finally {
+            sessao.close();
+
+        }
+    }
+
+    public static void habilitaTriggers() {
+
+        Session sessao = null;
+        try {
+
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            Transaction t = sessao.beginTransaction();
+            String sql = ("ALTER TABLE Cancelamento ENABLE TRIGGER audit;\n"
+                    + "ALTER TABLE Cidade ENABLE TRIGGER audit;\n"
+                    + "ALTER TABLE Cliente ENABLE TRIGGER audit;\n"
+                    + "ALTER TABLE Contato ENABLE TRIGGER audit;\n"
+                    + "ALTER TABLE Devolucao ENABLE TRIGGER audit;\n"
+                    + "ALTER TABLE Documentos ENABLE TRIGGER audit;\n"
+                    + "ALTER TABLE Endereco ENABLE TRIGGER audit;\n"
+                    + "ALTER TABLE Estado ENABLE TRIGGER audit;\n"
+                    + "ALTER TABLE Funcao ENABLE TRIGGER audit;\n"
+                    + "ALTER TABLE Funcionario ENABLE TRIGGER audit;\n"
+                    + "ALTER TABLE Locacao ENABLE TRIGGER audit;\n"
+                    + "ALTER TABLE Manutencao ENABLE TRIGGER audit;\n"
+                    + "ALTER TABLE Parcelaspagamento ENABLE TRIGGER audit;\n"
+                    + "ALTER TABLE Permissao ENABLE TRIGGER audit;\n"
+                    + "ALTER TABLE Pessoa ENABLE TRIGGER audit;\n"
+                    + "ALTER TABLE Pessoafisica ENABLE TRIGGER audit;\n"
+                    + "ALTER TABLE Pessoajuridica ENABLE TRIGGER audit;\n"
+                    + "ALTER TABLE Reserva ENABLE TRIGGER audit;\n"
+                    + "ALTER TABLE Statusveiculo ENABLE TRIGGER audit;\n"
+                    + "ALTER TABLE Tela ENABLE TRIGGER audit;\n"
+                    + "ALTER TABLE Tipocontato ENABLE TRIGGER audit;\n"
+                    + "ALTER TABLE Tipoveiculo ENABLE TRIGGER audit;");
+
+            //int updatedEntities = sessao.createQuery(sql).executeUpdate();
+            int up = sessao.createSQLQuery(sql).executeUpdate();
+
+            t.commit();
+
+        } catch (HibernateException he) {
+            he.printStackTrace();
+            System.out.println("Erro habilitaTriggers= " + he);
+
+        } finally {
+            sessao.close();
+
+        }
+    }
+    
+    
+    
+    
 
 }
