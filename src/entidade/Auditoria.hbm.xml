@@ -4,24 +4,24 @@
 <!-- Generated 04/10/2015 19:28:28 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="entidade.Auditoria" table="auditoria" schema="public" optimistic-lock="version">
-        <id name="idauditoria" type="int">
-            <column name="idauditoria" />
+        <id name="id" type="int">
+            <column name="id" />
             <generator class="increment" />
         </id>
-        <many-to-one name="pessoa" class="entidade.Pessoa" fetch="select">
-            <column name="pessoa_idpessoa" not-null="true" />
-        </many-to-one>
-        <property name="descricao" type="string">
-            <column name="descricao" length="200" not-null="true" />
+       <property name="usuario" type="string">
+            <column name="usuario" length="45" not-null="true" />
+        </property>
+        <property name="dados" type="string">
+            <column name="dados" length="200" not-null="true" />
         </property>
         <property name="tabela" type="string">
             <column name="tabela" length="45" not-null="true" />
         </property>
-        <property name="dtHora" type="timestamp">
-            <column name="dt_hora" length="29" not-null="true" />
+        <property name="data" type="timestamp">
+            <column name="data" length="29" not-null="true" />
         </property>
-        <property name="tipoAcao" type="string">
-            <column name="tipo_acao" length="45" not-null="true" />
+        <property name="operacao" type="string">
+            <column name="operacao" length="45" not-null="true" />
         </property>
     </class>
 </hibernate-mapping>
