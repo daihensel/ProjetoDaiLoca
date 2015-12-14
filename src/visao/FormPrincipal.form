@@ -294,7 +294,6 @@
                                       <Component id="btNovoPagamento" alignment="0" max="32767" attributes="0"/>
                                       <Component id="btNovoCancelamento" alignment="0" max="32767" attributes="0"/>
                                       <Component id="btNovoVeiculo" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="jButton1" alignment="1" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
@@ -317,13 +316,11 @@
                                   <Component id="btNovoPagamento" min="-2" pref="32" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="btNovaManut" min="-2" pref="31" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jButton1" min="-2" pref="28" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="btNovoCliente" min="-2" pref="32" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="btNovoCliente" min="-2" pref="32" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
                                   <Component id="btNovoFornecedor" min="-2" pref="32" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
                                   <Component id="pnTotais" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="226" max="-2" attributes="0"/>
                               </Group>
@@ -545,14 +542,6 @@
                           </Properties>
                           <Events>
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btNovoVeiculoActionPerformed"/>
-                          </Events>
-                        </Component>
-                        <Component class="javax.swing.JButton" name="jButton1">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Retorno Manuten&#xe7;&#xe3;o"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
                           </Events>
                         </Component>
                       </SubComponents>
